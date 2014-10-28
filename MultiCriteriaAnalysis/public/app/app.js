@@ -23,7 +23,7 @@
                 $scope.$apply();
             });
 
-            $messageBusService.notify('Welkom', 'Deze website geeft inzicht in de invloed op verzorgingshuizen van veranderingen in de zorg, en ontsluit financiële informatie.');
+            $messageBusService.notify('Welcome', 'You can create your own multi-criteria analysis: create categories, define scenarios, and specify the results.');
         }
         AppCtrl.$inject = [
             '$scope',
