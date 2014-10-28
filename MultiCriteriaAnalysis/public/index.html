@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html ng-app="mca">
+<head>
+    <!--[if lte IE 8]>
+        <script>
+            document.createElement('ng-include');
+            document.createElement('ng-pluralize');
+            document.createElement('ng-view');
+
+            // Optionally these for CSS
+            document.createElement('ng:include');
+            document.createElement('ng:pluralize');
+            document.createElement('ng:view');
+        </script>
+    <![endif]-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Multi-Criteria Analysis">
+    <meta name="author" content="Erik Vullings">
+    <meta name="color:Accent" content="#a98e2e" />
+
+    <title>Multi-Criteria Analysis</title>
+
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/xbbcode.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pnotify.custom.min.css" />
+
+    <link rel="shortcut icon" href="favicon.ico">
+</head>
+<body data-ng-controller="appCtrl" data-ng-cloak data-ng-init="showMap=true">
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <!--Is this needed?-->
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="bower_components/angular-utils-pagination/dirPagination.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+
+    <script src="views/categories/CategoriesCtrl.js"></script>
+    <script src="app/app.js"></script>
+
+    <script src="js/cs/stringformat-1.09.min.min.js"></script>
+    <script src="js/cs/stringformat.en.js"></script>
+    <script src="js/cs/xbbcode.min.js"></script>
+    <script src="js/cs/pnotify.custom.min.js"></script>
+
+    <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+
+        <div class="navbar-header" data-ng-cloak>
+            <!--<a class="menutoggle"><i class="fa fa-bars"></i></a>-->
+            <a class="navbar-brand" style="margin-top: -5px;">
+                <img src="img/mca32.png" alt="Multi-Criteria Analysis" width="32" height="32" />
+                Multi-Criteria Analysis
+                <!--of {{vm.$layerService.project.title}}-->
+            </a>
+        </div>
+
+        <!-- Link to views -->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li data-ng-class="{ active: vm.isActive('/categories')}"><a href="#/categories" data-ng-click="showMap=true">Categories</a></li>
+                <li data-ng-class="{ active: vm.isActive('/scenarios')}"><a href="#/scenarios" data-ng-click="">Scenarios</a></li>
+                <li data-ng-class="{ active: vm.isActive('/results')}"><a href="#/results" data-ng-click="">Results</a></li>
+            </ul>
+
+            <!-- Search form -->
+            <!--                     <pre>Model: {{location | json}}</pre>-->
+            <!--<form class="navbar-form navbar-right" style="margin-right:0" role="search" data-ng-controller="searchCtrl">
+                <div id="scrollable-dropdown-menu" class="form-group has-feedback navbar-right">
+
+                    <input data-ng-model="vm.searchText"
+                           typeahead="address as address.shortName(25) for address in vm.getLocation($viewValue)"
+                           typeahead-loading="loadingLocations"
+                           typeahead-min-length="2"
+                           typeahead-editable="false"
+                           typeahead-on-select="vm.onSelect($item, $model, $label)"
+                           id="searchbox"
+                           type="text"
+                           placeholder="Search"
+                           class="typeahead form-control">
+                    <span id="searchicon" class="fa fa-search form-control-feedback"></span>
+                </div>
+            </form>-->
+        </div>
+    </div>
+
+    <div data-ui-view style="margin: 10px"></div>
+</body>
+</html>
