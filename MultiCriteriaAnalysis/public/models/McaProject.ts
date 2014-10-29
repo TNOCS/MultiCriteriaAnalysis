@@ -2,10 +2,10 @@
     export class McaProject {
         public title: string;
 
-        public criterias    : Criteria[]    = [];
-        public scenarios    : Scenario[]    = [];
-        public solutions    : Solution[]    = [];
-        public valueSources : ValueSource[] = [];
+        public criterias   : Criteria[]    = [];
+        public scenarios   : Scenario[]    = [];
+        public solutions   : Solution[]    = [];
+        public dataSources : DataSource[] = [];
 
         constructor() {
             this.createDummy();
@@ -27,11 +27,44 @@
             return false;
         }
 
+        public findDataSourceByTitle(title: string) : DataSource {
+            if (!title || this.dataSources.length === 0) return null;
+            title = title.toLowerCase();
+            for (var i in this.dataSources) {
+                var ds = this.dataSources[i];
+                if (ds.title.toLowerCase() === title) return ds;
+            }
+            return null;
+        }
+
+        public findCriteriaByTitle(title: string): Criteria {
+            if (!title || this.criterias.length === 0) return null;
+            return this.findCriteriaByTitleRecursively(this.criterias, title.toLowerCase());
+        }
+
+        private findCriteriaByTitleRecursively(crits: Criteria[], title: string): Models.Criteria {
+            for (var i in crits) {
+                var criteria = crits[i];
+                if (criteria.title.toLowerCase() === title) return criteria;
+                if (criteria.subCriterias.length > 0) {
+                    var crit = this.findCriteriaByTitleRecursively(criteria.subCriterias, title);
+                    if (crit != null) return crit;
+                }                
+            }
+            return null;
+        }
+
         public createDummy() {
             this.title = 'MCA DUMMY PROJECT';
 
-            // Criterias
+            // DataSources
+            this.dataSources.push(new DataSource('Explosion model'));
+            this.dataSources.push(new DataSource('Flooding model'));
+            this.dataSources.push(new DataSource('Evacuation model'));
+            this.dataSources.push(new DataSource('FEM model'));
+            this.dataSources.push(new DataSource('Architect'));
 
+            // Criterias
             // Resilience
             var criteria = new Criteria();
             criteria.title = 'Resilience';
@@ -39,6 +72,7 @@
 
             var subCriteria = new Criteria();
             subCriteria.title = 'Repair time';
+            subCriteria.dataSourceId = this.findDataSourceByTitle('Explosion model').id;
             subCriteria.description = 'Repair time is dependent on the type of damage';
             subCriteria.userWeight = 3;
             subCriteria.addOption('no repair time needed', 1);
@@ -54,6 +88,7 @@
 
             subCriteria = new Criteria();
             subCriteria.title = 'Physical Usability';
+            subCriteria.dataSourceId = this.findDataSourceByTitle('Explosion model').id;
             subCriteria.description = 'Type of damage and location of damage';
             subCriteria.userWeight = 4;
             option = subCriteria.addOption('no reduction in usability', 1);
@@ -160,6 +195,9 @@
             var subScenario = new Scenario();
             subScenario.title = 'Extreme wind load';
             subScenario.userWeight = 2;
+            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
+            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
+            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
             var subSubScenario = new Scenario();
             subSubScenario.title = 'Force 1';
             subSubScenario.userWeight = 5;

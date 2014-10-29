@@ -4,7 +4,6 @@
         function Scenario() {
             this.subScenarios = [];
             this.effectedCriteriaIds = [];
-            this.effectedValueSourceIds = [];
             this.id = Helpers.Utils.createGuid();
         }
         Scenario.prototype.calculateWeights = function () {
