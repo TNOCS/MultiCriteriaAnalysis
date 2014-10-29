@@ -11,9 +11,14 @@
      * MCA solution alternative
      */
     export class Solution {
-        public title: string;
-        public scores: Score[] = [];
+        public id        : string;
+        public title     : string;
+        public scores    : Score[] = [];
         public totalValue: number;
+
+        constructor() {
+            this.id = Helpers.Utils.createGuid();
+        }
 
         public calculateScore() : number {
             return 0;

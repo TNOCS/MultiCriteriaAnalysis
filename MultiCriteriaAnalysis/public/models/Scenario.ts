@@ -10,6 +10,10 @@
         public effectedCriteriaIds    : string[] = []
         public effectedValueSourceIds : string[] = []
 
+        constructor() {
+            this.id = Helpers.Utils.createGuid();
+        }
+
         public calculateWeights() { }
 
     }

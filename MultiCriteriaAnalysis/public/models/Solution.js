@@ -13,6 +13,7 @@
     var Solution = (function () {
         function Solution() {
             this.scores = [];
+            this.id = Helpers.Utils.createGuid();
         }
         Solution.prototype.calculateScore = function () {
             return 0;

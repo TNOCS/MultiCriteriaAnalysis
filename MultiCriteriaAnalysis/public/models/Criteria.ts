@@ -5,7 +5,7 @@
         public description: string;
 
         constructor(public title: string, public value: number) {
-            //this.id = Helpers.Utils.createGuid();
+            this.id = Helpers.Utils.createGuid();
         }
     }
 
@@ -18,6 +18,10 @@
         public weight       : number;
         public subCriteria  : Criteria[] = [];
         public options      : CriteriaOption[] = []
+
+        constructor() {
+            this.id = Helpers.Utils.createGuid();
+        }
 
         public addOption(title: string, value: number) {
             this.options.push(new CriteriaOption(title, value));

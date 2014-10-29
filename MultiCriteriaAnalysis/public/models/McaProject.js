@@ -22,6 +22,14 @@
         McaProject.prototype.fromJson = function (json) {
             return false;
         };
+
+        McaProject.prototype.createDummy = function () {
+            var project = new McaProject();
+
+            var criteria = new Models.Criteria();
+            criteria.title = 'Resilience';
+            project.criterias.push(criteria);
+        };
         return McaProject;
     })();
     Models.McaProject = McaProject;

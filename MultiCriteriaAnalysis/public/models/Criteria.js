@@ -4,7 +4,7 @@
         function CriteriaOption(title, value) {
             this.title = title;
             this.value = value;
-            //this.id = Helpers.Utils.createGuid();
+            this.id = Helpers.Utils.createGuid();
         }
         return CriteriaOption;
     })();
@@ -14,6 +14,7 @@
         function Criteria() {
             this.subCriteria = [];
             this.options = [];
+            this.id = Helpers.Utils.createGuid();
         }
         Criteria.prototype.addOption = function (title, value) {
             this.options.push(new CriteriaOption(title, value));

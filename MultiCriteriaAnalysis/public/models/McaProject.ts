@@ -22,6 +22,15 @@
         public fromJson(json: string): boolean {
             return false;
         }
+
+        public createDummy() {
+            var project = new McaProject();
+
+            var criteria = new Criteria();
+            criteria.title = 'Resilience';
+            project.criterias.push(criteria);
+        }
+
     }
 
 }
