@@ -11,7 +11,7 @@ server.set('view engine', 'jade');
 
 //server.set('view engine', 'html');
 //server.engine('html', require('jade').renderFile);
-server.use(express.favicon());
+//server.use(express.favicon());
 server.use(express.logger('dev'));
 server.use(express.json());
 server.use(express.urlencoded());
