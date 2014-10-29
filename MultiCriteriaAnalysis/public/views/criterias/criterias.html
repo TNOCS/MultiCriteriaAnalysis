@@ -1,3 +1,11 @@
-﻿<div data-ng-controller="CriteriasCtrl">
+﻿<div data-ng-controller="CriteriasCtrl as data">
     <h1>Criterias</h1>
+    
+    <div ivh-treeview="data.projectService.project.criterias"
+         ivh-treeview-id-attribute="'id'"
+         ivh-treeview-label-attribute="'title'"
+         ivh-treeview-children-attribute="'subCriterias'"
+         ivh-treeview-expand-to-depth="2"
+         ivh-treeview-use-checkboxes="false">
+    </div>
 </div>

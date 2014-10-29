@@ -26,6 +26,7 @@
             $scope.vm = this;
 
             console.log('CriteriasCtrl');
+            
 
             console.log(JSON.stringify(projectService.project, null, 2));
         }

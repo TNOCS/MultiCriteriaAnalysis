@@ -41,7 +41,8 @@
         'ui.router',
         'ui.bootstrap',
         'LocalStorageModule',
-        'angularUtils.directives.dirPagination'
+        'angularUtils.directives.dirPagination',
+        'ivh.treeview'
     ]).config(function (localStorageServiceProvider) {
         localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';
     }).config(function ($stateProvider, $urlRouterProvider) {

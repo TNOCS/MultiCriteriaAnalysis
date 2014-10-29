@@ -31,6 +31,7 @@
     "bootstrap": "~3.2.0",
     "fontawesome": "~4.1.0",
     "awesome-bootstrap-checkbox": "~0.1.2",
-    "pnotify": "~2.0.1"
+    "pnotify": "~2.0.1",
+    "angular-ivh-treeview": "~0.6.1"
   }
 }
