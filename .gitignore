@@ -40,3 +40,5 @@ obj/
 node_modules/
 public/bower_components/
 MultiCriteriaAnalysis/public/bower_components/
+MultiCriteriaAnalysis/.ntvs_analysis.dat
+Examples/~$MCA draft for GA presentation.xlsx
