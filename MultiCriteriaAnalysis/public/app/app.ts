@@ -65,11 +65,11 @@
         })
         .config(($stateProvider, $urlRouterProvider) => {
             // For any unmatched url, send to /
-            $urlRouterProvider.otherwise("/categories");
+            $urlRouterProvider.otherwise("/criterias");
             $stateProvider
-                .state('categories', {
-                    url: "/categories",
-                    templateUrl: "views/categories/categories.html",
+                .state('criterias', {
+                    url: "/criterias",
+                    templateUrl: "views/criterias/criterias.html",
                     sticky: true,
                     deepStateRedirect: true
                 })
@@ -78,8 +78,8 @@
                     template: "",
                     sticky: true
                 })
-                .state('results', {
-                    url: "/results",
+                .state('solutions', {
+                    url: "/solutions",
                     template: "",
                     sticky: true
                 });

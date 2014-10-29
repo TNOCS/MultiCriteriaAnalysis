@@ -12,10 +12,14 @@
 
     var Criteria = (function () {
         function Criteria() {
+            this.subCriteria = [];
             this.options = [];
         }
         Criteria.prototype.addOption = function (title, value) {
             this.options.push(new CriteriaOption(title, value));
+        };
+
+        Criteria.prototype.calculateWeights = function () {
         };
         return Criteria;
     })();

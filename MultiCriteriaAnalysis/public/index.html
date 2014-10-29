@@ -47,9 +47,10 @@
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 
     <script src="helpers/Helpers.js"></script>
-    <script src="models/Category.js"></script>
+    <script src="models/Scenario.js"></script>
     <script src="models/Criteria.js"></script>
-    <script src="views/categories/CategoriesCtrl.js"></script>
+    <script src="models/McaProject.js"></script>
+    <script src="views/criterias/CriteriasCtrl.js"></script>
     <script src="services/MessageBus.js"></script>
     <script src="app/app.js"></script>
 
@@ -72,9 +73,9 @@
         <!-- Link to views -->
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li data-ng-class="{ active: vm.isActive('/categories')}"><a href="#/categories" data-ng-click="showMap=true">Categories</a></li>
+                <li data-ng-class="{ active: vm.isActive('/categories')}"><a href="#/criterias" data-ng-click="showMap=true">Criterias</a></li>
                 <li data-ng-class="{ active: vm.isActive('/scenarios')}"><a href="#/scenarios" data-ng-click="">Scenarios</a></li>
-                <li data-ng-class="{ active: vm.isActive('/results')}"><a href="#/results" data-ng-click="">Results</a></li>
+                <li data-ng-class="{ active: vm.isActive('/results')}"><a href="#/solutions" data-ng-click="">Solutions</a></li>
             </ul>
 
             <!-- Search form -->

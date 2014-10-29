@@ -46,18 +46,18 @@
         localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';
     }).config(function ($stateProvider, $urlRouterProvider) {
         // For any unmatched url, send to /
-        $urlRouterProvider.otherwise("/categories");
-        $stateProvider.state('categories', {
-            url: "/categories",
-            templateUrl: "views/categories/categories.html",
+        $urlRouterProvider.otherwise("/criterias");
+        $stateProvider.state('criterias', {
+            url: "/criterias",
+            templateUrl: "views/criterias/criterias.html",
             sticky: true,
             deepStateRedirect: true
         }).state('scenarios', {
             url: "/scenarios",
             template: "",
             sticky: true
-        }).state('results', {
-            url: "/results",
+        }).state('solutions', {
+            url: "/solutions",
             template: "",
             sticky: true
         });

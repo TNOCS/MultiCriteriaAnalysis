@@ -35,10 +35,13 @@
   <ItemGroup>
     <TypeScriptCompile Include="public\app\app.ts" />
     <TypeScriptCompile Include="public\helpers\Helpers.ts" />
-    <TypeScriptCompile Include="public\models\Category.ts" />
     <TypeScriptCompile Include="public\models\Criteria.ts" />
+    <TypeScriptCompile Include="public\models\McaProject.ts" />
+    <TypeScriptCompile Include="public\models\Scenario.ts" />
+    <TypeScriptCompile Include="public\models\Solution.ts" />
+    <TypeScriptCompile Include="public\models\ValueSource.ts" />
     <TypeScriptCompile Include="public\services\MessageBus.ts" />
-    <TypeScriptCompile Include="public\views\categories\CategoriesCtrl.ts" />
+    <TypeScriptCompile Include="public\views\criterias\CriteriasCtrl.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularLocalStorage\angularLocalStorage.d.ts" />
@@ -58,7 +61,7 @@
     <Content Include="public\includes\ROsanswebtextregular.eot" />
     <Content Include="public\includes\ROsanswebtextregular.ttf" />
     <Content Include="public\index.html" />
-    <Content Include="public\views\categories\categories.html" />
+    <Content Include="public\views\criterias\criterias.html" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -74,8 +77,8 @@
     <Folder Include="public\helpers\" />
     <Folder Include="public\views\" />
     <Folder Include="public\services\" />
-    <Folder Include="public\views\categories\" />
-    <Folder Include="public\views\results\" />
+    <Folder Include="public\views\criterias\" />
+    <Folder Include="public\views\solutions\" />
     <Folder Include="public\views\scenarios\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\typings\" />

@@ -20,4 +20,4 @@
     })();
     Categories.CategoriesCtrl = CategoriesCtrl;
 })(Categories || (Categories = {}));
-//# sourceMappingURL=CategoriesCtrl.js.map
+//# sourceMappingURL=CriteriasCtrl.js.map
