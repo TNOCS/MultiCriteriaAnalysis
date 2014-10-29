@@ -10,8 +10,15 @@
 
     var Criteria = (function () {
         function Criteria() {
+            var _this = this;
             this.subCriterias = [];
             this.options = [];
+            this.canHaveOptions = function () {
+                return _this.subCriterias.length == 0;
+            };
+            this.canHaveSubs = function () {
+                return _this.options.length == 0;
+            };
             this.id = Helpers.Utils.createGuid();
         }
         Criteria.prototype.addOption = function (title, value) {

@@ -36,6 +36,13 @@
                 criteria.subCriterias.push(c);
             };
 
+            $scope.newOption = function (scope) {
+                var criteria = scope.$modelValue;
+                var o = new Models.CriteriaOption();
+                o.title = "New Option";
+                criteria.options.push(o);
+            };
+
             $scope.newCriteria = function () {
                 var c = new Models.Criteria();
                 c.title = "New Criteria";

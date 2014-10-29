@@ -1,12 +1,14 @@
 ﻿module Criterias {
     export interface ICriteriasViewScope extends ng.IScope {
-        vm            : CriteriasCtrl;
-        selectedItem  : any;
-        options       : any;
-        remove        : Function;
-        toggle        : Function;
-        newSubCriteria: Function;
-        newCriteria   : Function
+        vm                : CriteriasCtrl;
+        selectedItem      : any;
+        options           : any;
+        remove            : Function;
+        toggle            : Function;
+        newSubCriteria    : Function;
+        newCriteria       : Function
+        newOption         : Function;
+        removeOption      : Function;
     }
 
     export class CriteriasCtrl {
@@ -59,6 +61,14 @@
                     
                 
             };
+
+            $scope.newOption = (scope) => {
+                var criteria = <Models.Criteria>scope.$modelValue;    
+                var o = new Models.CriteriaOption();
+                o.title = "New Option";                
+                criteria.options.push(o);
+            };
+
 
             $scope.newCriteria = () => {
                 var c = new Models.Criteria();

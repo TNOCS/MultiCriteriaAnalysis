@@ -36,20 +36,35 @@
 }
     </style>
 
-   
+    <script type="text/ng-template" id="options_renderer.html">
+        <div ui-tree-handle>            
+            <span class="glyphicon glyphicon-list" style="margin-right:4px; opacity:0.25; color:grey"/>
+                <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text" data-nodrag></span>
+                <span contenteditable ng-model="item.userWeight" style="right:200px;cursor:pointer;position:fixed"></span>
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+                <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>                
+            
+</div>      
+    </script>
 
 
     <script type="text/ng-template" id="items_renderer.html">
         <div ui-tree-handle>
             <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
             <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text" data-nodrag></span>            
-            <rating ng-model="item.userWeight" style="left:300px;cursor:pointer;position:fixed" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+            <rating ng-model="item.userWeight" style="right:150px;cursor:pointer;position:fixed" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
             <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubCriteria(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>            
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-if="item.canHaveOptions()" ng-click="newOption(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-list"></span></a>
+            
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-if="item.canHaveSubs()" ng-click="newSubCriteria(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>            
         </div>
         <ol ui-tree-nodes="options" ng-model="item.subCriterias" ng-class="{hidden: collapsed}">
             <li ng-repeat="item in item.subCriterias" ui-tree-node ng-include="'items_renderer.html'">
+            </li>
+        </ol>
+        <ol ui-tree-nodes="options" ng-model="item.options" ng-class="{hidden: collapsed}">
+            <li ng-repeat="item in item.options" ui-tree-node ng-include="'options_renderer.html'">
             </li>
         </ol>
     </script>

@@ -19,7 +19,13 @@
         /** Effective weight, sums up to 1 */
         public weight       : number;
         public subCriterias : Criteria[] = [];
-        public options      : CriteriaOption[] = []
+        public options: CriteriaOption[] = []
+        public canHaveOptions = () => {
+            return this.subCriterias.length == 0;
+        }
+        public canHaveSubs = () => {
+            return this.options.length == 0;
+        }
         public dataSourceId : string;
 
         constructor() {
