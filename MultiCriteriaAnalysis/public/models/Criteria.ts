@@ -1,10 +1,12 @@
 ﻿module Models {
 
     export class CriteriaOption {
-        public id: string;
+        public id         : string;
+        public title      : string;
+        public value      : number
         public description: string;
 
-        constructor(public title: string, public value: number) {
+        constructor() {
             this.id = Helpers.Utils.createGuid();
         }
     }
@@ -16,15 +18,23 @@
         public userWeight   : number;
         /** Effective weight, sums up to 1 */
         public weight       : number;
-        public subCriteria  : Criteria[] = [];
+        public subCriterias : Criteria[] = [];
         public options      : CriteriaOption[] = []
 
         constructor() {
             this.id = Helpers.Utils.createGuid();
         }
 
-        public addOption(title: string, value: number) {
-            this.options.push(new CriteriaOption(title, value));
+        public addOption(title: string, value: number) : CriteriaOption {
+            var option = new CriteriaOption();
+            option.title = title;
+            option.value = value;
+            this.options.push(option);
+            return option;
+        }
+
+        public addSubCriteria(subCriteria: Criteria) {
+            this.subCriterias.push(subCriteria);
         }
 
         public calculateWeights() { }

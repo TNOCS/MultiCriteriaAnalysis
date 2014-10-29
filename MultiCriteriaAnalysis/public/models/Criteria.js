@@ -1,9 +1,7 @@
 ﻿var Models;
 (function (Models) {
     var CriteriaOption = (function () {
-        function CriteriaOption(title, value) {
-            this.title = title;
-            this.value = value;
+        function CriteriaOption() {
             this.id = Helpers.Utils.createGuid();
         }
         return CriteriaOption;
@@ -12,12 +10,20 @@
 
     var Criteria = (function () {
         function Criteria() {
-            this.subCriteria = [];
+            this.subCriterias = [];
             this.options = [];
             this.id = Helpers.Utils.createGuid();
         }
         Criteria.prototype.addOption = function (title, value) {
-            this.options.push(new CriteriaOption(title, value));
+            var option = new CriteriaOption();
+            option.title = title;
+            option.value = value;
+            this.options.push(option);
+            return option;
+        };
+
+        Criteria.prototype.addSubCriteria = function (subCriteria) {
+            this.subCriterias.push(subCriteria);
         };
 
         Criteria.prototype.calculateWeights = function () {
