@@ -53,13 +53,14 @@
     <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
 
     <script src="helpers/Helpers.js"></script>
-    <script src="models/ValueSource.js"></script>
+    <script src="models/DataSource.js"></script>
     <script src="models/Solution.js"></script>
     <script src="models/Scenario.js"></script>
     <script src="models/Criteria.js"></script>
     <script src="models/McaProject.js"></script>
     <script src="services/ProjectService.js"></script>
     <script src="views/criterias/CriteriasCtrl.js"></script>
+    <script src="views/solutions/SolutionsCtrl.js"></script>
     <script src="services/MessageBus.js"></script>
     <script src="app/app.js"></script>
 
@@ -82,9 +83,9 @@
         <!-- Link to views -->
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li data-ng-class="{ active: vm.isActive('/categories')}"><a href="#/criterias" data-ng-click="showMap=true">Criterias</a></li>
+                <li data-ng-class="{ active: vm.isActive('/criterias')}"><a href="#/criterias" data-ng-click="showMap=true">Criterias</a></li>
                 <li data-ng-class="{ active: vm.isActive('/scenarios')}"><a href="#/scenarios" data-ng-click="">Scenarios</a></li>
-                <li data-ng-class="{ active: vm.isActive('/results')}"><a href="#/solutions" data-ng-click="">Solutions</a></li>
+                <li data-ng-class="{ active: vm.isActive('/solutions')}"><a href="#/solutions" data-ng-click="">Solutions</a></li>
             </ul>
 
             <!-- Search form -->

@@ -1,13 +1,7 @@
 ﻿<div data-ng-controller="CriteriasCtrl as d">
     <h1>Criterias</h1>
 
-    <!--<div ivh-treeview="d.projectService.project.criterias"
-         ivh-treeview-id-attribute="'id'"
-         ivh-treeview-label-attribute="'title'"
-         ivh-treeview-children-attribute="'subCriterias'"
-         ivh-treeview-expand-to-depth="2"
-         ivh-treeview-use-checkboxes="false">
-    </div>-->
+
 
     <style>
       .btn {
@@ -42,28 +36,9 @@
 }
     </style>
 
-   <script type="text/ng-template" id="option_item.html">
-
-        <tr style="width:100%">
-            <td><i class="fa fa-trash" style="margin-right:10px"></i></td>
-            <td>
-                {{data.title}}
-            </td>
-        </tr>
-
-    </script>
+   
 
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th style="width:10px;"></th>
-                <th style="width:100%"></th>
-            </tr>
-        </thead>
-        <tbody ng-repeat="data in d.projectService.project.criterias" ng-include="'tree_item.html'"></tbody>
-
-    </table>
     <script type="text/ng-template" id="items_renderer.html">
         <div ui-tree-handle>
             <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>

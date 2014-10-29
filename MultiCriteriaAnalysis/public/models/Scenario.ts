@@ -8,7 +8,6 @@
         public weight                 : number;
         public subScenarios           : Scenario[] = [];
         public effectedCriteriaIds    : string[] = []
-        public effectedValueSourceIds : string[] = []
 
         constructor() {
             this.id = Helpers.Utils.createGuid();

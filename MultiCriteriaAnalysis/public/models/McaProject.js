@@ -5,7 +5,7 @@
             this.criterias = [];
             this.scenarios = [];
             this.solutions = [];
-            this.valueSources = [];
+            this.dataSources = [];
             this.createDummy();
         }
         McaProject.prototype.saveToJson = function () {
@@ -24,8 +24,47 @@
             return false;
         };
 
+        McaProject.prototype.findDataSourceByTitle = function (title) {
+            if (!title || this.dataSources.length === 0)
+                return null;
+            title = title.toLowerCase();
+            for (var i in this.dataSources) {
+                var ds = this.dataSources[i];
+                if (ds.title.toLowerCase() === title)
+                    return ds;
+            }
+            return null;
+        };
+
+        McaProject.prototype.findCriteriaByTitle = function (title) {
+            if (!title || this.criterias.length === 0)
+                return null;
+            return this.findCriteriaByTitleRecursively(this.criterias, title.toLowerCase());
+        };
+
+        McaProject.prototype.findCriteriaByTitleRecursively = function (crits, title) {
+            for (var i in crits) {
+                var criteria = crits[i];
+                if (criteria.title.toLowerCase() === title)
+                    return criteria;
+                if (criteria.subCriterias.length > 0) {
+                    var crit = this.findCriteriaByTitleRecursively(criteria.subCriterias, title);
+                    if (crit != null)
+                        return crit;
+                }
+            }
+            return null;
+        };
+
         McaProject.prototype.createDummy = function () {
             this.title = 'MCA DUMMY PROJECT';
+
+            // DataSources
+            this.dataSources.push(new Models.DataSource('Explosion model'));
+            this.dataSources.push(new Models.DataSource('Flooding model'));
+            this.dataSources.push(new Models.DataSource('Evacuation model'));
+            this.dataSources.push(new Models.DataSource('FEM model'));
+            this.dataSources.push(new Models.DataSource('Architect'));
 
             // Criterias
             // Resilience
@@ -35,6 +74,7 @@
 
             var subCriteria = new Models.Criteria();
             subCriteria.title = 'Repair time';
+            subCriteria.dataSourceId = this.findDataSourceByTitle('Explosion model').id;
             subCriteria.description = 'Repair time is dependent on the type of damage';
             subCriteria.userWeight = 3;
             subCriteria.addOption('no repair time needed', 1);
@@ -51,6 +91,7 @@
 
             subCriteria = new Models.Criteria();
             subCriteria.title = 'Physical Usability';
+            subCriteria.dataSourceId = this.findDataSourceByTitle('Explosion model').id;
             subCriteria.description = 'Type of damage and location of damage';
             subCriteria.userWeight = 4;
             option = subCriteria.addOption('no reduction in usability', 1);
@@ -157,6 +198,9 @@
             var subScenario = new Models.Scenario();
             subScenario.title = 'Extreme wind load';
             subScenario.userWeight = 2;
+            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
+            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
+            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
             var subSubScenario = new Models.Scenario();
             subSubScenario.title = 'Force 1';
             subSubScenario.userWeight = 5;

@@ -54,7 +54,11 @@
 
             $messageBusService.notify('Welcome', 'You can create your own multi-criteria analysis: create categories, define scenarios, and specify the results.');
         }
-    }
+
+        public isActive(viewLocation: string) {
+            return viewLocation === this.$location.path();
+        }
+   }
 
     // http://jsfiddle.net/mrajcok/pEq6X/
     declare var google;
@@ -87,7 +91,7 @@
                 })
                 .state('solutions', {
                     url: "/solutions",
-                    template: "",
+                    templateUrl: "views/solutions/solutions.html",
                     sticky: true
                 });
         })
@@ -95,6 +99,8 @@
         .service('projectService', Services.ProjectService)
         .controller('appCtrl', AppCtrl)
         .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
+        .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
+        .controller('CreateSolutionDialogCtrl', Solutions.CreateSolutionDialogCtrl)
         .filter('format', [
             '$filter', '$locale', function(filter, locale) {
                 return function(value, format) {

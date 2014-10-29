@@ -20,6 +20,7 @@
         public weight       : number;
         public subCriterias : Criteria[] = [];
         public options      : CriteriaOption[] = []
+        public dataSourceId : string;
 
         constructor() {
             this.id = Helpers.Utils.createGuid();
