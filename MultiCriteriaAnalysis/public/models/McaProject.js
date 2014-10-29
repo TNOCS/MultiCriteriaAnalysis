@@ -27,6 +27,7 @@
         McaProject.prototype.createDummy = function () {
             this.title = 'MCA DUMMY PROJECT';
 
+            // Criterias
             // Resilience
             var criteria = new Models.Criteria();
             criteria.title = 'Resilience';
@@ -145,6 +146,154 @@
             criteria.userWeight = 1;
             criteria.calculateWeights();
             this.criterias.push(criteria);
+
+            // Scenarios
+            // Scenario: Natural events
+            var scenario = new Models.Scenario();
+            scenario.title = 'Natural events';
+            scenario.userWeight = 1;
+
+            var subScenario = new Models.Scenario();
+            subScenario.title = 'Extreme wind load';
+            subScenario.userWeight = 2;
+            var subSubScenario = new Models.Scenario();
+            subSubScenario.title = 'Force 1';
+            subSubScenario.userWeight = 5;
+            subScenario.subScenarios.push(subSubScenario);
+            subSubScenario = new Models.Scenario();
+            subSubScenario.title = 'Force 2';
+            subSubScenario.userWeight = 3;
+            subScenario.subScenarios.push(subSubScenario);
+            subSubScenario = new Models.Scenario();
+            subSubScenario.title = 'Force 3';
+            subSubScenario.userWeight = 1;
+            subScenario.subScenarios.push(subSubScenario);
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Extreme temperature';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Flooding';
+            subScenario.userWeight = 4;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Seismic';
+            subScenario.userWeight = 0;
+            subSubScenario = new Models.Scenario();
+            subSubScenario.title = 'Seismic 1';
+            subSubScenario.userWeight = 5;
+            subScenario.subScenarios.push(subSubScenario);
+            subSubScenario.title = 'Seismic 2';
+            subSubScenario.userWeight = 3;
+            subScenario.subScenarios.push(subSubScenario);
+            subSubScenario.title = 'Seismic 3';
+            subSubScenario.userWeight = 1;
+            subScenario.subScenarios.push(subSubScenario);
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Wind and Flood';
+            subScenario.userWeight = 3;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Flood and contamination';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+            scenario.calculateWeights();
+            this.scenarios.push(scenario);
+
+            // Intended incidents (terrorists)
+            scenario = new Models.Scenario();
+            scenario.title = 'Intended incidents (terrorists)';
+            scenario.userWeight = 2;
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Explosion';
+            subScenario.userWeight = 4;
+            subSubScenario = new Models.Scenario();
+            subSubScenario.title = 'Car bomb external';
+            subSubScenario.userWeight = 2;
+            subScenario.subScenarios.push(subSubScenario);
+            subSubScenario = new Models.Scenario();
+            subSubScenario.title = 'Car bomb in parking garage';
+            subSubScenario.userWeight = 4;
+            subScenario.subScenarios.push(subSubScenario);
+            subSubScenario = new Models.Scenario();
+            subSubScenario.title = 'Backpack external';
+            subSubScenario.userWeight = 1;
+            subScenario.subScenarios.push(subSubScenario);
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Impact';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Arson / Fire';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Impact followed by fire';
+            subScenario.userWeight = 2;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Chemical / bio attack';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Dirty bomb';
+            subScenario.userWeight = 3;
+            scenario.subScenarios.push(subScenario);
+
+            scenario.calculateWeights();
+            this.scenarios.push(scenario);
+
+            // Unintended incidents
+            scenario = new Models.Scenario();
+            scenario.title = 'Unintended incidents (accidents)';
+            scenario.userWeight = 4;
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Explosion';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Impact';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Fire';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Hazmat';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Windload';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            subScenario = new Models.Scenario();
+            subScenario.title = 'Temperature';
+            subScenario.userWeight = 1;
+            scenario.subScenarios.push(subScenario);
+
+            scenario.calculateWeights();
+            this.scenarios.push(scenario);
         };
         return McaProject;
     })();

@@ -6,7 +6,7 @@
         public userWeight             : number;
         /** Effective weight, sums up to 1 */
         public weight                 : number;
-        public subScenario            : Scenario[] = [];
+        public subScenarios           : Scenario[] = [];
         public effectedCriteriaIds    : string[] = []
         public effectedValueSourceIds : string[] = []
 
@@ -14,7 +14,17 @@
             this.id = Helpers.Utils.createGuid();
         }
 
-        public calculateWeights() { }
+        public calculateWeights() {
+            var totalWeight = 0;
+            if (this.subScenarios.length === 0) return;
+            this.subScenarios.forEach((c) => {
+                totalWeight += c.userWeight;
+            });
+            if (totalWeight == 0) return;
+            this.subScenarios.forEach((c) => {
+                c.weight = c.userWeight / totalWeight;
+            });
+        }
 
     }
 }
