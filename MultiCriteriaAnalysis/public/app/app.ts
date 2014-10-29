@@ -85,6 +85,7 @@
                 });
         })
         .service('messageBusService', csComp.Services.MessageBusService)
+        .service('projectService', Services.ProjectService)
         .controller('appCtrl', AppCtrl)
         .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
         .filter('format', [
