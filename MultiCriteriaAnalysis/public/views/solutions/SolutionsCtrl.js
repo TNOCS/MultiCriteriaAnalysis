@@ -11,6 +11,8 @@
             this.projectService = projectService;
             $scope.vm = this;
 
+            this.solutions = projectService.project.solutions;
+
             console.log('SolutionsCtrl');
 
             if (projectService.project.solutions.length === 0) {
@@ -22,7 +24,7 @@
             var modalInstance = this.$modal.open({
                 templateUrl: 'views/solutions/createSolutionDialog/createSolutionDialog.html',
                 controller: 'CreateSolutionDialogCtrl',
-                size: 'large'
+                size: 'small'
             });
 
             modalInstance.result.then(function (title) {
@@ -31,6 +33,7 @@
                 var solution = new Models.Solution();
                 solution.title = title;
                 _this.projectService.project.solutions.push(solution);
+                _this.projectService.activeSolution = solution;
                 _this.$log.info(_this.projectService.project.solutions);
             }, function () {
                 _this.$log.error('Modal dismissed at: ' + new Date());

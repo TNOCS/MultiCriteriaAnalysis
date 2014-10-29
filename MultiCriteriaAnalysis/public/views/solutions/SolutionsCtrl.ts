@@ -4,7 +4,7 @@
     }
 
     export class SolutionsCtrl {
-        public activeSolution: Models.Solution;
+        public solutions: Models.Solution[];
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -29,6 +29,8 @@
             ) {
             $scope.vm = this;
 
+            this.solutions = projectService.project.solutions;
+
             console.log('SolutionsCtrl');
 
             if (projectService.project.solutions.length === 0) {
@@ -40,7 +42,7 @@
             var modalInstance = this.$modal.open({
                 templateUrl: 'views/solutions/createSolutionDialog/createSolutionDialog.html',
                 controller: 'CreateSolutionDialogCtrl',
-                size: 'large',
+                size: 'small',
                 //resolve: {
                 //    items: function () {
                 //        return [1, 2, 3];
@@ -53,6 +55,7 @@
                 var solution = new Models.Solution();
                 solution.title = title;
                 this.projectService.project.solutions.push(solution);
+                this.projectService.activeSolution = solution;
                 this.$log.info(this.projectService.project.solutions);
             }, () => {
                 this.$log.error('Modal dismissed at: ' + new Date());
