@@ -7,6 +7,7 @@
 
     export interface IAppScope extends ng.IScope {
         vm: AppCtrl;
+        toggleChildren : Function;
         title: string;
     }
 
@@ -46,6 +47,11 @@
                 $scope.$apply();
             });
 
+            $scope.toggleChildren = function (data) {
+                data.childrenVisible = !data.childrenVisible;
+                data.folderClass = data.childrenVisible ? "fa-folder-open" : "fa-folder";
+            };
+
             $messageBusService.notify('Welcome', 'You can create your own multi-criteria analysis: create categories, define scenarios, and specify the results.');
         }
     }
@@ -59,7 +65,7 @@
             'ui.bootstrap',
             'LocalStorageModule',
         'angularUtils.directives.dirPagination',
-        'ivh.treeview'
+        'ui.tree'
         ])
         .config(localStorageServiceProvider => {
             localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';
@@ -95,7 +101,26 @@
                     return String.format(format, value);
                 };
             }
-        ])
+        ]).directive("contenteditable", function () {
+            return {
+                restrict: "A",
+                require: "ngModel",
+                link: function (scope, element, attrs, ngModel) {
+
+                    function read() {
+                        ngModel.$setViewValue(element.html());
+                    }
+
+                    ngModel.$render = function () {
+                        element.html(ngModel.$viewValue || "");
+                    };
+
+                    element.bind("blur keyup change", function () {
+                        scope.$apply(read);
+                    });
+                }
+            };
+        })
         .directive('ngModelOnblur', () => {
             return {
                 restrict: 'A',

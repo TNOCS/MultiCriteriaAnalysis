@@ -42,6 +42,9 @@
             subCriteria.description = 'Repair time is dependent on the type of damage';
             subCriteria.userWeight = 3;
             subCriteria.addOption('no repair time needed', 1);
+
+            
+
             var option = subCriteria.addOption('up to 1 week', .8);
             option.description = 'No structural and less than up to 100m2 façade/floor damages etc.';
             option = subCriteria.addOption('up to 1 month', .5);

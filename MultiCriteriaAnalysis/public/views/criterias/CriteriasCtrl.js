@@ -14,6 +14,26 @@
             console.log('CriteriasCtrl');
 
             console.log(JSON.stringify(projectService.project, null, 2));
+
+            $scope.selectedItem = {};
+
+            $scope.options = {};
+
+            $scope.remove = function (scope) {
+                scope.remove();
+            };
+
+            $scope.toggle = function (scope) {
+                scope.toggle();
+            };
+
+            $scope.newSubItem = function (scope) {
+                var criteria = scope.$modelValue;
+                var c = new Models.Criteria();
+                c.title = criteria.title + '.' + (criteria.subCriterias.length + 1);
+                c.userWeight = 1;
+                criteria.subCriterias.push(c);
+            };
         }
         CriteriasCtrl.$inject = [
             '$scope',
