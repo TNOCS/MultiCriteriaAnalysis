@@ -61,7 +61,7 @@
             template: "",
             sticky: true
         });
-    }).controller('appCtrl', AppCtrl).controller('CategoriesCtrl', Categories.CategoriesCtrl).service('messageBusService', csComp.Services.MessageBusService).filter('format', [
+    }).service('messageBusService', csComp.Services.MessageBusService).controller('appCtrl', AppCtrl).controller('CriteriasCtrl', Criterias.CriteriasCtrl).filter('format', [
         '$filter', '$locale', function (filter, locale) {
             return function (value, format) {
                 return String.format(format, value);
