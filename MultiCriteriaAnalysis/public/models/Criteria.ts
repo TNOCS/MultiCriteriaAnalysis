@@ -37,6 +37,16 @@
             this.subCriterias.push(subCriteria);
         }
 
-        public calculateWeights() { }
+        public calculateWeights() {
+            var totalWeight = 0;
+            if (this.subCriterias.length === 0) return;
+            this.subCriterias.forEach((c) => {
+                totalWeight += c.userWeight;
+            });
+            if (totalWeight == 0) return;
+            this.subCriterias.forEach((c) => {
+                c.weight = c.userWeight / totalWeight;
+            });
+        }
     }
 }

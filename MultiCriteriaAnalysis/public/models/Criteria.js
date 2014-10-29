@@ -27,6 +27,17 @@
         };
 
         Criteria.prototype.calculateWeights = function () {
+            var totalWeight = 0;
+            if (this.subCriterias.length === 0)
+                return;
+            this.subCriterias.forEach(function (c) {
+                totalWeight += c.userWeight;
+            });
+            if (totalWeight == 0)
+                return;
+            this.subCriterias.forEach(function (c) {
+                c.weight = c.userWeight / totalWeight;
+            });
         };
         return Criteria;
     })();

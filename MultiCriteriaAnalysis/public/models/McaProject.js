@@ -33,7 +33,7 @@
 
             var subCriteria = new Models.Criteria();
             subCriteria.title = 'Repair time';
-            subCriteria.description = 'Repair time is dependent to the type of damage';
+            subCriteria.description = 'Repair time is dependent on the type of damage';
             subCriteria.userWeight = 3;
             subCriteria.addOption('no repair time needed', 1);
             var option = subCriteria.addOption('up to 1 week', .8);
@@ -69,8 +69,8 @@
             subCriteria.addOption('limited services available, but livable ', .2);
             subCriteria.addOption('too much services out of order or critical service(s) out of order', 0);
             criteria.addSubCriteria(subCriteria);
-
             criteria.calculateWeights();
+
             this.criterias.push(criteria);
         };
         return McaProject;
