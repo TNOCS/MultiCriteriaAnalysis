@@ -44,7 +44,7 @@
             <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
             <span contenteditable ng-model="item.title" style="font-size:14px;cursor:text" data-nodrag></span>            
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>            
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubCriteria(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>            
         </div>
         <ol ui-tree-nodes="options" ng-model="item.subCriterias" ng-class="{hidden: collapsed}">
             <li ng-repeat="item in item.subCriterias" ui-tree-node ng-include="'items_renderer.html'">
@@ -56,6 +56,7 @@
             <li ng-repeat="item in d.projectService.project.criterias" ui-tree-node ng-include="'items_renderer.html'"></li>
         </ol>
     </div>
+    <a class="pull-right btn btn-primary btn-xs" ng-click="newCriteria()" style="margin-right: 8px;margin-top:8px"><span class="glyphicon glyphicon-plus"></span></a>            
     
 
 

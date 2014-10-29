@@ -1,11 +1,12 @@
 ﻿module Criterias {
     export interface ICriteriasViewScope extends ng.IScope {
-        vm: CriteriasCtrl;
-        selectedItem: any;
-        options: any;
-        remove: Function;
-        toggle: Function;
-        newSubItem: Function;
+        vm            : CriteriasCtrl;
+        selectedItem  : any;
+        options       : any;
+        remove        : Function;
+        toggle        : Function;
+        newSubCriteria: Function;
+        newCriteria   : Function
     }
 
     export class CriteriasCtrl {
@@ -49,12 +50,21 @@
                 scope.toggle();
             };
 
-            $scope.newSubItem = function (scope) {
+            $scope.newSubCriteria = (scope) => {
                 var criteria = <Models.Criteria>scope.$modelValue;                
                 var c = new Models.Criteria();
                 c.title = criteria.title + '.' + (criteria.subCriterias.length + 1);
                 c.userWeight = 1;
-                criteria.subCriterias.push(c);
+                    criteria.subCriterias.push(c);
+                    
+                
+            };
+
+            $scope.newCriteria = () => {
+                var c = new Models.Criteria();
+                c.title = "New Criteria";
+                c.userWeight = 1;
+                this.projectService.project.criterias.push(c);                
             };
         }
     }
