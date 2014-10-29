@@ -34,6 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="public\app\app.ts" />
+    <TypeScriptCompile Include="public\helpers\Helpers.ts" />
+    <TypeScriptCompile Include="public\models\Category.ts" />
+    <TypeScriptCompile Include="public\models\Criteria.ts" />
     <TypeScriptCompile Include="public\services\MessageBus.ts" />
     <TypeScriptCompile Include="public\views\categories\CategoriesCtrl.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui\angular-ui-router.d.ts" />
@@ -67,6 +70,8 @@
     <Folder Include="public\img\" />
     <Folder Include="public\js\" />
     <Folder Include="public\js\cs\" />
+    <Folder Include="public\models\" />
+    <Folder Include="public\helpers\" />
     <Folder Include="public\views\" />
     <Folder Include="public\services\" />
     <Folder Include="public\views\categories\" />
@@ -129,5 +134,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
 </Project>
