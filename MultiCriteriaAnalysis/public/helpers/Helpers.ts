@@ -7,5 +7,39 @@
             });
             return guid;
         }
+
+        public static isNullOrEmpty(s: string): boolean {
+            return !s;
+        }
+
+        /**
+         * String formatting
+         * 'Added {0} by {1} to your collection'.f(title, artist)
+         * 'Your balance is {0} USD'.f(77.7)
+         */
+        public static format(s: string, ...args: string[]): string {
+            var i = args.length;
+
+            while (i--) {
+                // "gm" = RegEx options for Global search (more than one instance) and for Multiline search
+                s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), args[i]);
+            }
+            return s;
+        }
+
+        /**
+         * Returns true if we are dealing with a number, false otherwise.
+         */
+        public static isNumber(n: any): boolean {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
+
+        /**
+         * Returns true if we are dealing with a boolean, false otherwise.
+         */
+        public static isBoolean(s: any): boolean {
+            return s === 'true' || s === 'false';
+        }
+
     }
 }

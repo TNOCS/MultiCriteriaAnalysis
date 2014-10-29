@@ -30,6 +30,4 @@
             console.log(JSON.stringify(projectService.project, null, 2));
         }
     }
-
-
 }

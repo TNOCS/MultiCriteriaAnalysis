@@ -80,7 +80,7 @@
                 })
                 .state('solutions', {
                     url: "/solutions",
-                    template: "",
+                    templateUrl: "views/solutions/solutions.html",
                     sticky: true
                 });
         })
@@ -88,6 +88,8 @@
         .service('projectService', Services.ProjectService)
         .controller('appCtrl', AppCtrl)
         .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
+        .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
+        .controller('CreateSolutionDialogCtrl', Solutions.CreateSolutionDialogCtrl)
         .filter('format', [
             '$filter', '$locale', function(filter, locale) {
                 return function(value, format) {
