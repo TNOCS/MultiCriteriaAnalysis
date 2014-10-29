@@ -19,6 +19,14 @@
                 this.createNewSolution();
             }
         }
+        SolutionsCtrl.prototype.deleteSolution = function () {
+            var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
+            if (index < 0)
+                return;
+            this.projectService.project.solutions.splice(index, 1);
+            this.projectService.activeSolution = null;
+        };
+
         SolutionsCtrl.prototype.createNewSolution = function () {
             var _this = this;
             var modalInstance = this.$modal.open({

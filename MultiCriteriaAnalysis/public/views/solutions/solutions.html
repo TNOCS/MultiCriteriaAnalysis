@@ -6,6 +6,13 @@
                     data-ng-model="vm.projectService.activeSolution"
                     data-ng-options="solution.title for solution in vm.solutions"></select>
         </div>
-        <button class="btn btn-default col-md-1" data-ng-click="vm.createNewSolution()">New solution</button>
+        <div class="btn-group col-md-1">
+            <a class="btn" data-ng-click="vm.deleteSolution()" alt="Delete solution" ng-disabled="vm.projectService.activeSolution == null">
+                <i class="fa fa-2x fa-trash-o"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.createNewSolution()" alt="Create new solution">
+                <i class="fa fa-2x fa-plus"></i>
+            </a>
+        </div>
     </div>
 </div>

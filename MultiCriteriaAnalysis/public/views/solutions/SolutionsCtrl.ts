@@ -38,6 +38,13 @@
             }
         }
 
+        public deleteSolution() {
+            var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
+            if (index < 0) return;
+            this.projectService.project.solutions.splice(index, 1);
+            this.projectService.activeSolution = null;
+        }
+
         public createNewSolution() {
             var modalInstance = this.$modal.open({
                 templateUrl: 'views/solutions/createSolutionDialog/createSolutionDialog.html',
