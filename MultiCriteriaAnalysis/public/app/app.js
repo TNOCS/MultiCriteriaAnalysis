@@ -25,6 +25,9 @@
 
             $messageBusService.notify('Welcome', 'You can create your own multi-criteria analysis: create categories, define scenarios, and specify the results.');
         }
+        AppCtrl.prototype.isActive = function (viewLocation) {
+            return viewLocation === this.$location.path();
+        };
         AppCtrl.$inject = [
             '$scope',
             '$location',

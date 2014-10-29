@@ -48,7 +48,11 @@
 
             $messageBusService.notify('Welcome', 'You can create your own multi-criteria analysis: create categories, define scenarios, and specify the results.');
         }
-    }
+
+        public isActive(viewLocation: string) {
+            return viewLocation === this.$location.path();
+        }
+   }
 
     // http://jsfiddle.net/mrajcok/pEq6X/
     declare var google;
