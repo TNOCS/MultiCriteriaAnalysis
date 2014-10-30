@@ -14,5 +14,29 @@
                 <i class="fa fa-2x fa-plus"></i>
             </a>
         </div>
+        <div class="col-md-offset-5 col-md-2">
+            <select class="form-control"
+                    data-ng-model="vm.projectService.activeDataSource"
+                    data-ng-options="dataSource.title for dataSource in vm.dataSources">
+            </select>
+        </div>
+    </div>
+    
+    <div class="row">
+        <ul data-ng-if="vm.projectService.activeSolution">
+            <li data-ng-repeat="scenario in vm.scenarios">
+                {{scenario.title}}
+                <ul data-ng-if="scenario.subScenarios.length > 0">
+                    <li data-ng-repeat="subScenario in scenario.subScenarios">
+                        {{subScenario.title}}
+                        <ul data-ng-if="subScenario.subScenarios.length > 0">
+                            <li data-ng-repeat="subSubScenario in subScenario.subScenarios">
+                                {{subSubScenario.title}}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </div>

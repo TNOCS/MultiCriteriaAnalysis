@@ -12,6 +12,8 @@
             $scope.vm = this;
 
             this.solutions = projectService.project.solutions;
+            this.dataSources = projectService.project.dataSources;
+            this.scenarios = projectService.project.scenarios;
 
             console.log('SolutionsCtrl');
 
