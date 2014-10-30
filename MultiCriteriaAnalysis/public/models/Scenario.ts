@@ -7,7 +7,11 @@
         /** Effective weight, sums up to 1 */
         public weight                 : number;
         public subScenarios           : Scenario[] = [];
-        public effectedCriteriaIds    : string[] = []
+        public effectedCriteriaIds: string[] = []
+
+        public hasSubs = () => {
+            return this.subScenarios.length > 0;
+        }
 
         constructor() {
             this.id = Helpers.Utils.createGuid();

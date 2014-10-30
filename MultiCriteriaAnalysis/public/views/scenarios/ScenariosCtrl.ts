@@ -1,6 +1,6 @@
-﻿module Criterias {
-    export interface ICriteriasViewScope extends ng.IScope {
-        vm                : CriteriasCtrl;
+﻿module Scenarios {
+    export interface IScenariosViewScope extends ng.IScope {
+        vm: ScenariosCtrl;
         selectedItem      : any;
         options           : any;
         remove            : Function;
@@ -11,7 +11,7 @@
         removeOption      : Function;
     }
 
-    export class CriteriasCtrl {
+    export class ScenariosCtrl {
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
         // it is better to have it close to the constructor, because the parameters must match in count and type.
@@ -25,7 +25,7 @@
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
-            private $scope: ICriteriasViewScope,
+            private $scope: IScenariosViewScope,
             private messageBus: csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
             ) {
@@ -33,11 +33,8 @@
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
 
-            
-            console.log('CriteriasCtrl');
-            
 
-            console.log(JSON.stringify(projectService.project, null, 2));
+            
 
             $scope.selectedItem = {};
 
@@ -52,27 +49,21 @@
                 scope.toggle();
             };
 
-            $scope.newSubCriteria = (scope) => {
-                var criteria = <Models.Criteria>scope.$modelValue;                
-                var c = new Models.Criteria();
-                c.title = criteria.title + '.' + (criteria.subCriterias.length + 1);
-                c.userWeight = 1;
-                    criteria.subCriterias.push(c);
+            $scope.newSubScenario = (scope) => {
+                var scenario = <Models.Scenario>scope.$modelValue;                
+                var s = new Models.Scenario();
+                s.title = scenario.title + '.' + (scenario.subScenarios.length + 1);
+                s.userWeight = 1;
+                scenario.subScenarios.push(s);
                     
                 
             };
 
-            $scope.newOption = (scope) => {
-                var criteria = <Models.Criteria>scope.$modelValue;    
-                var o = new Models.CriteriaOption();
-                o.title = "New Option";                
-                criteria.options.push(o);
-            };
-
+            
 
             $scope.newCriteria = () => {
                 var c = new Models.Criteria();
-                c.title = "New Criteria";
+                c.title = "New Scenario";
                 c.userWeight = 1;
                 this.projectService.project.criterias.push(c);                
             };

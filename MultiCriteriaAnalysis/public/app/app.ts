@@ -76,7 +76,7 @@
         })
         .config(($stateProvider, $urlRouterProvider) => {
             // For any unmatched url, send to /
-            $urlRouterProvider.otherwise("/criterias");
+            $urlRouterProvider.otherwise("/scenarios");
             $stateProvider
                 .state('criterias', {
                     url: "/criterias",
@@ -86,7 +86,7 @@
                 })
                 .state('scenarios', {
                     url: "/scenarios",
-                    template: "",
+                    templateUrl: "views/scenarios/scenarios.html",                    
                     sticky: true
                 })
                 .state('solutions', {
@@ -98,6 +98,7 @@
         .service('messageBusService', csComp.Services.MessageBusService)
         .service('projectService', Services.ProjectService)
         .controller('appCtrl', AppCtrl)
+        .controller('ScenariosCtrl', Scenarios.ScenariosCtrl)
         .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
         .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
         .controller('CreateSolutionDialogCtrl', Solutions.CreateSolutionDialogCtrl)

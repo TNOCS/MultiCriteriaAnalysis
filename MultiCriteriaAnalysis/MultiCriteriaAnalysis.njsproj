@@ -43,6 +43,7 @@
     <TypeScriptCompile Include="public\services\MessageBus.ts" />
     <TypeScriptCompile Include="public\services\ProjectService.ts" />
     <TypeScriptCompile Include="public\views\criterias\CriteriasCtrl.ts" />
+    <TypeScriptCompile Include="public\views\scenarios\ScenariosCtrl.ts" />
     <TypeScriptCompile Include="public\views\solutions\SolutionsCtrl.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
@@ -64,6 +65,7 @@
     <Content Include="public\includes\ROsanswebtextregular.ttf" />
     <Content Include="public\index.html" />
     <Content Include="public\views\criterias\criterias.html" />
+    <Content Include="public\views\scenarios\scenarios.html" />
     <Content Include="public\views\solutions\createSolutionDialog\createSolutionDialog.html" />
     <Content Include="public\views\solutions\solutions.html" />
     <Content Include="README.md" />
