@@ -5,10 +5,11 @@
         options           : any;
         remove            : Function;
         toggle            : Function;
-        newSubCriteria    : Function;
+        newSubScenario    : Function;
         newCriteria       : Function
         newOption         : Function;
-        removeOption      : Function;
+        removeOption: Function;
+        
     }
 
     export class ScenariosCtrl {
@@ -34,7 +35,11 @@
             $scope.vm = this;
 
 
-            
+             
+            $scope.$on('$viewContentLoaded', function () {
+                (<any>$('.multiselect')).multiselect();                
+            });
+
 
             $scope.selectedItem = {};
 
