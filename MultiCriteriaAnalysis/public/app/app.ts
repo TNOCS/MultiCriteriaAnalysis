@@ -76,8 +76,14 @@
         })
         .config(($stateProvider, $urlRouterProvider) => {
             // For any unmatched url, send to /
-            $urlRouterProvider.otherwise("/scenarios");
+            $urlRouterProvider.otherwise("/");
             $stateProvider
+                .state('home', {
+                    url: "/",
+                    templateUrl: "views/home/home.html",
+                    sticky: true,
+                    deepStateRedirect: true
+                })
                 .state('criterias', {
                     url: "/criterias",
                     templateUrl: "views/criterias/criterias.html",
@@ -98,6 +104,7 @@
         .service('messageBusService', csComp.Services.MessageBusService)
         .service('projectService', Services.ProjectService)
         .controller('appCtrl', AppCtrl)
+        .controller('HomeCtrl', Home.HomeCtrl)
         .controller('ScenariosCtrl', Scenarios.ScenariosCtrl)
         .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
         .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
