@@ -51,14 +51,12 @@
 
         public createNewSolution() {
             var modalInstance = this.$modal.open({
-                templateUrl: 'views/solutions/createSolutionDialog/createSolutionDialog.html',
-                controller: 'CreateSolutionDialogCtrl',
-                size: 'small',
-                //resolve: {
-                //    items: function () {
-                //        return [1, 2, 3];
-                //    }
-                //}
+                templateUrl: 'views/dialogs/getTitleDialog.html',
+                controller: 'GetTitleDialogCtrl',
+                size: 'sm',
+                resolve: {
+                    header: () => "Create a new solution"
+                }
             });
 
             modalInstance.result.then((title: string) => {
@@ -74,22 +72,27 @@
         }
     }
 
-    export interface ICreateSolutionDialogScope extends ng.IScope {
-        vm: CreateSolutionDialogCtrl;
+    export interface IGetTitleDialogScope extends ng.IScope {
+        vm: GetTitleDialogCtrl;
+        header: string;
     }
-    export class CreateSolutionDialogCtrl {
+
+    export class GetTitleDialogCtrl {
         public title: string;
 
         public static $inject = [
             '$scope',
-            '$modalInstance'
+            '$modalInstance',
+            'header'
         ];
 
         constructor(
-            private $scope: ICreateSolutionDialogScope,
-            private $modalInstance: any) {
+            private $scope: IGetTitleDialogScope,
+            private $modalInstance: any,
+            private header: string) {
 
             $scope.vm = this;
+            $scope.header = header;
         }
 
         public ok() {

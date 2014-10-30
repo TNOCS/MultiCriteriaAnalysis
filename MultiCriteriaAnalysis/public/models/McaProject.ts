@@ -9,8 +9,6 @@
 
         constructor() {
             this.createDummy();
-            this.createDummy();
-            this.createDummy();
         }
 
         public saveToJson(): boolean {

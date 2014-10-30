@@ -1,3 +1,35 @@
 ﻿<div data-ng-controller="HomeCtrl">
-    HOME
+    <div class="row">
+        <h3 class="col-md-2 text-right" style="margin-top: 3px">Active Project:</h3>
+        <div class="col-md-2">
+            <select class="form-control"
+                    data-ng-model="vm.projectService.project"
+                    data-ng-options="project.title for project in vm.projects"></select>
+        </div>
+        <div class="btn-group col-md-1">
+            <a class="btn" data-ng-click="vm.deleteProject()" alt="Delete project" ng-disabled="vm.projectService.project == null">
+                <i class="fa fa-2x fa-trash-o"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.createNewProject()" alt="Create new project">
+                <i class="fa fa-2x fa-plus"></i>
+            </a>
+        </div>
+
+        <h3 class="col-md-offset-2 col-md-2 text-right" style="margin-top: 3px">Data sources:</h3>
+        <div class="col-md-2">
+            <select class="form-control"
+                    data-ng-model="vm.projectService.activeDataSource"
+                    data-ng-options="dataSource.title for dataSource in vm.projectService.project.dataSources">
+       <!--         <option value="" selected="selected">Existing data sources</option>-->                
+            </select>
+        </div>
+        <div class="btn-group col-md-1">
+            <a class="btn" data-ng-click="vm.deleteDataSource()" alt="Delete data source">
+                <i class="fa fa-2x fa-trash-o"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.createNewDataSource()" alt="Create new data source">
+                <i class="fa fa-2x fa-plus"></i>
+            </a>
+        </div>
+    </div>
 </div>

@@ -75,7 +75,7 @@
             templateUrl: "views/solutions/solutions.html",
             sticky: true
         });
-    }).service('messageBusService', csComp.Services.MessageBusService).service('projectService', Services.ProjectService).controller('appCtrl', AppCtrl).controller('HomeCtrl', Home.HomeCtrl).controller('ScenariosCtrl', Scenarios.ScenariosCtrl).controller('CriteriasCtrl', Criterias.CriteriasCtrl).controller('SolutionsCtrl', Solutions.SolutionsCtrl).controller('CreateSolutionDialogCtrl', Solutions.CreateSolutionDialogCtrl).controller('RatingDemoCtrl', function ($scope) {
+    }).service('messageBusService', csComp.Services.MessageBusService).service('projectService', Services.ProjectService).controller('appCtrl', AppCtrl).controller('HomeCtrl', Home.HomeCtrl).controller('ScenariosCtrl', Scenarios.ScenariosCtrl).controller('CriteriasCtrl', Criterias.CriteriasCtrl).controller('SolutionsCtrl', Solutions.SolutionsCtrl).controller('GetTitleDialogCtrl', Solutions.GetTitleDialogCtrl).controller('RatingDemoCtrl', function ($scope) {
         $scope.rate = 7;
         $scope.max = 10;
         $scope.isReadonly = false;
