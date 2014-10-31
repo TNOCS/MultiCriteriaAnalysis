@@ -6,7 +6,7 @@
         remove            : Function;
         toggle            : Function;
         newSubScenario    : Function;
-        newSubScenario    : Function;
+        //newSubScenario    : Function;
         newCriteria       : Function
         newOption         : Function;
         removeOption: Function;
