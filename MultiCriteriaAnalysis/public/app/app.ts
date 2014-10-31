@@ -109,7 +109,7 @@
         .controller('ScenariosCtrl', Scenarios.ScenariosCtrl)
         .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
         .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
-        .controller('CreateSolutionDialogCtrl', Solutions.CreateSolutionDialogCtrl)
+        .controller('GetTitleDialogCtrl', Solutions.GetTitleDialogCtrl)
         .controller('RatingDemoCtrl', function ($scope) {
             $scope.rate = 7;
             $scope.max = 10;

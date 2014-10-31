@@ -7,8 +7,6 @@
             this.solutions = [];
             this.dataSources = [];
             this.createDummy();
-            this.createDummy();
-            this.createDummy();
         }
         McaProject.prototype.saveToJson = function () {
             return false;

@@ -32,9 +32,14 @@
         SolutionsCtrl.prototype.createNewSolution = function () {
             var _this = this;
             var modalInstance = this.$modal.open({
-                templateUrl: 'views/solutions/createSolutionDialog/createSolutionDialog.html',
-                controller: 'CreateSolutionDialogCtrl',
-                size: 'small'
+                templateUrl: 'views/dialogs/getTitleDialog.html',
+                controller: 'GetTitleDialogCtrl',
+                size: 'sm',
+                resolve: {
+                    header: function () {
+                        return "Create a new solution";
+                    }
+                }
             });
 
             modalInstance.result.then(function (title) {
@@ -60,25 +65,28 @@
     })();
     Solutions.SolutionsCtrl = SolutionsCtrl;
 
-    var CreateSolutionDialogCtrl = (function () {
-        function CreateSolutionDialogCtrl($scope, $modalInstance) {
+    var GetTitleDialogCtrl = (function () {
+        function GetTitleDialogCtrl($scope, $modalInstance, header) {
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
+            this.header = header;
             $scope.vm = this;
+            $scope.header = header;
         }
-        CreateSolutionDialogCtrl.prototype.ok = function () {
+        GetTitleDialogCtrl.prototype.ok = function () {
             this.$modalInstance.close(this.title);
         };
 
-        CreateSolutionDialogCtrl.prototype.cancel = function () {
+        GetTitleDialogCtrl.prototype.cancel = function () {
             this.$modalInstance.dismiss('cancel');
         };
-        CreateSolutionDialogCtrl.$inject = [
+        GetTitleDialogCtrl.$inject = [
             '$scope',
-            '$modalInstance'
+            '$modalInstance',
+            'header'
         ];
-        return CreateSolutionDialogCtrl;
+        return GetTitleDialogCtrl;
     })();
-    Solutions.CreateSolutionDialogCtrl = CreateSolutionDialogCtrl;
+    Solutions.GetTitleDialogCtrl = GetTitleDialogCtrl;
 })(Solutions || (Solutions = {}));
 //# sourceMappingURL=SolutionsCtrl.js.map

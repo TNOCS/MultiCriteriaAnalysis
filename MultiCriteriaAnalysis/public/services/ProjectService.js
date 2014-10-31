@@ -3,6 +3,9 @@
     var ProjectService = (function () {
         function ProjectService() {
             this.project = new Models.McaProject();
+
+            // TODO Obtain those projects from local storage or GitHub...
+            this.projects = [this.project];
         }
         return ProjectService;
     })();

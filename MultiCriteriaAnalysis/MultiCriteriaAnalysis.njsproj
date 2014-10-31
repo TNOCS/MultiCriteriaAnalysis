@@ -43,6 +43,7 @@
     <TypeScriptCompile Include="public\services\MessageBus.ts" />
     <TypeScriptCompile Include="public\services\ProjectService.ts" />
     <TypeScriptCompile Include="public\views\criterias\CriteriasCtrl.ts" />
+    <TypeScriptCompile Include="public\views\home\HomeCtrl.ts" />
     <TypeScriptCompile Include="public\views\scenarios\ScenariosCtrl.ts" />
     <TypeScriptCompile Include="public\views\solutions\SolutionsCtrl.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui\angular-ui-router.d.ts" />
@@ -65,6 +66,8 @@
     <Content Include="public\includes\ROsanswebtextregular.ttf" />
     <Content Include="public\index.html" />
     <Content Include="public\views\criterias\criterias.html" />
+    <Content Include="public\views\dialogs\getTitleDialog.html" />
+    <Content Include="public\views\home\home.html" />
     <Content Include="public\views\scenarios\scenarios.html" />
     <Content Include="public\views\solutions\createSolutionDialog\createSolutionDialog.html" />
     <Content Include="public\views\solutions\solutions.html" />
@@ -84,6 +87,8 @@
     <Folder Include="public\views\" />
     <Folder Include="public\services\" />
     <Folder Include="public\views\criterias\" />
+    <Folder Include="public\views\home\" />
+    <Folder Include="public\views\dialogs\" />
     <Folder Include="public\views\solutions\" />
     <Folder Include="public\views\scenarios\" />
     <Folder Include="public\views\solutions\createSolutionDialog\" />
