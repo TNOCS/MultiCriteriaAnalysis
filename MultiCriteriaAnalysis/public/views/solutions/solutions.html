@@ -1,4 +1,4 @@
-﻿<div data-ng-controller="SolutionsCtrl" class="container-fluid">
+﻿<div data-ng-controller="SolutionsCtrl" class="container-fluid" style="overflow-y: auto; overflow-x: hidden" resize resize-y="100">
     <div class="row">
         <h3 class="col-md-2" style="margin-top: 0">Active Solution:</h3>
         <div class="col-md-2">
@@ -17,11 +17,10 @@
         <div class="col-md-offset-5 col-md-2">
             <select class="form-control"
                     data-ng-model="vm.projectService.activeDataSource"
-                    data-ng-options="dataSource.title for dataSource in vm.dataSources">
-            </select>
+                    data-ng-options="dataSource.title for dataSource in vm.dataSources"></select>
         </div>
     </div>
-    
+
     <div class="row">
         <ul data-ng-if="vm.projectService.activeSolution">
             <li data-ng-repeat="scenario in vm.scenarios">

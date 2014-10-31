@@ -69,7 +69,6 @@
     <Content Include="public\views\dialogs\getTitleDialog.html" />
     <Content Include="public\views\home\home.html" />
     <Content Include="public\views\scenarios\scenarios.html" />
-    <Content Include="public\views\solutions\createSolutionDialog\createSolutionDialog.html" />
     <Content Include="public\views\solutions\solutions.html" />
     <Content Include="README.md" />
   </ItemGroup>
@@ -91,7 +90,6 @@
     <Folder Include="public\views\dialogs\" />
     <Folder Include="public\views\solutions\" />
     <Folder Include="public\views\scenarios\" />
-    <Folder Include="public\views\solutions\createSolutionDialog\" />
     <Folder Include="Scripts\" />
     <Folder Include="Scripts\typings\" />
     <Folder Include="Scripts\typings\angular-ui\" />
