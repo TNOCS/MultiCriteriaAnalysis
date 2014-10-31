@@ -42,13 +42,12 @@
     })();
     App.AppCtrl = AppCtrl;
 
-    
-
     // Start the application
     angular.module('mca', [
         'ui.router',
         'ui.bootstrap',
         'LocalStorageModule',
+        'csWeb.resize',
         'angularUtils.directives.dirPagination',
         'ui.tree'
     ]).config(function (localStorageServiceProvider) {

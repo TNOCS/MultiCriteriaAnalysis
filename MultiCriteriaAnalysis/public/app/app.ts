@@ -60,14 +60,12 @@
         }
    }
 
-    // http://jsfiddle.net/mrajcok/pEq6X/
-    declare var google;
-
     // Start the application
     angular.module('mca', [
-            'ui.router',
-            'ui.bootstrap',
-            'LocalStorageModule',
+        'ui.router',
+        'ui.bootstrap',
+        'LocalStorageModule',
+        'csWeb.resize',
         'angularUtils.directives.dirPagination',
         'ui.tree'
         ])
