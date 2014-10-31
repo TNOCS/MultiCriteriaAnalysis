@@ -2,8 +2,12 @@
 (function (Models) {
     var Scenario = (function () {
         function Scenario() {
+            var _this = this;
             this.subScenarios = [];
             this.effectedCriteriaIds = [];
+            this.hasSubs = function () {
+                return _this.subScenarios.length > 0;
+            };
             this.id = Helpers.Utils.createGuid();
         }
         Scenario.prototype.calculateWeights = function () {

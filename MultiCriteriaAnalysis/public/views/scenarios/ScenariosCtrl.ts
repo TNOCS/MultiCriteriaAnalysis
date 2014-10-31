@@ -1,10 +1,11 @@
 ﻿module Scenarios {
     export interface IScenariosViewScope extends ng.IScope {
-        vm: ScenariosCtrl;
+        vm                : ScenariosCtrl;
         selectedItem      : any;
         options           : any;
         remove            : Function;
         toggle            : Function;
+        newSubScenario    : Function;
         newSubScenario    : Function;
         newCriteria       : Function
         newOption         : Function;
@@ -34,12 +35,10 @@
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
 
-
              
             $scope.$on('$viewContentLoaded', function () {
                 (<any>$('.multiselect')).multiselect();                
             });
-
 
             $scope.selectedItem = {};
 
@@ -60,11 +59,7 @@
                 s.title = scenario.title + '.' + (scenario.subScenarios.length + 1);
                 s.userWeight = 1;
                 scenario.subScenarios.push(s);
-                    
-                
             };
-
-            
 
             $scope.newCriteria = () => {
                 var c = new Models.Criteria();

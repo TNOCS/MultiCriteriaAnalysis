@@ -28,6 +28,7 @@
     <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />
+    <link href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="css/xbbcode.css">
     <link rel="stylesheet" href="css/style.css">
@@ -43,13 +44,11 @@
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-    <!--Is this needed?-->
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="bower_components/angular-utils-pagination/dirPagination.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
     
     
-    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css" />
     <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
 
     <script src="helpers/Helpers.js"></script>
@@ -59,6 +58,7 @@
     <script src="models/Criteria.js"></script>
     <script src="models/McaProject.js"></script>
     <script src="services/ProjectService.js"></script>
+    <script src="views/home/HomeCtrl.js"></script>
     <script src="views/scenarios/ScenariosCtrl.js"></script>
     <script src="views/criterias/CriteriasCtrl.js"></script>
     <script src="views/solutions/SolutionsCtrl.js"></script>
@@ -87,6 +87,7 @@
         <!-- Link to views -->
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
+                <li data-ng-class="{ active: vm.isActive('/')}"><a href="/">Home</a></li>
                 <li data-ng-class="{ active: vm.isActive('/criterias')}"><a href="#/criterias" data-ng-click="showMap=true">Criterias</a></li>
                 <li data-ng-class="{ active: vm.isActive('/scenarios')}"><a href="#/scenarios" data-ng-click="">Scenarios</a></li>
                 <li data-ng-class="{ active: vm.isActive('/solutions')}"><a href="#/solutions" data-ng-click="">Solutions</a></li>

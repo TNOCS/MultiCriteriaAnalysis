@@ -55,22 +55,27 @@
         localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';
     }).config(function ($stateProvider, $urlRouterProvider) {
         // For any unmatched url, send to /
-        $urlRouterProvider.otherwise("/criterias");
-        $stateProvider.state('criterias', {
+        $urlRouterProvider.otherwise("/");
+        $stateProvider.state('home', {
+            url: "/",
+            templateUrl: "views/home/home.html",
+            sticky: true,
+            deepStateRedirect: true
+        }).state('criterias', {
             url: "/criterias",
             templateUrl: "views/criterias/criterias.html",
             sticky: true,
             deepStateRedirect: true
         }).state('scenarios', {
             url: "/scenarios",
-            template: "",
+            templateUrl: "views/scenarios/scenarios.html",
             sticky: true
         }).state('solutions', {
             url: "/solutions",
             templateUrl: "views/solutions/solutions.html",
             sticky: true
         });
-    }).service('messageBusService', csComp.Services.MessageBusService).service('projectService', Services.ProjectService).controller('appCtrl', AppCtrl).controller('CriteriasCtrl', Criterias.CriteriasCtrl).controller('SolutionsCtrl', Solutions.SolutionsCtrl).controller('CreateSolutionDialogCtrl', Solutions.CreateSolutionDialogCtrl).controller('RatingDemoCtrl', function ($scope) {
+    }).service('messageBusService', csComp.Services.MessageBusService).service('projectService', Services.ProjectService).controller('appCtrl', AppCtrl).controller('HomeCtrl', Home.HomeCtrl).controller('ScenariosCtrl', Scenarios.ScenariosCtrl).controller('CriteriasCtrl', Criterias.CriteriasCtrl).controller('SolutionsCtrl', Solutions.SolutionsCtrl).controller('CreateSolutionDialogCtrl', Solutions.CreateSolutionDialogCtrl).controller('RatingDemoCtrl', function ($scope) {
         $scope.rate = 7;
         $scope.max = 10;
         $scope.isReadonly = false;

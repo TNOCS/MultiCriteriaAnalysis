@@ -4,7 +4,9 @@
     }
 
     export class SolutionsCtrl {
-        public solutions: Models.Solution[];
+        public solutions  : Models.Solution[];
+        public dataSources: Models.DataSource[];
+        public scenarios  : Models.Scenario[];
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -29,7 +31,9 @@
             ) {
             $scope.vm = this;
 
-            this.solutions = projectService.project.solutions;
+            this.solutions   = projectService.project.solutions;
+            this.dataSources = projectService.project.dataSources;
+            this.scenarios   = projectService.project.scenarios;
 
             console.log('SolutionsCtrl');
 
