@@ -39,6 +39,8 @@
 
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
+            } else if (projectService.activeSolution == null) {
+                projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
         }
 
