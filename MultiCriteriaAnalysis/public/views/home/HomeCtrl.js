@@ -1,10 +1,11 @@
 ﻿var Home;
 (function (Home) {
     var HomeCtrl = (function () {
-        function HomeCtrl($scope, $modal, $log, messageBus, projectService) {
+        function HomeCtrl($scope, $modal, $log, $http, messageBus, projectService) {
             this.$scope = $scope;
             this.$modal = $modal;
             this.$log = $log;
+            this.$http = $http;
             this.messageBus = messageBus;
             this.projectService = projectService;
             $scope.vm = this;
@@ -76,10 +77,39 @@
                 _this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
+
+        HomeCtrl.prototype.downloadProject = function () {
+            var projectAsJson = JSON.stringify(this.projectService.project);
+            var a = document.createElement('a');
+            a.href = 'data:text/json;charset=utf-8,' + projectAsJson;
+            a.target = '_blank';
+            var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title;
+            a.download = filename + '.json';
+            document.body.appendChild(a);
+            a.click();
+        };
+
+        HomeCtrl.prototype.uploadProject = function (files) {
+            var _this = this;
+            console.log(JSON.stringify(files));
+
+            var reader = new FileReader();
+            var f = files[0];
+
+            reader.onload = function (e) {
+                var project = JSON.parse(reader.result);
+                _this.projectService.projects.push(project);
+                _this.projectService.project = project;
+                $('#uploadFile').val('');
+            };
+
+            reader.readAsText(f);
+        };
         HomeCtrl.$inject = [
             '$scope',
             '$modal',
             '$log',
+            '$http',
             'messageBusService',
             'projectService'
         ];

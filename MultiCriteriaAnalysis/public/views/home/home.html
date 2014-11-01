@@ -6,22 +6,36 @@
                     data-ng-model="vm.projectService.project"
                     data-ng-options="project.title for project in vm.projects"></select>
         </div>
-        <div class="btn-group col-md-1">
-            <a class="btn" data-ng-click="vm.deleteProject()" alt="Delete project" ng-disabled="vm.projectService.project == null"
+        <div class="btn-group col-md-2">
+            <a class="btn" data-ng-click="vm.deleteProject()" ng-disabled="vm.projectService.project == null"
                popover="Delete project"
                popover-placement="top"
                popover-trigger="mouseenter">
                 <i class="fa fa-2x fa-trash-o"></i>
             </a>
-            <a class="btn" data-ng-click="vm.createNewProject()" alt="Create new project"
+            <a class="btn" data-ng-click="vm.createNewProject()"
                popover="Create a new project"
                popover-placement="top"
                popover-trigger="mouseenter">
                 <i class="fa fa-2x fa-plus"></i>
             </a>
+            <a class="btn" data-ng-click="vm.downloadProject()"
+               popover="Download a project to file"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-download"></i>
+            </a>
+            <input id="uploadFile" type="file" name="file" onchange="angular.element(this).scope().vm.uploadProject(this.files)" />
+            <a class="btn" data-ng-click="vm.uploadProject()" ng-disabled="vm.projectService.project == null"
+               popover="Upload a project from file"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-upload"></i>
+            </a>
         </div>
-
-        <h3 class="col-md-offset-2 col-md-2 text-right" style="margin-top: 3px"
+    </div>
+    <div class="row">
+        <h3 class="col-md-2 text-right" style="margin-top: 3px"
             popover="A data source, e.g. a person or calculation model, allows you to filter the items when specifying the scores."
             popover-placement="top"
             popover-trigger="mouseenter">
@@ -34,7 +48,7 @@
        <!--         <option value="" selected="selected">Existing data sources</option>-->                
             </select>
         </div>
-        <div class="btn-group col-md-1">
+        <div class="btn-group col-md-2">
             <a class="btn" data-ng-click="vm.deleteDataSource()" alt="Delete data source"
                popover="Delete data source"
                popover-placement="top"
