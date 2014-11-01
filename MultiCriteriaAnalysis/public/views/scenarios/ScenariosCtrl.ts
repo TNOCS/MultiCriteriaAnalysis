@@ -7,6 +7,7 @@
         toggle            : Function;
         newSubScenario    : Function;
         //newSubScenario    : Function;
+        reorder : boolean;
         newCriteria       : Function
         newOption         : Function;
         removeOption: Function;
@@ -35,6 +36,7 @@
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
 
+            $scope.reorder = false;
              
             $scope.$on('$viewContentLoaded', function () {
                 (<any>$('.multiselect')).multiselect();                

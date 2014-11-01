@@ -1,5 +1,8 @@
 ﻿<div data-ng-controller="CriteriasCtrl as d" style="overflow-y: auto; overflow-x: hidden" resize resize-y="100">
     <h1>Criterias</h1>
+    
+    <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>
+    <div ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-unlock"></i><a style="margin-left: 5px">disable reorder</a></div>
 
     <script type="text/ng-template" id="options_renderer.html">
         <div ui-tree-handle data-nodrag style="cursor:auto">
@@ -34,7 +37,7 @@
             </li>
         </ol>
     </script>
-    <div ui-tree="options">
+    <div ui-tree="options" data-drag-enabled="reorder" style="margin-top:40px">
         <ol ui-tree-nodes ng-model="d.projectService.project.criterias">
             <li ng-repeat="item in d.projectService.project.criterias" ui-tree-node ng-include="'items_renderer.html'"></li>
         </ol>
