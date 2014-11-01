@@ -22,6 +22,12 @@
             } else if (projectService.activeSolution == null) {
                 projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
+
+            $scope.selectedItem = {};
+
+            $scope.toggle = function (scope) {
+                scope.toggle();
+            };
         }
         SolutionsCtrl.prototype.deleteSolution = function () {
             var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);

@@ -339,6 +339,10 @@
 
             scenario.calculateWeights();
             this.scenarios.push(scenario);
+
+            var solution = new Models.Solution();
+            solution.title = 'Version 1';
+            this.solutions.push(solution);
         }
 
     }

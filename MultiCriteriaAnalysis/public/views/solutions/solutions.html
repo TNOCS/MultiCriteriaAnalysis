@@ -1,4 +1,5 @@
-﻿<div data-ng-controller="SolutionsCtrl" class="container-fluid" style="overflow-y: auto; overflow-x: hidden" resize resize-y="100">
+﻿<div data-ng-controller="SolutionsCtrl" class="container-fluid" 
+     style="overflow-y: auto; overflow-x: hidden" resize resize-y="100">
     <div class="row">
         <h3 class="col-md-2" style="margin-top: 0">Active Solution:</h3>
         <div class="col-md-2">
@@ -6,7 +7,7 @@
                     data-ng-model="vm.projectService.activeSolution"
                     data-ng-options="solution.title for solution in vm.solutions"></select>
         </div>
-        <div class="btn-group col-md-1">
+        <div class="btn-group col-md-2">
             <a class="btn" data-ng-click="vm.deleteSolution()" alt="Delete solution" ng-disabled="vm.projectService.activeSolution == null">
                 <i class="fa fa-2x fa-trash-o"></i>
             </a>
@@ -14,28 +15,34 @@
                 <i class="fa fa-2x fa-plus"></i>
             </a>
         </div>
-        <div class="col-md-offset-5 col-md-2">
+        <div class="col-md-offset-4 col-md-2">
+            <!--TODO Add filter icon-->
             <select class="form-control"
                     data-ng-model="vm.projectService.activeDataSource"
                     data-ng-options="dataSource.title for dataSource in vm.dataSources"></select>
         </div>
     </div>
 
-    <div class="row">
-        <ul data-ng-if="vm.projectService.activeSolution">
-            <li data-ng-repeat="scenario in vm.scenarios">
-                {{scenario.title}}
-                <ul data-ng-if="scenario.subScenarios.length > 0">
-                    <li data-ng-repeat="subScenario in scenario.subScenarios">
-                        {{subScenario.title}}
-                        <ul data-ng-if="subScenario.subScenarios.length > 0">
-                            <li data-ng-repeat="subSubScenario in subScenario.subScenarios">
-                                {{subSubScenario.title}}
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+    <div class="row" data-ng-if="vm.projectService.activeSolution">
+        <script type="text/ng-template" id="items_renderer.html">
+            <div ui-tree-handle>
+                <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+                <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag></span>
+                <rating ng-model="item.userWeight" class="span6 pull-right" style="text-align:right;" max="5" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
+            </div>
+            <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
+                <li ng-repeat="item in item.subScenarios" ui-tree-node ng-include="'items_renderer.html'">
+                </li>
+            </ol>
+
+        </script>
+        <div ui-tree="options" class="col-md-6">
+            <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios">
+                <li ng-repeat="item in vm.projectService.project.scenarios" 
+                    ui-tree-node 
+                    ng-include="'items_renderer.html'"></li>
+            </ol>
+        </div>
     </div>
 </div>
