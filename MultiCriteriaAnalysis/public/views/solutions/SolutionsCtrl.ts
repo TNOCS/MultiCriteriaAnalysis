@@ -1,6 +1,8 @@
 ﻿module Solutions {
     export interface ISolutionsViewScope extends ng.IScope {
         vm: SolutionsCtrl;
+        selectedItem: any;
+        toggle: Function;
     }
 
     export class SolutionsCtrl {
@@ -39,7 +41,15 @@
 
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
+            } else if (projectService.activeSolution == null) {
+                projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
+
+            $scope.selectedItem = {};
+
+            $scope.toggle = scope => {
+                scope.toggle();
+            };
         }
 
         public deleteSolution() {

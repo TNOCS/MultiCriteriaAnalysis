@@ -11,6 +11,7 @@
             '$scope',
             '$modal',
             '$log',
+            '$http',
             'messageBusService',
             'projectService'
         ];
@@ -18,7 +19,8 @@
         constructor(
             private $scope        : IHomeScope,
             private $modal        : any,
-            private $log        : ng.ILogService,
+            private $log          : ng.ILogService,
+            private $http         : ng.IHttpService,
             private messageBus    : csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
         ) {
@@ -83,5 +85,31 @@
                 });
         }
 
+        public downloadProject() {
+            var projectAsJson = JSON.stringify(this.projectService.project);
+            var a: any = document.createElement('a');
+            a.href = 'data:text/json;charset=utf-8,' + projectAsJson;
+            a.target = '_blank';
+            var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title;
+            a.download = filename + '.json';
+            document.body.appendChild(a);
+            a.click();
+        }
+
+        public uploadProject(files: any) {
+            console.log(JSON.stringify(files));
+
+            var reader = new FileReader();
+            var f = files[0];
+
+            reader.onload = e => {
+                var project: Models.McaProject = JSON.parse(reader.result);
+                this.projectService.projects.push(project);
+                this.projectService.project = project;
+                $('#uploadFile').val('');
+            }
+
+            reader.readAsText(f);
+        }
     }
 }
