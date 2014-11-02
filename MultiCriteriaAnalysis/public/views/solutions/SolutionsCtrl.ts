@@ -85,6 +85,10 @@
 
         public updateCriteria(criteria: SelectableCriterion) {
             console.log(JSON.stringify(criteria, null, 2));
+            this.projectService.activeSolution.scores[criteria.id] = {
+                criteriaOptionId: criteria.selectedId,
+                value: criteria.getOptionValueById(criteria.selectedId)
+            };
         }
 
         public select(item: Models.Scenario) {
@@ -101,16 +105,18 @@
                 if (criteria.hasSubcriteria()) {
                     this.eachCriteria(criteria.subCriterias);
                 } else if (this.selectedItem.isSelectedCriteria(criteria.id)) {
-                    this.activeCriterias.push(new SelectableCriterion(criteria));
+                    var selectedId = '';
+                    if (criteria.id in this.projectService.activeSolution.scores) {
+                        selectedId = this.projectService.activeSolution.scores[criteria.id].criteriaOptionId;
+                    }
+                    this.activeCriterias.push(new SelectableCriterion(criteria, selectedId));
                 }
             }
         }
     }
 
     export class SelectableCriterion extends Models.Criteria {
-        public isSelected: boolean = false;
-
-        constructor(private criterion: Models.Criteria) {
+        constructor(private criterion: Models.Criteria, public selectedId?: string) {
             super();
             this.id          = criterion.id;
             this.title       = criterion.title;

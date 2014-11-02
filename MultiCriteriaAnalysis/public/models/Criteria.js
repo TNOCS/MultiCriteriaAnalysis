@@ -29,6 +29,15 @@
             return this.subCriterias.length > 0;
         };
 
+        Criteria.prototype.getOptionValueById = function (id) {
+            for (var k in this.options) {
+                var option = this.options[k];
+                if (option.id == id)
+                    return option.value;
+            }
+            return 0;
+        };
+
         Criteria.prototype.addOption = function (title, value) {
             var option = new CriteriaOption();
             option.title = title;

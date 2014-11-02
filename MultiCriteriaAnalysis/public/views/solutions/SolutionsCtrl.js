@@ -71,6 +71,10 @@ var Solutions;
 
         SolutionsCtrl.prototype.updateCriteria = function (criteria) {
             console.log(JSON.stringify(criteria, null, 2));
+            this.projectService.activeSolution.scores[criteria.id] = {
+                criteriaOptionId: criteria.selectedId,
+                value: criteria.getOptionValueById(criteria.selectedId)
+            };
         };
 
         SolutionsCtrl.prototype.select = function (item) {
@@ -87,7 +91,11 @@ var Solutions;
                 if (criteria.hasSubcriteria()) {
                     this.eachCriteria(criteria.subCriterias);
                 } else if (this.selectedItem.isSelectedCriteria(criteria.id)) {
-                    this.activeCriterias.push(new SelectableCriterion(criteria));
+                    var selectedId = '';
+                    if (criteria.id in this.projectService.activeSolution.scores) {
+                        selectedId = this.projectService.activeSolution.scores[criteria.id].criteriaOptionId;
+                    }
+                    this.activeCriterias.push(new SelectableCriterion(criteria, selectedId));
                 }
             }
         };
@@ -104,10 +112,10 @@ var Solutions;
 
     var SelectableCriterion = (function (_super) {
         __extends(SelectableCriterion, _super);
-        function SelectableCriterion(criterion) {
+        function SelectableCriterion(criterion, selectedId) {
             _super.call(this);
             this.criterion = criterion;
-            this.isSelected = false;
+            this.selectedId = selectedId;
             this.id = criterion.id;
             this.title = criterion.title;
             this.description = criterion.description;

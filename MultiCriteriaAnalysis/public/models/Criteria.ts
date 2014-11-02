@@ -42,6 +42,14 @@
              return this.subCriterias.length > 0;
         }
 
+        public getOptionValueById(id: string) : number {
+            for (var k in this.options) {
+                var option = this.options[k];
+                if (option.id == id) return option.value;
+            }
+            return 0;
+        }
+
         public addOption(title: string, value: number) : CriteriaOption {
             var option = new CriteriaOption();
             option.title = title;

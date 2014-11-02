@@ -1,22 +1,26 @@
 ﻿var Models;
 (function (Models) {
-    var Score = (function () {
-        function Score() {
-        }
-        return Score;
-    })();
-    Models.Score = Score;
-
+    //export class Score {
+    //    public scenarioId: string;
+    //    public criteriaId: string;
+    //    public criteriaOptionId: string;
+    //    public value: number;
+    //}
     /**
     * MCA solution alternative
     */
     var Solution = (function () {
         function Solution() {
-            this.scores = [];
+            this.scores = {};
             this.id = Helpers.Utils.createGuid();
         }
         Solution.prototype.calculateScore = function () {
-            return 0;
+            var totalScore = 0;
+            for (var k in this.scores) {
+                var score = this.scores[k];
+                totalScore += score.value;
+            }
+            return totalScore;
         };
         return Solution;
     })();
