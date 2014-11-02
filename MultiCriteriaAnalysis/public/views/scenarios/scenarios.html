@@ -27,8 +27,8 @@
             <li ng-repeat="item in item.subScenarios" ui-tree-node ng-include="'items_renderer.html'">
             </li>
         </ol>
-
     </script>
+
     <div ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500" style="margin-top:40px">
         <ol ui-tree-nodes ng-model="d.projectService.project.scenarios">
             <li ng-repeat="item in d.projectService.project.scenarios" ui-tree-node ng-include="'items_renderer.html'"></li>

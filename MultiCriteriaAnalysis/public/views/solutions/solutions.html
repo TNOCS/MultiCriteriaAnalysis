@@ -32,8 +32,7 @@
                 <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
             </div>
             <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
-                <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'">
-                </li>
+                <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'"></li>
             </ol>
         </script>
 
