@@ -203,6 +203,7 @@
             subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
             var subSubScenario = new Models.Scenario();
             subSubScenario.title = 'Force 1';
+            subSubScenario.description = 'Description';
             subSubScenario.userWeight = 5;
             subScenario.subScenarios.push(subSubScenario);
             subSubScenario = new Models.Scenario();

@@ -20,16 +20,26 @@
         public weight       : number;
         public subCriterias : Criteria[] = [];
         public options      : CriteriaOption[] = []
-        public canHaveOptions = () => {
-            return this.subCriterias.length == 0;
-        }
-        public canHaveSubs = () => {
-            return this.options.length == 0;
-        }
         public dataSourceId : string;
 
         constructor() {
             this.id = Helpers.Utils.createGuid();
+        }
+
+        public canHaveOptions = () => {
+            return this.subCriterias.length === 0;
+        }
+
+        public canHaveSubs = () => {
+            return this.options.length === 0;
+        }
+
+        public hasOptions(): boolean {
+             return this.options.length > 0;
+        }
+
+        public hasSubcriteria(): boolean {
+             return this.subCriterias.length > 0;
         }
 
         public addOption(title: string, value: number) : CriteriaOption {

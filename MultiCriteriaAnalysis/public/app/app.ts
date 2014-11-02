@@ -66,7 +66,8 @@
         'ui.bootstrap',
         'LocalStorageModule',
         'csWeb.resize',
-        'angularUtils.directives.dirPagination',
+        'multi-select',
+        //'angularUtils.directives.dirPagination',
         'ui.tree' // https://github.com/JimLiu/angular-ui-tree
         ])
         .config(localStorageServiceProvider => {

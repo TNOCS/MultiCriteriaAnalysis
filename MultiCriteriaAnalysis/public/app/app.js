@@ -48,7 +48,7 @@
         'ui.bootstrap',
         'LocalStorageModule',
         'csWeb.resize',
-        'angularUtils.directives.dirPagination',
+        'multi-select',
         'ui.tree'
     ]).config(function (localStorageServiceProvider) {
         localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';

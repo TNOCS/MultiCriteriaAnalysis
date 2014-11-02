@@ -12,15 +12,22 @@
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
 
+            $scope.clicked = function (data) {
+                console.log(JSON.stringify(data, null, 2));
+                _this.selectedItem.effectedCriteriaIds = [];
+                for (var k in $scope.multiSelectOptions) {
+                    var item = $scope.multiSelectOptions[k];
+                    if (item.ticked)
+                        _this.selectedItem.effectedCriteriaIds.push(item.id);
+                }
+                console.log(_this.selectedItem.effectedCriteriaIds);
+            };
+
             $scope.reorder = false;
 
             $scope.$on('$viewContentLoaded', function () {
                 $('.multiselect').multiselect();
             });
-
-            $scope.selectedItem = {};
-
-            $scope.options = {};
 
             $scope.remove = function (scope) {
                 scope.remove();
@@ -45,6 +52,28 @@
                 _this.projectService.project.criterias.push(c);
             };
         }
+        ScenariosCtrl.prototype.select = function (item) {
+            this.selectedItem = item;
+            var multiSelectOptions = [];
+            this.eachCriteria(multiSelectOptions, this.projectService.project.criterias);
+            this.$scope.multiSelectOptions = multiSelectOptions;
+        };
+
+        ScenariosCtrl.prototype.eachCriteria = function (multiSelectOptions, criterias) {
+            for (var k in criterias) {
+                var criteria = criterias[k];
+                if (criteria.hasSubcriteria()) {
+                    multiSelectOptions.push(new CriteriaSelectorNode(criteria.title, true));
+                    this.eachCriteria(multiSelectOptions, criteria.subCriterias);
+                    multiSelectOptions.push(new CriteriaSelectorNode('', false));
+                } else {
+                    multiSelectOptions.push(new CriteriaSelectorLeaf(criteria.id, criteria.title, this.selectedItem.isSelectedCriteria(criteria.id)));
+                }
+            }
+        };
+
+        ScenariosCtrl.prototype.updateSelectedCriterias = function (data) {
+        };
         ScenariosCtrl.$inject = [
             '$scope',
             'messageBusService',
@@ -53,5 +82,24 @@
         return ScenariosCtrl;
     })();
     Scenarios.ScenariosCtrl = ScenariosCtrl;
+
+    var CriteriaSelectorLeaf = (function () {
+        function CriteriaSelectorLeaf(id, title, ticked) {
+            this.id = id;
+            this.title = title;
+            this.ticked = ticked;
+        }
+        return CriteriaSelectorLeaf;
+    })();
+    Scenarios.CriteriaSelectorLeaf = CriteriaSelectorLeaf;
+
+    var CriteriaSelectorNode = (function () {
+        function CriteriaSelectorNode(title, multiSelectGroup) {
+            this.title = title;
+            this.multiSelectGroup = multiSelectGroup;
+        }
+        return CriteriaSelectorNode;
+    })();
+    Scenarios.CriteriaSelectorNode = CriteriaSelectorNode;
 })(Scenarios || (Scenarios = {}));
 //# sourceMappingURL=ScenariosCtrl.js.map

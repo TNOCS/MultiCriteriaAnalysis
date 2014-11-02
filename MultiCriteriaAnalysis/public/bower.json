@@ -33,6 +33,6 @@
     "awesome-bootstrap-checkbox": "~0.1.2",
     "pnotify": "~2.0.1",
     "angular-ui-tree": "~2.1.5",
-    "bootstrap-multiselect": "~0.9.9"
+    "angular-multi-select": "~2.0.2"
   }
 }

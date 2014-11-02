@@ -14,13 +14,21 @@
             this.subCriterias = [];
             this.options = [];
             this.canHaveOptions = function () {
-                return _this.subCriterias.length == 0;
+                return _this.subCriterias.length === 0;
             };
             this.canHaveSubs = function () {
-                return _this.options.length == 0;
+                return _this.options.length === 0;
             };
             this.id = Helpers.Utils.createGuid();
         }
+        Criteria.prototype.hasOptions = function () {
+            return this.options.length > 0;
+        };
+
+        Criteria.prototype.hasSubcriteria = function () {
+            return this.subCriterias.length > 0;
+        };
+
         Criteria.prototype.addOption = function (title, value) {
             var option = new CriteriaOption();
             option.title = title;

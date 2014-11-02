@@ -1,20 +1,24 @@
 ﻿module Models {
     export class Scenario {
-        public id                     : string;
-        public title                  : string;
-        public description            : string;
-        public userWeight             : number;
+        public id                 : string;
+        public title              : string;
+        public description        : string;
+        public userWeight         : number;
         /** Effective weight, sums up to 1 */
-        public weight                 : number;
-        public subScenarios           : Scenario[] = [];
+        public weight             : number;
+        public subScenarios       : Scenario[] = [];
         public effectedCriteriaIds: string[] = []
+
+        constructor() {
+            this.id = Helpers.Utils.createGuid();
+        }
 
         public hasSubs = () => {
             return this.subScenarios.length > 0;
         }
 
-        constructor() {
-            this.id = Helpers.Utils.createGuid();
+        public isSelectedCriteria(id: string) {
+            return this.effectedCriteriaIds.indexOf(id) >= 0;
         }
 
         public calculateWeights() {

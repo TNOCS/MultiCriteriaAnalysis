@@ -10,6 +10,10 @@
             };
             this.id = Helpers.Utils.createGuid();
         }
+        Scenario.prototype.isSelectedCriteria = function (id) {
+            return this.effectedCriteriaIds.indexOf(id) >= 0;
+        };
+
         Scenario.prototype.calculateWeights = function () {
             var totalWeight = 0;
             if (this.subScenarios.length === 0)
