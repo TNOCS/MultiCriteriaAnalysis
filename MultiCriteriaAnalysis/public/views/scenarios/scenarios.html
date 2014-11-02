@@ -19,6 +19,7 @@
     
     <div class="row">
         <div class="col-md-6">
+            <a ng-click="vm.select()"><i class="fa fa-pie-chart"></i>select top element</a>
             <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>
             <div ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-unlock"></i><a style="margin-left: 5px">disable reorder</a></div>
         </div>
@@ -36,6 +37,8 @@
             <div class="row" data-ng-if="vm.selectedItem">
                 <h3>{{vm.selectedItem.title}}</h3>
                 <!--<span contenteditable ng-model="vm.selectedItem.description" style="font-size:20px;cursor:text"></span>-->
+                <div id="pieChart"></div>
+
                 <div data-ng-if="!vm.selectedItem.hasSubs()">
                     <h4>Select criteria</h4>
                     <div max-height="250px"

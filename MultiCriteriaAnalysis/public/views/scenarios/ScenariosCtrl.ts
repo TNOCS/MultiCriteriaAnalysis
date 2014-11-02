@@ -80,10 +80,33 @@
         }
 
         public select(item: Models.Scenario) {
+            if (!item) {
+                // Create a pseudo criteria that is the level
+                item = new Models.Scenario();
+                item.title = "Top level scenario";
+                item.subScenarios = this.projectService.project.scenarios;
+            }
             this.selectedItem = item;
             var multiSelectOptions: any[] = [];
             this.eachCriteria(multiSelectOptions, this.projectService.project.criterias);
             this.$scope.multiSelectOptions = multiSelectOptions;
+
+            var data = [];
+            this.selectedItem.calculateWeights();
+            for (var k in this.selectedItem.subScenarios) {
+                var scenario = this.selectedItem.subScenarios[k];
+                data.push({
+                    id: k + 1,
+                    order: k + 1,
+                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    weight: scenario.weight,
+                    score: 100,
+                    width: scenario.weight,
+                    label: scenario.title
+                });
+            }
+
+            Helpers.Utils.drawPie(data);
         }
 
         private eachCriteria(multiSelectOptions: any[], criterias: Models.Criteria[]) {
