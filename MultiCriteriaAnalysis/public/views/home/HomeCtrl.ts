@@ -33,6 +33,10 @@
             var index = this.projectService.project.dataSources.indexOf(dataSource);
             if (index < 0) return;
             this.projectService.project.dataSources.splice(index, 1);
+            for (var k in this.projectService.project.criterias) {
+                var criteria = this.projectService.project.criterias[k];
+                if (criteria.dataSourceId === dataSource.id) criteria.dataSourceId = '';
+            }
         }
 
         public createNewDataSource() {

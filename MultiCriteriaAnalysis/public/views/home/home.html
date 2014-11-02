@@ -54,7 +54,7 @@
             </select>
         </div>
         <div class="btn-group col-md-2">
-            <a class="btn" data-ng-click="vm.deleteDataSource()" alt="Delete data source"
+            <a class="btn" data-ng-click="vm.deleteDataSource(vm.projectService.activeDataSource)" alt="Delete data source"
                popover="Delete data source"
                popover-placement="top"
                popover-trigger="mouseenter">
