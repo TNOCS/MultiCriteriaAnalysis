@@ -1,4 +1,10 @@
-﻿var Solutions;
+﻿var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Solutions;
 (function (Solutions) {
     var SolutionsCtrl = (function () {
         // dependencies are injected via AngularJS $injector
@@ -63,8 +69,27 @@
             });
         };
 
-        SolutionsCtrl.prototype.select = function (node) {
-            console.log(JSON.stringify(node, null, 2));
+        SolutionsCtrl.prototype.updateCriteria = function (criteria) {
+            console.log(JSON.stringify(criteria, null, 2));
+        };
+
+        SolutionsCtrl.prototype.select = function (item) {
+            console.log(JSON.stringify(item, null, 2));
+            this.selectedItem = item;
+            this.activeCriterias = [];
+            this.eachCriteria(this.projectService.project.criterias);
+            //this.$scope.multiSelectOptions = multiSelectOptions;
+        };
+
+        SolutionsCtrl.prototype.eachCriteria = function (criterias) {
+            for (var k in criterias) {
+                var criteria = criterias[k];
+                if (criteria.hasSubcriteria()) {
+                    this.eachCriteria(criteria.subCriterias);
+                } else if (this.selectedItem.isSelectedCriteria(criteria.id)) {
+                    this.activeCriterias.push(new SelectableCriterion(criteria));
+                }
+            }
         };
         SolutionsCtrl.$inject = [
             '$scope',
@@ -76,6 +101,23 @@
         return SolutionsCtrl;
     })();
     Solutions.SolutionsCtrl = SolutionsCtrl;
+
+    var SelectableCriterion = (function (_super) {
+        __extends(SelectableCriterion, _super);
+        function SelectableCriterion(criterion) {
+            _super.call(this);
+            this.criterion = criterion;
+            this.isSelected = false;
+            this.id = criterion.id;
+            this.title = criterion.title;
+            this.description = criterion.description;
+            this.userWeight = criterion.userWeight;
+            this.weight = criterion.weight;
+            this.options = criterion.options;
+        }
+        return SelectableCriterion;
+    })(Models.Criteria);
+    Solutions.SelectableCriterion = SelectableCriterion;
 
     var GetTitleDialogCtrl = (function () {
         function GetTitleDialogCtrl($scope, $modalInstance, header) {

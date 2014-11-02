@@ -1,8 +1,9 @@
 ﻿module Models {
     export class McaProject {
         public title: string;
+        // TODO Add a saved date.
 
-        public criterias   : Criteria[]    = [];
+        public criterias: Criteria[] = [];
         public scenarios   : Scenario[]    = [];
         public solutions   : Solution[]    = [];
         public dataSources : DataSource[] = [];
@@ -76,8 +77,6 @@
             subCriteria.description = 'Repair time is dependent on the type of damage';
             subCriteria.userWeight = 3;
             subCriteria.addOption('no repair time needed', 1);
-
-            
 
             var option = subCriteria.addOption('up to 1 week', .8);
             option.description = 'No structural and less than up to 100m2 façade/floor damages etc.';
@@ -198,13 +197,13 @@
             var subScenario = new Scenario();
             subScenario.title = 'Extreme wind load';
             subScenario.userWeight = 2;
-            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
-            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
-            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
             var subSubScenario = new Scenario();
             subSubScenario.title = 'Force 1';
             subSubScenario.description = 'Description';
             subSubScenario.userWeight = 5;
+            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
+            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
+            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
             subScenario.subScenarios.push(subSubScenario);
             subSubScenario = new Scenario();
             subSubScenario.title = 'Force 2';

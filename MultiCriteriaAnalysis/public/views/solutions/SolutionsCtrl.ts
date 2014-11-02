@@ -8,7 +8,9 @@
     export class SolutionsCtrl {
         public solutions  : Models.Solution[];
         public dataSources: Models.DataSource[];
-        public scenarios  : Models.Scenario[];
+        public scenarios: Models.Scenario[];
+        public selectedItem: Models.Scenario;
+        public activeCriterias: SelectableCriterion[];
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -81,8 +83,41 @@
             });
         }
 
-        public select(node: any) {
-            console.log(JSON.stringify(node, null, 2));
+        public updateCriteria(criteria: SelectableCriterion) {
+            console.log(JSON.stringify(criteria, null, 2));
+        }
+
+        public select(item: Models.Scenario) {
+            console.log(JSON.stringify(item, null, 2));
+            this.selectedItem = item;
+            this.activeCriterias = [];
+            this.eachCriteria(this.projectService.project.criterias);
+            //this.$scope.multiSelectOptions = multiSelectOptions;
+        }
+
+        private eachCriteria(criterias: Models.Criteria[]) {
+            for (var k in criterias) {
+                var criteria: Models.Criteria = criterias[k];
+                if (criteria.hasSubcriteria()) {
+                    this.eachCriteria(criteria.subCriterias);
+                } else if (this.selectedItem.isSelectedCriteria(criteria.id)) {
+                    this.activeCriterias.push(new SelectableCriterion(criteria));
+                }
+            }
+        }
+    }
+
+    export class SelectableCriterion extends Models.Criteria {
+        public isSelected: boolean = false;
+
+        constructor(private criterion: Models.Criteria) {
+            super();
+            this.id          = criterion.id;
+            this.title       = criterion.title;
+            this.description = criterion.description;
+            this.userWeight  = criterion.userWeight;
+            this.weight      = criterion.weight;
+            this.options     = criterion.options;
         }
     }
 

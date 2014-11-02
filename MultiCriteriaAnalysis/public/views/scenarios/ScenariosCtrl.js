@@ -71,9 +71,6 @@
                 }
             }
         };
-
-        ScenariosCtrl.prototype.updateSelectedCriterias = function (data) {
-        };
         ScenariosCtrl.$inject = [
             '$scope',
             'messageBusService',

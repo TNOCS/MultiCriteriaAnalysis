@@ -2,6 +2,7 @@
 (function (Models) {
     var McaProject = (function () {
         function McaProject() {
+            // TODO Add a saved date.
             this.criterias = [];
             this.scenarios = [];
             this.solutions = [];
@@ -198,13 +199,13 @@
             var subScenario = new Models.Scenario();
             subScenario.title = 'Extreme wind load';
             subScenario.userWeight = 2;
-            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
-            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
-            subScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
             var subSubScenario = new Models.Scenario();
             subSubScenario.title = 'Force 1';
             subSubScenario.description = 'Description';
             subSubScenario.userWeight = 5;
+            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
+            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
+            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
             subScenario.subScenarios.push(subSubScenario);
             subSubScenario = new Models.Scenario();
             subSubScenario.title = 'Force 2';

@@ -24,25 +24,43 @@
     </div>
 
     <div class="row" data-ng-if="vm.projectService.activeSolution">
-        <script type="text/ng-template" id="items_renderer.html">
-            <div ui-tree-handle ng-click="vm.select(item)">
-                <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-                <span ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag>{{item.title}}</span>
-                <rating ng-model="item.userWeight" class="span6 pull-right" style="text-align:right;" max="5" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-                <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
+        <div>
+            <script type="text/ng-template" id="items_renderer.html">
+                <div ui-tree-handle ng-click="vm.select(item)">
+                    <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+                    <span ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag>{{item.title}}</span>
+                    <rating ng-model="item.userWeight" class="span6 pull-right" style="text-align:right;" max="5" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
+                </div>
+                <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
+                    <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'"></li>
+                </ol>
+            </script>
+
+            <div ui-tree="options" data-drag-enabled="false" class="col-md-6">
+                <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios" data-nodrop data-nodrag style="cursor: pointer">
+                    <li ng-repeat="item in vm.projectService.project.scenarios"
+                        ui-tree-node
+                        ng-include="'items_renderer.html'"></li>
+                </ol>
             </div>
-            <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
-                <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'"></li>
-            </ol>
-        </script>
-
-        <div ui-tree="options" data-drag-enabled="false" class="col-md-6">
-            <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios" data-nodrop data-nodrag style="cursor: pointer">
-                <li ng-repeat="item in vm.projectService.project.scenarios"
-                    ui-tree-node
-                    ng-include="'items_renderer.html'"></li>
-            </ol>
         </div>
-
+        <div>
+            <div class="col-md-6">
+                <div class="row" data-ng-if="vm.selectedItem">
+                    <h3>{{vm.selectedItem.title}}</h3>
+                    <!--<span contenteditable ng-model="vm.selectedItem.description" style="font-size:20px;cursor:text"></span>-->
+                    <div class="row" data-ng-if="vm.activeCriterias.length > 0">
+                        <div class="col-md-12" data-ng-repeat="criteria in vm.activeCriterias">
+                            <h4>SPECIFY {{criteria.title}}</h4>
+                            <select style="margin:0 10px;width:90%"
+                                    data-ng-change="vm.updateCriteria(criteria)"
+                                    data-ng-options="option.id as option.title for option in criteria.options"
+                                    data-ng-model="criteria.selectedId"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

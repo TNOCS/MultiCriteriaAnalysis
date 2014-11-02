@@ -36,22 +36,22 @@
             <div class="row" data-ng-if="vm.selectedItem">
                 <h3>{{vm.selectedItem.title}}</h3>
                 <!--<span contenteditable ng-model="vm.selectedItem.description" style="font-size:20px;cursor:text"></span>-->
-                <h4>Select criteria</h4>
-                <div data-ng-if="vm.selectedItem"
-                     max-height="250px"
-                     max-labels="3"
-                     style="margin: -8px 10px 0 10px;"
-                     multi-select
-                     input-model="multiSelectOptions"
-                     button-label="title"
-                     item-label="title"
-                     tick-property="ticked"
-                     orientation="vertical"
-                     on-item-click="clicked(data)"
-                     group-property="multiSelectGroup">
+                <div data-ng-if="!vm.selectedItem.hasSubs()">
+                    <h4>Select criteria</h4>
+                    <div max-height="250px"
+                         max-labels="3"
+                         style="margin: -8px 10px 0 10px;"
+                         multi-select
+                         input-model="multiSelectOptions"
+                         button-label="title"
+                         item-label="title"
+                         tick-property="ticked"
+                         orientation="vertical"
+                         on-item-click="clicked(data)"
+                         group-property="multiSelectGroup">
+                    </div>
                 </div>
             </div>
-                
         </div>
     </div>
 </div>

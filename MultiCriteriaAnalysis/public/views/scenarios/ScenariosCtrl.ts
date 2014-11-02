@@ -98,9 +98,6 @@
                 }
             }
         }
-
-        public updateSelectedCriterias(data: any) {
-        }
     }
 
     export class CriteriaSelectorLeaf {
