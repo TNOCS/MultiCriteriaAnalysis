@@ -583,3 +583,20 @@ border-top-style: none;
     color: #FFF !important;
 }
 /* Angular tree style end */
+
+.lock {
+    right: 0;
+    float:right    
+}
+
+.criteriaDataSourceSelect {
+    right:300px;cursor:pointer;position:fixed;width:150px
+}
+
+.criteriaRating {
+    right:150px;cursor:pointer;position:fixed
+}
+
+.criteriaOptionValue {
+    right:150px;cursor:pointer;width:50px;position:fixed
+}

@@ -98,6 +98,7 @@
                     templateUrl: "views/solutions/solutions.html",
                     sticky: true
                 });
+
         })
         .service('messageBusService', csComp.Services.MessageBusService)
         .service('projectService', Services.ProjectService)

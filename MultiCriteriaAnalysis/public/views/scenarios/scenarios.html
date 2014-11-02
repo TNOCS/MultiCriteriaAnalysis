@@ -1,11 +1,23 @@
 ﻿<div data-ng-controller="ScenariosCtrl as d" style="overflow-y: auto; overflow-x: hidden" resize resize-y="100">
     <h1>Scenarios</h1>
+    
+    <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>
+    <div ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-unlock"></i><a style="margin-left: 5px">disable reorder</a></div>
+
 
     <script type="text/ng-template" id="items_renderer.html">
         <div ui-tree-handle>
             <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
             <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text" data-nodrag></span>
             <rating ng-model="item.userWeight" style="right:150px;cursor:pointer;position:fixed" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+            <select class="multiselect" data-nodrag id="example-getting-started" multiple="multiple" style="right:300px;cursor:pointer;position:fixed">
+                <option value="cheese">Cheese</option>
+                <option value="tomatoes">Tomatoes</option>
+                <option value="mozarella">Mozzarella</option>
+                <option value="mushrooms">Mushrooms</option>
+                <option value="pepperoni">Pepperoni</option>
+                <option value="onions">Onions</option>
+            </select>
             <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
 
@@ -17,7 +29,7 @@
         </ol>
 
     </script>
-    <div ui-tree="options" data-drag-delay="500">
+    <div ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500" style="margin-top:40px">
         <ol ui-tree-nodes ng-model="d.projectService.project.scenarios">
             <li ng-repeat="item in d.projectService.project.scenarios" ui-tree-node ng-include="'items_renderer.html'"></li>
         </ol>

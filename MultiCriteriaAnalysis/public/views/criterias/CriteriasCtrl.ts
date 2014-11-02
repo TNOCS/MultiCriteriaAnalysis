@@ -2,7 +2,8 @@
     export interface ICriteriasViewScope extends ng.IScope {
         vm                : CriteriasCtrl;
         selectedItem      : any;
-        options           : any;
+        options: any;
+        reorder : boolean;
         remove            : Function;
         toggle            : Function;
         newSubCriteria    : Function;
@@ -38,6 +39,8 @@
             
 
             console.log(JSON.stringify(projectService.project, null, 2));
+
+            $scope.reorder = false;
 
             $scope.selectedItem = {};
 

@@ -5,11 +5,13 @@
         options           : any;
         remove            : Function;
         toggle            : Function;
-        newSubCriteria    : Function;
         newSubScenario    : Function;
+        //newSubScenario    : Function;
+        reorder : boolean;
         newCriteria       : Function
         newOption         : Function;
-        removeOption      : Function;
+        removeOption: Function;
+        
     }
 
     export class ScenariosCtrl {
@@ -33,6 +35,12 @@
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
+
+            $scope.reorder = false;
+             
+            $scope.$on('$viewContentLoaded', function () {
+                (<any>$('.multiselect')).multiselect();                
+            });
 
             $scope.selectedItem = {};
 
