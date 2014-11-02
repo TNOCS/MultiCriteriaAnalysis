@@ -14,11 +14,11 @@
         /** Get the date as YYYYMMDDHHmm */
         Utils.getDate = function () {
             var now = new Date();
-            return now.getFullYear() + Utils.getTwoDigit(now.getMonth()) + Utils.getTwoDigit(now.getDay()) + '_' + Utils.getTwoDigit(now.getHours()) + Utils.getTwoDigit(now.getMinutes());
+            return now.getFullYear() + Utils.getTwoDigit(now.getMonth() + 1) + Utils.getTwoDigit(now.getDate()) + '_' + Utils.getTwoDigit(now.getHours()) + Utils.getTwoDigit(now.getMinutes());
         };
 
-        Utils.getTwoDigit = function (number) {
-            return (number < 10 ? '0' : '') + number;
+        Utils.getTwoDigit = function (nmbr) {
+            return (nmbr < 10 ? '0' : '') + nmbr;
         };
 
         Utils.isNullOrEmpty = function (s) {

@@ -11,11 +11,11 @@
         /** Get the date as YYYYMMDDHHmm */
         public static getDate() {
             var now = new Date();
-            return now.getFullYear() + Utils.getTwoDigit(now.getMonth()) + Utils.getTwoDigit(now.getDay()) + '_' + Utils.getTwoDigit(now.getHours()) + Utils.getTwoDigit(now.getMinutes());
+            return now.getFullYear() + Utils.getTwoDigit(now.getMonth()+1) + Utils.getTwoDigit(now.getDate()) + '_' + Utils.getTwoDigit(now.getHours()) + Utils.getTwoDigit(now.getMinutes());
         }
 
-        public static getTwoDigit(number: number): string {
-            return (number < 10 ? '0' : '') + number;
+        public static getTwoDigit(nmbr: number): string {
+            return (nmbr < 10 ? '0' : '') + nmbr;
         }
 
         public static isNullOrEmpty(s: string): boolean {

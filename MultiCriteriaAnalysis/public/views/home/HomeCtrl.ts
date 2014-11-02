@@ -94,7 +94,7 @@
             var a: any = document.createElement('a');
             a.href = 'data:text/json;charset=utf-8,' + projectAsJson;
             a.target = '_blank';
-            var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title;
+            var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title.replace(/ /g, '_');
             a.download = filename + '.json';
             document.body.appendChild(a);
             a.click();
@@ -107,10 +107,11 @@
             var f = files[0];
 
             reader.onload = e => {
-                var project: Models.McaProject = JSON.parse(reader.result);
+                //var projectData: Models.McaProject = JSON.parse(reader.result);
+                var project = new Models.McaProject(JSON.parse(reader.result));
                 this.projectService.projects.push(project);
                 this.projectService.project = project;
-                $('#uploadFile').val('');
+                //$('#uploadFile').val('');
             }
 
             reader.readAsText(f);

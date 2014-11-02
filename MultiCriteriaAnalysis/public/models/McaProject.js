@@ -1,14 +1,39 @@
 ﻿var Models;
 (function (Models) {
     var McaProject = (function () {
-        function McaProject() {
+        function McaProject(projectData) {
             // TODO Add a saved date.
             this.criterias = [];
             this.scenarios = [];
             this.solutions = [];
             this.dataSources = [];
-            this.createDummy();
+            if (projectData)
+                this.fromJson(projectData);
+            else
+                this.createDummy();
         }
+        /** Deserialize the object */
+        McaProject.prototype.fromJson = function (projectData) {
+            var _this = this;
+            this.title = projectData.title;
+            this.description = projectData.description;
+
+            projectData.criterias.forEach(function (data) {
+                _this.criterias.push(new Models.Criteria(data));
+            });
+            projectData.scenarios.forEach(function (data) {
+                _this.scenarios.push(new Models.Scenario(data));
+            });
+            projectData.dataSources.forEach(function (data) {
+                var dataSource = new Models.DataSource();
+                dataSource.fromJson(data);
+                _this.dataSources.push(dataSource);
+            });
+            projectData.solutions.forEach(function (data) {
+                _this.solutions.push(new Models.Solution(data));
+            });
+        };
+
         McaProject.prototype.saveToJson = function () {
             return false;
         };
@@ -19,10 +44,6 @@
 
         McaProject.prototype.toJson = function () {
             return '';
-        };
-
-        McaProject.prototype.fromJson = function (json) {
-            return false;
         };
 
         McaProject.prototype.findDataSourceByTitle = function (title) {

@@ -1,15 +1,38 @@
 ﻿var Models;
 (function (Models) {
     var Scenario = (function () {
-        function Scenario() {
+        function Scenario(data) {
             var _this = this;
             this.subScenarios = [];
             this.effectedCriteriaIds = [];
             this.hasSubs = function () {
                 return _this.subScenarios.length > 0;
             };
-            this.id = Helpers.Utils.createGuid();
+            if (data)
+                this.fromJson(data);
+            else
+                this.id = Helpers.Utils.createGuid();
         }
+        /** Deserialize the object */
+        Scenario.prototype.fromJson = function (data) {
+            var _this = this;
+            this.id = data.id;
+            this.title = data.title;
+            this.description = data.description;
+            this.userWeight = data.userWeight;
+            this.effectedCriteriaIds = data.effectedCriteriaIds;
+            this.calculateWeights();
+
+            data.subScenarios.forEach(function (d) {
+                var scenario = new Scenario();
+                scenario.fromJson(d);
+                _this.subScenarios.push(scenario);
+            });
+        };
+
+        /**
+        * Returns true if this criteria id effects this scenario.
+        */
         Scenario.prototype.isSelectedCriteria = function (id) {
             return this.effectedCriteriaIds.indexOf(id) >= 0;
         };

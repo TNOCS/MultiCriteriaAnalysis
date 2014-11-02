@@ -4,12 +4,19 @@
         function CriteriaOption() {
             this.id = Helpers.Utils.createGuid();
         }
+        /** Deserialize the object */
+        CriteriaOption.prototype.fromJson = function (data) {
+            this.id = data.id;
+            this.title = data.title;
+            this.description = data.description;
+            this.value = data.value;
+        };
         return CriteriaOption;
     })();
     Models.CriteriaOption = CriteriaOption;
 
     var Criteria = (function () {
-        function Criteria() {
+        function Criteria(data) {
             var _this = this;
             this.subCriterias = [];
             this.options = [];
@@ -19,8 +26,33 @@
             this.canHaveSubs = function () {
                 return _this.options.length === 0;
             };
-            this.id = Helpers.Utils.createGuid();
+            if (data)
+                this.fromJson(data);
+            else
+                this.id = Helpers.Utils.createGuid();
         }
+        /** Deserialize the object */
+        Criteria.prototype.fromJson = function (data) {
+            var _this = this;
+            this.id = data.id;
+            this.title = data.title;
+            this.description = data.description;
+            this.userWeight = data.userWeight;
+            this.dataSourceId = data.dataSourceId;
+            this.calculateWeights();
+
+            data.subCriterias.forEach(function (d) {
+                var criteria = new Criteria();
+                criteria.fromJson(d);
+                _this.subCriterias.push(criteria);
+            });
+            data.options.forEach(function (d) {
+                var option = new CriteriaOption();
+                option.fromJson(d);
+                _this.options.push(option);
+            });
+        };
+
         Criteria.prototype.hasOptions = function () {
             return this.options.length > 0;
         };

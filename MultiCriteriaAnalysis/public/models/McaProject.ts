@@ -1,15 +1,41 @@
 ﻿module Models {
     export class McaProject {
-        public title: string;
+        public title      : string;
+        public description: string;
+
         // TODO Add a saved date.
 
-        public criterias: Criteria[] = [];
+        public criterias   : Criteria[] = [];
         public scenarios   : Scenario[]    = [];
         public solutions   : Solution[]    = [];
         public dataSources : DataSource[] = [];
 
-        constructor() {
-            this.createDummy();
+        constructor(projectData?: McaProject) {
+            if (projectData)
+                this.fromJson(projectData);
+            else
+                this.createDummy();
+        }
+
+        /** Deserialize the object */
+        public fromJson(projectData: McaProject) {
+            this.title       = projectData.title;
+            this.description = projectData.description;
+
+            projectData.criterias.forEach((data) => {
+                this.criterias.push(new Models.Criteria(data));
+            });
+            projectData.scenarios.forEach((data) => {
+                this.scenarios.push(new Models.Scenario(data));
+            });
+            projectData.dataSources.forEach((data) => {
+                var dataSource = new Models.DataSource();
+                dataSource.fromJson(data);
+                this.dataSources.push(dataSource);
+            });
+            projectData.solutions.forEach((data) => {
+                this.solutions.push(new Models.Solution(data));
+            });
         }
 
         public saveToJson(): boolean {
@@ -22,10 +48,6 @@
 
         public toJson(): string {
             return '';
-        }
-
-        public fromJson(json: string): boolean {
-            return false;
         }
 
         public findDataSourceByTitle(title: string) : DataSource {

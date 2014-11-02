@@ -13,18 +13,32 @@
     export class Solution {
         public id: string;
         public title: string;
+        public description: string;
         public scores: {
-            [criteriaId: string]:
-                {
-                    criteriaOptionId: string;
-                    value: number;
-                }
+            [scenarioId: string]: {
+                [criteriaId: string]:
+                    {
+                        criteriaOptionId: string;
+                        value: number;
+                    }
+            }
         } = {};
         //public scores    : Score[] = [];
         public totalValue: number;
 
-        constructor() {
-            this.id = Helpers.Utils.createGuid();
+        constructor(data?: Solution) {
+            if (data)
+                this.fromJson(data);
+            else
+                this.id = Helpers.Utils.createGuid();
+        }
+
+        /** Deserialize the object */
+        public fromJson(data: Solution) {
+            this.id = data.id;
+            this.title = data.title;
+            this.description = data.description;
+            this.scores = data.scores;
         }
 
         public calculateScore(): number {

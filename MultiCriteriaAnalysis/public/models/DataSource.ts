@@ -5,9 +5,14 @@
         public title: string;
 
         constructor(title?: string) {
-            if (title) this.title = title;
             this.id = Helpers.Utils.createGuid();
+            if (title) this.title = title;
+        }
+
+        /** Deserialize the object */
+        public fromJson(data: DataSource) {
+            this.id                  = data.id;
+            this.title               = data.title;
         }
     }
-
 }

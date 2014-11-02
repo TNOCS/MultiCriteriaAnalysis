@@ -70,15 +70,18 @@ var Solutions;
         };
 
         SolutionsCtrl.prototype.updateCriteria = function (criteria) {
-            console.log(JSON.stringify(criteria, null, 2));
-            this.projectService.activeSolution.scores[criteria.id] = {
+            //console.log(JSON.stringify(criteria, null, 2));
+            if (!(this.selectedItem.id in this.projectService.activeSolution.scores)) {
+                this.projectService.activeSolution.scores[this.selectedItem.id] = {};
+            }
+            this.projectService.activeSolution.scores[this.selectedItem.id][criteria.id] = {
                 criteriaOptionId: criteria.selectedId,
                 value: criteria.getOptionValueById(criteria.selectedId)
             };
         };
 
         SolutionsCtrl.prototype.select = function (item) {
-            console.log(JSON.stringify(item, null, 2));
+            //console.log(JSON.stringify(item, null, 2));
             this.selectedItem = item;
             this.activeCriterias = [];
             this.eachCriteria(this.projectService.project.criterias);
@@ -86,14 +89,15 @@ var Solutions;
         };
 
         SolutionsCtrl.prototype.eachCriteria = function (criterias) {
+            var activeScenario = this.selectedItem;
             for (var k in criterias) {
                 var criteria = criterias[k];
                 if (criteria.hasSubcriteria()) {
                     this.eachCriteria(criteria.subCriterias);
-                } else if (this.selectedItem.isSelectedCriteria(criteria.id)) {
+                } else if (activeScenario.isSelectedCriteria(criteria.id)) {
                     var selectedId = '';
-                    if (criteria.id in this.projectService.activeSolution.scores) {
-                        selectedId = this.projectService.activeSolution.scores[criteria.id].criteriaOptionId;
+                    if (activeScenario.id in this.projectService.activeSolution.scores && criteria.id in this.projectService.activeSolution.scores[activeScenario.id]) {
+                        selectedId = this.projectService.activeSolution.scores[activeScenario.id][criteria.id].criteriaOptionId;
                     }
                     this.activeCriterias.push(new SelectableCriterion(criteria, selectedId));
                 }

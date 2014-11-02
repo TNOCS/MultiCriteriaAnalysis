@@ -9,6 +9,14 @@
         constructor() {
             this.id = Helpers.Utils.createGuid();
         }
+
+        /** Deserialize the object */
+        public fromJson(data: CriteriaOption) {
+            this.id          = data.id;
+            this.title       = data.title;
+            this.description = data.description;
+            this.value       = data.value;
+        }
     }
 
     export class Criteria {
@@ -22,8 +30,32 @@
         public options      : CriteriaOption[] = []
         public dataSourceId : string;
 
-        constructor() {
-            this.id = Helpers.Utils.createGuid();
+        constructor(data?: Criteria) {
+            if (data)
+                this.fromJson(data);
+            else
+                this.id = Helpers.Utils.createGuid();
+        }
+
+        /** Deserialize the object */
+        public fromJson(data: Criteria) {
+            this.id           = data.id;
+            this.title        = data.title;
+            this.description  = data.description;
+            this.userWeight   = data.userWeight;
+            this.dataSourceId = data.dataSourceId;
+            this.calculateWeights();
+
+            data.subCriterias.forEach((d) => {
+                var criteria = new Criteria();
+                criteria.fromJson(d);
+                this.subCriterias.push(criteria);
+            });
+            data.options.forEach((d) => {
+                var option = new CriteriaOption();
+                option.fromJson(d);
+                this.options.push(option);
+            });
         }
 
         public canHaveOptions = () => {
