@@ -58,7 +58,7 @@
         public isActive(viewLocation: string) {
             return viewLocation === this.$location.path();
         }
-   }
+    }
 
     // Start the application
     angular.module('mca', [
