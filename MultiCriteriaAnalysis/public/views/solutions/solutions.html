@@ -25,24 +25,25 @@
 
     <div class="row" data-ng-if="vm.projectService.activeSolution">
         <script type="text/ng-template" id="items_renderer.html">
-            <div ui-tree-handle>
+            <div ui-tree-handle ng-click="vm.select(item)">
                 <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-                <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag></span>
+                <span ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag>{{item.title}}</span>
                 <rating ng-model="item.userWeight" class="span6 pull-right" style="text-align:right;" max="5" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                 <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
             </div>
             <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
-                <li ng-repeat="item in item.subScenarios" ui-tree-node ng-include="'items_renderer.html'">
+                <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'">
                 </li>
             </ol>
-
         </script>
-        <div ui-tree="options" class="col-md-6">
-            <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios">
-                <li ng-repeat="item in vm.projectService.project.scenarios" 
-                    ui-tree-node 
+
+        <div ui-tree="options" data-drag-enabled="false" class="col-md-6">
+            <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios" data-nodrop data-nodrag style="cursor: pointer">
+                <li ng-repeat="item in vm.projectService.project.scenarios"
+                    ui-tree-node
                     ng-include="'items_renderer.html'"></li>
             </ol>
         </div>
+
     </div>
 </div>

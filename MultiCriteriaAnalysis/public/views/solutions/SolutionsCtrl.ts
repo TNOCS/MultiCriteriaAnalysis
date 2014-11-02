@@ -80,6 +80,10 @@
                 this.$log.error('Modal dismissed at: ' + new Date());
             });
         }
+
+        public select(node: any) {
+            console.log(JSON.stringify(node, null, 2));
+        }
     }
 
     export interface IGetTitleDialogScope extends ng.IScope {

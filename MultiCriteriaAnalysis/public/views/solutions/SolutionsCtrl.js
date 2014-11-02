@@ -62,6 +62,10 @@
                 _this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
+
+        SolutionsCtrl.prototype.select = function (node) {
+            console.log(JSON.stringify(node, null, 2));
+        };
         SolutionsCtrl.$inject = [
             '$scope',
             '$modal',

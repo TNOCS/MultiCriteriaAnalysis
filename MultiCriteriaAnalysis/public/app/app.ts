@@ -67,7 +67,7 @@
         'LocalStorageModule',
         'csWeb.resize',
         'angularUtils.directives.dirPagination',
-        'ui.tree'
+        'ui.tree' // https://github.com/JimLiu/angular-ui-tree
         ])
         .config(localStorageServiceProvider => {
             localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';

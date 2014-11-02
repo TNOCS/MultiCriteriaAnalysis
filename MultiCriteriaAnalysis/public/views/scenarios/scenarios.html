@@ -17,13 +17,11 @@
         </ol>
 
     </script>
-    <div ui-tree="options">
+    <div ui-tree="options" data-drag-delay="500">
         <ol ui-tree-nodes ng-model="d.projectService.project.scenarios">
             <li ng-repeat="item in d.projectService.project.scenarios" ui-tree-node ng-include="'items_renderer.html'"></li>
         </ol>
     </div>
     <a class="pull-right btn btn-primary btn-xs" ng-click="newCriteria()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
-
-
 
 </div>

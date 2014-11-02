@@ -34,7 +34,7 @@
             </li>
         </ol>
     </script>
-    <div ui-tree="options">
+    <div ui-tree="options" data-drag-delay="500">
         <ol ui-tree-nodes ng-model="d.projectService.project.criterias">
             <li ng-repeat="item in d.projectService.project.criterias" ui-tree-node ng-include="'items_renderer.html'"></li>
         </ol>
