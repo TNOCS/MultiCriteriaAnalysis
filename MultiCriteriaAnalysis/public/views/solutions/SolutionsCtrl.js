@@ -81,11 +81,36 @@ var Solutions;
         };
 
         SolutionsCtrl.prototype.select = function (item) {
-            //console.log(JSON.stringify(item, null, 2));
+            if (!item) {
+                // Create a pseudo criteria that is the level
+                item = new Models.Scenario();
+                item.title = "Top level scenario";
+                item.subScenarios = this.projectService.project.scenarios;
+            }
             this.selectedItem = item;
             this.activeCriterias = [];
             this.eachCriteria(this.projectService.project.criterias);
-            //this.$scope.multiSelectOptions = multiSelectOptions;
+
+            if (!this.selectedItem.hasSubs()) {
+                Helpers.Utils.drawAsterPlot();
+                return;
+            }
+            var data = [];
+            this.selectedItem.calculateWeights();
+            for (var k in this.selectedItem.subScenarios) {
+                var scenario = this.selectedItem.subScenarios[k];
+                data.push({
+                    id: k + 1,
+                    order: k + 1,
+                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    weight: scenario.weight,
+                    score: 100,
+                    width: scenario.weight,
+                    label: scenario.title
+                });
+            }
+
+            Helpers.Utils.drawAsterPlot(data);
         };
 
         SolutionsCtrl.prototype.eachCriteria = function (criterias) {

@@ -1,7 +1,7 @@
 ﻿<div data-ng-controller="SolutionsCtrl" class="container-fluid" 
      style="overflow-y: auto; overflow-x: hidden" resize resize-y="100">
-    <div class="row">
-        <h3 class="col-md-2" style="margin-top: 0">Active Solution:</h3>
+    <div class="row" style="margin-top: 22px">
+        <h1 class="col-md-3" style="margin-top:0">Active Solution:</h1>
         <div class="col-md-2">
             <select class="form-control"
                     data-ng-model="vm.projectService.activeSolution"
@@ -15,7 +15,7 @@
                 <i class="fa fa-2x fa-plus"></i>
             </a>
         </div>
-        <div class="col-md-offset-4 col-md-2">
+        <div class="col-md-offset-3 col-md-2">
             <!--TODO Add filter icon-->
             <select class="form-control"
                     data-ng-model="vm.projectService.activeDataSource"
@@ -38,6 +38,7 @@
             </script>
 
             <div ui-tree="options" data-drag-enabled="false" class="col-md-6">
+                <a ng-click="vm.select()"><i class="fa fa-pie-chart"></i>select top element</a>
                 <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios" data-nodrop data-nodrag style="cursor: pointer">
                     <li ng-repeat="item in vm.projectService.project.scenarios"
                         ui-tree-node
@@ -50,6 +51,8 @@
                 <div class="row" data-ng-if="vm.selectedItem">
                     <h3>{{vm.selectedItem.title}}</h3>
                     <!--<span contenteditable ng-model="vm.selectedItem.description" style="font-size:20px;cursor:text"></span>-->
+                    <div id="pieChart"></div>
+
                     <div class="row" data-ng-if="vm.activeCriterias.length > 0">
                         <div class="col-md-12" data-ng-repeat="criteria in vm.activeCriterias">
                             <h4>SPECIFY {{criteria.title}}</h4>
