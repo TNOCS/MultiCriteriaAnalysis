@@ -51,16 +51,16 @@
             return s === 'true' || s === 'false';
         }
 
+        private static pieRadius : number = 300;
         public static pieColors = ["#fff7ec", "#fee8c8", "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"];
 
         public static drawPie(data?: any) {
-            var svgElement = d3.select("#the_SVG_ID");
-            if (svgElement) svgElement.remove();
+            Utils.clearSvg();
 
             if (!data) return;
 
-            var width = 500,
-                height = 500,
+            var width = Utils.pieRadius,
+                height = Utils.pieRadius,
                 radius = Math.min(width, height) / 2,
                 innerRadius = 0.3 * radius;
 
@@ -88,7 +88,13 @@
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-            svg.call(tip);
+            try {
+                svg.call(tip);
+            }
+            catch (err) {
+                svg.call(tip);      //Utils.drawPie(data);
+                console.log("Error: " + err.message);
+            }
 
             var path = svg.selectAll(".solidArc")
                 .data(pie(data))
@@ -109,15 +115,19 @@
                 .attr("d", outlineArc);
         }
 
-        /** See http://bl.ocks.org/bbest/2de0e25d4840c68f2db1 */
-        public static drawAsterPlot(data?: any) {
+        public static clearSvg() {
             var svgElement = d3.select("#the_SVG_ID");
             if (svgElement) svgElement.remove();
+        }
+
+        /** See http://bl.ocks.org/bbest/2de0e25d4840c68f2db1 */
+        public static drawAsterPlot(data?: any) {
+            Utils.clearSvg();
 
             if (!data) return;
 
-            var width = 500,
-                height = 500,
+            var width = Utils.pieRadius,
+                height = Utils.pieRadius,
                 radius = Math.min(width, height) / 2,
                 innerRadius = 0.3 * radius;
 
@@ -128,7 +138,7 @@
             var tip = d3.tip()
                 .attr('class', 'd3-tip')
                 .offset([0, 0])
-                .html(d => d.data.label + ": <span style='color:orangered'>&nbsp; Weight: " + Math.round(d.data.weight * 100) + "%,&nbsp; Score: " + Math.round(d.data.score) + "</span>");
+                .html(d => d.data.label + ": <span style='color:orangered'>&nbsp; Weight: " + Math.round(d.data.weight * 100) + "%,&nbsp; Score: " + Math.round(d.data.score) + ",&nbsp; Weight*Score: " + Math.round(d.data.weight * d.data.score) + "</span>");
 
             var arc = d3.svg.arc()
                 .innerRadius(innerRadius)
@@ -145,7 +155,12 @@
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-            svg.call(tip);
+            try {
+                svg.call(tip);
+            }
+            catch (err) {
+                console.log("Error: " + err.message);
+            }
 
             var path = svg.selectAll(".solidArc")
                 .data(pie(data))
@@ -167,8 +182,7 @@
 
 
             // calculate the weighted mean score
-            var score =
-                data.reduce(function (a, b) {
+            var score = data.reduce(function (a, b) {
                     //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
                     return a + (b.score * b.weight);
                 }, 0) /

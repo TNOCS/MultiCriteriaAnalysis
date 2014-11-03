@@ -20,6 +20,7 @@
                     {
                         criteriaOptionId: string;
                         value: number;
+                        weight: number;
                     }
             }
         } = {};
@@ -35,20 +36,20 @@
 
         /** Deserialize the object */
         public fromJson(data: Solution) {
-            this.id = data.id;
-            this.title = data.title;
+            this.id          = data.id;
+            this.title       = data.title;
             this.description = data.description;
-            this.scores = data.scores;
+            this.scores      = data.scores;
         }
 
-        public calculateScore(): number {
-            var totalScore = 0;
-            for (var k in this.scores) {
-                var score = this.scores[k];
-                totalScore += score.value;
-            }
-            return totalScore;
-        }
+        //public calculateScore(): number {
+        //    var totalScore = 0;
+        //    for (var k in this.scores) {
+        //        var score = this.scores[k];
+        //        totalScore += score.value;
+        //    }
+        //    return totalScore;
+        //}
     }
 
 }

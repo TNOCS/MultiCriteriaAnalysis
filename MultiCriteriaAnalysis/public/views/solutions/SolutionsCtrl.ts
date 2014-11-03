@@ -88,9 +88,11 @@
             if (!(this.selectedItem.id in this.projectService.activeSolution.scores)) {
                 this.projectService.activeSolution.scores[this.selectedItem.id] = {};
             }
+            criteria.calculateWeights();
             this.projectService.activeSolution.scores[this.selectedItem.id][criteria.id] = {
                 criteriaOptionId: criteria.selectedId,
-                value: criteria.getOptionValueById(criteria.selectedId)
+                value           : criteria.getOptionValueById(criteria.selectedId),
+                weight          : criteria.weight
             };
         }
 
@@ -114,18 +116,55 @@
             for (var k in this.selectedItem.subScenarios) {
                 var scenario = this.selectedItem.subScenarios[k];
                 data.push({
-                    id: k + 1,
-                    order: k + 1,
-                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    id    : k + 1,
+                    order : k + 1,
+                    color : Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
                     weight: scenario.weight,
-                    score: 100,
-                    width: scenario.weight,
-                    label: scenario.title
+                    score : this.computeScore(scenario) * 100,
+                    width : scenario.weight,
+                    label : scenario.title
                 });
             }
 
-            Helpers.Utils.drawAsterPlot(data);
+            //this.fixWeights(data);
+            if (data.length > 0)
+                Helpers.Utils.drawAsterPlot(data);
+            else
+                Helpers.Utils.clearSvg();
+        }
 
+        public fixWeights(data: any[]) {
+            var totalWeight = 0;
+            if (data.length === 0) return;
+            data.forEach((c) => {
+                totalWeight += c.userWeight;
+            });
+            if (totalWeight == 0) return;
+            data.forEach((c) => {
+                c.weight = c.userWeight / totalWeight;
+            });
+        }
+
+        private computeScore(activeScenario: Models.Scenario): number {
+            var totalScore = 0;
+            if (!activeScenario.hasSubs()) {
+                // Leaf node
+                activeScenario.effectedCriteriaIds.forEach((id) => {
+                    if (activeScenario.id in this.projectService.activeSolution.scores) {
+                        var score = this.projectService.activeSolution.scores[activeScenario.id];
+                        if (id in score) {
+                            totalScore += score[id].weight * score[id].value;
+                        }
+                    }
+                });
+            } else {
+                activeScenario.subScenarios.forEach((s) => {
+                    s.calculateWeights();
+                    if (s.weight)
+                        totalScore += s.weight * this.computeScore(s);
+                });
+            }
+            return totalScore;
         }
 
         private eachCriteria(criterias: Models.Criteria[]) {

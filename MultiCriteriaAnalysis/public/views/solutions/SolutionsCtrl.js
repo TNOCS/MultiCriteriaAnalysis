@@ -74,9 +74,11 @@ var Solutions;
             if (!(this.selectedItem.id in this.projectService.activeSolution.scores)) {
                 this.projectService.activeSolution.scores[this.selectedItem.id] = {};
             }
+            criteria.calculateWeights();
             this.projectService.activeSolution.scores[this.selectedItem.id][criteria.id] = {
                 criteriaOptionId: criteria.selectedId,
-                value: criteria.getOptionValueById(criteria.selectedId)
+                value: criteria.getOptionValueById(criteria.selectedId),
+                weight: criteria.weight
             };
         };
 
@@ -104,13 +106,54 @@ var Solutions;
                     order: k + 1,
                     color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
                     weight: scenario.weight,
-                    score: 100,
+                    score: this.computeScore(scenario) * 100,
                     width: scenario.weight,
                     label: scenario.title
                 });
             }
 
-            Helpers.Utils.drawAsterPlot(data);
+            //this.fixWeights(data);
+            if (data.length > 0)
+                Helpers.Utils.drawAsterPlot(data);
+            else
+                Helpers.Utils.clearSvg();
+        };
+
+        SolutionsCtrl.prototype.fixWeights = function (data) {
+            var totalWeight = 0;
+            if (data.length === 0)
+                return;
+            data.forEach(function (c) {
+                totalWeight += c.userWeight;
+            });
+            if (totalWeight == 0)
+                return;
+            data.forEach(function (c) {
+                c.weight = c.userWeight / totalWeight;
+            });
+        };
+
+        SolutionsCtrl.prototype.computeScore = function (activeScenario) {
+            var _this = this;
+            var totalScore = 0;
+            if (!activeScenario.hasSubs()) {
+                // Leaf node
+                activeScenario.effectedCriteriaIds.forEach(function (id) {
+                    if (activeScenario.id in _this.projectService.activeSolution.scores) {
+                        var score = _this.projectService.activeSolution.scores[activeScenario.id];
+                        if (id in score) {
+                            totalScore += score[id].weight * score[id].value;
+                        }
+                    }
+                });
+            } else {
+                activeScenario.subScenarios.forEach(function (s) {
+                    s.calculateWeights();
+                    if (s.weight)
+                        totalScore += s.weight * _this.computeScore(s);
+                });
+            }
+            return totalScore;
         };
 
         SolutionsCtrl.prototype.eachCriteria = function (criterias) {

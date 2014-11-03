@@ -24,15 +24,6 @@
             this.description = data.description;
             this.scores = data.scores;
         };
-
-        Solution.prototype.calculateScore = function () {
-            var totalScore = 0;
-            for (var k in this.scores) {
-                var score = this.scores[k];
-                totalScore += score.value;
-            }
-            return totalScore;
-        };
         return Solution;
     })();
     Models.Solution = Solution;

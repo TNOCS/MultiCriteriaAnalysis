@@ -255,9 +255,11 @@
             subSubScenario.title = 'Seismic 1';
             subSubScenario.userWeight = 5;
             subScenario.subScenarios.push(subSubScenario);
+            subSubScenario = new Models.Scenario();
             subSubScenario.title = 'Seismic 2';
             subSubScenario.userWeight = 3;
             subScenario.subScenarios.push(subSubScenario);
+            subSubScenario = new Models.Scenario();
             subSubScenario.title = 'Seismic 3';
             subSubScenario.userWeight = 1;
             subScenario.subScenarios.push(subSubScenario);

@@ -106,7 +106,10 @@
                 });
             }
 
-            Helpers.Utils.drawPie(data);
+            if (data.length > 0)
+                Helpers.Utils.drawPie(data);
+            else
+                Helpers.Utils.clearSvg();
         }
 
         private eachCriteria(multiSelectOptions: any[], criterias: Models.Criteria[]) {
