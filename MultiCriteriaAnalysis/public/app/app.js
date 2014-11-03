@@ -54,9 +54,9 @@
         localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';
     }).config(function ($stateProvider, $urlRouterProvider) {
         // For any unmatched url, send to /
-        $urlRouterProvider.otherwise("/");
+        $urlRouterProvider.otherwise("/home");
         $stateProvider.state('home', {
-            url: "/",
+            url: "/home",
             templateUrl: "views/home/home.html",
             sticky: true,
             deepStateRedirect: true
