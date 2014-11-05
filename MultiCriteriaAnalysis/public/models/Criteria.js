@@ -18,6 +18,7 @@
     var Criteria = (function () {
         function Criteria(data) {
             var _this = this;
+            this.userWeight = 1;
             this.subCriterias = [];
             this.options = [];
             this.canHaveOptions = function () {

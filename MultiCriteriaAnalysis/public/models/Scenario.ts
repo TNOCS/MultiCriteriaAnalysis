@@ -3,7 +3,7 @@
         public id                 : string;
         public title              : string;
         public description        : string;
-        public userWeight         : number;
+        public userWeight         : number = 1;
         /** Effective weight, sums up to 1 */
         public weight             : number;
         public subScenarios       : Scenario[] = [];

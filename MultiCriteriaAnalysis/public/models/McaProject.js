@@ -9,8 +9,6 @@
             this.dataSources = [];
             if (projectData)
                 this.fromJson(projectData);
-            else
-                this.createDummy();
         }
         /** Deserialize the object */
         McaProject.prototype.fromJson = function (projectData) {

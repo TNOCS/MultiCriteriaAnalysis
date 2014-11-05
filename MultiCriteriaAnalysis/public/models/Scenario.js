@@ -3,6 +3,7 @@
     var Scenario = (function () {
         function Scenario(data) {
             var _this = this;
+            this.userWeight = 1;
             this.subScenarios = [];
             this.effectedCriteriaIds = [];
             this.hasSubs = function () {

@@ -45,11 +45,10 @@
                 scenario.subScenarios.push(s);
             };
 
-            $scope.newCriteria = function () {
-                var c = new Models.Criteria();
-                c.title = "New Scenario";
-                c.userWeight = 1;
-                _this.projectService.project.criterias.push(c);
+            $scope.newScenario = function () {
+                var scenario = new Models.Scenario();
+                scenario.title = "New Scenario";
+                _this.projectService.project.scenarios.push(scenario);
             };
         }
         ScenariosCtrl.prototype.select = function (item) {

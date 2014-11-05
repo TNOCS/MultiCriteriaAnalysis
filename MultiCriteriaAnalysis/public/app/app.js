@@ -103,11 +103,11 @@
             require: "ngModel",
             link: function (scope, element, attrs, ngModel) {
                 function read() {
-                    ngModel.$setViewValue(element.html());
+                    ngModel.$setViewValue(element.html().replace(/<br[^>]*>/g, ""));
                 }
 
                 ngModel.$render = function () {
-                    element.html(ngModel.$viewValue || "");
+                    element.html(ngModel.$viewValue || "Set title...");
                 };
 
                 element.bind("blur keyup change", function () {

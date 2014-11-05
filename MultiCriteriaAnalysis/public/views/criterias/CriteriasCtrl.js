@@ -48,7 +48,6 @@
             $scope.newCriteria = function () {
                 var c = new Models.Criteria();
                 c.title = "New Criteria";
-                c.userWeight = 1;
                 _this.projectService.project.criterias.push(c);
             };
         }

@@ -11,10 +11,7 @@
         public dataSources : DataSource[] = [];
 
         constructor(projectData?: McaProject) {
-            if (projectData)
-                this.fromJson(projectData);
-            else
-                this.createDummy();
+            if (projectData) this.fromJson(projectData);
         }
 
         /** Deserialize the object */

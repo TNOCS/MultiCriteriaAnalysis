@@ -1,11 +1,11 @@
 ﻿<div class="container-fluid" data-ng-controller="ScenariosCtrl as d" 
-     style="overflow-y: auto; overflow-x: hidden" resize resize-y="100">
+     style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="100">
     <h1>Scenarios</h1>
     
     <script type="text/ng-template" id="items_renderer.html">
         <div ui-tree-handle ng-click="vm.select(item)">
             <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-            <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text" data-nodrag></span>
+            <span contenteditable strip-br="true" ng-model="item.title" style="font-size:20px;cursor:text" data-nodrag></span>
             <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
             <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubScenario(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
@@ -19,7 +19,7 @@
     
     <div class="row">
         <div class="col-md-6">
-            <a ng-click="vm.select()"><i class="fa fa-pie-chart"></i>select top element</a>
+            <a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>
             <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>
             <div ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-unlock"></i><a style="margin-left: 5px">disable reorder</a></div>
         </div>
@@ -31,7 +31,7 @@
             <ol ui-tree-nodes ng-model="d.projectService.project.scenarios">
                 <li ng-repeat="item in d.projectService.project.scenarios" ui-tree-node ng-include="'items_renderer.html'"></li>
             </ol>
-            <a class="pull-right btn btn-primary btn-xs" ng-click="newCriteria()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
+            <a class="pull-right btn btn-primary btn-xs" ng-click="newScenario()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
         </div>
         <div class="col-md-6">
             <div class="row" data-ng-if="vm.selectedItem">

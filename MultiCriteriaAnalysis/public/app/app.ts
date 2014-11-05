@@ -128,26 +128,21 @@
             ];
         })
         .filter('format', [
-            '$filter', '$locale', function(filter, locale) {
-                return function(value, format) {
-                    return String.format(format, value);
-                };
-            }
-        ]).directive("contenteditable", function () {
+            '$filter', '$locale', (filter, locale) => (value, format) => String.format(format, value)
+        ]).directive("contenteditable", () => {
             return {
                 restrict: "A",
                 require: "ngModel",
-                link: function (scope, element, attrs, ngModel) {
-
+                link: (scope, element, attrs, ngModel) => {
                     function read() {
-                        ngModel.$setViewValue(element.html());
+                        ngModel.$setViewValue(element.html().replace(/<br[^>]*>/g, ""));
                     }
 
-                    ngModel.$render = function () {
-                        element.html(ngModel.$viewValue || "");
+                    ngModel.$render = () => {
+                        element.html(ngModel.$viewValue || "Set title...");
                     };
 
-                    element.bind("blur keyup change", function () {
+                    element.bind("blur keyup change", () => {
                         scope.$apply(read);
                     });
                 }

@@ -2,7 +2,7 @@
     <h3 class="modal-title">{{header}}</h3>
 </div>
 <div class="modal-body">
-    <input type="text" data-ng-model="vm.title" placeholder="New title" class="form-control">
+    <input type="text" ng-keyup="$event.keyCode == 13 && vm.ok()" data-ng-model="vm.title" placeholder="New title" class="form-control">
 </div>
 <div class="modal-footer">
     <button class="btn btn-warning" ng-click="vm.cancel()">Cancel</button>

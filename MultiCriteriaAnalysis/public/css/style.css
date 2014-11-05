@@ -11,8 +11,7 @@ webfont
   font-weight: normal;
 }
 html,
-body,
-#map {
+body {
 	font-family: ROSans;
 	height: 100%;
 	overflow: hidden;
@@ -661,4 +660,9 @@ border-top-style: none;
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
+}
+
+.angular-ui-tree-empty {
+    background-color: white;
+    border: 0 solid white;
 }

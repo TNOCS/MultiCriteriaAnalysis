@@ -7,7 +7,7 @@
         newSubScenario      : Function;
         //newSubScenario    : Function;
         reorder             : boolean;
-        newCriteria         : Function
+        newScenario         : Function
         newOption           : Function;
         removeOption        : Function;
         multiSelectOptions  : any;
@@ -70,11 +70,10 @@
                 scenario.subScenarios.push(s);
             };
 
-            $scope.newCriteria = () => {
-                var c = new Models.Criteria();
-                c.title = "New Scenario";
-                c.userWeight = 1;
-                this.projectService.project.criterias.push(c);
+            $scope.newScenario = () => {
+                var scenario = new Models.Scenario();
+                scenario.title = "New Scenario";
+                this.projectService.project.scenarios.push(scenario);
             };
 
         }

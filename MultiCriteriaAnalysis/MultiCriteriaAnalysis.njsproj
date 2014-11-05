@@ -59,7 +59,6 @@
     <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
     <Content Include="package.json" />
     <Content Include="public\bower.json" />
-    <Content Include="public\css\font-awesome.css" />
     <Content Include="public\css\pnotify.custom.min.css" />
     <Content Include="public\css\style.css" />
     <Content Include="public\css\xbbcode.css" />
