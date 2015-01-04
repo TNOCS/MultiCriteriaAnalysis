@@ -1,10 +1,9 @@
-﻿<div class="container-fluid" data-ng-controller="CriteriasCtrl as d" style="overflow-y: auto; overflow-x: hidden" resize resize-y="100">
-    
-    <h1 class="row">Criterias</h1>
+﻿<div class="container-fluid" data-ng-controller="CriteriasCtrl as d">
+    <h1>Criterias</h1>
     
     <div class="row">
         <div class="col-md-6">
-            <a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>
+            <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
             <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>
             <div ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-unlock"></i><a style="margin-left: 5px">disable reorder</a></div>
         </div>
@@ -51,7 +50,7 @@
         </ol>
     </script>
  
-    <div class="row">
+    <div class="row" style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
         <div class="col-md-6" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
              style="margin-top:5px">
             <ol ui-tree-nodes ng-model="d.projectService.project.criterias">
@@ -65,7 +64,7 @@
             <div class="row" data-ng-if="vm.selectedItem">
                 <h3>{{vm.selectedItem.title}}</h3>
                 <!--<span contenteditable ng-model="vm.selectedItem.description" style="font-size:20px;cursor:text"></span>-->
-                
+
                 <div id="pieChart"></div>
                 <!--<script src="../../js/draw.js"></script>-->
 

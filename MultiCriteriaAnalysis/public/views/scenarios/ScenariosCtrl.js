@@ -1,4 +1,4 @@
-﻿var Scenarios;
+var Scenarios;
 (function (Scenarios) {
     var ScenariosCtrl = (function () {
         // dependencies are injected via AngularJS $injector
@@ -11,32 +11,25 @@
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
-
-            $scope.clicked = function (data) {
-                console.log(JSON.stringify(data, null, 2));
-                _this.selectedItem.effectedCriteriaIds = [];
-                for (var k in $scope.multiSelectOptions) {
-                    var item = $scope.multiSelectOptions[k];
-                    if (item.ticked)
-                        _this.selectedItem.effectedCriteriaIds.push(item.id);
-                }
-                console.log(_this.selectedItem.effectedCriteriaIds);
-            };
-
+            //$scope.clicked = (data) => { 
+            //    console.log(JSON.stringify(data, null, 2));
+            //    this.selectedItem.effectedCriteriaIds = [];
+            //    for (var k in $scope.multiSelectOptions) {
+            //        var item = $scope.multiSelectOptions[k];
+            //        if (item.ticked) this.selectedItem.effectedCriteriaIds.push(item.id);
+            //    }
+            //    console.log(this.selectedItem.effectedCriteriaIds);
+            //}
             $scope.reorder = false;
-
             $scope.$on('$viewContentLoaded', function () {
                 $('.multiselect').multiselect();
             });
-
             $scope.remove = function (scope) {
                 scope.remove();
             };
-
             $scope.toggle = function (scope) {
                 scope.toggle();
             };
-
             $scope.newSubScenario = function (scope) {
                 var scenario = scope.$modelValue;
                 var s = new Models.Scenario();
@@ -44,7 +37,6 @@
                 s.userWeight = 1;
                 scenario.subScenarios.push(s);
             };
-
             $scope.newScenario = function () {
                 var scenario = new Models.Scenario();
                 scenario.title = "New Scenario";
@@ -59,14 +51,14 @@
                 item.subScenarios = this.projectService.project.scenarios;
             }
             this.selectedItem = item;
-            var multiSelectOptions = [];
-            this.eachCriteria(multiSelectOptions, this.projectService.project.criterias);
-            this.$scope.multiSelectOptions = multiSelectOptions;
-
+            //var multiSelectOptions: any[] = [];
+            //this.eachCriteria(multiSelectOptions, this.projectService.project.criterias);
+            //this.$scope.multiSelectOptions = multiSelectOptions;
             var data = [];
-            this.selectedItem.calculateWeights();
-            for (var k in this.selectedItem.subScenarios) {
-                var scenario = this.selectedItem.subScenarios[k];
+            var parent = this.selectedItem.findParent(this.projectService.project);
+            parent.calculateWeights();
+            for (var k in parent.subScenarios) {
+                var scenario = parent.subScenarios[k];
                 data.push({
                     id: k + 1,
                     order: k + 1,
@@ -77,25 +69,15 @@
                     label: scenario.title
                 });
             }
-
             if (data.length > 0)
                 Helpers.Utils.drawPie(data);
             else
                 Helpers.Utils.clearSvg();
         };
-
-        ScenariosCtrl.prototype.eachCriteria = function (multiSelectOptions, criterias) {
-            for (var k in criterias) {
-                var criteria = criterias[k];
-                if (criteria.hasSubcriteria()) {
-                    multiSelectOptions.push(new CriteriaSelectorNode(criteria.title, true));
-                    this.eachCriteria(multiSelectOptions, criteria.subCriterias);
-                    multiSelectOptions.push(new CriteriaSelectorNode('', false));
-                } else {
-                    multiSelectOptions.push(new CriteriaSelectorLeaf(criteria.id, criteria.title, this.selectedItem.isSelectedCriteria(criteria.id)));
-                }
-            }
-        };
+        // $inject annotation.
+        // It provides $injector with information about dependencies to be injected into constructor
+        // it is better to have it close to the constructor, because the parameters must match in count and type.
+        // See http://docs.angularjs.org/guide/di
         ScenariosCtrl.$inject = [
             '$scope',
             'messageBusService',
@@ -104,7 +86,6 @@
         return ScenariosCtrl;
     })();
     Scenarios.ScenariosCtrl = ScenariosCtrl;
-
     var CriteriaSelectorLeaf = (function () {
         function CriteriaSelectorLeaf(id, title, ticked) {
             this.id = id;
@@ -114,7 +95,6 @@
         return CriteriaSelectorLeaf;
     })();
     Scenarios.CriteriaSelectorLeaf = CriteriaSelectorLeaf;
-
     var CriteriaSelectorNode = (function () {
         function CriteriaSelectorNode(title, multiSelectGroup) {
             this.title = title;

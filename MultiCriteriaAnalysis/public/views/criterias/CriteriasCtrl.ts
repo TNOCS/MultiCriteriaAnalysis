@@ -87,9 +87,10 @@
             }
             this.selectedItem = item;
             var data = [];
-            this.selectedItem.calculateWeights();
-            for (var k in this.selectedItem.subCriterias) {
-                var criteria = this.selectedItem.subCriterias[k];
+            var parent = this.selectedItem.findParent(this.projectService.project);
+            parent.calculateWeights();
+            for (var k in parent.subCriterias) {
+                var criteria = parent.subCriterias[k];
                 data.push({
                     id: k + 1,
                     order: k + 1,

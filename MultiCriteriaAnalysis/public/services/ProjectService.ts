@@ -3,7 +3,7 @@
         public projects        : Models.McaProject[];
         public project         : Models.McaProject;
         public activeSolution  : Models.Solution;
-        public activeDataSource: Models.DataSource;
+        public activeDataSource: Models.DataSourceViewModel;
 
         constructor() {
             this.project = new Models.McaProject();

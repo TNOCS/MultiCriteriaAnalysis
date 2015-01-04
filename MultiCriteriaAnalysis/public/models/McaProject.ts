@@ -1,21 +1,21 @@
 ﻿module Models {
     export class McaProject {
-        public title      : string;
-        public description: string;
+        title      : string;
+        description: string;
 
         // TODO Add a saved date.
 
-        public criterias   : Criteria[] = [];
-        public scenarios   : Scenario[]    = [];
-        public solutions   : Solution[]    = [];
-        public dataSources : DataSource[] = [];
+        criterias   : Criteria[]   = [];
+        scenarios   : Scenario[]   = [];
+        solutions   : Solution[]   = [];
+        dataSources : DataSource[] = [];
 
         constructor(projectData?: McaProject) {
             if (projectData) this.fromJson(projectData);
         }
 
         /** Deserialize the object */
-        public fromJson(projectData: McaProject) {
+        fromJson(projectData: McaProject) {
             this.title       = projectData.title;
             this.description = projectData.description;
 
@@ -35,19 +35,19 @@
             });
         }
 
-        public saveToJson(): boolean {
+        saveToJson(): boolean {
             return false;
         }
 
-        public loadFromJson(): boolean {
+        loadFromJson(): boolean {
             return false;
         }
 
-        public toJson(): string {
+        toJson(): string {
             return '';
         }
 
-        public findDataSourceByTitle(title: string) : DataSource {
+        findDataSourceByTitle(title: string) : DataSource {
             if (!title || this.dataSources.length === 0) return null;
             title = title.toLowerCase();
             for (var i in this.dataSources) {
@@ -57,7 +57,7 @@
             return null;
         }
 
-        public findCriteriaByTitle(title: string): Criteria {
+        findCriteriaByTitle(title: string): Criteria {
             if (!title || this.criterias.length === 0) return null;
             return this.findCriteriaByTitleRecursively(this.criterias, title.toLowerCase());
         }
@@ -74,7 +74,7 @@
             return null;
         }
 
-        public createDummy() {
+        createDummy() {
             this.title = 'MCA DUMMY PROJECT';
 
             // DataSources
@@ -164,7 +164,7 @@
             subCriteria = new Criteria();
             subCriteria.title = 'Accessibility';
             subCriteria.userWeight = 1;
-            subCriteria.addOption('all public access', .2);
+            subCriteria.addOption('all access', .2);
             subCriteria.addOption('partial access', .6);
             subCriteria.addOption('all private access', 1);
             criteria.addSubCriteria(subCriteria);
@@ -220,9 +220,9 @@
             subSubScenario.title = 'Force 1';
             subSubScenario.description = 'Description';
             subSubScenario.userWeight = 5;
-            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
-            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
-            subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
+            //subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
+            //subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
+            //subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
             subScenario.subScenarios.push(subSubScenario);
             subSubScenario = new Scenario();
             subSubScenario.title = 'Force 2';

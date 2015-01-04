@@ -1,4 +1,4 @@
-﻿var Models;
+var Models;
 (function (Models) {
     //export class Score {
     //    public scenarioId: string;
@@ -7,8 +7,8 @@
     //    public value: number;
     //}
     /**
-    * MCA solution alternative
-    */
+     * MCA solution alternative
+     */
     var Solution = (function () {
         function Solution(data) {
             this.scores = {};

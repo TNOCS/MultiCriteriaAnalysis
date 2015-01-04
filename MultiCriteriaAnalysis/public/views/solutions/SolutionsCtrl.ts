@@ -1,15 +1,15 @@
 ﻿module Solutions {
     export interface ISolutionsViewScope extends ng.IScope {
-        vm: SolutionsCtrl;
+        vm          : SolutionsCtrl;
         selectedItem: any;
-        toggle: Function;
+        toggle      : Function;
     }
 
     export class SolutionsCtrl {
-        public solutions  : Models.Solution[];
-        public dataSources: Models.DataSource[];
-        public scenarios: Models.Scenario[];
-        public selectedItem: Models.Scenario;
+        public solutions      : Models.Solution[];
+        public dataSources    : Models.DataSourceViewModel[];
+        public scenarios      : Models.Scenario[];
+        public selectedItem   : Models.Scenario;
         public activeCriterias: SelectableCriterion[];
 
         // $inject annotation.
@@ -36,10 +36,9 @@
             $scope.vm = this;
 
             this.solutions   = projectService.project.solutions;
-            this.dataSources = projectService.project.dataSources;
             this.scenarios   = projectService.project.scenarios;
 
-            console.log('SolutionsCtrl');
+            this.initializeDataSources();
 
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
@@ -52,6 +51,29 @@
             $scope.toggle = scope => {
                 scope.toggle();
             };
+        }
+
+        private initializeDataSources() {
+            this.dataSources = [];
+            this.dataSources.push(new Models.DataSourceViewModel('all', '1', 'Show', (value: SelectableCriterion, idx: number) => { return true; }));
+            this.dataSources.push(new Models.DataSourceViewModel('unassigned', '2', 'Show', (value: SelectableCriterion, idx: number) => {
+                return (value.selectedId == null || value.selectedId.length === 0);
+            }));
+            this.projectService.project.dataSources.forEach((ds) => {
+                this.dataSources.push(new Models.DataSourceViewModel(ds.title, ds.id, 'Filter by model', (value: SelectableCriterion, idx: number) => {
+                    return value.criterion.dataSourceId === this.projectService.activeDataSource.id;
+                }));
+            });
+
+            if (this.projectService.activeDataSource != null) {
+                var id = this.projectService.activeDataSource.id;
+                for (var i = 0; i < this.dataSources.length; i++) {
+                    var ds = this.dataSources[i];
+                    if (ds.id !== id) continue;
+                    this.projectService.activeDataSource = ds;
+                    break;
+                }
+            }
         }
 
         public deleteSolution() {
@@ -98,23 +120,26 @@
 
         public select(item: Models.Scenario) {
             if (!item) {
-                // Create a pseudo criteria that is the level
-                item = new Models.Scenario();
-                item.title = "Top level scenario";
+                // Create a pseudo criteria that is the top level
+                item              = new Models.Scenario();
+                item.title        = "Top level scenario";
                 item.subScenarios = this.projectService.project.scenarios;
             }
             this.selectedItem = item;
             this.activeCriterias = [];
-            this.eachCriteria(this.projectService.project.criterias);
-
             if (!this.selectedItem.hasSubs()) {
-                Helpers.Utils.drawAsterPlot();
-                return;
+                this.eachCriteria(this.projectService.project.criterias);
             }
+
+            //if (!this.selectedItem.hasSubs()) {
+            //    Helpers.Utils.drawAsterPlot();
+            //    return;
+            //}
             var data = [];
-            this.selectedItem.calculateWeights();
-            for (var k in this.selectedItem.subScenarios) {
-                var scenario = this.selectedItem.subScenarios[k];
+            var parent = this.selectedItem.findParent(this.projectService.project);
+            parent.calculateWeights();
+            for (var k = 0; k < parent.subScenarios.length; k++) {
+                var scenario = parent.subScenarios[k];
                 data.push({
                     id    : k + 1,
                     order : k + 1,
@@ -149,14 +174,15 @@
             var totalScore = 0;
             if (!activeScenario.hasSubs()) {
                 // Leaf node
-                activeScenario.effectedCriteriaIds.forEach((id) => {
-                    if (activeScenario.id in this.projectService.activeSolution.scores) {
-                        var score = this.projectService.activeSolution.scores[activeScenario.id];
+                if (activeScenario.id in this.projectService.activeSolution.scores) {
+                    var score = this.projectService.activeSolution.scores[activeScenario.id];
+                    this.projectService.project.criterias.forEach((c) => {
+                        var id = c.id;
                         if (id in score) {
                             totalScore += score[id].weight * score[id].value;
                         }
-                    }
-                });
+                    });
+                }
             } else {
                 activeScenario.subScenarios.forEach((s) => {
                     s.calculateWeights();
@@ -167,13 +193,21 @@
             return totalScore;
         }
 
+        /**
+         * Use the selected data source to filter the results.
+         */
+        dataSourceFilter = (value: SelectableCriterion, idx: number) => {
+            if (this.projectService.activeDataSource == null) return true;
+            return this.projectService.activeDataSource.filter(value, idx);
+        }
+
         private eachCriteria(criterias: Models.Criteria[]) {
             var activeScenario = this.selectedItem;
-            for (var k in criterias) {
-                var criteria: Models.Criteria = criterias[k];
+            for (var k = 0; k < criterias.length; k++) {
+                var criteria = criterias[k];
                 if (criteria.hasSubcriteria()) {
                     this.eachCriteria(criteria.subCriterias);
-                } else if (activeScenario.isSelectedCriteria(criteria.id)) {
+                } else {
                     var selectedId = '';
                     if (activeScenario.id in this.projectService.activeSolution.scores &&
                         criteria.id in this.projectService.activeSolution.scores[activeScenario.id]) {
@@ -186,7 +220,7 @@
     }
 
     export class SelectableCriterion extends Models.Criteria {
-        constructor(private criterion: Models.Criteria, public selectedId?: string) {
+        constructor(public criterion: Models.Criteria, public selectedId?: string) {
             super();
             this.id          = criterion.id;
             this.title       = criterion.title;

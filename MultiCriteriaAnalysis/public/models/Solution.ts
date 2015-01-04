@@ -11,17 +11,16 @@
      * MCA solution alternative
      */
     export class Solution {
-        public id: string;
-        public title: string;
+        public id         : string;
+        public title      : string;
         public description: string;
-        public scores: {
+        public scores     : {
             [scenarioId: string]: {
-                [criteriaId: string]:
-                    {
-                        criteriaOptionId: string;
-                        value: number;
-                        weight: number;
-                    }
+                [criteriaId: string]: {
+                    criteriaOptionId: string;
+                    value           : number;
+                    weight          : number;
+                }
             }
         } = {};
         //public scores    : Score[] = [];

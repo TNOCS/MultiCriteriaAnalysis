@@ -10,7 +10,7 @@
         newScenario         : Function
         newOption           : Function;
         removeOption        : Function;
-        multiSelectOptions  : any;
+        //multiSelectOptions  : any;
         clicked             : Function;
     }
 
@@ -30,23 +30,23 @@
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
-            private $scope: IScenariosViewScope,
-            private messageBus: csComp.Services.MessageBusService,
+            private $scope        : IScenariosViewScope,
+            private messageBus    : csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
         ) {
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
 
-            $scope.clicked = (data) => { 
-                console.log(JSON.stringify(data, null, 2));
-                this.selectedItem.effectedCriteriaIds = [];
-                for (var k in $scope.multiSelectOptions) {
-                    var item = $scope.multiSelectOptions[k];
-                    if (item.ticked) this.selectedItem.effectedCriteriaIds.push(item.id);
-                }
-                console.log(this.selectedItem.effectedCriteriaIds);
-            }
+            //$scope.clicked = (data) => { 
+            //    console.log(JSON.stringify(data, null, 2));
+            //    this.selectedItem.effectedCriteriaIds = [];
+            //    for (var k in $scope.multiSelectOptions) {
+            //        var item = $scope.multiSelectOptions[k];
+            //        if (item.ticked) this.selectedItem.effectedCriteriaIds.push(item.id);
+            //    }
+            //    console.log(this.selectedItem.effectedCriteriaIds);
+            //}
 
             $scope.reorder = false;
 
@@ -75,33 +75,33 @@
                 scenario.title = "New Scenario";
                 this.projectService.project.scenarios.push(scenario);
             };
-
         }
 
         public select(item: Models.Scenario) {
             if (!item) {
                 // Create a pseudo criteria that is the level
-                item = new Models.Scenario();
-                item.title = "Top level scenario";
+                item              = new Models.Scenario();
+                item.title        = "Top level scenario";
                 item.subScenarios = this.projectService.project.scenarios;
             }
             this.selectedItem = item;
-            var multiSelectOptions: any[] = [];
-            this.eachCriteria(multiSelectOptions, this.projectService.project.criterias);
-            this.$scope.multiSelectOptions = multiSelectOptions;
+            //var multiSelectOptions: any[] = [];
+            //this.eachCriteria(multiSelectOptions, this.projectService.project.criterias);
+            //this.$scope.multiSelectOptions = multiSelectOptions;
 
             var data = [];
-            this.selectedItem.calculateWeights();
-            for (var k in this.selectedItem.subScenarios) {
-                var scenario = this.selectedItem.subScenarios[k];
+            var parent = this.selectedItem.findParent(this.projectService.project);
+            parent.calculateWeights();
+            for (var k in parent.subScenarios) {
+                var scenario = parent.subScenarios[k];
                 data.push({
-                    id: k + 1,
-                    order: k + 1,
-                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    id    : k + 1,
+                    order : k + 1,
+                    color : Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
                     weight: scenario.weight,
-                    score: 100,
-                    width: scenario.weight,
-                    label: scenario.title
+                    score : 100,
+                    width : scenario.weight,
+                    label : scenario.title
                 });
             }
 
@@ -111,18 +111,18 @@
                 Helpers.Utils.clearSvg();
         }
 
-        private eachCriteria(multiSelectOptions: any[], criterias: Models.Criteria[]) {
-            for (var k in criterias) {
-                var criteria: Models.Criteria = criterias[k];
-                if (criteria.hasSubcriteria()) {
-                    multiSelectOptions.push(new CriteriaSelectorNode(criteria.title, true));
-                    this.eachCriteria(multiSelectOptions, criteria.subCriterias);
-                    multiSelectOptions.push(new CriteriaSelectorNode('', false));
-                } else {
-                    multiSelectOptions.push(new CriteriaSelectorLeaf(criteria.id, criteria.title, this.selectedItem.isSelectedCriteria(criteria.id)));
-                }
-            }
-        }
+        //private eachCriteria(multiSelectOptions: any[], criterias: Models.Criteria[]) {
+        //    for (var k in criterias) {
+        //        var criteria: Models.Criteria = criterias[k];
+        //        if (criteria.hasSubcriteria()) {
+        //            multiSelectOptions.push(new CriteriaSelectorNode(criteria.title, true));
+        //            this.eachCriteria(multiSelectOptions, criteria.subCriterias);
+        //            multiSelectOptions.push(new CriteriaSelectorNode('', false));
+        //        } else {
+        //            multiSelectOptions.push(new CriteriaSelectorLeaf(criteria.id, criteria.title, this.selectedItem.isSelectedCriteria(criteria.id)));
+        //        }
+        //    }
+        //}
     }
 
     export class CriteriaSelectorLeaf {

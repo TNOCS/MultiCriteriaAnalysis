@@ -51,7 +51,7 @@
             return s === 'true' || s === 'false';
         }
 
-        private static pieRadius : number = 300;
+        private static pieRadius : number = 100;
         public static pieColors = ["#fff7ec", "#fee8c8", "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"];
 
         public static drawPie(data?: any) {

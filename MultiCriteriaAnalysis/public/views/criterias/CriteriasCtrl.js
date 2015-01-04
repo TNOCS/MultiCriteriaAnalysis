@@ -1,4 +1,4 @@
-﻿var Criterias;
+var Criterias;
 (function (Criterias) {
     var CriteriasCtrl = (function () {
         // dependencies are injected via AngularJS $injector
@@ -11,25 +11,17 @@
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
-
             console.log('CriteriasCtrl');
-
             console.log(JSON.stringify(projectService.project, null, 2));
-
             $scope.reorder = false;
-
             $scope.selectedItem = {};
-
             $scope.options = {};
-
             $scope.remove = function (scope) {
                 scope.remove();
             };
-
             $scope.toggle = function (scope) {
                 scope.toggle();
             };
-
             $scope.newSubCriteria = function (scope) {
                 var criteria = scope.$modelValue;
                 var c = new Models.Criteria();
@@ -37,14 +29,12 @@
                 c.userWeight = 1;
                 criteria.subCriterias.push(c);
             };
-
             $scope.newOption = function (scope) {
                 var criteria = scope.$modelValue;
                 var o = new Models.CriteriaOption();
                 o.title = "New Option";
                 criteria.options.push(o);
             };
-
             $scope.newCriteria = function () {
                 var c = new Models.Criteria();
                 c.title = "New Criteria";
@@ -60,9 +50,10 @@
             }
             this.selectedItem = item;
             var data = [];
-            this.selectedItem.calculateWeights();
-            for (var k in this.selectedItem.subCriterias) {
-                var criteria = this.selectedItem.subCriterias[k];
+            var parent = this.selectedItem.findParent(this.projectService.project);
+            parent.calculateWeights();
+            for (var k in parent.subCriterias) {
+                var criteria = parent.subCriterias[k];
                 data.push({
                     id: k + 1,
                     order: k + 1,
@@ -73,12 +64,15 @@
                     label: criteria.title
                 });
             }
-
             if (data.length > 0)
                 Helpers.Utils.drawPie(data);
             else
                 Helpers.Utils.clearSvg();
         };
+        // $inject annotation.
+        // It provides $injector with information about dependencies to be injected into constructor
+        // it is better to have it close to the constructor, because the parameters must match in count and type.
+        // See http://docs.angularjs.org/guide/di
         CriteriasCtrl.$inject = [
             '$scope',
             'messageBusService',
