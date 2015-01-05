@@ -49,9 +49,9 @@
 
         <!-- The list of criteria that needs to be filled in -->
         <div class="col-md-6">
-            <div class="row" data-ng-if="vm.selectedItem">
-                <h3>Scenario '{{vm.selectedItem.title}}'</h3>
-                <!--<span contenteditable ng-model="vm.selectedItem.description" style="font-size:20px;cursor:text"></span>-->
+            <div class="row" data-ng-if="vm.selectedScenario">
+                <h3>Scenario '{{vm.selectedScenario.title}}'</h3>
+                <!--<span contenteditable ng-model="vm.selectedScenario.description" style="font-size:20px;cursor:text"></span>-->
                 <div id="pieChart"></div>
             </div>
             <div class="row" data-ng-if="vm.activeCriterias.length > 0">
@@ -61,7 +61,7 @@
                     <div class="col-md-6">
                         <select style="margin:0 10px;width:90%"
                                 data-ng-change="vm.updateCriteria(criteria)"
-                                data-ng-options="option.id as option.title for option in criteria.options"
+                                data-ng-options="option.id as option.fullTitle for option in criteria.options"
                                 data-ng-model="criteria.selectedId"></select>
                     </div>
                 </div>

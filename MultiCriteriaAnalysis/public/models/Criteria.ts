@@ -17,6 +17,10 @@
             this.description = data.description;
             this.value       = data.value;
         }
+
+        get fullTitle() {
+            return this.title + ' (' + this.value + ')'; 
+        }
     }
 
     export class Criteria {

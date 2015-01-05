@@ -6,11 +6,11 @@
     }
 
     export class SolutionsCtrl {
-        public solutions      : Models.Solution[];
-        public dataSources    : Models.DataSourceViewModel[];
-        public scenarios      : Models.Scenario[];
-        public selectedItem   : Models.Scenario;
-        public activeCriterias: SelectableCriterion[];
+        public solutions        : Models.Solution[];
+        public dataSources      : Models.DataSourceViewModel[];
+        public scenarios        : Models.Scenario[];
+        public selectedScenario : Models.Scenario;
+        public activeCriterias  : SelectableCriterion[];
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -35,10 +35,12 @@
             ) {
             $scope.vm = this;
 
-            this.solutions   = projectService.project.solutions;
-            this.scenarios   = projectService.project.scenarios;
+            this.solutions  = projectService.project.solutions;
+            this.scenarios  = projectService.project.scenarios;
 
             this.initializeDataSources();
+            this.initializeCriteriaWeights();
+            this.initializeScenarioWeights();
 
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
@@ -76,6 +78,18 @@
             }
         }
 
+        private initializeCriteriaWeights() {
+            var criterion = new Models.Criteria();
+            criterion.subCriterias = this.projectService.project.criterias;
+            criterion.calculateWeights();
+        }
+
+        private initializeScenarioWeights() {
+            var scenario = new Models.Scenario();
+            scenario.subScenarios = this.projectService.project.scenarios;
+            scenario.calculateWeights();
+        }
+
         public deleteSolution() {
             var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
             if (index < 0) return;
@@ -86,10 +100,10 @@
         public createNewSolution() {
             var modalInstance = this.$modal.open({
                 templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller: 'GetTitleDialogCtrl',
-                size: 'sm',
-                resolve: {
-                    header: () => "Create a new solution"
+                controller : 'GetTitleDialogCtrl',
+                size       : 'sm',
+                resolve    : {
+                    header : () => "Create a new solution"
                 }
             });
 
@@ -107,84 +121,86 @@
 
         public updateCriteria(criteria: SelectableCriterion) {
             //console.log(JSON.stringify(criteria, null, 2));
-            if (!(this.selectedItem.id in this.projectService.activeSolution.scores)) {
-                this.projectService.activeSolution.scores[this.selectedItem.id] = {};
+            if (!(this.selectedScenario.id in this.projectService.activeSolution.scores)) {
+                this.projectService.activeSolution.scores[this.selectedScenario.id] = {};
             }
             criteria.calculateWeights();
-            this.projectService.activeSolution.scores[this.selectedItem.id][criteria.id] = {
+            this.projectService.activeSolution.scores[this.selectedScenario.id][criteria.id] = {
                 criteriaOptionId: criteria.selectedId,
                 value           : criteria.getOptionValueById(criteria.selectedId),
                 weight          : criteria.weight
             };
+            this.updateResult();
         }
 
         public select(item: Models.Scenario) {
             if (!item) {
-                // Create a pseudo criteria that is the top level
+                // Create a pseudo scenario that is the top level
                 item              = new Models.Scenario();
                 item.title        = "Top level scenario";
                 item.subScenarios = this.projectService.project.scenarios;
             }
-            this.selectedItem = item;
+            this.selectedScenario = item;
             this.activeCriterias = [];
-            if (!this.selectedItem.hasSubs()) {
+            if (!this.selectedScenario.hasSubs()) {
                 this.eachCriteria(this.projectService.project.criterias);
             }
+            this.updateResult();
+        }
 
-            //if (!this.selectedItem.hasSubs()) {
-            //    Helpers.Utils.drawAsterPlot();
-            //    return;
-            //}
+        private updateResult() {
             var data = [];
-            var parent = this.selectedItem.findParent(this.projectService.project);
-            parent.calculateWeights();
+            var parent = this.selectedScenario.findParent(this.projectService.project);
             for (var k = 0; k < parent.subScenarios.length; k++) {
                 var scenario = parent.subScenarios[k];
                 data.push({
-                    id    : k + 1,
-                    order : k + 1,
-                    color : Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    id: k + 1,
+                    order: k + 1,
+                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
                     weight: scenario.weight,
-                    score : this.computeScore(scenario) * 100,
-                    width : scenario.weight,
-                    label : scenario.title
+                    score: this.computeScore(scenario) * 100,
+                    width: scenario.weight,
+                    label: scenario.title
                 });
             }
 
-            //this.fixWeights(data);
             if (data.length > 0)
                 Helpers.Utils.drawAsterPlot(data);
             else
                 Helpers.Utils.clearSvg();
         }
 
-        public fixWeights(data: any[]) {
-            var totalWeight = 0;
-            if (data.length === 0) return;
-            data.forEach((c) => {
-                totalWeight += c.userWeight;
-            });
-            if (totalWeight == 0) return;
-            data.forEach((c) => {
-                c.weight = c.userWeight / totalWeight;
-            });
-        }
+        //public fixWeights(data: any[]) {
+        //    var totalWeight = 0;
+        //    if (data.length === 0) return;
+        //    data.forEach((c) => {
+        //        totalWeight += c.userWeight;
+        //    });
+        //    if (totalWeight == 0) return;
+        //    data.forEach((c) => {
+        //        c.weight = c.userWeight / totalWeight;
+        //    });
+        //}
 
-        private computeScore(activeScenario: Models.Scenario): number {
+        private computeScore(scenario: Models.Scenario): number {
             var totalScore = 0;
-            if (!activeScenario.hasSubs()) {
+            if (!scenario.hasSubs()) {
                 // Leaf node
-                if (activeScenario.id in this.projectService.activeSolution.scores) {
-                    var score = this.projectService.activeSolution.scores[activeScenario.id];
-                    this.projectService.project.criterias.forEach((c) => {
-                        var id = c.id;
-                        if (id in score) {
-                            totalScore += score[id].weight * score[id].value;
-                        }
-                    });
+                if (scenario.id in this.projectService.activeSolution.scores) {
+                    var score = this.projectService.activeSolution.scores[scenario.id];
+                    for (var criterionId in score) {
+                        if (!score.hasOwnProperty(criterionId)) continue;
+                        totalScore += score[criterionId].weight * score[criterionId].value;
+                    }
+                    //this.projectService.project.criterias.forEach((c) => {
+                    //    var id = c.id;
+                    //    if (id in score) {
+                    //        totalScore += score[id].weight * score[id].value;
+                    //    }
+                    //});
                 }
             } else {
-                activeScenario.subScenarios.forEach((s) => {
+                scenario.subScenarios.forEach((s) => {
                     s.calculateWeights();
                     if (s.weight)
                         totalScore += s.weight * this.computeScore(s);
@@ -201,32 +217,32 @@
             return this.projectService.activeDataSource.filter(value, idx);
         }
 
-        private eachCriteria(criterias: Models.Criteria[]) {
-            var activeScenario = this.selectedItem;
+        private eachCriteria(criterias: Models.Criteria[], parentWeight = 1) {
+            var activeScenario = this.selectedScenario;
             for (var k = 0; k < criterias.length; k++) {
                 var criteria = criterias[k];
                 if (criteria.hasSubcriteria()) {
-                    this.eachCriteria(criteria.subCriterias);
+                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight);
                 } else {
                     var selectedId = '';
                     if (activeScenario.id in this.projectService.activeSolution.scores &&
                         criteria.id in this.projectService.activeSolution.scores[activeScenario.id]) {
                         selectedId = this.projectService.activeSolution.scores[activeScenario.id][criteria.id].criteriaOptionId;
                     }
-                    this.activeCriterias.push(new SelectableCriterion(criteria, selectedId));
+                    this.activeCriterias.push(new SelectableCriterion(criteria, selectedId, parentWeight));
                 }
             }
         }
     }
 
     export class SelectableCriterion extends Models.Criteria {
-        constructor(public criterion: Models.Criteria, public selectedId?: string) {
+        constructor(public criterion: Models.Criteria, public selectedId: string, parentWeight: number) {
             super();
             this.id          = criterion.id;
             this.title       = criterion.title;
             this.description = criterion.description;
             this.userWeight  = criterion.userWeight;
-            this.weight      = criterion.weight;
+            this.weight      = criterion.weight * parentWeight;
             this.options     = criterion.options;
         }
     }

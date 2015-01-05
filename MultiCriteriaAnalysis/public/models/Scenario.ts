@@ -87,12 +87,13 @@
         public calculateWeights() {
             var totalWeight = 0;
             if (this.subScenarios.length === 0) return;
-            this.subScenarios.forEach((c) => {
-                totalWeight += c.userWeight;
+            this.subScenarios.forEach((scenario) => {
+                totalWeight += scenario.userWeight;
             });
-            if (totalWeight == 0) return;
-            this.subScenarios.forEach((c) => {
-                c.weight = c.userWeight / totalWeight;
+            if (totalWeight === 0) return;
+            this.subScenarios.forEach((scenario) => {
+                scenario.weight = scenario.userWeight / totalWeight;
+                if (scenario.subScenarios.length > 0) scenario.calculateWeights();
             });
         }
 

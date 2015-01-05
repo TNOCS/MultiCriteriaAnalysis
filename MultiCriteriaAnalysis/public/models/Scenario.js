@@ -81,13 +81,15 @@ var Models;
             var totalWeight = 0;
             if (this.subScenarios.length === 0)
                 return;
-            this.subScenarios.forEach(function (c) {
-                totalWeight += c.userWeight;
+            this.subScenarios.forEach(function (scenario) {
+                totalWeight += scenario.userWeight;
             });
-            if (totalWeight == 0)
+            if (totalWeight === 0)
                 return;
-            this.subScenarios.forEach(function (c) {
-                c.weight = c.userWeight / totalWeight;
+            this.subScenarios.forEach(function (scenario) {
+                scenario.weight = scenario.userWeight / totalWeight;
+                if (scenario.subScenarios.length > 0)
+                    scenario.calculateWeights();
             });
         };
         return Scenario;

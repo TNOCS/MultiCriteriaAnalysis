@@ -11,6 +11,13 @@ var Models;
             this.description = data.description;
             this.value = data.value;
         };
+        Object.defineProperty(CriteriaOption.prototype, "fullTitle", {
+            get: function () {
+                return this.title + ' (' + this.value + ')';
+            },
+            enumerable: true,
+            configurable: true
+        });
         return CriteriaOption;
     })();
     Models.CriteriaOption = CriteriaOption;
