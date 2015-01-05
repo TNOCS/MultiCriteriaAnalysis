@@ -86,6 +86,14 @@
             return 0;
         }
 
+        sortOptions(sortAscending: boolean) {
+            this.options = this.options.sort((o1, o2) => {
+                return sortAscending 
+                    ? o1.value - o2.value
+                    : o2.value - o1.value;
+            });
+        }
+
         public addOption(title: string, value: number) : CriteriaOption {
             var option = new CriteriaOption();
             option.title = title;

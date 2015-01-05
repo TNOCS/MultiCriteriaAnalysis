@@ -2,8 +2,9 @@
     export interface ICriteriasViewScope extends ng.IScope {
         vm                : CriteriasCtrl;
         selectedItem      : any;
-        options: any;
-        reorder : boolean;
+        options           : any;
+        reorder           : boolean;
+        sortAscending     : boolean;
         remove            : Function;
         toggle            : Function;
         newSubCriteria    : Function;
@@ -42,6 +43,7 @@
             console.log(JSON.stringify(projectService.project, null, 2));
 
             $scope.reorder = false;
+            $scope.sortAscending = false;
 
             $scope.selectedItem = {};
 
@@ -106,6 +108,14 @@
                 Helpers.Utils.drawPie(data);
             else
                 Helpers.Utils.clearSvg();
+        }
+
+        sortOptions(criterias = this.projectService.project.criterias) {
+            //this.$scope.sortAscending = !this.$scope.sortAscending;
+            criterias.forEach((c) => {
+                if (c.hasOptions()) c.sortOptions(this.$scope.sortAscending);
+                if (c.hasSubcriteria()) this.sortOptions(c.subCriterias);
+            });
         }
     }
 }

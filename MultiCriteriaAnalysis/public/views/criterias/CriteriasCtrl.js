@@ -14,6 +14,7 @@ var Criterias;
             console.log('CriteriasCtrl');
             console.log(JSON.stringify(projectService.project, null, 2));
             $scope.reorder = false;
+            $scope.sortAscending = false;
             $scope.selectedItem = {};
             $scope.options = {};
             $scope.remove = function (scope) {
@@ -68,6 +69,17 @@ var Criterias;
                 Helpers.Utils.drawPie(data);
             else
                 Helpers.Utils.clearSvg();
+        };
+        CriteriasCtrl.prototype.sortOptions = function (criterias) {
+            var _this = this;
+            if (criterias === void 0) { criterias = this.projectService.project.criterias; }
+            //this.$scope.sortAscending = !this.$scope.sortAscending;
+            criterias.forEach(function (c) {
+                if (c.hasOptions())
+                    c.sortOptions(_this.$scope.sortAscending);
+                if (c.hasSubcriteria())
+                    _this.sortOptions(c.subCriterias);
+            });
         };
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor

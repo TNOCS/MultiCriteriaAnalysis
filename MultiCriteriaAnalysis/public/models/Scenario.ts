@@ -7,7 +7,7 @@
         /** Effective weight, sums up to 1 */
         public weight             : number;
         public subScenarios       : Scenario[] = [];
-        //public effectedCriteriaIds: string[] = []
+        public score = 0;
 
         constructor(data?: Scenario) {
             if (data)
@@ -22,7 +22,6 @@
             this.title               = data.title;
             this.description         = data.description;
             this.userWeight          = data.userWeight;
-            //this.effectedCriteriaIds = data.effectedCriteriaIds;
             this.calculateWeights();
 
             data.subScenarios.forEach((d) => {
@@ -68,22 +67,9 @@
             return null;
         }
 
-        ///**
-        // * The last parent has no children, or if they have children, those children don't have their own children.
-        // */
-        //isLastParent(project: McaProject): boolean {
-        //    if (this.subScenarios.length === 0) return true;
-        //    var parent = this.findParent(project);
-        //    return false;
-        //}
-
-        ///** 
-        //* Returns true if this criteria id effects this scenario. 
-        //*/
-        //public isSelectedCriteria(id: string) {
-        //    return this.effectedCriteriaIds.indexOf(id) >= 0;
-        //}
-
+        /**
+         * Update the weights recursively. 
+         */
         public calculateWeights() {
             var totalWeight = 0;
             if (this.subScenarios.length === 0) return;

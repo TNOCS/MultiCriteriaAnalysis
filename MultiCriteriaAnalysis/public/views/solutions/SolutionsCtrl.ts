@@ -206,6 +206,7 @@
                         totalScore += s.weight * this.computeScore(s);
                 });
             }
+            scenario.score = totalScore;
             return totalScore;
         }
 

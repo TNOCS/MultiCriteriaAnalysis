@@ -184,6 +184,7 @@ var Solutions;
                         totalScore += s.weight * _this.computeScore(s);
                 });
             }
+            scenario.score = totalScore;
             return totalScore;
         };
         SolutionsCtrl.prototype.eachCriteria = function (criterias, parentWeight) {

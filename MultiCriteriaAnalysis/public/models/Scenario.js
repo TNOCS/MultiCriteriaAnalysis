@@ -1,11 +1,11 @@
 var Models;
 (function (Models) {
     var Scenario = (function () {
-        //public effectedCriteriaIds: string[] = []
         function Scenario(data) {
             var _this = this;
             this.userWeight = 1;
             this.subScenarios = [];
+            this.score = 0;
             this.hasSubs = function () {
                 return _this.subScenarios.length > 0;
             };
@@ -21,7 +21,6 @@ var Models;
             this.title = data.title;
             this.description = data.description;
             this.userWeight = data.userWeight;
-            //this.effectedCriteriaIds = data.effectedCriteriaIds;
             this.calculateWeights();
             data.subScenarios.forEach(function (d) {
                 var scenario = new Scenario();
@@ -63,20 +62,9 @@ var Models;
             }
             return null;
         };
-        ///**
-        // * The last parent has no children, or if they have children, those children don't have their own children.
-        // */
-        //isLastParent(project: McaProject): boolean {
-        //    if (this.subScenarios.length === 0) return true;
-        //    var parent = this.findParent(project);
-        //    return false;
-        //}
-        ///** 
-        //* Returns true if this criteria id effects this scenario. 
-        //*/
-        //public isSelectedCriteria(id: string) {
-        //    return this.effectedCriteriaIds.indexOf(id) >= 0;
-        //}
+        /**
+         * Update the weights recursively.
+         */
         Scenario.prototype.calculateWeights = function () {
             var totalWeight = 0;
             if (this.subScenarios.length === 0)

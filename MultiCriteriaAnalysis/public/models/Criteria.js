@@ -72,6 +72,11 @@ var Models;
             }
             return 0;
         };
+        Criteria.prototype.sortOptions = function (sortAscending) {
+            this.options = this.options.sort(function (o1, o2) {
+                return sortAscending ? o1.value - o2.value : o2.value - o1.value;
+            });
+        };
         Criteria.prototype.addOption = function (title, value) {
             var option = new CriteriaOption();
             option.title = title;
