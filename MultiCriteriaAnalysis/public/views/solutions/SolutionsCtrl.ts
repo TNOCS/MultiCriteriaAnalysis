@@ -47,12 +47,51 @@
             } else if (projectService.activeSolution == null) {
                 projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
+            this.updateScore();
 
             $scope.selectedItem = {};
 
             $scope.toggle = scope => {
                 scope.toggle();
             };
+        }
+
+        /**
+         * Update the score to compensate for criteria that have been disabled, or option values 
+         * that have been adjusted or deleted.
+         */
+        private updateScore() {
+            var project = this.projectService.project;
+            var scores = this.projectService.activeSolution.scores;
+            for (var scenarioId in scores) {
+                if (!scores.hasOwnProperty(scenarioId)) continue;
+                var scenarioScore = scores[scenarioId];
+                for (var criterionId in scenarioScore) {
+                    if (!scenarioScore.hasOwnProperty(criterionId)) continue;
+                    var criterionScore = scenarioScore[criterionId];
+                    var criterion = project.findCriteriaById(criterionId);
+                    if (criterion == null) {
+                        delete scenarioScore[criterionId];
+                        continue;
+                    }
+                    if (!criterion.isEnabled) {
+                        criterionScore.weight = 0;
+                        continue;
+                    }
+                    var option: Models.CriteriaOption = null;
+                    for (var i = 0; i < criterion.options.length; i++) {
+                        if (criterion.options[i].id !== criterionScore.criteriaOptionId) continue;
+                        option = criterion.options[i]
+                        break;
+                    }
+                    if (option == null) {
+                        delete scenarioScore[criterionId];
+                        continue;
+                    }
+                    criterionScore.value  = option.value;
+                    criterionScore.weight = criterion.weight;
+                }
+            }
         }
 
         private initializeDataSources() {
@@ -79,9 +118,7 @@
         }
 
         private initializeCriteriaWeights() {
-            var criterion = new Models.Criteria();
-            criterion.subCriterias = this.projectService.project.criterias;
-            criterion.calculateWeights();
+            this.projectService.project.rootCriterion.calculateWeights();
         }
 
         private initializeScenarioWeights() {
@@ -154,13 +191,13 @@
             for (var k = 0; k < parent.subScenarios.length; k++) {
                 var scenario = parent.subScenarios[k];
                 data.push({
-                    id: k + 1,
-                    order: k + 1,
-                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    id    : k + 1,
+                    order : k + 1,
+                    color : Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
                     weight: scenario.weight,
-                    score: this.computeScore(scenario) * 100,
-                    width: scenario.weight,
-                    label: scenario.title
+                    score : this.computeScore(scenario) * 100,
+                    width : scenario.weight,
+                    label : scenario.title
                 });
             }
 
@@ -170,18 +207,6 @@
                 Helpers.Utils.clearSvg();
         }
 
-        //public fixWeights(data: any[]) {
-        //    var totalWeight = 0;
-        //    if (data.length === 0) return;
-        //    data.forEach((c) => {
-        //        totalWeight += c.userWeight;
-        //    });
-        //    if (totalWeight == 0) return;
-        //    data.forEach((c) => {
-        //        c.weight = c.userWeight / totalWeight;
-        //    });
-        //}
-
         private computeScore(scenario: Models.Scenario): number {
             var totalScore = 0;
             if (!scenario.hasSubs()) {
@@ -190,14 +215,9 @@
                     var score = this.projectService.activeSolution.scores[scenario.id];
                     for (var criterionId in score) {
                         if (!score.hasOwnProperty(criterionId)) continue;
-                        totalScore += score[criterionId].weight * score[criterionId].value;
+                        var criteriaScore = score[criterionId];
+                        totalScore += criteriaScore.weight * criteriaScore.value;
                     }
-                    //this.projectService.project.criterias.forEach((c) => {
-                    //    var id = c.id;
-                    //    if (id in score) {
-                    //        totalScore += score[id].weight * score[id].value;
-                    //    }
-                    //});
                 }
             } else {
                 scenario.subScenarios.forEach((s) => {
@@ -222,6 +242,7 @@
             var activeScenario = this.selectedScenario;
             for (var k = 0; k < criterias.length; k++) {
                 var criteria = criterias[k];
+                if (!criteria.isEnabled) continue;
                 if (criteria.hasSubcriteria()) {
                     this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight);
                 } else {

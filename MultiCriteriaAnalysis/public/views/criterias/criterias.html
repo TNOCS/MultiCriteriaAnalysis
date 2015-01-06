@@ -2,7 +2,7 @@
     <h1>Criterias</h1>
     
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-9">
             <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
             <a style="margin: 0 5px" href="" ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-lock" style="margin: 0 5px"></i>enable reorder</a>
             <a style="margin: 0 5px" href="" ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-unlock" style="margin: 0 5px"></i>disable reorder</a>
@@ -26,34 +26,41 @@
             <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)">
                 <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
             </a>
-            <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text" data-nodrag></span>
-            <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-if="item.canHaveOptions()"
+            <span contenteditable ng-model="item.title" ng-class="{'disabledItem': !item.isEnabled}" style="font-size:20px;cursor:text" data-nodrag></span>
+            <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
+            <!-- Disable criteria -->
+            <input type="checkbox" ng-model="item.isEnabled" class="pull-right checkbox" ng-click="vm.update();">
+            <!-- Delete criteria -->
+            <a class="pull-right btn btn-danger btn-xs" ng-if="item.isEnabled" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+            <!-- Specify criteria options -->
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-if="item.canHaveOptions() && item.isEnabled"
                data-ng-click="newOption(this)" style="margin-right: 8px;">
                 <span class="glyphicon glyphicon-list"></span>
             </a>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-if="item.canHaveSubs()"
+            <!-- Add a new subcriteria -->
+            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-if="item.canHaveSubs() && item.isEnabled"
                data-ng-click="newSubCriteria(this)" style="margin-right: 8px;">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
-            <rating class="pull-right" style="margin:0 10px;" ng-model="item.userWeight" max="5" readonly="isReadonly"
+            <!-- Rating -->
+            <rating class="pull-right" style="margin:0 10px;" ng-if="item.isEnabled" ng-model="item.userWeight" max="5" readonly="isReadonly"
                     on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+            <!-- Specify datasource -->
             <select class="pull-right" style="margin:0 10px;"
-                    data-ng-if="item.options.length > 0"
+                    data-ng-if="item.options.length > 0 && item.isEnabled"
                     data-ng-options="ds.id as ds.title for ds in vm.projectService.project.dataSources"
                     data-ng-model="item.dataSourceId"></select>
         </div>
-        <ol ui-tree-nodes="subCriterias" ng-model="item.subCriterias" ng-class="{hidden: collapsed}">
+        <ol ui-tree-nodes="subCriterias" ng-model="item.subCriterias" ng-if="item.isEnabled" ng-class="{hidden: collapsed}">
             <li ng-repeat="item in item.subCriterias" ui-tree-node ng-include="'items_renderer.html'"></li>
         </ol>
-        <ol ui-tree-nodes="options" ng-model="item.options" ng-class="{hidden: collapsed}">
+        <ol ui-tree-nodes="options" ng-model="item.options" ng-if="item.isEnabled" ng-class="{hidden: collapsed}">
             <li ng-repeat="item in item.options" ui-tree-node ng-include="'options_renderer.html'"></li>
         </ol>
     </script>
  
     <div class="row" style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
-        <div class="col-md-6" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
+        <div class="col-md-9" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
              style="margin-top:5px">
             <ol ui-tree-nodes ng-model="d.projectService.project.criterias">
                 <li ng-repeat="item in d.projectService.project.criterias"
@@ -62,10 +69,10 @@
             </ol>
             <a class="pull-right btn btn-primary btn-xs" ng-click="newCriteria()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
         </div>
-        <div class="col-md-6">
-            <div class="row" data-ng-if="vm.selectedItem">
-                <h3>{{vm.selectedItem.title}}</h3>
-                <!--<span contenteditable ng-model="vm.selectedItem.description" style="font-size:20px;cursor:text"></span>-->
+        <div class="col-md-3">
+            <div class="row" data-ng-if="vm.selectedCriteria">
+                <h3>{{vm.selectedCriteria.title}}</h3>
+                <!--<span contenteditable ng-model="vm.selectedCriteria.description" style="font-size:20px;cursor:text"></span>-->
 
                 <div id="pieChart"></div>
                 <!--<script src="../../js/draw.js"></script>-->

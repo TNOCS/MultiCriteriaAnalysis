@@ -14,7 +14,9 @@
             if (projectData) this.fromJson(projectData);
         }
 
-        /** Deserialize the object */
+        /** 
+         * Deserialize the object 
+         */
         fromJson(projectData: McaProject) {
             this.title       = projectData.title;
             this.description = projectData.description;
@@ -33,6 +35,18 @@
             projectData.solutions.forEach((data) => {
                 this.solutions.push(new Models.Solution(data));
             });
+        }
+
+        get rootCriterion() {
+            var criterion = new Models.Criteria();
+            criterion.subCriterias = this.criterias;
+            return criterion;
+        }
+
+        get rootScenario() {
+            var scenario = new Models.Scenario();
+            scenario.subScenarios = this.scenarios;
+            return scenario;
         }
 
         saveToJson(): boolean {
@@ -57,22 +71,37 @@
             return null;
         }
 
-        findCriteriaByTitle(title: string): Criteria {
-            if (!title || this.criterias.length === 0) return null;
-            return this.findCriteriaByTitleRecursively(this.criterias, title.toLowerCase());
-        }
+        private criteriaCache: { [id: string]: Models.Criteria } = {};
 
-        private findCriteriaByTitleRecursively(crits: Criteria[], title: string): Models.Criteria {
-            for (var i in crits) {
-                var criteria = crits[i];
-                if (criteria.title.toLowerCase() === title) return criteria;
-                if (criteria.subCriterias.length > 0) {
-                    var crit = this.findCriteriaByTitleRecursively(criteria.subCriterias, title);
-                    if (crit != null) return crit;
-                }                
+        // TODO Add caching
+        findCriteriaById(id: string, criterias = this.criterias): Criteria {
+            if (this.criteriaCache.hasOwnProperty(id)) return this.criteriaCache[id];
+            if (criterias.length === 0) return null;
+            for (var i = 0; i < criterias.length; i++) {
+                var criterion = criterias[i];
+                if (criterion.id === id) {
+                    this.criteriaCache[id] = criterion;
+                    return criterion
+                };
+                if (criterion.subCriterias.length > 0) {
+                    var found = this.findCriteriaById(id, criterion.subCriterias);
+                    if (found != null) return found;
+                }
             }
             return null;
         }
+        
+        //private findCriteriaByIdRecursively(crits: Criteria[], title: string): Models.Criteria {
+        //    for (var i in crits) {
+        //        var criteria = crits[i];
+        //        if (criteria.title.toLowerCase() === title) return criteria;
+        //        if (criteria.subCriterias.length > 0) {
+        //            var crit = this.findCriteriaByIdRecursively(criteria.subCriterias, title);
+        //            if (crit != null) return crit;
+        //        }                
+        //    }
+        //    return null;
+        //}
 
         createDummy() {
             this.title = 'MCA DUMMY PROJECT';
@@ -188,7 +217,7 @@
             subCriteria.userWeight = 1;
             subCriteria.addOption('Low', 0.2);
             subCriteria.addOption('Medium', 0.6);
-            subCriteria.addOption('Heigh', 1);
+            subCriteria.addOption('High', 1);
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             this.criterias.push(criteria);

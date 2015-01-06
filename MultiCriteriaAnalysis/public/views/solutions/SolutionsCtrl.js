@@ -36,11 +36,52 @@ var Solutions;
             else if (projectService.activeSolution == null) {
                 projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
+            this.updateScore();
             $scope.selectedItem = {};
             $scope.toggle = function (scope) {
                 scope.toggle();
             };
         }
+        /**
+         * Update the score to compensate for criteria that have been disabled, or option values
+         * that have been adjusted or deleted.
+         */
+        SolutionsCtrl.prototype.updateScore = function () {
+            var project = this.projectService.project;
+            var scores = this.projectService.activeSolution.scores;
+            for (var scenarioId in scores) {
+                if (!scores.hasOwnProperty(scenarioId))
+                    continue;
+                var scenarioScore = scores[scenarioId];
+                for (var criterionId in scenarioScore) {
+                    if (!scenarioScore.hasOwnProperty(criterionId))
+                        continue;
+                    var criterionScore = scenarioScore[criterionId];
+                    var criterion = project.findCriteriaById(criterionId);
+                    if (criterion == null) {
+                        delete scenarioScore[criterionId];
+                        continue;
+                    }
+                    if (!criterion.isEnabled) {
+                        criterionScore.weight = 0;
+                        continue;
+                    }
+                    var option = null;
+                    for (var i = 0; i < criterion.options.length; i++) {
+                        if (criterion.options[i].id !== criterionScore.criteriaOptionId)
+                            continue;
+                        option = criterion.options[i];
+                        break;
+                    }
+                    if (option == null) {
+                        delete scenarioScore[criterionId];
+                        continue;
+                    }
+                    criterionScore.value = option.value;
+                    criterionScore.weight = criterion.weight;
+                }
+            }
+        };
         SolutionsCtrl.prototype.initializeDataSources = function () {
             var _this = this;
             this.dataSources = [];
@@ -67,9 +108,7 @@ var Solutions;
             }
         };
         SolutionsCtrl.prototype.initializeCriteriaWeights = function () {
-            var criterion = new Models.Criteria();
-            criterion.subCriterias = this.projectService.project.criterias;
-            criterion.calculateWeights();
+            this.projectService.project.rootCriterion.calculateWeights();
         };
         SolutionsCtrl.prototype.initializeScenarioWeights = function () {
             var scenario = new Models.Scenario();
@@ -152,17 +191,6 @@ var Solutions;
             else
                 Helpers.Utils.clearSvg();
         };
-        //public fixWeights(data: any[]) {
-        //    var totalWeight = 0;
-        //    if (data.length === 0) return;
-        //    data.forEach((c) => {
-        //        totalWeight += c.userWeight;
-        //    });
-        //    if (totalWeight == 0) return;
-        //    data.forEach((c) => {
-        //        c.weight = c.userWeight / totalWeight;
-        //    });
-        //}
         SolutionsCtrl.prototype.computeScore = function (scenario) {
             var _this = this;
             var totalScore = 0;
@@ -173,7 +201,8 @@ var Solutions;
                     for (var criterionId in score) {
                         if (!score.hasOwnProperty(criterionId))
                             continue;
-                        totalScore += score[criterionId].weight * score[criterionId].value;
+                        var criteriaScore = score[criterionId];
+                        totalScore += criteriaScore.weight * criteriaScore.value;
                     }
                 }
             }
@@ -192,6 +221,8 @@ var Solutions;
             var activeScenario = this.selectedScenario;
             for (var k = 0; k < criterias.length; k++) {
                 var criteria = criterias[k];
+                if (!criteria.isEnabled)
+                    continue;
                 if (criteria.hasSubcriteria()) {
                     this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight);
                 }

@@ -7,10 +7,13 @@ var Models;
             this.scenarios = [];
             this.solutions = [];
             this.dataSources = [];
+            this.criteriaCache = {};
             if (projectData)
                 this.fromJson(projectData);
         }
-        /** Deserialize the object */
+        /**
+         * Deserialize the object
+         */
         McaProject.prototype.fromJson = function (projectData) {
             var _this = this;
             this.title = projectData.title;
@@ -30,6 +33,24 @@ var Models;
                 _this.solutions.push(new Models.Solution(data));
             });
         };
+        Object.defineProperty(McaProject.prototype, "rootCriterion", {
+            get: function () {
+                var criterion = new Models.Criteria();
+                criterion.subCriterias = this.criterias;
+                return criterion;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(McaProject.prototype, "rootScenario", {
+            get: function () {
+                var scenario = new Models.Scenario();
+                scenario.subScenarios = this.scenarios;
+                return scenario;
+            },
+            enumerable: true,
+            configurable: true
+        });
         McaProject.prototype.saveToJson = function () {
             return false;
         };
@@ -50,24 +71,39 @@ var Models;
             }
             return null;
         };
-        McaProject.prototype.findCriteriaByTitle = function (title) {
-            if (!title || this.criterias.length === 0)
+        // TODO Add caching
+        McaProject.prototype.findCriteriaById = function (id, criterias) {
+            if (criterias === void 0) { criterias = this.criterias; }
+            if (this.criteriaCache.hasOwnProperty(id))
+                return this.criteriaCache[id];
+            if (criterias.length === 0)
                 return null;
-            return this.findCriteriaByTitleRecursively(this.criterias, title.toLowerCase());
-        };
-        McaProject.prototype.findCriteriaByTitleRecursively = function (crits, title) {
-            for (var i in crits) {
-                var criteria = crits[i];
-                if (criteria.title.toLowerCase() === title)
-                    return criteria;
-                if (criteria.subCriterias.length > 0) {
-                    var crit = this.findCriteriaByTitleRecursively(criteria.subCriterias, title);
-                    if (crit != null)
-                        return crit;
+            for (var i = 0; i < criterias.length; i++) {
+                var criterion = criterias[i];
+                if (criterion.id === id) {
+                    this.criteriaCache[id] = criterion;
+                    return criterion;
+                }
+                ;
+                if (criterion.subCriterias.length > 0) {
+                    var found = this.findCriteriaById(id, criterion.subCriterias);
+                    if (found != null)
+                        return found;
                 }
             }
             return null;
         };
+        //private findCriteriaByIdRecursively(crits: Criteria[], title: string): Models.Criteria {
+        //    for (var i in crits) {
+        //        var criteria = crits[i];
+        //        if (criteria.title.toLowerCase() === title) return criteria;
+        //        if (criteria.subCriterias.length > 0) {
+        //            var crit = this.findCriteriaByIdRecursively(criteria.subCriterias, title);
+        //            if (crit != null) return crit;
+        //        }                
+        //    }
+        //    return null;
+        //}
         McaProject.prototype.createDummy = function () {
             this.title = 'MCA DUMMY PROJECT';
             // DataSources
@@ -173,7 +209,7 @@ var Models;
             subCriteria.userWeight = 1;
             subCriteria.addOption('Low', 0.2);
             subCriteria.addOption('Medium', 0.6);
-            subCriteria.addOption('Heigh', 1);
+            subCriteria.addOption('High', 1);
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             this.criterias.push(criteria);

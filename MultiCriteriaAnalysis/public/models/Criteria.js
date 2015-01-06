@@ -27,6 +27,7 @@ var Models;
             this.userWeight = 1;
             this.subCriterias = [];
             this.options = [];
+            this.isEnabled = true;
             this.canHaveOptions = function () {
                 return _this.subCriterias.length === 0;
             };
@@ -46,6 +47,10 @@ var Models;
             this.description = data.description;
             this.userWeight = data.userWeight;
             this.dataSourceId = data.dataSourceId;
+            if (typeof data.isEnabled === 'undefined' || data.isEnabled == null)
+                this.isEnabled = true;
+            else
+                this.isEnabled = data.isEnabled;
             this.calculateWeights();
             data.subCriterias.forEach(function (d) {
                 var criteria = new Criteria();
@@ -66,8 +71,10 @@ var Models;
         };
         Criteria.prototype.getOptionValueById = function (id) {
             for (var k in this.options) {
+                if (!this.options.hasOwnProperty(k))
+                    continue;
                 var option = this.options[k];
-                if (option.id == id)
+                if (option.id === id)
                     return option.value;
             }
             return 0;
@@ -87,17 +94,24 @@ var Models;
         Criteria.prototype.addSubCriteria = function (subCriteria) {
             this.subCriterias.push(subCriteria);
         };
+        /**
+         * Update the weights recursively.
+         */
         Criteria.prototype.calculateWeights = function () {
             var totalWeight = 0;
-            if (this.subCriterias.length === 0)
+            if (this.subCriterias.length === 0 || !this.isEnabled)
                 return;
             this.subCriterias.forEach(function (c) {
-                totalWeight += c.userWeight;
+                if (c.isEnabled)
+                    totalWeight += c.userWeight;
             });
             if (totalWeight == 0)
                 return;
             this.subCriterias.forEach(function (c) {
-                c.weight = c.userWeight / totalWeight;
+                if (c.isEnabled)
+                    c.weight = c.userWeight / totalWeight;
+                if (c.subCriterias.length > 0)
+                    c.calculateWeights();
             });
         };
         /**

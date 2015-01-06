@@ -14,7 +14,7 @@
     }
 
     export class CriteriasCtrl {
-        public selectedItem: Models.Criteria;
+        public selectedCriteria: Models.Criteria;
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
         // it is better to have it close to the constructor, because the parameters must match in count and type.
@@ -35,20 +35,12 @@
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
-
-            
-            console.log('CriteriasCtrl');
-            
-
-            console.log(JSON.stringify(projectService.project, null, 2));
+            //console.log(JSON.stringify(projectService.project, null, 2));
 
             $scope.reorder = false;
             $scope.sortAscending = false;
-
             $scope.selectedItem = {};
-
-            $scope.options = {
-            };
+            $scope.options = {};
 
             $scope.remove = function (scope) {
                 scope.remove();                
@@ -80,6 +72,13 @@
             };
         }
 
+        update() {
+            var rootCriteria = new Models.Criteria();
+            rootCriteria.subCriterias = this.projectService.project.criterias;
+            rootCriteria.calculateWeights();
+            this.select(this.selectedCriteria);
+        }
+
         public select(item: Models.Criteria) {
             if (!item) {
                 // Create a pseudo criteria that is the level
@@ -87,12 +86,14 @@
                 item.title = "Top level overview";
                 item.subCriterias = this.projectService.project.criterias;
             }
-            this.selectedItem = item;
+            this.selectedCriteria = item;
             var data = [];
-            var parent = this.selectedItem.findParent(this.projectService.project);
+            var parent = this.selectedCriteria.findParent(this.projectService.project);
+            if (parent == null) parent = this.selectedCriteria;
             parent.calculateWeights();
             for (var k in parent.subCriterias) {
                 var criteria = parent.subCriterias[k];
+                if (!criteria.isEnabled) continue;
                 data.push({
                     id: k + 1,
                     order: k + 1,

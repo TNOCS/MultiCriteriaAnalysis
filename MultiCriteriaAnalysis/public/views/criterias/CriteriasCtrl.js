@@ -11,8 +11,7 @@ var Criterias;
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
-            console.log('CriteriasCtrl');
-            console.log(JSON.stringify(projectService.project, null, 2));
+            //console.log(JSON.stringify(projectService.project, null, 2));
             $scope.reorder = false;
             $scope.sortAscending = false;
             $scope.selectedItem = {};
@@ -42,6 +41,12 @@ var Criterias;
                 _this.projectService.project.criterias.push(c);
             };
         }
+        CriteriasCtrl.prototype.update = function () {
+            var rootCriteria = new Models.Criteria();
+            rootCriteria.subCriterias = this.projectService.project.criterias;
+            rootCriteria.calculateWeights();
+            this.select(this.selectedCriteria);
+        };
         CriteriasCtrl.prototype.select = function (item) {
             if (!item) {
                 // Create a pseudo criteria that is the level
@@ -49,12 +54,16 @@ var Criterias;
                 item.title = "Top level overview";
                 item.subCriterias = this.projectService.project.criterias;
             }
-            this.selectedItem = item;
+            this.selectedCriteria = item;
             var data = [];
-            var parent = this.selectedItem.findParent(this.projectService.project);
+            var parent = this.selectedCriteria.findParent(this.projectService.project);
+            if (parent == null)
+                parent = this.selectedCriteria;
             parent.calculateWeights();
             for (var k in parent.subCriterias) {
                 var criteria = parent.subCriterias[k];
+                if (!criteria.isEnabled)
+                    continue;
                 data.push({
                     id: k + 1,
                     order: k + 1,

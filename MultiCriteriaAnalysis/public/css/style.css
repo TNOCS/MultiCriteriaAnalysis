@@ -666,3 +666,7 @@ border-top-style: none;
     background-color: white;
     border: 0 solid white;
 }
+
+.disabledItem {
+    text-decoration: line-through;
+}
