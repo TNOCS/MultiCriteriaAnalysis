@@ -226,6 +226,13 @@
             criteria = new Criteria();
             criteria.title = 'Functionality';
             criteria.userWeight = 1;
+            subCriteria = new Criteria();
+            subCriteria.title = 'Functionality';
+            subCriteria.userWeight = 1;
+            subCriteria.addOption('Low', 0.2);
+            subCriteria.addOption('Medium', 0.6);
+            subCriteria.addOption('High', 1);
+            criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             this.criterias.push(criteria);
 
@@ -233,6 +240,13 @@
             criteria = new Criteria();
             criteria.title = 'Energy-efficiency';
             criteria.userWeight = 1;
+            subCriteria = new Criteria();
+            subCriteria.title = 'Energy-efficiency';
+            subCriteria.userWeight = 1;
+            subCriteria.addOption('Low', 0.2);
+            subCriteria.addOption('Medium', 0.6);
+            subCriteria.addOption('High', 1);
+            criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             this.criterias.push(criteria);
 

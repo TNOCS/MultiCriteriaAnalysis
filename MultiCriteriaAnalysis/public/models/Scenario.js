@@ -1,4 +1,4 @@
-var Models;
+﻿var Models;
 (function (Models) {
     var Scenario = (function () {
         function Scenario(data) {
@@ -22,15 +22,17 @@ var Models;
             this.description = data.description;
             this.userWeight = data.userWeight;
             this.calculateWeights();
+
             data.subScenarios.forEach(function (d) {
                 var scenario = new Scenario();
                 scenario.fromJson(d);
                 _this.subScenarios.push(scenario);
             });
         };
+
         /**
-         * Find the parent of the element. Returns null when there is no parent.
-         */
+        * Find the parent of the element. Returns null when there is no parent.
+        */
         Scenario.prototype.findParent = function (project) {
             var subs = project.scenarios;
             if (subs.length == 0)
@@ -48,9 +50,10 @@ var Models;
             }
             return null;
         };
+
         /**
-         * Find the parent of the element. Returns null when no parent has been found.
-         */
+        * Find the parent of the element. Returns null when no parent has been found.
+        */
         Scenario.prototype.findParentRecursively = function (parent) {
             var subs = parent.subScenarios;
             for (var i = 0; i < subs.length; i++) {
@@ -62,9 +65,10 @@ var Models;
             }
             return null;
         };
+
         /**
-         * Update the weights recursively.
-         */
+        * Update the weights recursively.
+        */
         Scenario.prototype.calculateWeights = function () {
             var totalWeight = 0;
             if (this.subScenarios.length === 0)

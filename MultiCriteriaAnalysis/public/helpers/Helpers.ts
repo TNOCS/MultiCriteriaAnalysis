@@ -52,7 +52,7 @@
         }
 
         private static pieRadius : number = 100;
-        public static pieColors = ["#fff7ec", "#fee8c8", "#fdd49e", "#fdbb84", "#fc8d59", "#ef6548", "#d7301f", "#b30000", "#7f0000"];
+        public static pieColors = d3.scale.category20();
 
         public static drawPie(data?: any) {
             Utils.clearSvg();
@@ -88,14 +88,6 @@
                 .append("g")
                 .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-            try {
-                svg.call(tip);
-            }
-            catch (err) {
-                svg.call(tip);      //Utils.drawPie(data);
-                console.log("Error: " + err.message);
-            }
-
             var path = svg.selectAll(".solidArc")
                 .data(pie(data))
                 .enter().append("path")
@@ -113,6 +105,15 @@
                 .attr("stroke", "gray")
                 .attr("class", "outlineArc")
                 .attr("d", outlineArc);
+
+            try {
+                svg.call(tip);
+            }
+            catch (err) {
+                //Utils.drawPie(data);
+                console.log("Error: " + err.message);
+            }
+
         }
 
         public static clearSvg() {
@@ -138,7 +139,7 @@
             var tip = d3.tip()
                 .attr('class', 'd3-tip')
                 .offset([0, 0])
-                .html(d => d.data.label + ": <span style='color:orangered'>&nbsp; Weight: " + Math.round(d.data.weight * 100) + "%,&nbsp; Score: " + Math.round(d.data.score) + ",&nbsp; Weight*Score: " + Math.round(d.data.weight * d.data.score) + "</span>");
+                .html(d => d.data.label + ": <span style='color:white'>&nbsp; Weight: " + Math.round(d.data.weight * 100) + "%,&nbsp; Score: " + Math.round(d.data.score) + ",&nbsp; Weight*Score: " + Math.round(d.data.weight * d.data.score) + "</span>");
 
             var arc = d3.svg.arc()
                 .innerRadius(innerRadius)

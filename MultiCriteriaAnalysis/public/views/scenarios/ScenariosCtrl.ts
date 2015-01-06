@@ -97,7 +97,7 @@
                 data.push({
                     id    : k + 1,
                     order : k + 1,
-                    color : Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    color : Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
                     weight: scenario.weight,
                     score : 100,
                     width : scenario.weight,

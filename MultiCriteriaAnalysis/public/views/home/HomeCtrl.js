@@ -1,4 +1,4 @@
-var Home;
+﻿var Home;
 (function (Home) {
     var HomeCtrl = (function () {
         function HomeCtrl($scope, $modal, $log, $http, messageBus, projectService) {
@@ -9,6 +9,7 @@ var Home;
             this.messageBus = messageBus;
             this.projectService = projectService;
             $scope.vm = this;
+
             this.projects = projectService.projects;
         }
         HomeCtrl.prototype.deleteDataSource = function (dataSource) {
@@ -22,6 +23,7 @@ var Home;
                     criteria.dataSourceId = '';
             }
         };
+
         HomeCtrl.prototype.createNewDataSource = function () {
             var _this = this;
             var modalInstance = this.$modal.open({
@@ -29,9 +31,12 @@ var Home;
                 controller: 'GetTitleDialogCtrl',
                 size: 'sm',
                 resolve: {
-                    header: function () { return "Create new data source"; }
+                    header: function () {
+                        return "Create new data source";
+                    }
                 }
             });
+
             modalInstance.result.then(function (title) {
                 if (!title)
                     return;
@@ -43,6 +48,7 @@ var Home;
                 _this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
+
         HomeCtrl.prototype.deleteProject = function () {
             var index = this.projectService.projects.indexOf(this.projectService.project);
             if (index < 0)
@@ -50,6 +56,7 @@ var Home;
             this.projectService.projects.splice(index, 1);
             this.projectService.project = null;
         };
+
         HomeCtrl.prototype.createNewProject = function () {
             var _this = this;
             var modalInstance = this.$modal.open({
@@ -57,9 +64,12 @@ var Home;
                 controller: 'GetTitleDialogCtrl',
                 size: 'sm',
                 resolve: {
-                    header: function () { return "Create a new project"; }
+                    header: function () {
+                        return "Create a new project";
+                    }
                 }
             });
+
             modalInstance.result.then(function (title) {
                 if (!title)
                     return;
@@ -72,11 +82,13 @@ var Home;
                 _this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
+
         HomeCtrl.prototype.downloadProject = function () {
             var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title.replace(/ /g, '_') + '.json';
             var projectAsJson = JSON.stringify(this.projectService.project);
             this.saveData(projectAsJson, filename);
         };
+
         HomeCtrl.prototype.saveData = function (data, filename) {
             if (navigator.msSaveBlob) {
                 // IE 10+
@@ -88,13 +100,11 @@ var Home;
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
-            }
-            else if (!this.supportsDataUri()) {
+            } else if (!this.supportsDataUri()) {
                 // Older versions of IE: show the data in a new window
                 var popup = window.open('', 'json', '');
                 popup.document.body.innerHTML = '<pre>' + data + '</pre>';
-            }
-            else {
+            } else {
                 // Support for browsers that support the data uri.
                 var a = document.createElement('a');
                 document.body.appendChild(a);
@@ -105,16 +115,20 @@ var Home;
                 document.body.removeChild(a);
             }
         };
+
         HomeCtrl.prototype.supportsDataUri = function () {
             var isOldIE = navigator.appName === "Microsoft Internet Explorer";
             var isIE11 = !!navigator.userAgent.match(/Trident\/7\./);
-            return !(isOldIE || isIE11); //Return true if not any IE
+            return !(isOldIE || isIE11);
         };
+
         HomeCtrl.prototype.uploadProject = function (files) {
             var _this = this;
             console.log(JSON.stringify(files));
+
             var reader = new FileReader();
             var f = files[0];
+
             reader.onload = function (e) {
                 //var projectData: Models.McaProject = JSON.parse(reader.result);
                 var project = new Models.McaProject(JSON.parse(reader.result));
@@ -122,6 +136,7 @@ var Home;
                 _this.projectService.project = project;
                 //$('#uploadFile').val('');
             };
+
             reader.readAsText(f);
         };
         HomeCtrl.$inject = [

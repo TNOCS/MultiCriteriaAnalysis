@@ -1,4 +1,4 @@
-var Criterias;
+﻿var Criterias;
 (function (Criterias) {
     var CriteriasCtrl = (function () {
         // dependencies are injected via AngularJS $injector
@@ -11,17 +11,21 @@ var Criterias;
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
+
             //console.log(JSON.stringify(projectService.project, null, 2));
             $scope.reorder = false;
             $scope.sortAscending = false;
             $scope.selectedItem = {};
             $scope.options = {};
+
             $scope.remove = function (scope) {
                 scope.remove();
             };
+
             $scope.toggle = function (scope) {
                 scope.toggle();
             };
+
             $scope.newSubCriteria = function (scope) {
                 var criteria = scope.$modelValue;
                 var c = new Models.Criteria();
@@ -29,12 +33,15 @@ var Criterias;
                 c.userWeight = 1;
                 criteria.subCriterias.push(c);
             };
+
             $scope.newOption = function (scope) {
                 var criteria = scope.$modelValue;
                 var o = new Models.CriteriaOption();
                 o.title = "New Option";
+                o.value = 1;
                 criteria.options.push(o);
             };
+
             $scope.newCriteria = function () {
                 var c = new Models.Criteria();
                 c.title = "New Criteria";
@@ -47,6 +54,7 @@ var Criterias;
             rootCriteria.calculateWeights();
             this.select(this.selectedCriteria);
         };
+
         CriteriasCtrl.prototype.select = function (item) {
             if (!item) {
                 // Create a pseudo criteria that is the level
@@ -67,21 +75,23 @@ var Criterias;
                 data.push({
                     id: k + 1,
                     order: k + 1,
-                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    color: Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
                     weight: criteria.weight,
                     score: 100,
                     width: criteria.weight,
                     label: criteria.title
                 });
             }
+
             if (data.length > 0)
                 Helpers.Utils.drawPie(data);
             else
                 Helpers.Utils.clearSvg();
         };
+
         CriteriasCtrl.prototype.sortOptions = function (criterias) {
             var _this = this;
-            if (criterias === void 0) { criterias = this.projectService.project.criterias; }
+            if (typeof criterias === "undefined") { criterias = this.projectService.project.criterias; }
             //this.$scope.sortAscending = !this.$scope.sortAscending;
             criterias.forEach(function (c) {
                 if (c.hasOptions())
@@ -90,10 +100,6 @@ var Criterias;
                     _this.sortOptions(c.subCriterias);
             });
         };
-        // $inject annotation.
-        // It provides $injector with information about dependencies to be injected into constructor
-        // it is better to have it close to the constructor, because the parameters must match in count and type.
-        // See http://docs.angularjs.org/guide/di
         CriteriasCtrl.$inject = [
             '$scope',
             'messageBusService',

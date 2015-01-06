@@ -1,4 +1,4 @@
-var __extends = this.__extends || function (d, b) {
+﻿var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -16,72 +16,45 @@ var Solutions;
             this.$log = $log;
             this.messageBus = messageBus;
             this.projectService = projectService;
+            this.activeCriterias = [];
             /**
-             * Use the selected data source to filter the results.
-             */
+            * Use the selected data source to filter the results.
+            */
             this.dataSourceFilter = function (value, idx) {
                 if (_this.projectService.activeDataSource == null)
                     return true;
                 return _this.projectService.activeDataSource.filter(value, idx);
             };
             $scope.vm = this;
+
             this.solutions = projectService.project.solutions;
             this.scenarios = projectService.project.scenarios;
+
             this.initializeDataSources();
             this.initializeCriteriaWeights();
             this.initializeScenarioWeights();
+
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
-            }
-            else if (projectService.activeSolution == null) {
+            } else if (projectService.activeSolution == null) {
                 projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
-            this.updateScore();
+            this.updateWeightsAndScore();
+
             $scope.selectedItem = {};
+
             $scope.toggle = function (scope) {
                 scope.toggle();
             };
         }
-        /**
-         * Update the score to compensate for criteria that have been disabled, or option values
-         * that have been adjusted or deleted.
-         */
-        SolutionsCtrl.prototype.updateScore = function () {
-            var project = this.projectService.project;
-            var scores = this.projectService.activeSolution.scores;
-            for (var scenarioId in scores) {
-                if (!scores.hasOwnProperty(scenarioId))
-                    continue;
-                var scenarioScore = scores[scenarioId];
-                for (var criterionId in scenarioScore) {
-                    if (!scenarioScore.hasOwnProperty(criterionId))
-                        continue;
-                    var criterionScore = scenarioScore[criterionId];
-                    var criterion = project.findCriteriaById(criterionId);
-                    if (criterion == null) {
-                        delete scenarioScore[criterionId];
-                        continue;
-                    }
-                    if (!criterion.isEnabled) {
-                        criterionScore.weight = 0;
-                        continue;
-                    }
-                    var option = null;
-                    for (var i = 0; i < criterion.options.length; i++) {
-                        if (criterion.options[i].id !== criterionScore.criteriaOptionId)
-                            continue;
-                        option = criterion.options[i];
-                        break;
-                    }
-                    if (option == null) {
-                        delete scenarioScore[criterionId];
-                        continue;
-                    }
-                    criterionScore.value = option.value;
-                    criterionScore.weight = criterion.weight;
-                }
-            }
+        SolutionsCtrl.prototype.updateWeightsAndScore = function () {
+            var _this = this;
+            this.projectService.project.scenarios.forEach(function (scenario) {
+                _this.eachCriteria(_this.projectService.project.criterias, 1, scenario);
+            });
+            this.activeCriterias = [];
         };
+
         SolutionsCtrl.prototype.initializeDataSources = function () {
             var _this = this;
             this.dataSources = [];
@@ -96,6 +69,7 @@ var Solutions;
                     return value.criterion.dataSourceId === _this.projectService.activeDataSource.id;
                 }));
             });
+
             if (this.projectService.activeDataSource != null) {
                 var id = this.projectService.activeDataSource.id;
                 for (var i = 0; i < this.dataSources.length; i++) {
@@ -107,14 +81,17 @@ var Solutions;
                 }
             }
         };
+
         SolutionsCtrl.prototype.initializeCriteriaWeights = function () {
             this.projectService.project.rootCriterion.calculateWeights();
         };
+
         SolutionsCtrl.prototype.initializeScenarioWeights = function () {
             var scenario = new Models.Scenario();
             scenario.subScenarios = this.projectService.project.scenarios;
             scenario.calculateWeights();
         };
+
         SolutionsCtrl.prototype.deleteSolution = function () {
             var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
             if (index < 0)
@@ -122,6 +99,7 @@ var Solutions;
             this.projectService.project.solutions.splice(index, 1);
             this.projectService.activeSolution = null;
         };
+
         SolutionsCtrl.prototype.createNewSolution = function () {
             var _this = this;
             var modalInstance = this.$modal.open({
@@ -129,9 +107,12 @@ var Solutions;
                 controller: 'GetTitleDialogCtrl',
                 size: 'sm',
                 resolve: {
-                    header: function () { return "Create a new solution"; }
+                    header: function () {
+                        return "Create a new solution";
+                    }
                 }
             });
+
             modalInstance.result.then(function (title) {
                 if (!title)
                     return;
@@ -144,6 +125,7 @@ var Solutions;
                 _this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
+
         SolutionsCtrl.prototype.updateCriteria = function (criteria) {
             //console.log(JSON.stringify(criteria, null, 2));
             if (!(this.selectedScenario.id in this.projectService.activeSolution.scores)) {
@@ -157,6 +139,7 @@ var Solutions;
             };
             this.updateResult();
         };
+
         SolutionsCtrl.prototype.select = function (item) {
             if (!item) {
                 // Create a pseudo scenario that is the top level
@@ -171,6 +154,7 @@ var Solutions;
             }
             this.updateResult();
         };
+
         SolutionsCtrl.prototype.updateResult = function () {
             var data = [];
             var parent = this.selectedScenario.findParent(this.projectService.project);
@@ -179,18 +163,20 @@ var Solutions;
                 data.push({
                     id: k + 1,
                     order: k + 1,
-                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    color: Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
                     weight: scenario.weight,
                     score: this.computeScore(scenario) * 100,
                     width: scenario.weight,
                     label: scenario.title
                 });
             }
+
             if (data.length > 0)
                 Helpers.Utils.drawAsterPlot(data);
             else
                 Helpers.Utils.clearSvg();
         };
+
         SolutionsCtrl.prototype.computeScore = function (scenario) {
             var _this = this;
             var totalScore = 0;
@@ -205,8 +191,7 @@ var Solutions;
                         totalScore += criteriaScore.weight * criteriaScore.value;
                     }
                 }
-            }
-            else {
+            } else {
                 scenario.subScenarios.forEach(function (s) {
                     s.calculateWeights();
                     if (s.weight)
@@ -216,29 +201,26 @@ var Solutions;
             scenario.score = totalScore;
             return totalScore;
         };
-        SolutionsCtrl.prototype.eachCriteria = function (criterias, parentWeight) {
-            if (parentWeight === void 0) { parentWeight = 1; }
-            var activeScenario = this.selectedScenario;
+
+        SolutionsCtrl.prototype.eachCriteria = function (criterias, parentWeight, activeScenario) {
+            if (typeof parentWeight === "undefined") { parentWeight = 1; }
+            if (typeof activeScenario === "undefined") { activeScenario = this.selectedScenario; }
+            var scores = this.projectService.activeSolution.scores;
             for (var k = 0; k < criterias.length; k++) {
                 var criteria = criterias[k];
                 if (!criteria.isEnabled)
                     continue;
                 if (criteria.hasSubcriteria()) {
-                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight);
-                }
-                else {
+                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeScenario);
+                } else {
                     var selectedId = '';
-                    if (activeScenario.id in this.projectService.activeSolution.scores && criteria.id in this.projectService.activeSolution.scores[activeScenario.id]) {
-                        selectedId = this.projectService.activeSolution.scores[activeScenario.id][criteria.id].criteriaOptionId;
+                    if (activeScenario.id in scores && criteria.id in scores[activeScenario.id]) {
+                        selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
                     }
                     this.activeCriterias.push(new SelectableCriterion(criteria, selectedId, parentWeight));
                 }
             }
         };
-        // $inject annotation.
-        // It provides $injector with information about dependencies to be injected into constructor
-        // it is better to have it close to the constructor, because the parameters must match in count and type.
-        // See http://docs.angularjs.org/guide/di
         SolutionsCtrl.$inject = [
             '$scope',
             '$modal',
@@ -249,6 +231,7 @@ var Solutions;
         return SolutionsCtrl;
     })();
     Solutions.SolutionsCtrl = SolutionsCtrl;
+
     var SelectableCriterion = (function (_super) {
         __extends(SelectableCriterion, _super);
         function SelectableCriterion(criterion, selectedId, parentWeight) {
@@ -265,6 +248,7 @@ var Solutions;
         return SelectableCriterion;
     })(Models.Criteria);
     Solutions.SelectableCriterion = SelectableCriterion;
+
     var GetTitleDialogCtrl = (function () {
         function GetTitleDialogCtrl($scope, $modalInstance, header) {
             this.$scope = $scope;
@@ -276,6 +260,7 @@ var Solutions;
         GetTitleDialogCtrl.prototype.ok = function () {
             this.$modalInstance.close(this.title);
         };
+
         GetTitleDialogCtrl.prototype.cancel = function () {
             this.$modalInstance.dismiss('cancel');
         };

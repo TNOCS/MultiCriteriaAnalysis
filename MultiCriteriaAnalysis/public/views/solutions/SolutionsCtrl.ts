@@ -10,7 +10,7 @@
         public dataSources      : Models.DataSourceViewModel[];
         public scenarios        : Models.Scenario[];
         public selectedScenario : Models.Scenario;
-        public activeCriterias  : SelectableCriterion[];
+        public activeCriterias  : SelectableCriterion[] = [];
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -47,7 +47,7 @@
             } else if (projectService.activeSolution == null) {
                 projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
-            this.updateScore();
+            this.updateWeightsAndScore();
 
             $scope.selectedItem = {};
 
@@ -56,42 +56,11 @@
             };
         }
 
-        /**
-         * Update the score to compensate for criteria that have been disabled, or option values 
-         * that have been adjusted or deleted.
-         */
-        private updateScore() {
-            var project = this.projectService.project;
-            var scores = this.projectService.activeSolution.scores;
-            for (var scenarioId in scores) {
-                if (!scores.hasOwnProperty(scenarioId)) continue;
-                var scenarioScore = scores[scenarioId];
-                for (var criterionId in scenarioScore) {
-                    if (!scenarioScore.hasOwnProperty(criterionId)) continue;
-                    var criterionScore = scenarioScore[criterionId];
-                    var criterion = project.findCriteriaById(criterionId);
-                    if (criterion == null) {
-                        delete scenarioScore[criterionId];
-                        continue;
-                    }
-                    if (!criterion.isEnabled) {
-                        criterionScore.weight = 0;
-                        continue;
-                    }
-                    var option: Models.CriteriaOption = null;
-                    for (var i = 0; i < criterion.options.length; i++) {
-                        if (criterion.options[i].id !== criterionScore.criteriaOptionId) continue;
-                        option = criterion.options[i]
-                        break;
-                    }
-                    if (option == null) {
-                        delete scenarioScore[criterionId];
-                        continue;
-                    }
-                    criterionScore.value  = option.value;
-                    criterionScore.weight = criterion.weight;
-                }
-            }
+        private updateWeightsAndScore() {
+            this.projectService.project.scenarios.forEach((scenario) => {
+                this.eachCriteria(this.projectService.project.criterias, 1, scenario);
+            });
+            this.activeCriterias = [];
         }
 
         private initializeDataSources() {
@@ -193,7 +162,7 @@
                 data.push({
                     id    : k + 1,
                     order : k + 1,
-                    color : Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    color : Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
                     weight: scenario.weight,
                     score : this.computeScore(scenario) * 100,
                     width : scenario.weight,
@@ -238,18 +207,18 @@
             return this.projectService.activeDataSource.filter(value, idx);
         }
 
-        private eachCriteria(criterias: Models.Criteria[], parentWeight = 1) {
-            var activeScenario = this.selectedScenario;
+        private eachCriteria(criterias: Models.Criteria[], parentWeight = 1, activeScenario = this.selectedScenario) {
+            var scores = this.projectService.activeSolution.scores;
             for (var k = 0; k < criterias.length; k++) {
                 var criteria = criterias[k];
                 if (!criteria.isEnabled) continue;
                 if (criteria.hasSubcriteria()) {
-                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight);
+                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeScenario);
                 } else {
                     var selectedId = '';
-                    if (activeScenario.id in this.projectService.activeSolution.scores &&
-                        criteria.id in this.projectService.activeSolution.scores[activeScenario.id]) {
-                        selectedId = this.projectService.activeSolution.scores[activeScenario.id][criteria.id].criteriaOptionId;
+                    if (activeScenario.id in scores &&
+                        criteria.id in scores[activeScenario.id]) {
+                        selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
                     }
                     this.activeCriterias.push(new SelectableCriterion(criteria, selectedId, parentWeight));
                 }

@@ -28,8 +28,8 @@
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
-            private $scope: ICriteriasViewScope,
-            private messageBus: csComp.Services.MessageBusService,
+            private $scope        : ICriteriasViewScope,
+            private messageBus    : csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
             ) {
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
@@ -61,7 +61,8 @@
             $scope.newOption = (scope) => {
                 var criteria = <Models.Criteria>scope.$modelValue;    
                 var o = new Models.CriteriaOption();
-                o.title = "New Option";                
+                o.title = "New Option";  
+                o.value = 1;              
                 criteria.options.push(o);
             };
 
@@ -95,13 +96,13 @@
                 var criteria = parent.subCriterias[k];
                 if (!criteria.isEnabled) continue;
                 data.push({
-                    id: k + 1,
-                    order: k + 1,
-                    color: Helpers.Utils.pieColors[k % Helpers.Utils.pieColors.length],
+                    id    : k + 1,
+                    order : k + 1,
+                    color : Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
                     weight: criteria.weight,
-                    score: 100,
-                    width: criteria.weight,
-                    label: criteria.title
+                    score : 100,
+                    width : criteria.weight,
+                    label : criteria.title
                 });
             }
 
