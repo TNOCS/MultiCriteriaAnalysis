@@ -62,7 +62,10 @@
             for (var i = 0; i < subs.length; i++) {
                 var sub = subs[i];
                 if (sub === this) return parent;
-                if (sub.subScenarios.length > 0) return this.findParentRecursively(sub);
+                if (sub.subScenarios.length > 0) {
+                    var parent2 = this.findParentRecursively(sub);
+                    if (parent2 != null) return parent2;
+                }
             }
             return null;
         }
