@@ -43,6 +43,7 @@
     <TypeScriptCompile Include="public\models\Solution.ts" />
     <TypeScriptCompile Include="public\services\MessageBus.ts" />
     <TypeScriptCompile Include="public\services\ProjectService.ts" />
+    <TypeScriptCompile Include="public\views\comparisons\ComparisonsCtrl.ts" />
     <TypeScriptCompile Include="public\views\criterias\CriteriasCtrl.ts" />
     <TypeScriptCompile Include="public\views\home\HomeCtrl.ts" />
     <TypeScriptCompile Include="public\views\scenarios\ScenariosCtrl.ts" />
@@ -65,6 +66,7 @@
     <Content Include="public\includes\ROsanswebtextregular.eot" />
     <Content Include="public\includes\ROsanswebtextregular.ttf" />
     <Content Include="public\index.html" />
+    <Content Include="public\views\comparisons\comparisons.html" />
     <Content Include="public\views\criterias\criterias.html" />
     <Content Include="public\views\dialogs\getTitleDialog.html" />
     <Content Include="public\views\home\home.html" />
@@ -88,6 +90,7 @@
     <Folder Include="public\views\criterias\" />
     <Folder Include="public\views\home\" />
     <Folder Include="public\views\dialogs\" />
+    <Folder Include="public\views\comparisons\" />
     <Folder Include="public\views\solutions\" />
     <Folder Include="public\views\scenarios\" />
     <Folder Include="Scripts\" />

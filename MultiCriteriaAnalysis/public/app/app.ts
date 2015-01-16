@@ -68,7 +68,7 @@
         'csWeb.resize',
         'multi-select',
         //'angularUtils.directives.dirPagination',
-        'ui.tree' // https://github.com/JimLiu/angular-ui-tree
+        'ui.tree' // https           ://github.com/JimLiu/angular-ui-tree
         ])
         .config(localStorageServiceProvider => {
             localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';
@@ -78,26 +78,31 @@
             $urlRouterProvider.otherwise("/home");
             $stateProvider
                 .state('home', {
-                    url: "/home",
-                    templateUrl: "views/home/home.html",
-                    sticky: true,
+                    url              : "/home",
+                    templateUrl      : "views/home/home.html",
+                    sticky           : true,
                     deepStateRedirect: true
                 })
                 .state('criterias', {
-                    url: "/criterias",
-                    templateUrl: "views/criterias/criterias.html",
-                    sticky: true,
+                    url              : "/criterias",
+                    templateUrl      : "views/criterias/criterias.html",
+                    sticky           : true,
                     deepStateRedirect: true
                 })
                 .state('scenarios', {
-                    url: "/scenarios",
-                    templateUrl: "views/scenarios/scenarios.html",                    
-                    sticky: true
+                    url              : "/scenarios",
+                    templateUrl      : "views/scenarios/scenarios.html",
+                    sticky           : true
+                })
+                .state('comparisons', {
+                    url              : "/comparisons",
+                    templateUrl      : "views/comparisons/comparisons.html",
+                    sticky           : true
                 })
                 .state('solutions', {
-                    url: "/solutions",
-                    templateUrl: "views/solutions/solutions.html",
-                    sticky: true
+                    url              : "/solutions",
+                    templateUrl      : "views/solutions/solutions.html",
+                    sticky           : true
                 });
 
         })
@@ -109,24 +114,24 @@
         .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
         .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
         .controller('GetTitleDialogCtrl', Solutions.GetTitleDialogCtrl)
-        .controller('RatingDemoCtrl', function ($scope) {
-            $scope.rate = 7;
-            $scope.max = 10;
-            $scope.isReadonly = false;
+        //.controller('RatingDemoCtrl', function ($scope) {
+        //    $scope.rate = 7;
+        //    $scope.max = 10;
+        //    $scope.isReadonly = false;
 
-            $scope.hoveringOver = function (value) {
-                $scope.overStar = value;
-                $scope.percent = 100 * (value / $scope.max);
-            };
+        //    $scope.hoveringOver = function (value) {
+        //        $scope.overStar = value;
+        //        $scope.percent = 100 * (value / $scope.max);
+        //    };
 
-            $scope.ratingStates = [
-                { stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle' },
-                { stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty' },
-                { stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle' },
-                { stateOn: 'glyphicon-heart' },
-                { stateOff: 'glyphicon-off' }
-            ];
-        })
+        //    $scope.ratingStates = [
+        //        { stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle' },
+        //        { stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty' },
+        //        { stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle' },
+        //        { stateOn: 'glyphicon-heart' },
+        //        { stateOff: 'glyphicon-off' }
+        //    ];
+        //})
         .filter('format', [
             '$filter', '$locale', (filter, locale) => (value, format) => String.format(format, value)
         ]).directive("contenteditable", () => {
