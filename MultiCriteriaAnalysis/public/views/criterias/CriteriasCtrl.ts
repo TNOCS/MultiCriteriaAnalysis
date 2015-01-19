@@ -21,6 +21,7 @@
         // See http://docs.angularjs.org/guide/di
         public static $inject = [
             '$scope',
+            '$modal',
             'messageBusService',
             'projectService'
         ];
@@ -29,6 +30,7 @@
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
             private $scope        : ICriteriasViewScope,
+            private $modal        : any,
             private messageBus    : csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
             ) {
@@ -71,6 +73,54 @@
                 c.title = "New Criteria";
                 this.projectService.project.criterias.push(c);                
             };
+        }
+
+        deleteOption(option: Models.CriteriaOption, criteria: Models.Criteria) {
+            var modalInstance = this.$modal.open({
+                templateUrl: 'views/dialogs/ConfirmationDialog.html',
+                controller: 'ConfirmationDialogCtrl',
+                size: 'sm', // = small or 'lg' for large
+                resolve: {
+                    header: () => "Delete option",
+                    question: () => 'Are you sure you want to delete the option \''
+                        + option.title + '\'?'
+                }
+            });
+
+            modalInstance.result.then((confirmation: boolean) => {
+                if (!confirmation) return;
+                var options = criteria.options;
+                var index = options.indexOf(option);
+                if (index < 0) return;
+                options.splice(index, 1);
+            }, () => {
+                    //this.$log.error('Modal dismissed at: ' + new Date());
+                });
+        }
+
+        deleteCriteria(criteria: Models.Criteria, parent: Models.Criteria) {
+            var modalInstance = this.$modal.open({
+                templateUrl: 'views/dialogs/ConfirmationDialog.html',
+                controller: 'ConfirmationDialogCtrl',
+                size: 'sm', // = small or 'lg' for large
+                resolve: {
+                    header: () => "Delete criteria",
+                    question: () => 'Are you sure you want to delete the criteria \''
+                        + criteria.title + '\'?'
+                }
+            });
+
+            modalInstance.result.then((confirmation: boolean) => {
+                if (!confirmation) return;
+                var criterias = parent == null
+                    ? this.projectService.project.criterias
+                    : parent.subCriterias;
+                var index = criterias.indexOf(criteria);
+                if (index < 0) return;
+                criterias.splice(index, 1);
+            }, () => {
+                    //this.$log.error('Modal dismissed at: ' + new Date());
+                });
         }
 
         update() {

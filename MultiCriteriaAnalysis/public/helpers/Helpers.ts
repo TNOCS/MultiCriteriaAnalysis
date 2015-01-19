@@ -11,7 +11,7 @@
         /** Get the date as YYYYMMDDHHmm */
         public static getDate() {
             var now = new Date();
-            return now.getFullYear() + Utils.getTwoDigit(now.getMonth()+1) + Utils.getTwoDigit(now.getDate()) + '_' + Utils.getTwoDigit(now.getHours()) + Utils.getTwoDigit(now.getMinutes());
+            return now.getFullYear() + Utils.getTwoDigit(now.getMonth() + 1) + Utils.getTwoDigit(now.getDate()) + '_' + Utils.getTwoDigit(now.getHours()) + Utils.getTwoDigit(now.getMinutes());
         }
 
         public static getTwoDigit(nmbr: number): string {
@@ -51,7 +51,7 @@
             return s === 'true' || s === 'false';
         }
 
-        private static pieRadius : number = 100;
+        private static pieRadius: number = 100;
         public static pieColors = d3.scale.category20();
 
         public static drawPie(data?: any) {
@@ -184,9 +184,9 @@
 
             // calculate the weighted mean score
             var score = data.reduce(function (a, b) {
-                    //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
-                    return a + (b.score * b.weight);
-                }, 0) /
+                //console.log('a:' + a + ', b.score: ' + b.score + ', b.weight: ' + b.weight);
+                return a + (b.score * b.weight);
+            }, 0) /
                 data.reduce(function (a, b) {
                     return a + b.weight;
                 }, 0);
@@ -197,6 +197,5 @@
                 .attr("text-anchor", "middle") // text-align: right
                 .text(Math.round(score));
         }
-
     }
 }

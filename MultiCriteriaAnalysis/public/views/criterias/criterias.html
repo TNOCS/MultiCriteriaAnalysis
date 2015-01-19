@@ -16,7 +16,7 @@
             <span class="glyphicon glyphicon-list" style="margin-right:4px; opacity:0.25; color:grey" />
             <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text" data-nodrag></span>
             <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)" style="margin-right:20px;"><span class="glyphicon glyphicon-remove"></span></a>
+            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.deleteOption(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)" style="margin-right:20px;"><span class="glyphicon glyphicon-remove"></span></a>
             <input type="number" ng-model="item.value" min="0" max="1" step="0.1" class="pull-right text-right" style="margin:0 130px 0 0">
         </div>
     </script>
@@ -31,7 +31,7 @@
             <!-- Disable criteria -->
             <input type="checkbox" ng-model="item.isEnabled" class="pull-right checkbox" ng-click="vm.update();">
             <!-- Delete criteria -->
-            <a class="pull-right btn btn-danger btn-xs" ng-if="item.isEnabled" data-nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+            <a class="pull-right btn btn-danger btn-xs" ng-if="item.isEnabled" data-nodrag ng-click="vm.deleteCriteria(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"><span class="glyphicon glyphicon-remove"></span></a>
             <!-- Specify criteria options -->
             <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-if="item.canHaveOptions() && item.isEnabled"
                data-ng-click="newOption(this)" style="margin-right: 8px;">

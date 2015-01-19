@@ -96,6 +96,7 @@
             scenario.calculateWeights();
         }
 
+        // TODO Add confirmation
         public deleteSolution() {
             var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
             if (index < 0) return;

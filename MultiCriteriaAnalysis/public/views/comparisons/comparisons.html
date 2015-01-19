@@ -21,7 +21,7 @@
                 <div ui-tree-handle ng-click="vm.select(item)">
                     <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
                     <span ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag>{{item.title}}</span>
-                    <rating ng-model="item.userWeight" class="span6 pull-right" style="text-align:right;" max="5" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                  <!--  <rating ng-model="item.userWeight" class="span6 pull-right" style="text-align:right;" max="5" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
                     <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
                 </div>
                 <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
@@ -29,7 +29,7 @@
                 </ol>
             </script>
 
-            <div ui-tree="options" data-drag-enabled="false" class="col-md-6">
+            <div ui-tree="options" data-drag-enabled="false" class="col-md-3">
                 <!--              <a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
                 <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios" data-nodrop data-nodrag style="cursor: pointer">
                     <li ng-repeat="item in vm.projectService.project.scenarios"
@@ -43,7 +43,6 @@
         <div class="col-md-6">
             <div class="row" data-ng-if="vm.selectedScenario">
                 <h3>Scenario '{{vm.selectedScenario.title}}'</h3>
-                <!--<span contenteditable ng-model="vm.selectedScenario.description" style="font-size:20px;cursor:text"></span>-->
                 <div id="pieChart"></div>
             </div>
             <div class="row" data-ng-if="vm.activeCriterias.length > 0">

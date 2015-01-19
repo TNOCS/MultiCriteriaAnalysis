@@ -3,9 +3,10 @@ var Criterias;
     var CriteriasCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
-        function CriteriasCtrl($scope, messageBus, projectService) {
+        function CriteriasCtrl($scope, $modal, messageBus, projectService) {
             var _this = this;
             this.$scope = $scope;
+            this.$modal = $modal;
             this.messageBus = messageBus;
             this.projectService = projectService;
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
@@ -42,6 +43,51 @@ var Criterias;
                 _this.projectService.project.criterias.push(c);
             };
         }
+        CriteriasCtrl.prototype.deleteOption = function (option, criteria) {
+            var modalInstance = this.$modal.open({
+                templateUrl: 'views/dialogs/ConfirmationDialog.html',
+                controller: 'ConfirmationDialogCtrl',
+                size: 'sm',
+                resolve: {
+                    header: function () { return "Delete option"; },
+                    question: function () { return 'Are you sure you want to delete the option \'' + option.title + '\'?'; }
+                }
+            });
+            modalInstance.result.then(function (confirmation) {
+                if (!confirmation)
+                    return;
+                var options = criteria.options;
+                var index = options.indexOf(option);
+                if (index < 0)
+                    return;
+                options.splice(index, 1);
+            }, function () {
+                //this.$log.error('Modal dismissed at: ' + new Date());
+            });
+        };
+        CriteriasCtrl.prototype.deleteCriteria = function (criteria, parent) {
+            var _this = this;
+            var modalInstance = this.$modal.open({
+                templateUrl: 'views/dialogs/ConfirmationDialog.html',
+                controller: 'ConfirmationDialogCtrl',
+                size: 'sm',
+                resolve: {
+                    header: function () { return "Delete criteria"; },
+                    question: function () { return 'Are you sure you want to delete the criteria \'' + criteria.title + '\'?'; }
+                }
+            });
+            modalInstance.result.then(function (confirmation) {
+                if (!confirmation)
+                    return;
+                var criterias = parent == null ? _this.projectService.project.criterias : parent.subCriterias;
+                var index = criterias.indexOf(criteria);
+                if (index < 0)
+                    return;
+                criterias.splice(index, 1);
+            }, function () {
+                //this.$log.error('Modal dismissed at: ' + new Date());
+            });
+        };
         CriteriasCtrl.prototype.update = function () {
             var rootCriteria = new Models.Criteria();
             rootCriteria.subCriterias = this.projectService.project.criterias;
@@ -97,6 +143,7 @@ var Criterias;
         // See http://docs.angularjs.org/guide/di
         CriteriasCtrl.$inject = [
             '$scope',
+            '$modal',
             'messageBusService',
             'projectService'
         ];

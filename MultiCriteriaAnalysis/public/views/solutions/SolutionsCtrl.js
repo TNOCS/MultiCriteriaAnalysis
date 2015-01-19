@@ -77,6 +77,7 @@ var Solutions;
             scenario.subScenarios = this.projectService.project.scenarios;
             scenario.calculateWeights();
         };
+        // TODO Add confirmation
         SolutionsCtrl.prototype.deleteSolution = function () {
             var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
             if (index < 0)
