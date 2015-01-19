@@ -10,7 +10,7 @@
         public dataSources     : Models.DataSourceViewModel[];
         public scenarios       : Models.Scenario[];
         public selectedScenario: Models.Scenario;
-        public activeCriterias : Solutions.SelectableCriterion[] = [];
+        public activeCriterias : Models.SelectableCriterion[] = [];
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor

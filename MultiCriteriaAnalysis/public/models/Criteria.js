@@ -1,3 +1,9 @@
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var Models;
 (function (Models) {
     var CriteriaOption = (function () {
@@ -151,5 +157,21 @@ var Models;
         return Criteria;
     })();
     Models.Criteria = Criteria;
+    var SelectableCriterion = (function (_super) {
+        __extends(SelectableCriterion, _super);
+        function SelectableCriterion(criterion, selectedId, parentWeight) {
+            _super.call(this);
+            this.criterion = criterion;
+            this.selectedId = selectedId;
+            this.id = criterion.id;
+            this.title = criterion.title;
+            this.description = criterion.description;
+            this.userWeight = criterion.userWeight;
+            this.weight = criterion.weight * parentWeight;
+            this.options = criterion.options;
+        }
+        return SelectableCriterion;
+    })(Models.Criteria);
+    Models.SelectableCriterion = SelectableCriterion;
 })(Models || (Models = {}));
 //# sourceMappingURL=Criteria.js.map

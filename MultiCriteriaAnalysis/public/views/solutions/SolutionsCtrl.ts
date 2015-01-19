@@ -10,7 +10,7 @@
         public dataSources      : Models.DataSourceViewModel[];
         public scenarios        : Models.Scenario[];
         public selectedScenario : Models.Scenario;
-        public activeCriterias  : SelectableCriterion[] = [];
+        public activeCriterias  : Models.SelectableCriterion[] = [];
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -65,12 +65,12 @@
 
         private initializeDataSources() {
             this.dataSources = [];
-            this.dataSources.push(new Models.DataSourceViewModel('all', '1', 'Show', (value: SelectableCriterion, idx: number) => { return true; }));
-            this.dataSources.push(new Models.DataSourceViewModel('unassigned', '2', 'Show', (value: SelectableCriterion, idx: number) => {
+            this.dataSources.push(new Models.DataSourceViewModel('all', '1', 'Show', (value: Models.SelectableCriterion, idx: number) => { return true; }));
+            this.dataSources.push(new Models.DataSourceViewModel('unassigned', '2', 'Show', (value: Models.SelectableCriterion, idx: number) => {
                 return (value.selectedId == null || value.selectedId.length === 0);
             }));
             this.projectService.project.dataSources.forEach((ds) => {
-                this.dataSources.push(new Models.DataSourceViewModel(ds.title, ds.id, 'Filter by model', (value: SelectableCriterion, idx: number) => {
+                this.dataSources.push(new Models.DataSourceViewModel(ds.title, ds.id, 'Filter by model', (value: Models.SelectableCriterion, idx: number) => {
                     return value.criterion.dataSourceId === this.projectService.activeDataSource.id;
                 }));
             });
@@ -127,7 +127,7 @@
             });
         }
 
-        public updateCriteria(criteria: SelectableCriterion) {
+        public updateCriteria(criteria: Models.SelectableCriterion) {
             //console.log(JSON.stringify(criteria, null, 2));
             if (!(this.selectedScenario.id in this.projectService.activeSolution.scores)) {
                 this.projectService.activeSolution.scores[this.selectedScenario.id] = {};
@@ -204,7 +204,7 @@
         /**
          * Use the selected data source to filter the results.
          */
-        dataSourceFilter = (value: SelectableCriterion, idx: number) => {
+        dataSourceFilter = (value: Models.SelectableCriterion, idx: number) => {
             if (this.projectService.activeDataSource == null) return true;
             return this.projectService.activeDataSource.filter(value, idx);
         }
@@ -222,21 +222,9 @@
                         criteria.id in scores[activeScenario.id]) {
                         selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
                     }
-                    this.activeCriterias.push(new SelectableCriterion(criteria, selectedId, parentWeight));
+                    this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
                 }
             }
-        }
-    }
-
-    export class SelectableCriterion extends Models.Criteria {
-        constructor(public criterion: Models.Criteria, public selectedId: string, parentWeight: number) {
-            super();
-            this.id          = criterion.id;
-            this.title       = criterion.title;
-            this.description = criterion.description;
-            this.userWeight  = criterion.userWeight;
-            this.weight      = criterion.weight * parentWeight;
-            this.options     = criterion.options;
         }
     }
 

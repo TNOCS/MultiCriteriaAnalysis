@@ -158,7 +158,19 @@
             }
             return null;
         }
-
-
     }
+
+    export class SelectableCriterion extends Models.Criteria {
+        constructor(public criterion: Models.Criteria, public selectedId: string, parentWeight: number) {
+            super();
+            this.id = criterion.id;
+            this.title = criterion.title;
+            this.description = criterion.description;
+            this.userWeight = criterion.userWeight;
+            this.weight = criterion.weight * parentWeight;
+            this.options = criterion.options;
+        }
+    }
+
+
 }
