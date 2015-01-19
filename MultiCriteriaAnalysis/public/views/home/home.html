@@ -7,17 +7,24 @@
                     data-ng-options="project.title for project in vm.projects"></select>
         </div>
         <div class="btn-group col-md-3">
-            <a class="btn" data-ng-click="vm.deleteProject()" ng-disabled="vm.projectService.project == null"
-               popover="Delete project"
-               popover-placement="top"
-               popover-trigger="mouseenter">
-                <i class="fa fa-2x fa-trash-o"></i>
-            </a>
             <a class="btn" data-ng-click="vm.createNewProject()"
                popover="Create a new project"
                popover-placement="top"
                popover-trigger="mouseenter">
                 <i class="fa fa-2x fa-plus"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.editProject()"
+               popover="Edit the project"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-edit"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.deleteProject()"
+               data-ng-disabled="vm.projectService.project == null"
+               popover="Delete project"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-trash-o"></i>
             </a>
             <a class="btn" data-ng-click="vm.downloadProject()"
                popover="Download a project to file"
@@ -54,17 +61,25 @@
             </select>
         </div>
         <div class="btn-group col-md-2">
-            <a class="btn" data-ng-click="vm.deleteDataSource(vm.projectService.activeDataSource)" alt="Delete data source"
-               popover="Delete data source"
-               popover-placement="top"
-               popover-trigger="mouseenter">
-                <i class="fa fa-2x fa-trash-o"></i>
-            </a>
             <a class="btn" data-ng-click="vm.createNewDataSource()" alt="Create new data source"
                popover="Create new data source"
                popover-placement="top"
                popover-trigger="mouseenter">
                 <i class="fa fa-2x fa-plus"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.editDataSource(vm.projectService.activeDataSource)"
+               data-ng-disabled="vm.projectService.activeDataSource == null"
+               popover="Edit the data source"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-edit"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.deleteDataSource(vm.projectService.activeDataSource)" alt="Delete data source"
+               data-ng-disabled="vm.projectService.activeDataSource == null"
+               popover="Delete data source"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-trash-o"></i>
             </a>
         </div>
     </div>

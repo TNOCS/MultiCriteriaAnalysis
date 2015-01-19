@@ -114,6 +114,7 @@
         .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
         .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
         .controller('GetTitleDialogCtrl', Solutions.GetTitleDialogCtrl)
+        .controller('ConfirmationDialogCtrl', Dialogs.ConfirmationDialogCtrl)
         //.controller('RatingDemoCtrl', function ($scope) {
         //    $scope.rate = 7;
         //    $scope.max = 10;

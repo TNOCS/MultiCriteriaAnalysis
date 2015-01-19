@@ -1,4 +1,4 @@
-﻿var Models;
+var Models;
 (function (Models) {
     var CriteriaOption = (function () {
         function CriteriaOption() {
@@ -11,7 +11,6 @@
             this.description = data.description;
             this.value = data.value;
         };
-
         Object.defineProperty(CriteriaOption.prototype, "fullTitle", {
             get: function () {
                 return this.title + ' (' + this.value + ')';
@@ -22,7 +21,6 @@
         return CriteriaOption;
     })();
     Models.CriteriaOption = CriteriaOption;
-
     var Criteria = (function () {
         function Criteria(data) {
             var _this = this;
@@ -54,7 +52,6 @@
             else
                 this.isEnabled = data.isEnabled;
             this.calculateWeights();
-
             data.subCriterias.forEach(function (d) {
                 var criteria = new Criteria();
                 criteria.fromJson(d);
@@ -66,15 +63,12 @@
                 _this.options.push(option);
             });
         };
-
         Criteria.prototype.hasOptions = function () {
             return this.options.length > 0;
         };
-
         Criteria.prototype.hasSubcriteria = function () {
             return this.subCriterias.length > 0;
         };
-
         Criteria.prototype.getOptionValueById = function (id) {
             for (var k in this.options) {
                 if (!this.options.hasOwnProperty(k))
@@ -85,13 +79,11 @@
             }
             return 0;
         };
-
         Criteria.prototype.sortOptions = function (sortAscending) {
             this.options = this.options.sort(function (o1, o2) {
                 return sortAscending ? o1.value - o2.value : o2.value - o1.value;
             });
         };
-
         Criteria.prototype.addOption = function (title, value) {
             var option = new CriteriaOption();
             option.title = title;
@@ -99,14 +91,12 @@
             this.options.push(option);
             return option;
         };
-
         Criteria.prototype.addSubCriteria = function (subCriteria) {
             this.subCriterias.push(subCriteria);
         };
-
         /**
-        * Update the weights recursively.
-        */
+         * Update the weights recursively.
+         */
         Criteria.prototype.calculateWeights = function () {
             var totalWeight = 0;
             if (this.subCriterias.length === 0 || !this.isEnabled)
@@ -124,10 +114,9 @@
                     c.calculateWeights();
             });
         };
-
         /**
-        * Find the parent of the element. Returns null when there is no parent.
-        */
+         * Find the parent of the element. Returns null when there is no parent.
+         */
         Criteria.prototype.findParent = function (project) {
             var subs = project.criterias;
             if (subs.length == 0)
@@ -145,10 +134,9 @@
             }
             return null;
         };
-
         /**
-        * Find the parent of the element. Returns null when no parent has been found.
-        */
+         * Find the parent of the element. Returns null when no parent has been found.
+         */
         Criteria.prototype.findParentRecursively = function (parent) {
             var subs = parent.subCriterias;
             for (var i = 0; i < subs.length; i++) {

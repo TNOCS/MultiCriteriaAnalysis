@@ -105,11 +105,13 @@
 
         public createNewSolution() {
             var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller : 'GetTitleDialogCtrl',
-                size       : 'sm',
-                resolve    : {
-                    header : () => "Create a new solution"
+                templateUrl     : 'views/dialogs/getTitleDialog.html',
+                controller      : 'GetTitleDialogCtrl',
+                size            : 'sm',
+                resolve         : {
+                    header      : () => 'Create a new solution',
+                    title       : () => '',
+                    description : () => ''
                 }
             });
 
@@ -244,18 +246,20 @@
     }
 
     export class GetTitleDialogCtrl {
-        public title: string;
-
         public static $inject = [
             '$scope',
             '$modalInstance',
-            'header'
+            'header',
+            'title',
+            'description'
         ];
 
         constructor(
-            private $scope: IGetTitleDialogScope,
+            private $scope        : IGetTitleDialogScope,
             private $modalInstance: any,
-            private header: string) {
+            private header        : string,
+            public title          : string,
+            public description    : string) {
 
             $scope.vm = this;
             $scope.header = header;

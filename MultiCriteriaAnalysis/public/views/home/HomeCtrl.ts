@@ -30,22 +30,40 @@
         }
 
         public deleteDataSource(dataSource: Models.DataSource) {
-            var index = this.projectService.project.dataSources.indexOf(dataSource);
-            if (index < 0) return;
-            this.projectService.project.dataSources.splice(index, 1);
-            for (var k in this.projectService.project.criterias) {
-                var criteria = this.projectService.project.criterias[k];
-                if (criteria.dataSourceId === dataSource.id) criteria.dataSourceId = '';
-            }
+            var modalInstance = this.$modal.open({
+                templateUrl  : 'views/dialogs/ConfirmationDialog.html',
+                controller   : 'ConfirmationDialogCtrl',
+                size         : 'sm', // = small or 'lg' for large
+                resolve      : {
+                    header   : () => "Delete source",
+                    question : () => 'Are you sure you want to delete the data source \''
+                        + dataSource.title + '\'?'
+                }
+            });
+
+            modalInstance.result.then((confirmation: boolean) => {
+                if (!confirmation) return;
+                var index = this.projectService.project.dataSources.indexOf(dataSource);
+                if (index < 0) return;
+                this.projectService.project.dataSources.splice(index, 1);
+                for (var k in this.projectService.project.criterias) {
+                    var criteria = this.projectService.project.criterias[k];
+                    if (criteria.dataSourceId === dataSource.id) criteria.dataSourceId = '';
+                }
+            }, () => {
+                this.$log.error('Modal dismissed at: ' + new Date());
+            });
         }
 
         public createNewDataSource() {
             var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller: 'GetTitleDialogCtrl',
-                size: 'sm',
-                resolve: {
-                    header: () => "Create new data source"
+                templateUrl    : 'views/dialogs/getTitleDialog.html',
+                controller     : 'GetTitleDialogCtrl',
+                size           : 'sm',
+                resolve        : {
+                    header     : () => "Create new data source",
+                    title      : () => '',
+                    description: () => ''
                 }
             });
 
@@ -56,25 +74,64 @@
                 this.projectService.project.dataSources.push(dataSource);
                 this.$log.info(this.projectService.project.dataSources);
             }, () => {
-                this.$log.error('Modal dismissed at: ' + new Date());
+                    this.$log.error('Modal dismissed at: ' + new Date());
+                });
+        }
+
+        public editDataSource(dataSource: Models.DataSource) {
+            var modalInstance = this.$modal.open({
+                templateUrl     : 'views/dialogs/getTitleDialog.html',
+                controller      : 'GetTitleDialogCtrl',
+                size            : 'sm',
+                resolve         : {
+                    header      : () => "Edit data source",
+                    title       : () => dataSource.title,
+                    description : () => ''
+                }
             });
+
+            modalInstance.result.then((title: string) => {
+                if (!title) return;
+                dataSource.title = title;
+                this.$log.info(this.projectService.project.dataSources);
+            }, () => {
+                    this.$log.error('Modal dismissed at: ' + new Date());
+                });
         }
 
         public deleteProject() {
-            var index = this.projectService.projects.indexOf(this.projectService.project);
-            if (index < 0) return;
-            this.projectService.projects.splice(index, 1);
-            this.projectService.project = null;
+            var modalInstance = this.$modal.open({
+                templateUrl  : 'views/dialogs/ConfirmationDialog.html',
+                controller   : 'ConfirmationDialogCtrl',
+                size         : 'sm', // = small or 'lg' for large
+                resolve      : {
+                    header   : () => "Delete project",
+                    question : () => 'Are you sure you want to delete the project \''
+                        + this.projectService.project.title + '\'?'
+                }
+            });
+
+            modalInstance.result.then((confirmation: boolean) => {
+                if (!confirmation) return;
+                var index = this.projectService.projects.indexOf(this.projectService.project);
+                if (index < 0) return;
+                this.projectService.projects.splice(index, 1);
+                this.projectService.project = null;
+            }, () => {
+                    this.$log.error('Modal dismissed at: ' + new Date());
+                });
         }
 
         public createNewProject() {
             var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller: 'GetTitleDialogCtrl',
-                size: 'sm', // = small or 'lg' for large
-                resolve: {
-                    header: () => "Create a new project"
-                }
+                templateUrl    : 'views/dialogs/getTitleDialog.html',
+                controller     : 'GetTitleDialogCtrl',
+                size           : 'sm', // = small or 'lg' for large
+                resolve        : {
+                    header     : () => "Create a new project",
+                    title      : () => '',
+                    description: () => ''
+               }
             });
 
             modalInstance.result.then((title: string) => {
@@ -83,6 +140,28 @@
                 project.title = title;
                 this.projectService.projects.push(project);
                 this.projectService.project = project;
+                this.$log.info(this.projectService.project);
+            }, () => {
+                    this.$log.error('Modal dismissed at: ' + new Date());
+                });
+        }
+
+        public editProject() {
+            var project = this.projectService.project;
+            var modalInstance = this.$modal.open({
+                templateUrl    : 'views/dialogs/getTitleDialog.html',
+                controller     : 'GetTitleDialogCtrl',
+                size           : 'sm',
+                resolve        : {
+                    header     : () => "Edit project",
+                    title      : () => project.title,
+                    description: () => ''
+                }
+            });
+
+            modalInstance.result.then((title: string) => {
+                if (!title) return;
+                project.title = title;
                 this.$log.info(this.projectService.project);
             }, () => {
                     this.$log.error('Modal dismissed at: ' + new Date());

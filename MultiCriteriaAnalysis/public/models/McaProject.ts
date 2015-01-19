@@ -73,7 +73,9 @@
 
         private criteriaCache: { [id: string]: Models.Criteria } = {};
 
-        // TODO Add caching
+        /**
+         * Finds a criteria by its ID. Returns null when nothing has been found.
+         */
         findCriteriaById(id: string, criterias = this.criterias): Criteria {
             if (this.criteriaCache.hasOwnProperty(id)) return this.criteriaCache[id];
             if (criterias.length === 0) return null;

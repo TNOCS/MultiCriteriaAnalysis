@@ -1,8 +1,7 @@
-﻿var csComp;
+var csComp;
 (function (csComp) {
+    var Services;
     (function (Services) {
-        
-
         // Handle returned when subscribing to a topic
         var MessageBusHandle = (function () {
             function MessageBusHandle(topic, callback) {
@@ -12,20 +11,19 @@
             return MessageBusHandle;
         })();
         Services.MessageBusHandle = MessageBusHandle;
-
         /**
-        * Simple message bus service, used for subscribing and unsubsubscribing to topics.
-        * @see {@link https://gist.github.com/floatingmonkey/3384419}
-        */
+         * Simple message bus service, used for subscribing and unsubsubscribing to topics.
+         * @see {@link https://gist.github.com/floatingmonkey/3384419}
+         */
         var MessageBusService = (function () {
             function MessageBusService() {
                 PNotify.prototype.options.styling = "fontawesome";
             }
             /**
-            * Publish a notification
-            * @title: the title of the notification
-            * @text:  the contents of the notification
-            */
+             * Publish a notification
+             * @title: the title of the notification
+             * @text:  the contents of the notification
+             */
             MessageBusService.prototype.notify = function (title, text) {
                 var options = {
                     title: title,
@@ -35,10 +33,8 @@
                     addclass: "stack-bottomright",
                     stack: { "dir1": "up", "dir2": "left", "firstpos1": 25, "firstpos2": 25 }
                 };
-
                 var pn = new PNotify(options);
             };
-
             MessageBusService.prototype.notifyBottom = function (title, text) {
                 var stack_bar_bottom = { "dir1": "up", "dir2": "right", "spacing1": 0, "spacing2": 0 };
                 var options = {
@@ -51,50 +47,44 @@
                 };
                 var pn = new PNotify(options);
             };
-
             /**
-            * Publish a notification
-            * @title: the title of the notification
-            * @text:  the contents of the notification
-            */
+             * Publish a notification
+             * @title: the title of the notification
+             * @text:  the contents of the notification
+             */
             MessageBusService.prototype.notifyData = function (data) {
                 var pn = new PNotify(data);
                 //this.publish("notify", "", data);
             };
-
             /**
-            * Publish to a topic
-            */
+             * Publish to a topic
+             */
             MessageBusService.prototype.publish = function (topic, title, data) {
                 //window.console.log("publish: " + topic + ", " + title);
                 if (!MessageBusService.cache[topic])
                     return;
-                MessageBusService.cache[topic].forEach(function (cb) {
-                    return cb(title, data);
-                });
+                MessageBusService.cache[topic].forEach(function (cb) { return cb(title, data); });
             };
-
             //public publish(topic: string, title: string, data?: any): void {
             //	MessageBusService.publish(topic, title, data);
             //}
             /**
-            * Subscribe to a topic
-            * @param {string} topic The desired topic of the message.
-            * @param {IMessageBusCallback} callback The callback to call.
-            */
+             * Subscribe to a topic
+             * @param {string} topic The desired topic of the message.
+             * @param {IMessageBusCallback} callback The callback to call.
+             */
             MessageBusService.prototype.subscribe = function (topic, callback) {
                 if (!MessageBusService.cache[topic])
                     MessageBusService.cache[topic] = new Array();
                 MessageBusService.cache[topic].push(callback);
                 return new MessageBusHandle(topic, callback);
             };
-
-            //public subscribe(topic: string, callback: IMessageBusCallback): MessageBusHandle {
+            //public subscribe(topic: string, callback: IMessageBusCallback): MessageBusHandle {            
             //	return MessageBusService.subscribe(topic, callback);
             //}
             /**
-            * Unsubscribe to a topic by providing its handle
-            */
+             * Unsubscribe to a topic by providing its handle
+             */
             MessageBusService.prototype.unsubscribe = function (handle) {
                 var topic = handle.topic;
                 var callback = handle.callback;
@@ -111,7 +101,6 @@
             return MessageBusService;
         })();
         Services.MessageBusService = MessageBusService;
-
         var EventObj = (function () {
             function EventObj() {
             }
@@ -138,8 +127,8 @@
             };
             EventObj.prototype.trigger = function (event) {
                 var args = [];
-                for (var _i = 0; _i < (arguments.length - 1); _i++) {
-                    args[_i] = arguments[_i + 1];
+                for (var _i = 1; _i < arguments.length; _i++) {
+                    args[_i - 1] = arguments[_i];
                 }
                 this.myEvents = this.myEvents || {};
                 if (event in this.myEvents === false)
@@ -153,10 +142,8 @@
                     if (typeof callback == 'function') {
                         if (replace)
                             this.unbindEvent(evtname);
-
                         this.bind(evtname, callback);
                     }
-
                     return this;
                 };
             };
@@ -169,7 +156,6 @@
             return EventObj;
         })();
         Services.EventObj = EventObj;
-    })(csComp.Services || (csComp.Services = {}));
-    var Services = csComp.Services;
+    })(Services = csComp.Services || (csComp.Services = {}));
 })(csComp || (csComp = {}));
 //# sourceMappingURL=MessageBus.js.map

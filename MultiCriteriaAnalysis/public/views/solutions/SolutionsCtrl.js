@@ -1,4 +1,4 @@
-﻿var __extends = this.__extends || function (d, b) {
+var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -18,31 +18,27 @@ var Solutions;
             this.projectService = projectService;
             this.activeCriterias = [];
             /**
-            * Use the selected data source to filter the results.
-            */
+             * Use the selected data source to filter the results.
+             */
             this.dataSourceFilter = function (value, idx) {
                 if (_this.projectService.activeDataSource == null)
                     return true;
                 return _this.projectService.activeDataSource.filter(value, idx);
             };
             $scope.vm = this;
-
             this.solutions = projectService.project.solutions;
             this.scenarios = projectService.project.scenarios;
-
             this.initializeDataSources();
             this.initializeCriteriaWeights();
             this.initializeScenarioWeights();
-
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
-            } else if (projectService.activeSolution == null) {
+            }
+            else if (projectService.activeSolution == null) {
                 projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
             this.updateWeightsAndScore();
-
             $scope.selectedItem = {};
-
             $scope.toggle = function (scope) {
                 scope.toggle();
             };
@@ -54,7 +50,6 @@ var Solutions;
             });
             this.activeCriterias = [];
         };
-
         SolutionsCtrl.prototype.initializeDataSources = function () {
             var _this = this;
             this.dataSources = [];
@@ -69,7 +64,6 @@ var Solutions;
                     return value.criterion.dataSourceId === _this.projectService.activeDataSource.id;
                 }));
             });
-
             if (this.projectService.activeDataSource != null) {
                 var id = this.projectService.activeDataSource.id;
                 for (var i = 0; i < this.dataSources.length; i++) {
@@ -81,17 +75,14 @@ var Solutions;
                 }
             }
         };
-
         SolutionsCtrl.prototype.initializeCriteriaWeights = function () {
             this.projectService.project.rootCriterion.calculateWeights();
         };
-
         SolutionsCtrl.prototype.initializeScenarioWeights = function () {
             var scenario = new Models.Scenario();
             scenario.subScenarios = this.projectService.project.scenarios;
             scenario.calculateWeights();
         };
-
         SolutionsCtrl.prototype.deleteSolution = function () {
             var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
             if (index < 0)
@@ -99,7 +90,6 @@ var Solutions;
             this.projectService.project.solutions.splice(index, 1);
             this.projectService.activeSolution = null;
         };
-
         SolutionsCtrl.prototype.createNewSolution = function () {
             var _this = this;
             var modalInstance = this.$modal.open({
@@ -107,12 +97,11 @@ var Solutions;
                 controller: 'GetTitleDialogCtrl',
                 size: 'sm',
                 resolve: {
-                    header: function () {
-                        return "Create a new solution";
-                    }
+                    header: function () { return 'Create a new solution'; },
+                    title: function () { return ''; },
+                    description: function () { return ''; }
                 }
             });
-
             modalInstance.result.then(function (title) {
                 if (!title)
                     return;
@@ -125,7 +114,6 @@ var Solutions;
                 _this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
-
         SolutionsCtrl.prototype.updateCriteria = function (criteria) {
             //console.log(JSON.stringify(criteria, null, 2));
             if (!(this.selectedScenario.id in this.projectService.activeSolution.scores)) {
@@ -139,7 +127,6 @@ var Solutions;
             };
             this.updateResult();
         };
-
         SolutionsCtrl.prototype.select = function (item) {
             if (!item) {
                 // Create a pseudo scenario that is the top level
@@ -154,7 +141,6 @@ var Solutions;
             }
             this.updateResult();
         };
-
         SolutionsCtrl.prototype.updateResult = function () {
             var data = [];
             var parent = this.selectedScenario.findParent(this.projectService.project);
@@ -170,13 +156,11 @@ var Solutions;
                     label: scenario.title
                 });
             }
-
             if (data.length > 0)
                 Helpers.Utils.drawAsterPlot(data);
             else
                 Helpers.Utils.clearSvg();
         };
-
         SolutionsCtrl.prototype.computeScore = function (scenario) {
             var _this = this;
             var totalScore = 0;
@@ -191,7 +175,8 @@ var Solutions;
                         totalScore += criteriaScore.weight * criteriaScore.value;
                     }
                 }
-            } else {
+            }
+            else {
                 scenario.subScenarios.forEach(function (s) {
                     s.calculateWeights();
                     if (s.weight)
@@ -201,10 +186,9 @@ var Solutions;
             scenario.score = totalScore;
             return totalScore;
         };
-
         SolutionsCtrl.prototype.eachCriteria = function (criterias, parentWeight, activeScenario) {
-            if (typeof parentWeight === "undefined") { parentWeight = 1; }
-            if (typeof activeScenario === "undefined") { activeScenario = this.selectedScenario; }
+            if (parentWeight === void 0) { parentWeight = 1; }
+            if (activeScenario === void 0) { activeScenario = this.selectedScenario; }
             var scores = this.projectService.activeSolution.scores;
             for (var k = 0; k < criterias.length; k++) {
                 var criteria = criterias[k];
@@ -212,7 +196,8 @@ var Solutions;
                     continue;
                 if (criteria.hasSubcriteria()) {
                     this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeScenario);
-                } else {
+                }
+                else {
                     var selectedId = '';
                     if (activeScenario.id in scores && criteria.id in scores[activeScenario.id]) {
                         selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
@@ -221,6 +206,10 @@ var Solutions;
                 }
             }
         };
+        // $inject annotation.
+        // It provides $injector with information about dependencies to be injected into constructor
+        // it is better to have it close to the constructor, because the parameters must match in count and type.
+        // See http://docs.angularjs.org/guide/di
         SolutionsCtrl.$inject = [
             '$scope',
             '$modal',
@@ -231,7 +220,6 @@ var Solutions;
         return SolutionsCtrl;
     })();
     Solutions.SolutionsCtrl = SolutionsCtrl;
-
     var SelectableCriterion = (function (_super) {
         __extends(SelectableCriterion, _super);
         function SelectableCriterion(criterion, selectedId, parentWeight) {
@@ -248,26 +236,28 @@ var Solutions;
         return SelectableCriterion;
     })(Models.Criteria);
     Solutions.SelectableCriterion = SelectableCriterion;
-
     var GetTitleDialogCtrl = (function () {
-        function GetTitleDialogCtrl($scope, $modalInstance, header) {
+        function GetTitleDialogCtrl($scope, $modalInstance, header, title, description) {
             this.$scope = $scope;
             this.$modalInstance = $modalInstance;
             this.header = header;
+            this.title = title;
+            this.description = description;
             $scope.vm = this;
             $scope.header = header;
         }
         GetTitleDialogCtrl.prototype.ok = function () {
             this.$modalInstance.close(this.title);
         };
-
         GetTitleDialogCtrl.prototype.cancel = function () {
             this.$modalInstance.dismiss('cancel');
         };
         GetTitleDialogCtrl.$inject = [
             '$scope',
             '$modalInstance',
-            'header'
+            'header',
+            'title',
+            'description'
         ];
         return GetTitleDialogCtrl;
     })();
