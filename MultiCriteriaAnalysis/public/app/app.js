@@ -76,7 +76,7 @@ var App;
             templateUrl: "views/solutions/solutions.html",
             sticky: true
         });
-    }).service('messageBusService', csComp.Services.MessageBusService).service('projectService', Services.ProjectService).controller('appCtrl', AppCtrl).controller('HomeCtrl', Home.HomeCtrl).controller('ScenariosCtrl', Scenarios.ScenariosCtrl).controller('CriteriasCtrl', Criterias.CriteriasCtrl).controller('SolutionsCtrl', Solutions.SolutionsCtrl).controller('GetTitleDialogCtrl', DialogCtrls.GetTitleDialogCtrl).controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl).filter('format', [
+    }).service('messageBusService', csComp.Services.MessageBusService).service('projectService', Services.ProjectService).controller('appCtrl', AppCtrl).controller('HomeCtrl', Home.HomeCtrl).controller('ScenariosCtrl', Scenarios.ScenariosCtrl).controller('CriteriasCtrl', Criterias.CriteriasCtrl).controller('SolutionsCtrl', Solutions.SolutionsCtrl).controller('ComparisonsCtrl', Comparisons.ComparisonsCtrl).controller('GetTitleDialogCtrl', DialogCtrls.GetTitleDialogCtrl).controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl).filter('format', [
         '$filter',
         '$locale',
         function (filter, locale) { return function (value, format) { return String.format(format, value); }; }

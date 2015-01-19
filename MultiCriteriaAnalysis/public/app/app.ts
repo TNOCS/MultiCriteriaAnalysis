@@ -106,19 +106,20 @@
                 });
 
         })
-        .service('messageBusService', csComp.Services.MessageBusService)
-        .service('projectService', Services.ProjectService)
-        .controller('appCtrl', AppCtrl)
-        .controller('HomeCtrl', Home.HomeCtrl)
-        .controller('ScenariosCtrl', Scenarios.ScenariosCtrl)
-        .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
-        .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
-        .controller('GetTitleDialogCtrl', DialogCtrls.GetTitleDialogCtrl)
+        .service('messageBusService',         csComp.Services.MessageBusService)
+        .service('projectService',            Services.ProjectService)
+        .controller('appCtrl',                AppCtrl)
+        .controller('HomeCtrl',               Home.HomeCtrl)
+        .controller('ScenariosCtrl',          Scenarios.ScenariosCtrl)
+        .controller('CriteriasCtrl',          Criterias.CriteriasCtrl)
+        .controller('SolutionsCtrl',          Solutions.SolutionsCtrl)
+        .controller('ComparisonsCtrl',        Comparisons.ComparisonsCtrl)
+        .controller('GetTitleDialogCtrl',     DialogCtrls.GetTitleDialogCtrl)
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
-        //.controller('RatingDemoCtrl', function ($scope) {
-        //    $scope.rate = 7;
-        //    $scope.max = 10;
-        //    $scope.isReadonly = false;
+        //.controller('RatingDemoCtrl',       function ($scope) {
+        //    $scope.rate =                   7;
+        //    $scope.max =                    10;
+        //    $scope.isReadonly               = false;
 
         //    $scope.hoveringOver = function (value) {
         //        $scope.overStar = value;
