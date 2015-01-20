@@ -80,11 +80,17 @@ var Solutions;
         };
         // TODO Add confirmation
         SolutionsCtrl.prototype.deleteSolution = function () {
-            var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
-            if (index < 0)
-                return;
-            this.projectService.project.solutions.splice(index, 1);
-            this.projectService.activeSolution = null;
+            var _this = this;
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete solution', 'Are you sure you want to delete the solution \'' + this.projectService.activeSolution.title + '\'?', function (ok) {
+                if (!ok)
+                    return;
+                var solutions = _this.projectService.project.solutions;
+                var index = solutions.indexOf(_this.projectService.activeSolution);
+                if (index < 0)
+                    return;
+                solutions.splice(index, 1);
+                _this.projectService.activeSolution = solutions.length > 0 ? solutions[solutions.length - 1] : null;
+            });
         };
         SolutionsCtrl.prototype.createNewSolution = function () {
             var _this = this;

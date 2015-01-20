@@ -99,10 +99,16 @@
 
         // TODO Add confirmation
         public deleteSolution() {
-            var index = this.projectService.project.solutions.indexOf(this.projectService.activeSolution);
-            if (index < 0) return;
-            this.projectService.project.solutions.splice(index, 1);
-            this.projectService.activeSolution = null;
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete solution', 'Are you sure you want to delete the solution \'' + this.projectService.activeSolution.title + '\'?', (ok) => {
+                if (!ok) return;
+                var solutions = this.projectService.project.solutions;
+                var index = solutions.indexOf(this.projectService.activeSolution);
+                if (index < 0) return;
+                solutions.splice(index, 1);
+                this.projectService.activeSolution = solutions.length > 0
+                    ? solutions[solutions.length - 1]
+                    : null;
+            });
         }
 
         public createNewSolution() {
