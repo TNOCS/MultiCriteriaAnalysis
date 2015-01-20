@@ -105,72 +105,73 @@
         //    return null;
         //}
 
-        createDummy() {
-            this.title = 'MCA DUMMY PROJECT';
+        static createExampleProject(): McaProject {
+            var project   = new McaProject();
+            project.title = 'MCA EXAMPLE PROJECT';
 
             // DataSources
-            this.dataSources.push(new DataSource('Explosion model'));
-            this.dataSources.push(new DataSource('Flooding model'));
-            this.dataSources.push(new DataSource('Evacuation model'));
-            this.dataSources.push(new DataSource('FEM model'));
-            this.dataSources.push(new DataSource('Architect'));
+            project.dataSources.push(new DataSource('Explosion model'));
+            project.dataSources.push(new DataSource('Flooding model'));
+            project.dataSources.push(new DataSource('Evacuation model'));
+            project.dataSources.push(new DataSource('FEM model'));
+            project.dataSources.push(new DataSource('Architect'));
 
             // Criterias
             // Resilience
-            var criteria = new Criteria();
-            criteria.title = 'Resilience';
+            var criteria        = new Criteria();
+            criteria.title      = 'Resilience';
             criteria.userWeight = 2;
 
-            var subCriteria = new Criteria();
-            subCriteria.title = 'Repair time';
-            subCriteria.dataSourceId = this.findDataSourceByTitle('Explosion model').id;
-            subCriteria.description = 'Repair time is dependent on the type of damage';
-            subCriteria.userWeight = 3;
+            var subCriteria          = new Criteria();
+            subCriteria.title        = 'Repair time';
+            subCriteria.dataSourceId = project.findDataSourceByTitle('Explosion model').id;
+            subCriteria.description  = 'Repair time is dependent on the type of damage';
+            subCriteria.userWeight   = 3;
             subCriteria.addOption('no repair time needed', 1);
 
-            var option = subCriteria.addOption('up to 1 week', .8);
+            var option         = subCriteria.addOption('up to 1 week', .8);
             option.description = 'No structural and less than up to 100m2 façade/floor damages etc.';
-            option = subCriteria.addOption('up to 1 month', .5);
+            option             = subCriteria.addOption('up to 1 month', .5);
             option.description = 'Very light structural damage up to 1000m2 façade/floor damages etc.';
-            option = subCriteria.addOption('up to 1 year', .2);
+            option             = subCriteria.addOption('up to 1 year', .2);
             option.description = 'Significant structural damage more than 1000m2 damage.';
-            option = subCriteria.addOption('unrepairable', 0);
+            option             = subCriteria.addOption('unrepairable', 0);
             option.description = 'Column failures or collapse ';
             criteria.addSubCriteria(subCriteria);
 
-            subCriteria = new Criteria();
-            subCriteria.title = 'Physical Usability';
-            subCriteria.dataSourceId = this.findDataSourceByTitle('Explosion model').id;
-            subCriteria.description = 'Type of damage and location of damage';
-            subCriteria.userWeight = 4;
-            option = subCriteria.addOption('no reduction in usability', 1);
-            option.description = 'no damage';
-            option = subCriteria.addOption('up to 100m2 cannot be used', .8);
-            option.description = 'up to 100m2 not safely accessible/functional.';
-            option = subCriteria.addOption('between 101 and 500 m2 cannot be used', .5);
-            option.description = 'up to 500m2 not safely accessible/functional.';
-            option = subCriteria.addOption('more than 500m2 cannot be used', .2);
-            option.description = 'more than 500m2 not safely accessible/functional';
+            subCriteria              = new Criteria();
+            subCriteria.title        = 'Physical Usability';
+            subCriteria.dataSourceId = project.findDataSourceByTitle('Explosion model').id;
+            subCriteria.description  = 'Type of damage and location of damage';
+            subCriteria.userWeight   = 4;
+            option                   = subCriteria.addOption('no reduction in usability', 1);
+            option.description       = 'no damage';
+            option                   = subCriteria.addOption('up to 100m2 cannot be used', .8);
+            option.description       = 'up to 100m2 not safely accessible/functional.';
+            option                   = subCriteria.addOption('between 101 and 500 m2 cannot be used', .5);
+            option.description       = 'up to 500m2 not safely accessible/functional.';
+            option                   = subCriteria.addOption('more than 500m2 cannot be used', .2);
+            option.description       = 'more than 500m2 not safely accessible/functional';
             criteria.addSubCriteria(subCriteria);
 
-            subCriteria = new Criteria();
-            subCriteria.title = 'Operational Usability';
+            subCriteria             = new Criteria();
+            subCriteria.title       = 'Operational Usability';
             subCriteria.description = 'type of damage to services and location of damage';
-            subCriteria.userWeight = 1;
+            subCriteria.userWeight  = 1;
             subCriteria.addOption('all services available', 1);
             subCriteria.addOption('some services available, work around possible', .5);
             subCriteria.addOption('limited services available, but livable ', .2);
             subCriteria.addOption('too much services out of order or critical service(s) out of order', 0);
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
-            this.criterias.push(criteria);
+            project.criterias.push(criteria);
 
             // Safety
-            criteria = new Criteria();
-            criteria.title = 'Safety';
-            criteria.userWeight = 3;
-            subCriteria = new Criteria();
-            subCriteria.title = 'Victims';
+            criteria               = new Criteria();
+            criteria.title         = 'Safety';
+            criteria.userWeight    = 3;
+            subCriteria            = new Criteria();
+            subCriteria.title      = 'Victims';
             subCriteria.userWeight = 1;
             subCriteria.addOption('no victims', 1);
             subCriteria.addOption('only light injuries', .7);
@@ -178,29 +179,29 @@
             subCriteria.addOption('heavy injuries up to 50 people including possible lethality', .2);
             subCriteria.addOption('heavy injuries more than 50 people including possible lethality', 0);
             criteria.addSubCriteria(subCriteria);
-            subCriteria = new Criteria();
-            subCriteria.title = 'Evacuation time';
+            subCriteria            = new Criteria();
+            subCriteria.title      = 'Evacuation time';
             subCriteria.userWeight = 1;
             subCriteria.addOption('up to 5 minutes', 1);
             subCriteria.addOption('up to 10 minutes', .6);
             subCriteria.addOption('more than 10 minutes', .2);
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
-            this.criterias.push(criteria);
+            project.criterias.push(criteria);
 
             // Security
-            criteria = new Criteria();
-            criteria.title = 'Security';
-            criteria.userWeight = 1;
-            subCriteria = new Criteria();
-            subCriteria.title = 'Accessibility';
+            criteria               = new Criteria();
+            criteria.title         = 'Security';
+            criteria.userWeight    = 1;
+            subCriteria            = new Criteria();
+            subCriteria.title      = 'Accessibility';
             subCriteria.userWeight = 1;
             subCriteria.addOption('all access', .2);
             subCriteria.addOption('partial access', .6);
             subCriteria.addOption('all private access', 1);
             criteria.addSubCriteria(subCriteria);
-            subCriteria = new Criteria();
-            subCriteria.title = 'Surveilance';
+            subCriteria            = new Criteria();
+            subCriteria.title      = 'Surveilance';
             subCriteria.userWeight = 1;
             subCriteria.addOption('no monitoring', 0);
             subCriteria.addOption('monitoring access', .4);
@@ -208,207 +209,209 @@
             subCriteria.addOption('security check', 1);
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
-            this.criterias.push(criteria);
+            project.criterias.push(criteria);
 
             // Iconic
-            criteria = new Criteria();
-            criteria.title = 'Iconic';
-            criteria.userWeight = 1;
-            subCriteria = new Criteria();
-            subCriteria.title = 'Impact';
+            criteria               = new Criteria();
+            criteria.title         = 'Iconic';
+            criteria.userWeight    = 1;
+            subCriteria            = new Criteria();
+            subCriteria.title      = 'Impact';
             subCriteria.userWeight = 1;
             subCriteria.addOption('Low', 0.2);
             subCriteria.addOption('Medium', 0.6);
             subCriteria.addOption('High', 1);
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
-            this.criterias.push(criteria);
+            project.criterias.push(criteria);
 
             // Functionality
-            criteria = new Criteria();
-            criteria.title = 'Functionality';
-            criteria.userWeight = 1;
-            subCriteria = new Criteria();
-            subCriteria.title = 'Functionality';
+            criteria               = new Criteria();
+            criteria.title         = 'Functionality';
+            criteria.userWeight    = 1;
+            subCriteria            = new Criteria();
+            subCriteria.title      = 'Functionality';
             subCriteria.userWeight = 1;
             subCriteria.addOption('Low', 0.2);
             subCriteria.addOption('Medium', 0.6);
             subCriteria.addOption('High', 1);
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
-            this.criterias.push(criteria);
+            project.criterias.push(criteria);
 
             // Energy-efficiency
-            criteria = new Criteria();
-            criteria.title = 'Energy-efficiency';
-            criteria.userWeight = 1;
-            subCriteria = new Criteria();
-            subCriteria.title = 'Energy-efficiency';
+            criteria               = new Criteria();
+            criteria.title         = 'Energy-efficiency';
+            criteria.userWeight    = 1;
+            subCriteria            = new Criteria();
+            subCriteria.title      = 'Energy-efficiency';
             subCriteria.userWeight = 1;
             subCriteria.addOption('Low', 0.2);
             subCriteria.addOption('Medium', 0.6);
             subCriteria.addOption('High', 1);
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
-            this.criterias.push(criteria);
+            project.criterias.push(criteria);
 
             // Scenarios
             // Scenario: Natural events
-            var scenario = new Scenario();
-            scenario.title = 'Natural events';
+            var scenario        = new Scenario();
+            scenario.title      = 'Natural events';
             scenario.userWeight = 1;
 
-            var subScenario = new Scenario();
-            subScenario.title = 'Extreme wind load';
-            subScenario.userWeight = 2;
-            var subSubScenario = new Scenario();
-            subSubScenario.title = 'Force 1';
+            var subScenario            = new Scenario();
+            subScenario.title          = 'Extreme wind load';
+            subScenario.userWeight     = 2;
+            var subSubScenario         = new Scenario();
+            subSubScenario.title       = 'Force 1';
             subSubScenario.description = 'Description';
-            subSubScenario.userWeight = 5;
-            //subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Repair time').id);
-            //subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Physical Usability').id);
-            //subSubScenario.effectedCriteriaIds.push(this.findCriteriaByTitle('Operational Usability').id);
+            subSubScenario.userWeight  = 5;
+            //subSubScenario.effectedCriteriaIds.push(project.findCriteriaByTitle('Repair time').id);
+            //subSubScenario.effectedCriteriaIds.push(project.findCriteriaByTitle('Physical Usability').id);
+            //subSubScenario.effectedCriteriaIds.push(project.findCriteriaByTitle('Operational Usability').id);
             subScenario.subScenarios.push(subSubScenario);
-            subSubScenario = new Scenario();
-            subSubScenario.title = 'Force 2';
-            subSubScenario.userWeight = 3;
+            subSubScenario             = new Scenario();
+            subSubScenario.title       = 'Force 2';
+            subSubScenario.userWeight  = 3;
             subScenario.subScenarios.push(subSubScenario);
-            subSubScenario = new Scenario();
-            subSubScenario.title = 'Force 3';
-            subSubScenario.userWeight = 1;
+            subSubScenario             = new Scenario();
+            subSubScenario.title       = 'Force 3';
+            subSubScenario.userWeight  = 1;
             subScenario.subScenarios.push(subSubScenario);
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Extreme temperature';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Extreme temperature';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Flooding';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Flooding';
             subScenario.userWeight = 4;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Seismic';
-            subScenario.userWeight = 0;
-            subSubScenario = new Scenario();
-            subSubScenario.title = 'Seismic 1';
+            subScenario               = new Scenario();
+            subScenario.title         = 'Seismic';
+            subScenario.userWeight    = 0;
+            subSubScenario            = new Scenario();
+            subSubScenario.title      = 'Seismic 1';
             subSubScenario.userWeight = 5;
             subScenario.subScenarios.push(subSubScenario);
-            subSubScenario = new Scenario();
-            subSubScenario.title = 'Seismic 2';
+            subSubScenario            = new Scenario();
+            subSubScenario.title      = 'Seismic 2';
             subSubScenario.userWeight = 3;
             subScenario.subScenarios.push(subSubScenario);
-            subSubScenario = new Scenario();
-            subSubScenario.title = 'Seismic 3';
+            subSubScenario            = new Scenario();
+            subSubScenario.title      = 'Seismic 3';
             subSubScenario.userWeight = 1;
             subScenario.subScenarios.push(subSubScenario);
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Wind and Flood';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Wind and Flood';
             subScenario.userWeight = 3;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Flood and contamination';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Flood and contamination';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
             scenario.calculateWeights();
-            this.scenarios.push(scenario);
+            project.scenarios.push(scenario);
 
             // Intended incidents (terrorists)
-            scenario = new Scenario();
-            scenario.title = 'Intended incidents (terrorists)';
+            scenario            = new Scenario();
+            scenario.title      = 'Intended incidents (terrorists)';
             scenario.userWeight = 2;
 
-            subScenario = new Scenario();
-            subScenario.title = 'Explosion';
-            subScenario.userWeight = 4;
-            subSubScenario = new Scenario();
-            subSubScenario.title = 'Car bomb external';
+            subScenario               = new Scenario();
+            subScenario.title         = 'Explosion';
+            subScenario.userWeight    = 4;
+            subSubScenario            = new Scenario();
+            subSubScenario.title      = 'Car bomb external';
             subSubScenario.userWeight = 2;
             subScenario.subScenarios.push(subSubScenario);
-            subSubScenario = new Scenario();
-            subSubScenario.title = 'Car bomb in parking garage';
+            subSubScenario            = new Scenario();
+            subSubScenario.title      = 'Car bomb in parking garage';
             subSubScenario.userWeight = 4;
             subScenario.subScenarios.push(subSubScenario);
-            subSubScenario = new Scenario();
-            subSubScenario.title = 'Backpack external';
+            subSubScenario            = new Scenario();
+            subSubScenario.title      = 'Backpack external';
             subSubScenario.userWeight = 1;
             subScenario.subScenarios.push(subSubScenario);
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Impact';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Impact';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Arson / Fire';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Arson / Fire';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Impact followed by fire';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Impact followed by fire';
             subScenario.userWeight = 2;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Chemical / bio attack';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Chemical / bio attack';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Dirty bomb';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Dirty bomb';
             subScenario.userWeight = 3;
             scenario.subScenarios.push(subScenario);
 
             scenario.calculateWeights();
-            this.scenarios.push(scenario);
+            project.scenarios.push(scenario);
 
             // Unintended incidents
-            scenario = new Scenario();
-            scenario.title = 'Unintended incidents (accidents)';
+            scenario            = new Scenario();
+            scenario.title      = 'Unintended incidents (accidents)';
             scenario.userWeight = 4;
 
-            subScenario = new Scenario();
-            subScenario.title = 'Explosion';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Explosion';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Impact';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Impact';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Fire';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Fire';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Hazmat';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Hazmat';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Windload';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Windload';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
-            subScenario = new Scenario();
-            subScenario.title = 'Temperature';
+            subScenario            = new Scenario();
+            subScenario.title      = 'Temperature';
             subScenario.userWeight = 1;
             scenario.subScenarios.push(subScenario);
 
             scenario.calculateWeights();
-            this.scenarios.push(scenario);
+            project.scenarios.push(scenario);
 
-            var solution = new Models.Solution();
+            var solution   = new Models.Solution();
             solution.title = 'Version 1';
-            this.solutions.push(solution);
+            project.solutions.push(solution);
+
+            return project;
         }
 
     }
