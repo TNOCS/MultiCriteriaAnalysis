@@ -3,9 +3,10 @@ var Scenarios;
     var ScenariosCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
-        function ScenariosCtrl($scope, messageBus, projectService) {
+        function ScenariosCtrl($scope, $modal, messageBus, projectService) {
             var _this = this;
             this.$scope = $scope;
+            this.$modal = $modal;
             this.messageBus = messageBus;
             this.projectService = projectService;
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
@@ -43,6 +44,20 @@ var Scenarios;
                 _this.projectService.project.scenarios.push(scenario);
             };
         }
+        ScenariosCtrl.prototype.deleteScenario = function (scenario, parent) {
+            var _this = this;
+            var project = this.projectService.project;
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete scenario', 'Are you sure you want to delete the scenario \'' + scenario.title + '\'?', function (ok) {
+                if (!ok)
+                    return;
+                var scenarios = parent == null ? _this.projectService.project.scenarios : parent.subScenarios;
+                var index = scenarios.indexOf(scenario);
+                if (index < 0)
+                    return;
+                scenarios.splice(index, 1);
+                _this.$scope.$apply();
+            });
+        };
         ScenariosCtrl.prototype.select = function (item) {
             if (!item) {
                 // Create a pseudo criteria that is the level
@@ -80,6 +95,7 @@ var Scenarios;
         // See http://docs.angularjs.org/guide/di
         ScenariosCtrl.$inject = [
             '$scope',
+            '$modal',
             'messageBusService',
             'projectService'
         ];

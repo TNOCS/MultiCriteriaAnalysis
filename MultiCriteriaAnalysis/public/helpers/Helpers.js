@@ -107,6 +107,25 @@ var Helpers;
             }, 0);
             svg.append("svg:text").attr("class", "aster-score").attr("dy", ".35em").attr("text-anchor", "middle").text(Math.round(score));
         };
+        /**
+         * Delete dialog.
+         */
+        Utils.deleteDialog = function (modal, title, text, callback) {
+            var modalInstance = modal.open({
+                templateUrl: 'views/dialogs/ConfirmationDialog.html',
+                controller: 'ConfirmationDialogCtrl',
+                size: 'sm',
+                resolve: {
+                    header: function () { return title; },
+                    question: function () { return text; }
+                }
+            });
+            modalInstance.result.then(function (confirmation) {
+                callback(confirmation);
+            }, function () {
+                callback(false);
+            });
+        };
         Utils.pieRadius = 100;
         Utils.pieColors = d3.scale.category20();
         return Utils;

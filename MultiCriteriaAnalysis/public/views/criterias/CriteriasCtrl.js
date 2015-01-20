@@ -44,48 +44,26 @@ var Criterias;
             };
         }
         CriteriasCtrl.prototype.deleteOption = function (option, criteria) {
-            var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/ConfirmationDialog.html',
-                controller: 'ConfirmationDialogCtrl',
-                size: 'sm',
-                resolve: {
-                    header: function () { return "Delete option"; },
-                    question: function () { return 'Are you sure you want to delete the option \'' + option.title + '\'?'; }
-                }
-            });
-            modalInstance.result.then(function (confirmation) {
-                if (!confirmation)
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete option', 'Are you sure you want to delete the option \'' + option.title + '\'?', function (ok) {
+                if (!ok)
                     return;
                 var options = criteria.options;
                 var index = options.indexOf(option);
                 if (index < 0)
                     return;
                 options.splice(index, 1);
-            }, function () {
-                //this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
         CriteriasCtrl.prototype.deleteCriteria = function (criteria, parent) {
             var _this = this;
-            var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/ConfirmationDialog.html',
-                controller: 'ConfirmationDialogCtrl',
-                size: 'sm',
-                resolve: {
-                    header: function () { return "Delete criteria"; },
-                    question: function () { return 'Are you sure you want to delete the criteria \'' + criteria.title + '\'?'; }
-                }
-            });
-            modalInstance.result.then(function (confirmation) {
-                if (!confirmation)
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete criteria', 'Are you sure you want to delete the criteria \'' + criteria.title + '\'?', function (ok) {
+                if (!ok)
                     return;
                 var criterias = parent == null ? _this.projectService.project.criterias : parent.subCriterias;
                 var index = criterias.indexOf(criteria);
                 if (index < 0)
                     return;
                 criterias.splice(index, 1);
-            }, function () {
-                //this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
         CriteriasCtrl.prototype.update = function () {

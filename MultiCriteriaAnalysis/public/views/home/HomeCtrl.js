@@ -13,17 +13,8 @@ var Home;
         }
         HomeCtrl.prototype.deleteDataSource = function (dataSource) {
             var _this = this;
-            var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/ConfirmationDialog.html',
-                controller: 'ConfirmationDialogCtrl',
-                size: 'sm',
-                resolve: {
-                    header: function () { return "Delete source"; },
-                    question: function () { return 'Are you sure you want to delete the data source \'' + dataSource.title + '\'?'; }
-                }
-            });
-            modalInstance.result.then(function (confirmation) {
-                if (!confirmation)
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete source', 'Are you sure you want to delete the data source \'' + dataSource.title + '\'?', function (ok) {
+                if (!ok)
                     return;
                 var index = _this.projectService.project.dataSources.indexOf(dataSource);
                 if (index < 0)
@@ -34,8 +25,6 @@ var Home;
                     if (criteria.dataSourceId === dataSource.id)
                         criteria.dataSourceId = '';
                 }
-            }, function () {
-                _this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
         HomeCtrl.prototype.createNewDataSource = function () {
@@ -84,25 +73,15 @@ var Home;
         };
         HomeCtrl.prototype.deleteProject = function () {
             var _this = this;
-            var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/ConfirmationDialog.html',
-                controller: 'ConfirmationDialogCtrl',
-                size: 'sm',
-                resolve: {
-                    header: function () { return "Delete project"; },
-                    question: function () { return 'Are you sure you want to delete the project \'' + _this.projectService.project.title + '\'?'; }
-                }
-            });
-            modalInstance.result.then(function (confirmation) {
-                if (!confirmation)
+            var project = this.projectService.project;
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete project', 'Are you sure you want to delete the project \'' + project.title + '\'?', function (ok) {
+                if (!ok)
                     return;
-                var index = _this.projectService.projects.indexOf(_this.projectService.project);
+                var index = _this.projectService.projects.indexOf(project);
                 if (index < 0)
                     return;
                 _this.projectService.projects.splice(index, 1);
-                _this.projectService.project = null;
-            }, function () {
-                _this.$log.error('Modal dismissed at: ' + new Date());
+                project = null;
             });
         };
         HomeCtrl.prototype.createNewProject = function () {

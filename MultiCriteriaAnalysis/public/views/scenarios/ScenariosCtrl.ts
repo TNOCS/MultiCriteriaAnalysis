@@ -23,6 +23,7 @@
         // See http://docs.angularjs.org/guide/di
         public static $inject = [
             '$scope',
+            '$modal',
             'messageBusService',
             'projectService'
         ];
@@ -31,6 +32,7 @@
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
             private $scope        : IScenariosViewScope,
+            private $modal        : any,
             private messageBus    : csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
         ) {
@@ -77,7 +79,21 @@
             };
         }
 
-        public select(item: Models.Scenario) {
+        deleteScenario(scenario: Models.Scenario, parent: Models.Scenario) {
+            var project = this.projectService.project;
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete scenario', 'Are you sure you want to delete the scenario \'' + scenario.title + '\'?', (ok) => {
+                if (!ok) return;
+                var scenarios = parent == null
+                    ? this.projectService.project.scenarios
+                    : parent.subScenarios;
+                var index = scenarios.indexOf(scenario);
+                if (index < 0) return;
+                scenarios.splice(index, 1);
+                this.$scope.$apply();
+            });
+        }
+
+        select(item: Models.Scenario) {
             if (!item) {
                 // Create a pseudo criteria that is the level
                 item              = new Models.Scenario();

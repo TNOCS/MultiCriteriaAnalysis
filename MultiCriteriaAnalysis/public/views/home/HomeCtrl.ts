@@ -30,19 +30,8 @@
         }
 
         public deleteDataSource(dataSource: Models.DataSource) {
-            var modalInstance = this.$modal.open({
-                templateUrl  : 'views/dialogs/ConfirmationDialog.html',
-                controller   : 'ConfirmationDialogCtrl',
-                size         : 'sm', // = small or 'lg' for large
-                resolve      : {
-                    header   : () => "Delete source",
-                    question : () => 'Are you sure you want to delete the data source \''
-                        + dataSource.title + '\'?'
-                }
-            });
-
-            modalInstance.result.then((confirmation: boolean) => {
-                if (!confirmation) return;
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete source', 'Are you sure you want to delete the data source \'' + dataSource.title  + '\'?', (ok) => {
+                if (!ok) return;
                 var index = this.projectService.project.dataSources.indexOf(dataSource);
                 if (index < 0) return;
                 this.projectService.project.dataSources.splice(index, 1);
@@ -50,8 +39,6 @@
                     var criteria = this.projectService.project.criterias[k];
                     if (criteria.dataSourceId === dataSource.id) criteria.dataSourceId = '';
                 }
-            }, () => {
-                this.$log.error('Modal dismissed at: ' + new Date());
             });
         }
 
@@ -100,26 +87,14 @@
         }
 
         public deleteProject() {
-            var modalInstance = this.$modal.open({
-                templateUrl  : 'views/dialogs/ConfirmationDialog.html',
-                controller   : 'ConfirmationDialogCtrl',
-                size         : 'sm', // = small or 'lg' for large
-                resolve      : {
-                    header   : () => "Delete project",
-                    question : () => 'Are you sure you want to delete the project \''
-                        + this.projectService.project.title + '\'?'
-                }
-            });
-
-            modalInstance.result.then((confirmation: boolean) => {
-                if (!confirmation) return;
-                var index = this.projectService.projects.indexOf(this.projectService.project);
+            var project = this.projectService.project;
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete project', 'Are you sure you want to delete the project \'' + project.title + '\'?', (ok) => {
+                if (!ok) return;
+                var index = this.projectService.projects.indexOf(project);
                 if (index < 0) return;
                 this.projectService.projects.splice(index, 1);
-                this.projectService.project = null;
-            }, () => {
-                    this.$log.error('Modal dismissed at: ' + new Date());
-                });
+                project = null;
+            });
         }
 
         public createNewProject() {

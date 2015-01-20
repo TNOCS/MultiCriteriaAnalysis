@@ -197,5 +197,26 @@
                 .attr("text-anchor", "middle") // text-align: right
                 .text(Math.round(score));
         }
+
+        /**
+         * Delete dialog.
+         */
+        static deleteDialog(modal, title: string, text: string, callback: (result: boolean) => void) {
+            var modalInstance = modal.open({
+                templateUrl: 'views/dialogs/ConfirmationDialog.html',
+                controller: 'ConfirmationDialogCtrl',
+                size: 'sm', // = small or 'lg' for large
+                resolve: {
+                    header: () => title,
+                    question: () => text
+                }
+            });
+
+            modalInstance.result.then((confirmation: boolean) => {
+                callback(confirmation);
+            }, () => {
+                callback(false);
+            });
+        }
     }
 }

@@ -27,22 +27,22 @@
                 <i class="fa fa-2x fa-trash-o"></i>
             </a>
             <a class="btn" data-ng-click="vm.downloadProject()"
+               data-ng-disabled="vm.projectService.project == null"
                popover="Download a project to file"
                popover-placement="top"
                popover-trigger="mouseenter">
                 <i class="fa fa-2x fa-download"></i>
             </a>
-            <a class="btn" data-ng-click="vm.uploadProject()" 
+            <a class="btn" data-ng-click="vm.uploadProject()"
                style="top:-2px;"
-               ng-disabled="vm.projectService.project == null">
+               popover="Upload a project from file"
+               popover-placement="top"
+               popover-trigger="mouseenter">
                 <i class="fa fa-2x fa-upload"></i>
             </a>
             <input id="uploadFile"
                    style="opacity:0;position:absolute;top:8px;left:190px;z-index:2;width:35px;"
                    type="file" name="file"
-                   popover="Upload a project from file"
-                   popover-placement="top"
-                   popover-trigger="mouseenter"
                    onchange="angular.element(this).scope().vm.uploadProject(this.files)" />
         </div>
     </div>
