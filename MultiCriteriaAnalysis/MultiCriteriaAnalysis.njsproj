@@ -45,6 +45,7 @@
     <TypeScriptCompile Include="public\services\ProjectService.ts" />
     <TypeScriptCompile Include="public\views\comparisons\ComparisonsCtrl.ts" />
     <TypeScriptCompile Include="public\views\criterias\CriteriasCtrl.ts" />
+    <TypeScriptCompile Include="public\views\dialogs\DialogCtrls.ts" />
     <TypeScriptCompile Include="public\views\home\HomeCtrl.ts" />
     <TypeScriptCompile Include="public\views\scenarios\ScenariosCtrl.ts" />
     <TypeScriptCompile Include="public\views\solutions\SolutionsCtrl.ts" />
@@ -69,6 +70,7 @@
     <Content Include="public\views\comparisons\comparisons.html" />
     <Content Include="public\views\criterias\criterias.html" />
     <Content Include="public\views\dialogs\getTitleDialog.html" />
+    <Content Include="public\views\dialogs\confirmationDialog.html" />
     <Content Include="public\views\home\home.html" />
     <Content Include="public\views\scenarios\scenarios.html" />
     <Content Include="public\views\solutions\solutions.html" />
