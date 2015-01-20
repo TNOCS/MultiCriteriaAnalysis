@@ -73,6 +73,7 @@ var Solutions;
             this.projectService.project.rootCriterion.calculateWeights();
         };
         SolutionsCtrl.prototype.initializeScenarioWeights = function () {
+            this.projectService.project.rootScenario.calculateWeights();
             var scenario = new Models.Scenario();
             scenario.subScenarios = this.projectService.project.scenarios;
             scenario.calculateWeights();

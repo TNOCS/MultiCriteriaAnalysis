@@ -407,11 +407,54 @@
             scenario.calculateWeights();
             project.scenarios.push(scenario);
 
-            var solution   = new Models.Solution();
-            solution.title = 'Version 1';
-            project.solutions.push(solution);
+            project.rootCriterion.calculateWeights();
+            project.rootScenario.calculateWeights();
+
+            for (var i = 0; i < 5; i++) {
+                var solution = new Models.Solution();
+                solution.title = 'Version ' + (i+1);
+
+                for (var k = 0; k < project.scenarios.length; k++) {
+                    var scenario = project.scenarios[k];
+                    McaProject.createSolutionForScenario(project, solution, scenario);
+                }
+
+                project.solutions.push(solution);
+            }
 
             return project;
+        }
+
+        private static createSolutionForScenario(project: McaProject, solution: Solution, scenario: Scenario) {
+            if (scenario.subScenarios.length > 0) {
+                for (var i = 0; i < scenario.subScenarios.length; i++) {
+                    McaProject.createSolutionForScenario(project, solution, scenario.subScenarios[i]);
+                }
+            }
+            else {
+                scenario.calculateWeights();
+                solution.scores[scenario.id] = {};
+                McaProject.eachCriteria(project.criterias, scenario.id, solution);
+            }
+        }
+
+        private static eachCriteria(criterias: Criteria[], scenarioId: string, solution: Solution, parentWeight = 1) {
+            var scores = solution.scores;
+            for (var k = 0; k < criterias.length; k++) {
+                var criteria = criterias[k];
+                if (!criteria.isEnabled) continue;
+                if (criteria.hasSubcriteria()) {
+                    McaProject.eachCriteria(criteria.subCriterias, scenarioId, solution, parentWeight * criteria.weight);
+                } else {
+                    var random = Math.round(Math.random() * (criteria.options.length - 1));
+                    var selectedId = criteria.options[random].id;
+                    scores[scenarioId][criteria.id] = {
+                        criteriaOptionId: selectedId,
+                        value: criteria.getOptionValueById(selectedId),
+                        weight: parentWeight * criteria.weight
+                    };
+                }
+            }
         }
 
     }

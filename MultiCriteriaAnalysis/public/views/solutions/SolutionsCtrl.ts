@@ -91,6 +91,7 @@
         }
 
         private initializeScenarioWeights() {
+            this.projectService.project.rootScenario.calculateWeights();
             var scenario = new Models.Scenario();
             scenario.subScenarios = this.projectService.project.scenarios;
             scenario.calculateWeights();
