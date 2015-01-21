@@ -1,5 +1,9 @@
 ﻿<div class="container-fluid" data-ng-controller="ScenariosCtrl as d">
-    <h1>Scenarios</h1>
+    <div class="row">
+        <h1 class="col-md-8">Scenarios</h1>
+        <h1 class="col-md-4" data-ng-if="vm.selectedItem">Scenario '{{vm.selectedItem.title}}'</h1>
+    </div>
+    
     
     <script type="text/ng-template" id="items_renderer.html">
         <div ui-tree-handle ng-click="vm.select(item)">
@@ -16,8 +20,8 @@
         </ol>
     </script>
     
-    <div class="row">
-        <div class="col-md-6" data-ng-if="vm.projectService.project != null">
+    <div class="row" style="margin-right: 10px">
+        <div class="col-md-8" data-ng-if="vm.projectService.project != null">
             <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
             <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>
             <div ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-unlock"></i><a style="margin-left: 5px">disable reorder</a></div>
@@ -27,7 +31,7 @@
     <div class="row" data-ng-if="vm.projectService.project != null"
          style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
         <!-- Tree view in left panel -->
-        <div class="col-md-6" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
+        <div class="col-md-8" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
              style="margin-top:5px">
             <ol ui-tree-nodes ng-model="d.projectService.project.scenarios">
                 <li ng-repeat="item in d.projectService.project.scenarios" ui-tree-node ng-include="'items_renderer.html'"></li>
@@ -36,11 +40,8 @@
         </div>
 
         <!-- Result view in right panel -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="row" data-ng-if="vm.selectedItem">
-                <h3>{{vm.selectedItem.title}}</h3>
-                <!--<span contenteditable ng-model="vm.selectedItem.description" style="font-size:20px;cursor:text"></span>-->
-                <!--<div id="pieChart"></div>-->
                 <!--<div data-ng-if="!vm.selectedItem.hasSubs()">
                     <h4>Select criteria</h4>
                     <div max-height="250px"
