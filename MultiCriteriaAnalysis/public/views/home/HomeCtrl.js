@@ -51,24 +51,10 @@ var Home;
             });
         };
         HomeCtrl.prototype.editDataSource = function (dataSource) {
-            var _this = this;
-            var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller: 'GetTitleDialogCtrl',
-                size: 'sm',
-                resolve: {
-                    header: function () { return "Edit data source"; },
-                    title: function () { return dataSource.title; },
-                    description: function () { return ''; }
-                }
-            });
-            modalInstance.result.then(function (title) {
-                if (!title)
+            Helpers.Utils.editTextDialog(this.$modal, 'Edit data source', dataSource.title, function (newTitle) {
+                if (!newTitle)
                     return;
-                dataSource.title = title;
-                _this.$log.info(_this.projectService.project.dataSources);
-            }, function () {
-                _this.$log.error('Modal dismissed at: ' + new Date());
+                dataSource.title = newTitle;
             });
         };
         HomeCtrl.prototype.deleteProject = function () {
@@ -112,25 +98,11 @@ var Home;
             });
         };
         HomeCtrl.prototype.editProject = function () {
-            var _this = this;
             var project = this.projectService.project;
-            var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller: 'GetTitleDialogCtrl',
-                size: 'sm',
-                resolve: {
-                    header: function () { return "Edit project"; },
-                    title: function () { return project.title; },
-                    description: function () { return ''; }
-                }
-            });
-            modalInstance.result.then(function (title) {
-                if (!title)
+            Helpers.Utils.editTextDialog(this.$modal, 'Edit project', project.title, function (newTitle) {
+                if (!newTitle)
                     return;
-                project.title = title;
-                _this.$log.info(_this.projectService.project);
-            }, function () {
-                _this.$log.error('Modal dismissed at: ' + new Date());
+                project.title = newTitle;
             });
         };
         HomeCtrl.prototype.downloadProject = function () {

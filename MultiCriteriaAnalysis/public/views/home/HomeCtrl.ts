@@ -66,24 +66,10 @@
         }
 
         public editDataSource(dataSource: Models.DataSource) {
-            var modalInstance = this.$modal.open({
-                templateUrl     : 'views/dialogs/getTitleDialog.html',
-                controller      : 'GetTitleDialogCtrl',
-                size            : 'sm',
-                resolve         : {
-                    header      : () => "Edit data source",
-                    title       : () => dataSource.title,
-                    description : () => ''
-                }
-            });
-
-            modalInstance.result.then((title: string) => {
-                if (!title) return;
-                dataSource.title = title;
-                this.$log.info(this.projectService.project.dataSources);
-            }, () => {
-                    this.$log.error('Modal dismissed at: ' + new Date());
-                });
+            Helpers.Utils.editTextDialog(this.$modal, 'Edit data source', dataSource.title, (newTitle) => {
+                if (!newTitle) return;
+                dataSource.title = newTitle;
+            }); 
         }
 
         deleteProject() {
@@ -127,24 +113,10 @@
 
         public editProject() {
             var project = this.projectService.project;
-            var modalInstance = this.$modal.open({
-                templateUrl    : 'views/dialogs/getTitleDialog.html',
-                controller     : 'GetTitleDialogCtrl',
-                size           : 'sm',
-                resolve        : {
-                    header     : () => "Edit project",
-                    title      : () => project.title,
-                    description: () => ''
-                }
-            });
-
-            modalInstance.result.then((title: string) => {
-                if (!title) return;
-                project.title = title;
-                this.$log.info(this.projectService.project);
-            }, () => {
-                    this.$log.error('Modal dismissed at: ' + new Date());
-                });
+            Helpers.Utils.editTextDialog(this.$modal, 'Edit project', project.title, (newTitle) => {
+                if (!newTitle) return;
+                project.title = newTitle;
+            }); 
         }
 
         public downloadProject() {
