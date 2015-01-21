@@ -2,7 +2,7 @@
     <h1>Criterias</h1>
     
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-9" data-ng-if="vm.projectService.project != null">
             <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
             <a style="margin: 0 5px" href="" ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-lock" style="margin: 0 5px"></i>enable reorder</a>
             <a style="margin: 0 5px" href="" ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-unlock" style="margin: 0 5px"></i>disable reorder</a>
@@ -59,7 +59,9 @@
         </ol>
     </script>
  
-    <div class="row" style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
+    <div class="row"
+         data-ng-if="vm.projectService.project != null"
+         style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
         <div class="col-md-9" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
              style="margin-top:5px">
             <ol ui-tree-nodes ng-model="d.projectService.project.criterias">
@@ -73,11 +75,10 @@
             <div class="row" data-ng-if="vm.selectedCriteria">
                 <h3>{{vm.selectedCriteria.title}}</h3>
                 <!--<span contenteditable ng-model="vm.selectedCriteria.description" style="font-size:20px;cursor:text"></span>-->
-
-                <div id="pieChart"></div>
+                <!--<div id="pieChart"></div>-->
                 <!--<script src="../../js/draw.js"></script>-->
-
             </div>
+            <div class="row" id="pieChart"></div>
         </div>
 
     </div>

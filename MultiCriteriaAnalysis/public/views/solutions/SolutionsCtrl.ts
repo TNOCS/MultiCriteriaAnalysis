@@ -35,6 +35,8 @@
             ) {
             $scope.vm = this;
 
+            if (projectService.project == null) return;
+
             this.solutions  = projectService.project.solutions;
             this.scenarios  = projectService.project.scenarios;
 

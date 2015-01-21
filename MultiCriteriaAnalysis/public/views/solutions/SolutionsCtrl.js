@@ -20,6 +20,8 @@ var Solutions;
                 return _this.projectService.activeDataSource.filter(value, idx);
             };
             $scope.vm = this;
+            if (projectService.project == null)
+                return;
             this.solutions = projectService.project.solutions;
             this.scenarios = projectService.project.scenarios;
             this.initializeDataSources();
