@@ -27,10 +27,10 @@
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
-            private $scope        : IComparisonsViewScope,
-            private $modal        : any,
-            private $log          : ng.ILogService,
-            private messageBus    : csComp.Services.MessageBusService,
+            private $scope: IComparisonsViewScope,
+            private $modal: any,
+            private $log: ng.ILogService,
+            private messageBus: csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
             ) {
             $scope.vm = this;
@@ -43,6 +43,11 @@
             $scope.toggle = scope => {
                 scope.toggle();
             };
+
+            if (this.projectService.activeSolution != null) return;
+            this.projectService.activeSolution = this.solutions.length > 0
+                ? this.solutions[this.solutions.length - 1]
+                : null;
         }
 
     }
