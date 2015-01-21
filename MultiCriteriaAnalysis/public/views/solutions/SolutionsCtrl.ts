@@ -99,8 +99,7 @@
             scenario.calculateWeights();
         }
 
-        // TODO Add confirmation
-        public deleteSolution() {
+        deleteSolution() {
             Helpers.Utils.deleteDialog(this.$modal, 'Delete solution', 'Are you sure you want to delete the solution \'' + this.projectService.activeSolution.title + '\'?', (ok) => {
                 if (!ok) return;
                 var solutions = this.projectService.project.solutions;
@@ -113,7 +112,13 @@
             });
         }
 
-        public createNewSolution() {
+        editSolution() {
+            Helpers.Utils.editTextDialog(this.$modal, 'Edit title', this.projectService.activeSolution.title, (newTitle) => {
+                this.projectService.activeSolution.title = newTitle;
+            }); 
+        }
+
+        createNewSolution() {
             var modalInstance = this.$modal.open({
                 templateUrl     : 'views/dialogs/getTitleDialog.html',
                 controller      : 'GetTitleDialogCtrl',

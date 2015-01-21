@@ -80,7 +80,6 @@ var Solutions;
             scenario.subScenarios = this.projectService.project.scenarios;
             scenario.calculateWeights();
         };
-        // TODO Add confirmation
         SolutionsCtrl.prototype.deleteSolution = function () {
             var _this = this;
             Helpers.Utils.deleteDialog(this.$modal, 'Delete solution', 'Are you sure you want to delete the solution \'' + this.projectService.activeSolution.title + '\'?', function (ok) {
@@ -92,6 +91,12 @@ var Solutions;
                     return;
                 solutions.splice(index, 1);
                 _this.projectService.activeSolution = solutions.length > 0 ? solutions[solutions.length - 1] : null;
+            });
+        };
+        SolutionsCtrl.prototype.editSolution = function () {
+            var _this = this;
+            Helpers.Utils.editTextDialog(this.$modal, 'Edit title', this.projectService.activeSolution.title, function (newTitle) {
+                _this.projectService.activeSolution.title = newTitle;
             });
         };
         SolutionsCtrl.prototype.createNewSolution = function () {

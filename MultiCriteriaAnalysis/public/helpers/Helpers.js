@@ -122,6 +122,26 @@ var Helpers;
             Utils.drawLegend(svg, pie, data);
         };
         /**
+         * Edit dialog.
+         */
+        Utils.editTextDialog = function (modal, title, text, callback) {
+            var modalInstance = modal.open({
+                templateUrl: 'views/dialogs/getTitleDialog.html',
+                controller: 'GetTitleDialogCtrl',
+                size: 'sm',
+                resolve: {
+                    header: function () { return title; },
+                    title: function () { return text; },
+                    description: function () { return ''; }
+                }
+            });
+            modalInstance.result.then(function (newText) {
+                callback(newText);
+            }, function () {
+                callback(text);
+            });
+        };
+        /**
          * Delete dialog.
          */
         Utils.deleteDialog = function (modal, title, text, callback) {

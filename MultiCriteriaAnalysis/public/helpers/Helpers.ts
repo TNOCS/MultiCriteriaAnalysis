@@ -224,6 +224,30 @@
             Utils.drawLegend(svg, pie, data);
         }
 
+
+
+        /**
+         * Edit dialog.
+         */
+        static editTextDialog(modal, title: string, text: string, callback: (text: string) => void) {
+            var modalInstance = modal.open({
+                templateUrl: 'views/dialogs/getTitleDialog.html',
+                controller: 'GetTitleDialogCtrl',
+                size: 'sm', // = small or 'lg' for large
+                resolve: {
+                    header     : () => title,
+                    title      : () => text,
+                    description: () => ''
+                }
+            });
+
+            modalInstance.result.then((newText: string) => {
+                callback(newText);
+            }, () => {
+                callback(text);
+            });
+        }
+
         /**
          * Delete dialog.
          */
@@ -233,7 +257,7 @@
                 controller: 'ConfirmationDialogCtrl',
                 size: 'sm', // = small or 'lg' for large
                 resolve: {
-                    header: () => title,
+                    header  : () => title,
                     question: () => text
                 }
             });
@@ -241,8 +265,8 @@
             modalInstance.result.then((confirmation: boolean) => {
                 callback(confirmation);
             }, () => {
-                callback(false);
-            });
+                    callback(false);
+                });
         }
     }
 }

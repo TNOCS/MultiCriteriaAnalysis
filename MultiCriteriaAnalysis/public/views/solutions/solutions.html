@@ -1,20 +1,37 @@
 ﻿<div data-ng-controller="SolutionsCtrl" class="container-fluid" >
     <div class="row" style="margin-top: 22px">
-        <h1 class="col-md-3" style="margin-top:0">Active Solution:</h1>
+        <h1 class="col-md-2" style="margin-top:0">Active Solution:</h1>
         <div class="col-md-2">
             <select class="form-control"
                     data-ng-model="vm.projectService.activeSolution"
                     data-ng-options="solution.title for solution in vm.solutions"></select>
         </div>
         <div class="btn-group col-md-2">
-            <a class="btn" data-ng-click="vm.deleteSolution()" alt="Delete solution" ng-disabled="vm.projectService.activeSolution == null">
+            <a class="btn" data-ng-click="vm.editSolution()"
+               popover="Edit the solution"
+               popover-placement="top"
+               popover-trigger="mouseenter"
+               ng-disabled="vm.projectService.activeSolution == null">
+                <i class="fa fa-2x fa-edit"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.deleteSolution()"
+               popover="Delete solution"
+               popover-placement="top"
+               popover-trigger="mouseenter"
+               ng-disabled="vm.projectService.activeSolution == null">
                 <i class="fa fa-2x fa-trash-o"></i>
             </a>
-            <a class="btn" data-ng-click="vm.createNewSolution()" alt="Create new solution">
+            <a class="btn" data-ng-click="vm.createNewSolution()"
+               popover="Create new solution"
+               popover-placement="top"
+               popover-trigger="mouseenter">
                 <i class="fa fa-2x fa-plus"></i>
             </a>
         </div>
-        <div class="col-md-offset-3 col-md-2">
+        <div class="col-md-4">
+            <h1 data-ng-if="vm.selectedScenario" style="margin-top:0">Scenario '{{vm.selectedScenario.title}}'</h1>
+        </div>
+        <div class="col-md-2 pull-right">
             <!--TODO Add filter icon-->
             <select class="form-control"
                     data-ng-model="vm.projectService.activeDataSource"
@@ -49,10 +66,6 @@
 
         <!-- The list of criteria that needs to be filled in -->
         <div class="col-md-6">
-            <div class="row" data-ng-if="vm.selectedScenario">
-                <h3>Scenario '{{vm.selectedScenario.title}}'</h3>
-                <!--<span contenteditable ng-model="vm.selectedScenario.description" style="font-size:20px;cursor:text"></span>-->
-            </div>
             <div class="row" id="pieChart"></div>
             <div class="row" data-ng-if="vm.activeCriterias.length > 0">
                 <h3>Specify the results</h3>
