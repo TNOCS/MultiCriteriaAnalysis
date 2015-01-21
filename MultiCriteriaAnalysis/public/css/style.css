@@ -670,3 +670,10 @@ border-top-style: none;
 .disabledItem {
     text-decoration: line-through;
 }
+
+.legend {
+    font-size: 12px;
+}
+rect {
+    stroke-width: 2;
+}

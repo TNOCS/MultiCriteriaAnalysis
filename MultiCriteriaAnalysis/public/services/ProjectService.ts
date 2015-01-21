@@ -8,6 +8,8 @@
         constructor() {
             // TODO Obtain those projects from local storage or GitHub...
             this.projects = [];
+            // TODO Remove
+            this.createExampleProject();
         }
 
         createExampleProject() {

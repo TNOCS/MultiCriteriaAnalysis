@@ -51,17 +51,21 @@
             return s === 'true' || s === 'false';
         }
 
-        private static pieRadius: number = 100;
         public static pieColors = d3.scale.category20();
 
-        public static drawPie(data?: any) {
+        private static pieRadius      = 50;
+        private static borderOffset   = 2;
+        private static legendRectSize = 18;
+        private static legendSpacing  = 4;
+
+        public static drawPie(data?: any, drawLegend = true) {
             Utils.clearSvg();
 
             if (!data) return;
 
-            var width = Utils.pieRadius,
-                height = Utils.pieRadius,
-                radius = Math.min(width, height) / 2,
+            var width = 2 * Utils.pieRadius + (drawLegend ? 200 : 0),
+                height = Math.max(2 * (Utils.pieRadius + Utils.borderOffset), (drawLegend ? (data.length + 1) * (Utils.legendRectSize + Utils.legendSpacing) : 0)),
+                radius = Utils.pieRadius, 
                 innerRadius = 0.3 * radius;
 
             var pie = d3.layout.pie()
@@ -86,7 +90,9 @@
                 .attr("width", width)
                 .attr("height", height)
                 .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                .attr("transform", "translate(" + Utils.pieRadius + "," + (Utils.pieRadius + Utils.borderOffset) + ")");
+
+            svg.call(tip);
 
             var path = svg.selectAll(".solidArc")
                 .data(pie(data))
@@ -106,14 +112,35 @@
                 .attr("class", "outlineArc")
                 .attr("d", outlineArc);
 
-            try {
-                svg.call(tip);
-            }
-            catch (err) {
-                //Utils.drawPie(data);
-                console.log("Error: " + err.message);
-            }
+            if (!drawLegend) return;
 
+            Utils.drawLegend(svg, pie, data);
+        }
+
+        private static drawLegend(svg, pie, data) {
+            var legend = svg.selectAll('.legend')
+                .data(pie(data))
+                .enter()
+                .append('g')
+                .attr('class', 'legend')
+                .attr('transform', function (d, i) {
+                    var height = Utils.legendRectSize + Utils.legendSpacing;
+                    var offset = Utils.pieRadius;
+                    var horz = 2 * Utils.pieRadius - Utils.legendRectSize;
+                    var vert = i * height - offset;
+                    return 'translate(' + horz + ',' + vert + ')';
+                });
+
+            legend.append('rect')
+                .attr('width', Utils.legendRectSize)
+                .attr('height', Utils.legendRectSize)
+                .style('fill', function (d) { return d.data.color; })
+                .style('stroke', function (d) { return d.data.color; });
+
+            legend.append('text')
+                .attr('x', Utils.legendRectSize + Utils.legendSpacing)
+                .attr('y', Utils.legendRectSize - Utils.legendSpacing)
+                .text(function (d) { return d.data.label; });
         }
 
         public static clearSvg() {
@@ -122,14 +149,14 @@
         }
 
         /** See http://bl.ocks.org/bbest/2de0e25d4840c68f2db1 */
-        public static drawAsterPlot(data?: any) {
+        public static drawAsterPlot(data?: any, drawLegend = true) {
             Utils.clearSvg();
 
             if (!data) return;
 
-            var width = Utils.pieRadius,
-                height = Utils.pieRadius,
-                radius = Math.min(width, height) / 2,
+            var width = 2 * Utils.pieRadius + (drawLegend ? 200 : 0),
+                height = Math.max(2 * (Utils.pieRadius + Utils.borderOffset), (drawLegend ? (data.length + 1) * (Utils.legendRectSize + Utils.legendSpacing) : 0)),
+                radius = Utils.pieRadius,
                 innerRadius = 0.3 * radius;
 
             var pie = d3.layout.pie()
@@ -154,14 +181,9 @@
                 .attr("width", width)
                 .attr("height", height)
                 .append("g")
-                .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                .attr("transform", "translate(" + Utils.pieRadius + "," + (Utils.pieRadius + Utils.borderOffset) + ")");
 
-            try {
-                svg.call(tip);
-            }
-            catch (err) {
-                console.log("Error: " + err.message);
-            }
+            svg.call(tip);
 
             var path = svg.selectAll(".solidArc")
                 .data(pie(data))
@@ -196,6 +218,10 @@
                 .attr("dy", ".35em")
                 .attr("text-anchor", "middle") // text-align: right
                 .text(Math.round(score));
+
+            if (!drawLegend) return;
+
+            Utils.drawLegend(svg, pie, data);
         }
 
         /**

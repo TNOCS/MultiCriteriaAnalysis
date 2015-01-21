@@ -4,6 +4,8 @@ var Services;
         function ProjectService() {
             // TODO Obtain those projects from local storage or GitHub...
             this.projects = [];
+            // TODO Remove
+            this.createExampleProject();
         }
         ProjectService.prototype.createExampleProject = function () {
             var project = Models.McaProject.createExampleProject();
