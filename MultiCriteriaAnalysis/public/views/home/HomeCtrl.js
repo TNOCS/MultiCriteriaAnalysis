@@ -84,6 +84,9 @@ var Home;
                 project = null;
             });
         };
+        HomeCtrl.prototype.createExampleProject = function () {
+            this.projectService.createExampleProject();
+        };
         HomeCtrl.prototype.createNewProject = function () {
             var _this = this;
             var modalInstance = this.$modal.open({

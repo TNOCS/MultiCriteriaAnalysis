@@ -86,7 +86,7 @@
                 });
         }
 
-        public deleteProject() {
+        deleteProject() {
             var project = this.projectService.project;
             Helpers.Utils.deleteDialog(this.$modal, 'Delete project', 'Are you sure you want to delete the project \'' + project.title + '\'?', (ok) => {
                 if (!ok) return;
@@ -97,7 +97,11 @@
             });
         }
 
-        public createNewProject() {
+        createExampleProject() {
+            this.projectService.createExampleProject();
+        }
+
+        createNewProject() {
             var modalInstance = this.$modal.open({
                 templateUrl    : 'views/dialogs/getTitleDialog.html',
                 controller     : 'GetTitleDialogCtrl',
