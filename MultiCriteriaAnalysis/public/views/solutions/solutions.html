@@ -72,7 +72,7 @@
                 <div class="col-md-12" data-ng-repeat="criteria in vm.activeCriterias | filter: vm.dataSourceFilter">
                     <div class="col-md-6"><h4>{{criteria.title}}</h4></div>
                     <div class="col-md-6">
-                        <select style="margin:0 10px;width:90%"
+                        <select style="margin:10px 0;width:90%"
                                 data-ng-change="vm.updateCriteria(criteria)"
                                 data-ng-options="option.id as option.fullTitle for option in criteria.options"
                                 data-ng-model="criteria.selectedId"></select>

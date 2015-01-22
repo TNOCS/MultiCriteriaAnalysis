@@ -44,10 +44,66 @@
                 scope.toggle();
             };
 
-            if (this.projectService.activeSolution != null) return;
-            this.projectService.activeSolution = this.solutions.length > 0
+            if (this.projectService.activeSolution == null) {
+                this.projectService.activeSolution = this.solutions.length > 0
                 ? this.solutions[this.solutions.length - 1]
                 : null;
+            }
+            if (this.projectService.altSolution == null) {
+                this.projectService.altSolution = this.solutions.length > 1
+                ? this.solutions[this.solutions.length - 2]
+                : null;
+            }
+        }
+
+        select(item: Models.Scenario) {
+            this.selectedScenario = item;
+            this.projectService.activeScenario = item;
+            this.activeCriterias = [];
+            if (!this.selectedScenario.hasSubs()) {
+                this.eachCriteria(this.projectService.project.criterias);
+            }
+            this.updateResult();
+        }
+
+        private updateResult() {
+            var data = [];
+            var parent = this.selectedScenario.findParent(this.projectService.project);
+            for (var k = 0; k < parent.subScenarios.length; k++) {
+                var scenario = parent.subScenarios[k];
+                data.push({
+                    id: k + 1,
+                    order: k + 1,
+                    color: Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
+                    weight: scenario.weight,
+                    score: this.projectService.activeSolution.computeScore(scenario) * 100,
+                    width: scenario.weight,
+                    label: scenario.title
+                });
+            }
+
+            if (data.length > 0)
+                Helpers.Utils.drawAsterPlot(data);
+            else
+                Helpers.Utils.clearSvg();
+        }
+
+        private eachCriteria(criterias: Models.Criteria[], parentWeight = 1, activeScenario = this.selectedScenario) {
+            var scores = this.projectService.activeSolution.scores;
+            for (var k = 0; k < criterias.length; k++) {
+                var criteria = criterias[k];
+                if (!criteria.isEnabled) continue;
+                if (criteria.hasSubcriteria()) {
+                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeScenario);
+                } else {
+                    var selectedId = '';
+                    if (activeScenario.id in scores &&
+                        criteria.id in scores[activeScenario.id]) {
+                        selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
+                    }
+                    this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
+                }
+            }
         }
 
     }

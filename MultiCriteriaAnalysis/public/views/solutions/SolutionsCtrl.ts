@@ -148,7 +148,7 @@
             });
         }
 
-        public updateCriteria(criteria: Models.SelectableCriterion) {
+        updateCriteria(criteria: Models.SelectableCriterion) {
             //console.log(JSON.stringify(criteria, null, 2));
             if (!(this.selectedScenario.id in this.projectService.activeSolution.scores)) {
                 this.projectService.activeSolution.scores[this.selectedScenario.id] = {};
@@ -162,7 +162,7 @@
             this.updateResult();
         }
 
-        public select(item: Models.Scenario) {
+        select(item: Models.Scenario) {
             if (!item) {
                 // Create a pseudo scenario that is the top level
                 item              = new Models.Scenario();
@@ -188,7 +188,7 @@
                     order : k + 1,
                     color : Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
                     weight: scenario.weight,
-                    score : this.computeScore(scenario) * 100,
+                    score : this.projectService.activeSolution.computeScore(scenario) * 100,
                     width : scenario.weight,
                     label : scenario.title
                 });
@@ -200,28 +200,28 @@
                 Helpers.Utils.clearSvg();
         }
 
-        private computeScore(scenario: Models.Scenario): number {
-            var totalScore = 0;
-            if (!scenario.hasSubs()) {
-                // Leaf node
-                if (scenario.id in this.projectService.activeSolution.scores) {
-                    var score = this.projectService.activeSolution.scores[scenario.id];
-                    for (var criterionId in score) {
-                        if (!score.hasOwnProperty(criterionId)) continue;
-                        var criteriaScore = score[criterionId];
-                        totalScore += criteriaScore.weight * criteriaScore.value;
-                    }
-                }
-            } else {
-                scenario.subScenarios.forEach((s) => {
-                    s.calculateWeights();
-                    if (s.weight)
-                        totalScore += s.weight * this.computeScore(s);
-                });
-            }
-            scenario.score = totalScore;
-            return totalScore;
-        }
+        //private computeScore(scenario: Models.Scenario): number {
+        //    var totalScore = 0;
+        //    if (!scenario.hasSubs()) {
+        //        // Leaf node
+        //        if (scenario.id in this.projectService.activeSolution.scores) {
+        //            var score = this.projectService.activeSolution.scores[scenario.id];
+        //            for (var criterionId in score) {
+        //                if (!score.hasOwnProperty(criterionId)) continue;
+        //                var criteriaScore = score[criterionId];
+        //                totalScore += criteriaScore.weight * criteriaScore.value;
+        //            }
+        //        }
+        //    } else {
+        //        scenario.subScenarios.forEach((s) => {
+        //            s.calculateWeights();
+        //            if (s.weight)
+        //                totalScore += s.weight * this.computeScore(s);
+        //        });
+        //    }
+        //    scenario.score = totalScore;
+        //    return totalScore;
+        //}
 
         /**
          * Use the selected data source to filter the results.

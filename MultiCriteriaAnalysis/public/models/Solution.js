@@ -24,6 +24,34 @@ var Models;
             this.description = data.description;
             this.scores = data.scores;
         };
+        /**
+         * Compute the score for a scenario.
+         */
+        Solution.prototype.computeScore = function (scenario) {
+            var _this = this;
+            var totalScore = 0;
+            if (!scenario.hasSubs()) {
+                // Leaf node
+                if (scenario.id in this.scores) {
+                    var score = this.scores[scenario.id];
+                    for (var criterionId in score) {
+                        if (!score.hasOwnProperty(criterionId))
+                            continue;
+                        var criteriaScore = score[criterionId];
+                        totalScore += criteriaScore.weight * criteriaScore.value;
+                    }
+                }
+            }
+            else {
+                scenario.subScenarios.forEach(function (s) {
+                    s.calculateWeights();
+                    if (s.weight)
+                        totalScore += s.weight * _this.computeScore(s);
+                });
+            }
+            scenario.score = totalScore;
+            return totalScore;
+        };
         return Solution;
     })();
     Models.Solution = Solution;

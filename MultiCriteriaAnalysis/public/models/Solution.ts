@@ -41,14 +41,31 @@
             this.scores      = data.scores;
         }
 
-        //public calculateScore(): number {
-        //    var totalScore = 0;
-        //    for (var k in this.scores) {
-        //        var score = this.scores[k];
-        //        totalScore += score.value;
-        //    }
-        //    return totalScore;
-        //}
+        /**
+         * Compute the score for a scenario.
+         */
+        public computeScore(scenario: Models.Scenario): number {
+            var totalScore = 0;
+            if (!scenario.hasSubs()) {
+                // Leaf node
+                if (scenario.id in this.scores) {
+                    var score = this.scores[scenario.id];
+                    for (var criterionId in score) {
+                        if (!score.hasOwnProperty(criterionId)) continue;
+                        var criteriaScore = score[criterionId];
+                        totalScore += criteriaScore.weight * criteriaScore.value;
+                    }
+                }
+            } else {
+                scenario.subScenarios.forEach((s) => {
+                    s.calculateWeights();
+                    if (s.weight)
+                        totalScore += s.weight * this.computeScore(s);
+                });
+            }
+            scenario.score = totalScore;
+            return totalScore;
+        }
     }
 
 }

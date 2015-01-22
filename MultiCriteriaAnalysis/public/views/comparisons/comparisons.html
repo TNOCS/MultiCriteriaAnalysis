@@ -18,7 +18,9 @@
             <!--TODO Add filter icon-->
             <select class="form-control"
                     data-ng-model="vm.projectService.activeDataSource"
-                    data-ng-options="dataSource.title group by dataSource.group for dataSource in vm.projectService.project.dataSources"></select>
+                    data-ng-options="dataSource.title group by dataSource.group for dataSource in vm.projectService.project.dataSources">
+                <option value="">&nbsp;</option>
+            </select>
         </div>
     </div>
 

@@ -12,6 +12,28 @@ var Solutions;
             this.messageBus = messageBus;
             this.projectService = projectService;
             this.activeCriterias = [];
+            //private computeScore(scenario: Models.Scenario): number {
+            //    var totalScore = 0;
+            //    if (!scenario.hasSubs()) {
+            //        // Leaf node
+            //        if (scenario.id in this.projectService.activeSolution.scores) {
+            //            var score = this.projectService.activeSolution.scores[scenario.id];
+            //            for (var criterionId in score) {
+            //                if (!score.hasOwnProperty(criterionId)) continue;
+            //                var criteriaScore = score[criterionId];
+            //                totalScore += criteriaScore.weight * criteriaScore.value;
+            //            }
+            //        }
+            //    } else {
+            //        scenario.subScenarios.forEach((s) => {
+            //            s.calculateWeights();
+            //            if (s.weight)
+            //                totalScore += s.weight * this.computeScore(s);
+            //        });
+            //    }
+            //    scenario.score = totalScore;
+            //    return totalScore;
+            //}
             /**
              * Use the selected data source to filter the results.
              */
@@ -166,7 +188,7 @@ var Solutions;
                     order: k + 1,
                     color: Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
                     weight: scenario.weight,
-                    score: this.computeScore(scenario) * 100,
+                    score: this.projectService.activeSolution.computeScore(scenario) * 100,
                     width: scenario.weight,
                     label: scenario.title
                 });
@@ -175,31 +197,6 @@ var Solutions;
                 Helpers.Utils.drawAsterPlot(data);
             else
                 Helpers.Utils.clearSvg();
-        };
-        SolutionsCtrl.prototype.computeScore = function (scenario) {
-            var _this = this;
-            var totalScore = 0;
-            if (!scenario.hasSubs()) {
-                // Leaf node
-                if (scenario.id in this.projectService.activeSolution.scores) {
-                    var score = this.projectService.activeSolution.scores[scenario.id];
-                    for (var criterionId in score) {
-                        if (!score.hasOwnProperty(criterionId))
-                            continue;
-                        var criteriaScore = score[criterionId];
-                        totalScore += criteriaScore.weight * criteriaScore.value;
-                    }
-                }
-            }
-            else {
-                scenario.subScenarios.forEach(function (s) {
-                    s.calculateWeights();
-                    if (s.weight)
-                        totalScore += s.weight * _this.computeScore(s);
-                });
-            }
-            scenario.score = totalScore;
-            return totalScore;
         };
         SolutionsCtrl.prototype.eachCriteria = function (criterias, parentWeight, activeScenario) {
             if (parentWeight === void 0) { parentWeight = 1; }
