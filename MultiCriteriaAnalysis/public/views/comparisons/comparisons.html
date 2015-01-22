@@ -9,9 +9,17 @@
             </div>
             <h1 class="pull-left" style=" margin-top:0">&nbsp;to&nbsp;</h1>
             <div class="pull-left">
-                <select class="form-control"
-                        data-ng-model="vm.projectService.altSolution"
-                        data-ng-options="solution.title for solution in vm.solutions"></select>
+                <!--button-label="icon name"
+                    item-label="icon name maker"-->
+                <multi-select input-model="vm.altSolutions"
+                              output-model="vm.projectService.compareToSolutions"
+                              item-label="title"
+                              button-label="title"
+                              tick-property="ticked">
+                </multi-select>
+                <!--<select class="form-control"
+                        data-ng-model="vm.altSolutions"
+                        data-ng-options="solution.title for solution in vm.solutions"></select>-->
             </div>
         </div>
         <div class="col-md-offset-2 col-md-2">

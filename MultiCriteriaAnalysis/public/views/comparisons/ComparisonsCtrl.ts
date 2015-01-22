@@ -7,6 +7,7 @@
 
     export class ComparisonsCtrl {
         public solutions       : Models.Solution[];
+        public altSolutions    : Models.Solution[] = [];
         public dataSources     : Models.DataSourceViewModel[];
         public scenarios       : Models.Scenario[];
         public selectedScenario: Models.Scenario;
@@ -44,15 +45,20 @@
                 scope.toggle();
             };
 
-            if (this.projectService.activeSolution == null) {
-                this.projectService.activeSolution = this.solutions.length > 0
+            if (projectService.activeSolution == null) {
+                projectService.activeSolution = this.solutions.length > 0
                 ? this.solutions[this.solutions.length - 1]
                 : null;
             }
-            if (this.projectService.altSolution == null) {
-                this.projectService.altSolution = this.solutions.length > 1
-                ? this.solutions[this.solutions.length - 2]
-                : null;
+            this.solutions.forEach((s) => {
+                if (s.id !== projectService.activeSolution.id) this.altSolutions.push(s);
+            });
+            if (projectService.compareToSolutions.length === 0) {
+                if (this.altSolutions.length > 1)
+                    projectService.compareToSolutions.push(this.altSolutions[this.altSolutions.length - 1]);
+            } else {
+                var i = projectService.compareToSolutions.indexOf(projectService.activeSolution);
+                if (i >= 0) projectService.compareToSolutions.slice(i, 1);
             }
         }
 
@@ -64,6 +70,10 @@
                 this.eachCriteria(this.projectService.project.criterias);
             }
             this.updateResult();
+        }
+
+        compareTo() {
+
         }
 
         private updateResult() {

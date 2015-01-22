@@ -1,12 +1,12 @@
 ﻿module Services {
     export class ProjectService {
-        public projects        : Models.McaProject[];
-        public project         : Models.McaProject;
-        public activeCriteria  : Models.Criteria;
-        public activeScenario  : Models.Scenario;
-        public activeDataSource: Models.DataSourceViewModel;
-        public activeSolution  : Models.Solution;
-        public altSolution     : Models.Solution;
+        public projects           : Models.McaProject[];
+        public project            : Models.McaProject;
+        public activeCriteria     : Models.Criteria;
+        public activeScenario     : Models.Scenario;
+        public activeDataSource   : Models.DataSourceViewModel;
+        public activeSolution     : Models.Solution;
+        public compareToSolutions : Models.Solution[] = [];
 
         constructor() {
             // TODO Obtain those projects from local storage or GitHub...

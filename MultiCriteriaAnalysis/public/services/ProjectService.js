@@ -2,6 +2,7 @@ var Services;
 (function (Services) {
     var ProjectService = (function () {
         function ProjectService() {
+            this.compareToSolutions = [];
             // TODO Obtain those projects from local storage or GitHub...
             this.projects = [];
             // TODO Remove
