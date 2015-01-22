@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid" data-ng-controller="ScenariosCtrl as d">
     <div class="row">
         <h1 class="col-md-8">Scenarios</h1>
-        <h1 class="col-md-4" data-ng-if="vm.selectedItem">Scenario '{{vm.selectedItem.title}}'</h1>
+        <h1 class="col-md-4" data-ng-if="vm.selectedScenario">Scenario '{{vm.selectedScenario.title}}'</h1>
     </div>
     
     
@@ -41,8 +41,8 @@
 
         <!-- Result view in right panel -->
         <div class="col-md-4">
-            <div class="row" data-ng-if="vm.selectedItem">
-                <!--<div data-ng-if="!vm.selectedItem.hasSubs()">
+            <div class="row" data-ng-if="vm.selectedScenario">
+                <!--<div data-ng-if="!vm.selectedScenario.hasSubs()">
                     <h4>Select criteria</h4>
                     <div max-height="250px"
                          max-labels="3"

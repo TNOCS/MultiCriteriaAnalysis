@@ -2,8 +2,11 @@
     export class ProjectService {
         public projects        : Models.McaProject[];
         public project         : Models.McaProject;
-        public activeSolution  : Models.Solution;
+        public activeCriteria  : Models.Criteria;
+        public activeScenario  : Models.Scenario;
         public activeDataSource: Models.DataSourceViewModel;
+        public activeSolution  : Models.Solution;
+        public altSolution     : Models.Solution;
 
         constructor() {
             // TODO Obtain those projects from local storage or GitHub...

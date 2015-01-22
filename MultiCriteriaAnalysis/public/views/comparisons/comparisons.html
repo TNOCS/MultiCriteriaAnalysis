@@ -1,12 +1,20 @@
 ﻿<div data-ng-controller="ComparisonsCtrl" class="container-fluid">
     <div class="row" style="margin-top: 22px">
-        <h1 class="col-md-3" style="margin-top:0">Active Solution:</h1>
-        <div class="col-md-2">
-            <select class="form-control"
-                    data-ng-model="vm.projectService.activeSolution"
-                    data-ng-options="solution.title for solution in vm.solutions"></select>
+        <div class="col-md-8">
+            <h1 class="pull-left" style="margin-top:0">Compare solution&nbsp;</h1>
+            <div class="pull-left">
+                <select class="form-control pull-left"
+                        data-ng-model="vm.projectService.activeSolution"
+                        data-ng-options="solution.title for solution in vm.solutions"></select>
+            </div>
+            <h1 class="pull-left" style=" margin-top:0">&nbsp;to&nbsp;</h1>
+            <div class="pull-left">
+                <select class="form-control"
+                        data-ng-model="vm.projectService.altSolution"
+                        data-ng-options="solution.title for solution in vm.solutions"></select>
+            </div>
         </div>
-        <div class="col-md-offset-3 col-md-2">
+        <div class="col-md-offset-2 col-md-2">
             <!--TODO Add filter icon-->
             <select class="form-control"
                     data-ng-model="vm.projectService.activeDataSource"

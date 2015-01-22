@@ -19,6 +19,7 @@
         public static $inject = [
             '$scope',
             '$modal',
+            '$timeout',
             '$log',
             'messageBusService',
             'projectService'
@@ -29,6 +30,7 @@
         constructor(
             private $scope        : ISolutionsViewScope,
             private $modal        : any,
+            private $timeout      : ng.ITimeoutService,
             private $log          : ng.ILogService,
             private messageBus    : csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
@@ -56,6 +58,10 @@
             $scope.toggle = scope => {
                 scope.toggle();
             };
+
+            if (!projectService.activeScenario) return;
+            // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
+            $timeout(() => this.select(projectService.activeScenario),0);
         }
 
         private updateWeightsAndScore() {
@@ -164,6 +170,7 @@
                 item.subScenarios = this.projectService.project.scenarios;
             }
             this.selectedScenario = item;
+            this.projectService.activeScenario = item;
             this.activeCriterias = [];
             if (!this.selectedScenario.hasSubs()) {
                 this.eachCriteria(this.projectService.project.criterias);

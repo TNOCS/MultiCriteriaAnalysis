@@ -3,10 +3,11 @@ var Solutions;
     var SolutionsCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
-        function SolutionsCtrl($scope, $modal, $log, messageBus, projectService) {
+        function SolutionsCtrl($scope, $modal, $timeout, $log, messageBus, projectService) {
             var _this = this;
             this.$scope = $scope;
             this.$modal = $modal;
+            this.$timeout = $timeout;
             this.$log = $log;
             this.messageBus = messageBus;
             this.projectService = projectService;
@@ -38,6 +39,10 @@ var Solutions;
             $scope.toggle = function (scope) {
                 scope.toggle();
             };
+            if (!projectService.activeScenario)
+                return;
+            // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
+            $timeout(function () { return _this.select(projectService.activeScenario); }, 0);
         }
         SolutionsCtrl.prototype.updateWeightsAndScore = function () {
             var _this = this;
@@ -144,6 +149,7 @@ var Solutions;
                 item.subScenarios = this.projectService.project.scenarios;
             }
             this.selectedScenario = item;
+            this.projectService.activeScenario = item;
             this.activeCriterias = [];
             if (!this.selectedScenario.hasSubs()) {
                 this.eachCriteria(this.projectService.project.criterias);
@@ -222,6 +228,7 @@ var Solutions;
         SolutionsCtrl.$inject = [
             '$scope',
             '$modal',
+            '$timeout',
             '$log',
             'messageBusService',
             'projectService'

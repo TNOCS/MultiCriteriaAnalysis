@@ -3,10 +3,11 @@ var Scenarios;
     var ScenariosCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
-        function ScenariosCtrl($scope, $modal, messageBus, projectService) {
+        function ScenariosCtrl($scope, $modal, $timeout, messageBus, projectService) {
             var _this = this;
             this.$scope = $scope;
             this.$modal = $modal;
+            this.$timeout = $timeout;
             this.messageBus = messageBus;
             this.projectService = projectService;
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
@@ -43,6 +44,10 @@ var Scenarios;
                 scenario.title = "New Scenario";
                 _this.projectService.project.scenarios.push(scenario);
             };
+            if (!projectService.activeScenario)
+                return;
+            // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
+            $timeout(function () { return _this.select(projectService.activeScenario); }, 0);
         }
         ScenariosCtrl.prototype.deleteScenario = function (scenario, parent) {
             var _this = this;
@@ -65,12 +70,13 @@ var Scenarios;
                 item.title = "Top level scenario";
                 item.subScenarios = this.projectService.project.scenarios;
             }
-            this.selectedItem = item;
+            this.selectedScenario = item;
+            this.projectService.activeScenario = item;
             //var multiSelectOptions: any[] = [];
             //this.eachCriteria(multiSelectOptions, this.projectService.project.criterias);
             //this.$scope.multiSelectOptions = multiSelectOptions;
             var data = [];
-            var parent = this.selectedItem.findParent(this.projectService.project);
+            var parent = this.selectedScenario.findParent(this.projectService.project);
             parent.calculateWeights();
             for (var k in parent.subScenarios) {
                 var scenario = parent.subScenarios[k];
@@ -96,6 +102,7 @@ var Scenarios;
         ScenariosCtrl.$inject = [
             '$scope',
             '$modal',
+            '$timeout',
             'messageBusService',
             'projectService'
         ];

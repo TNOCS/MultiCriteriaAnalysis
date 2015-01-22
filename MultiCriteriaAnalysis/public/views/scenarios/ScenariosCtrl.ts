@@ -15,7 +15,7 @@
     }
 
     export class ScenariosCtrl {
-        public selectedItem: Models.Scenario;
+        public selectedScenario: Models.Scenario;
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -24,6 +24,7 @@
         public static $inject = [
             '$scope',
             '$modal',
+            '$timeout',
             'messageBusService',
             'projectService'
         ];
@@ -33,6 +34,7 @@
         constructor(
             private $scope        : IScenariosViewScope,
             private $modal        : any,
+            private $timeout      : ng.ITimeoutService,
             private messageBus    : csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
         ) {
@@ -77,6 +79,10 @@
                 scenario.title = "New Scenario";
                 this.projectService.project.scenarios.push(scenario);
             };
+
+            if (!projectService.activeScenario) return;
+            // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
+            $timeout(() => this.select(projectService.activeScenario), 0);
         }
 
         deleteScenario(scenario: Models.Scenario, parent: Models.Scenario) {
@@ -100,13 +106,14 @@
                 item.title        = "Top level scenario";
                 item.subScenarios = this.projectService.project.scenarios;
             }
-            this.selectedItem = item;
+            this.selectedScenario = item;
+            this.projectService.activeScenario = item;
             //var multiSelectOptions: any[] = [];
             //this.eachCriteria(multiSelectOptions, this.projectService.project.criterias);
             //this.$scope.multiSelectOptions = multiSelectOptions;
 
             var data = [];
-            var parent = this.selectedItem.findParent(this.projectService.project);
+            var parent = this.selectedScenario.findParent(this.projectService.project);
             parent.calculateWeights();
             for (var k in parent.subScenarios) {
                 var scenario = parent.subScenarios[k];
