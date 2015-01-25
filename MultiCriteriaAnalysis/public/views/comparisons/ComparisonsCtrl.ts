@@ -107,25 +107,36 @@
             //var data = [];
 
             var scenario = this.selectedScenario;
+            var solution = this.projectService.activeSolution;
             var data = new Helpers.GroupedBarChartData();
+            data.series[0] = { label: solution.title, values: [] };
 
             if (scenario.hasSubs()) {
-
+                scenario.subScenarios.forEach(s => {
+                    data.labels.push(s.title.toUpperCase());
+                    data.series[0].values.push(this.getScaledScore(solution, s));
+                });
+                var i = 1;
+                this.projectService.compareToSolutions.forEach(sol => {
+                    data.series[i] = { label: sol.title, values: [] };
+                    scenario.subScenarios.forEach(s => {
+                        data.series[i].values.push(this.getScaledScore(sol, s));
+                    });
+                    i++;
+                });
+                this.addScenarioResultsToData(data, scenario, true);
             } else {
-                var scores = this.projectService.activeSolution.scores;
-                var i = 0;
-                data.series[i] = { label: '', values: [] };
-                data.series[i].label = this.projectService.activeSolution.title;
-                data.series[i].values = [];
+                // Add the active solution to the data.
+                var scores = solution.scores;
                 this.activeCriterias.forEach(c => {
                     data.labels.push(c.title);
                     data.series[0].values.push(c.getOptionValueById(c.selectedId) * 100);
                 });
+                var i = 0;
+                // Add the compared solutions to the data.
                 this.projectService.compareToSolutions.forEach(s => {
                     i++;
-                    data.series[i] = { label: '', values: [] };
-                    data.series[i].label = s.title;
-                    data.series[i].values = new Array<number>(this.activeCriterias.length);
+                    data.series[i] = { label: s.title, values: new Array<number>(this.activeCriterias.length) };
                     var scenarioResults = s.scores[scenario.id];
                     for (var critId in scenarioResults) {
                         if (!scenarioResults.hasOwnProperty(critId)) continue;
@@ -140,26 +151,38 @@
                         data.series[i].values[index] = 100 * v;
                     }
                 });
-                Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 20, 10, 250, 150);
-            }
-            //var parent = this.selectedScenario.findParent(this.projectService.project);
-            //for (var k = 0; k < parent.subScenarios.length; k++) {
-            //    var scenario = parent.subScenarios[k];
-            //    data.push({
-            //        id: k + 1,
-            //        order: k + 1,
-            //        color: Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
-            //        weight: scenario.weight,
-            //        score: this.projectService.activeSolution.computeScore(scenario) * 100,
-            //        width: scenario.weight,
-            //        label: scenario.title
-            //    });
-            //}
 
-            //if (data.length > 0)
-            //    Helpers.Utils.drawAsterPlot(data);
-            //else
-            //    Helpers.Utils.clearSvg();
+                this.addScenarioResultsToData(data, scenario, true);
+            }
+            Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 20, 10, 250, 150);
+        }
+
+        private getScaledScore(solution: Models.Solution, scenario: Models.Scenario) {
+            return Math.round(solution.computeScore(scenario) * 100)
+        }
+
+        /**           
+         * Add scenario results to the data. 
+         */
+        private addScenarioResultsToData(data: Helpers.GroupedBarChartData, scenario: Models.Scenario, atStart = false) {
+            var title = scenario.title.toUpperCase();
+            var score = this.getScaledScore(this.projectService.activeSolution, scenario);
+            if (atStart) {
+                data.labels.unshift(title);
+                data.series[0].values.unshift(score);
+            } else {
+                data.labels.push(title);
+                data.series[0].values.push(score);
+            }
+            var i = 1;
+            this.projectService.compareToSolutions.forEach(s => {
+                var score = Math.round(s.computeScore(scenario) * 100);
+                if (atStart)
+                    data.series[i].values.unshift(score);
+                else
+                    data.series[i].values.push(score);
+                i++;
+            });
         }
 
         private eachCriteria(criterias: Models.Criteria[], parentWeight = 1, activeScenario = this.selectedScenario) {
