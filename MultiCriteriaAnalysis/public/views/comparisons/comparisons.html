@@ -59,22 +59,7 @@
 
         <!-- The list of criteria that needs to be filled in -->
         <div class="col-md-6">
-            <div class="row" data-ng-if="vm.selectedScenario">
-                <h3>Scenario '{{vm.selectedScenario.title}}'</h3>
-                <div id="pieChart"></div>
-            </div>
-            <div class="row" data-ng-if="vm.activeCriterias.length > 0">
-                <h3>Specify the results</h3>
-                <div class="col-md-12" data-ng-repeat="criteria in vm.activeCriterias | filter: vm.dataSourceFilter">
-                    <div class="col-md-6"><h4>{{criteria.title}}</h4></div>
-                    <div class="col-md-6">
-                        <select style="margin:0 10px;width:90%"
-                                data-ng-change="vm.updateCriteria(criteria)"
-                                data-ng-options="option.id as option.fullTitle for option in criteria.options"
-                                data-ng-model="criteria.selectedId"></select>
-                    </div>
-                </div>
-            </div>
+            <svg id="barChart" class="chart"></svg>
         </div>
     </div>
 </div>

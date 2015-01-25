@@ -32,8 +32,8 @@ input[type="checkbox"] { margin: 0; }
 .nav-pills > li > a { border-radius: 0; }
 
 .navbar {
-    /*#B5A3C1*/
-    background: #42145F; 
+    /*#B5A3C1, #42145F*/
+    background: black;
     left: 0;
 }
 
@@ -608,10 +608,6 @@ border-top-style: none;
   shape-rendering: crispEdges;
 }
 
-.bar {
-  fill: orange;
-}
-
 .solidArc:hover {
   fill: orangered ;
 }
@@ -677,3 +673,29 @@ border-top-style: none;
 rect {
     stroke-width: 2;
 }
+
+/* START CSS style for the horizontally grouped bar chart. */
+.chart .legend {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+.chart .label {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: end;
+}
+
+.bar:hover {
+  fill: brown;
+}
+/* END CSS style for the horizontally grouped bar chart. */
+

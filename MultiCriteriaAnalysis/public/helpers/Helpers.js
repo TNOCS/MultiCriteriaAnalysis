@@ -1,5 +1,22 @@
 var Helpers;
 (function (Helpers) {
+    /**
+     * Describes the data that is needed for drawing a horizontally grouped bar chart.
+     */
+    var GroupedBarChartData = (function () {
+        function GroupedBarChartData() {
+            /**
+             * Names of the things you wish to group, such as the category names.
+             */
+            this.labels = [];
+            /**
+             * Data that you wish to display, e.g. the results in different years.
+             */
+            this.series = [];
+        }
+        return GroupedBarChartData;
+    })();
+    Helpers.GroupedBarChartData = GroupedBarChartData;
     var Utils = (function () {
         function Utils() {
         }
@@ -120,6 +137,87 @@ var Helpers;
             if (!drawLegend)
                 return;
             Utils.drawLegend(svg, pie, data);
+        };
+        /**
+         * Draw a horizontally grouped bar chart.
+         * @param {IGroupedBarChart} data - The data you wish to convert to a grouped bar chart.
+         * @param {number} barWidth - The maximum width of a bar (default 300).
+         * @param {number} barHeight - The height of a single bar (default 20).
+         * @param {number} gapBetweenGroups - The vertical gap between two consequetive groups (default 10).
+         * @param {number} spaceForLabels - The room at the left reserved for writing the labels (default 150).
+         * @param {number} spaceForLegend - The room at the right reserved for writing the legend (default 150).
+         * NOTE In your HTML code, it expects an svg element with class chart, e.g. <svg class="chart"></svg>
+         * NOTE In your CSS code, you can use several classes: .chart .legend, .chart text, .chart .label, .chart .bar, .axis path, .axis line
+         */
+        Utils.drawHorizontalGroupedBarChart = function (data, barWidth, barHeight, gapBetweenGroups, spaceForLabels, spaceForLegend) {
+            if (barWidth === void 0) { barWidth = 300; }
+            if (barHeight === void 0) { barHeight = 20; }
+            if (gapBetweenGroups === void 0) { gapBetweenGroups = 10; }
+            if (spaceForLabels === void 0) { spaceForLabels = 150; }
+            if (spaceForLegend === void 0) { spaceForLegend = 150; }
+            var groupHeight = barHeight * data.series.length; // The height of a group of bars
+            // Zip the series data together (first values, second values, etc.)
+            var zippedData = [];
+            for (var i = 0; i < data.labels.length; i++) {
+                for (var j = 0; j < data.series.length; j++) {
+                    zippedData.push(data.series[j].values[i]);
+                }
+            }
+            // Color scale
+            var color = d3.scale.category20();
+            // Chart dimensions
+            var chartWidth = spaceForLabels + barWidth + spaceForLegend; // The occupied width of the chart
+            var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length; // The occupied height of the chart.
+            // For translating the actual value to the width of the bar.
+            var x = d3.scale.linear().domain([0, d3.max(zippedData)]).range([0, barWidth]);
+            // For displaying the vertical line
+            var y = d3.scale.linear().range([chartHeight + gapBetweenGroups, 0]);
+            // Display the vertical line without ticks
+            var yAxis = d3.svg.axis().scale(y).tickFormat(function () { return ''; }).tickSize(0).orient("left");
+            $("#barChart").empty();
+            // Specify the chart area and dimensions
+            var chart = d3.select(".chart").attr("width", chartWidth).attr("height", chartHeight);
+            // Create bars
+            var bar = chart.selectAll("g").data(zippedData).enter().append("g").attr("transform", function (d, i) {
+                return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i / data.series.length))) + ")";
+            });
+            // Create rectangles of the correct width
+            bar.append("rect").attr("fill", function (d, i) {
+                return color(i % data.series.length);
+            }).attr("class", "bar").attr("width", x).attr("height", barHeight - 1);
+            // Add text label in bar
+            bar.append("text").attr("x", function (d) {
+                return x(d) - 3;
+            }).attr("y", barHeight / 2).attr("dy", ".35em").text(function (d) {
+                return d;
+            });
+            // Draw labels
+            bar.append("text").attr("class", "label").attr("x", function (d) {
+                return -10;
+            }).attr("y", groupHeight / 2).attr("dy", ".35em").text(function (d, i) {
+                if (i % data.series.length === 0)
+                    return data.labels[Math.floor(i / data.series.length)];
+                else
+                    return "";
+            });
+            chart.append("g").attr("class", "y axis").attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups / 2 + ")").call(yAxis);
+            // Draw legend
+            var legendRectSize = 18, legendSpacing = 4;
+            var legend = chart.selectAll('.legend').data(data.series).enter().append('g').attr('transform', function (d, i) {
+                var height = legendRectSize + legendSpacing;
+                var offset = -gapBetweenGroups / 2;
+                var horz = spaceForLabels + barWidth + 40 - legendRectSize;
+                var vert = i * height - offset;
+                return 'translate(' + horz + ',' + vert + ')';
+            });
+            legend.append('rect').attr('width', legendRectSize).attr('height', legendRectSize).style('fill', function (d, i) {
+                return color(i);
+            }).style('stroke', function (d, i) {
+                return color(i);
+            });
+            legend.append('text').attr('class', 'legend').attr('x', legendRectSize + legendSpacing).attr('y', legendRectSize - legendSpacing).text(function (d) {
+                return d.label;
+            });
         };
         /**
          * Edit dialog.

@@ -14,7 +14,7 @@
         public id         : string;
         public title      : string;
         public description: string;
-        public scores     : {
+        public scores: {
             [scenarioId: string]: {
                 [criteriaId: string]: {
                     criteriaOptionId: string;
