@@ -1,0 +1,40 @@
+{
+  "name": "MultiCriteriaAnalysis",
+  "version": "0.0.0",
+  "authors": [
+    "Erik Vullings"
+  ],
+  "main": "../server.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "MCA"
+  ],
+  "license": "MIT",
+  "homepage": "www.tno.nl",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "angular": "~1.2.20",
+    "angular-local-storage": "~0.1.0",
+    "angular-ui-router": "~0.2.11",
+    "angular-utils-pagination": "~0.2.4",
+    "angular-bootstrap": "~0.11.0",
+    "bootstrap": "~3.2.0",
+    "Font-Awesome": "*",
+    "awesome-bootstrap-checkbox": "~0.1.2",
+    "pnotify": "~2.0.1",
+    "angular-ui-tree": "~2.1.5",
+    "angular-multi-select": "~2.0.2",
+    "d3": "~3.4.13",
+    "d3-tip": "~0.6.6"
+  }
+}

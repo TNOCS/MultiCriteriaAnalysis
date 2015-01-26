@@ -1,0 +1,91 @@
+﻿<div data-ng-controller="HomeCtrl">
+    <div class="row">
+        <h3 class="col-md-3 text-right" style="margin-top: 3px">Active Project:</h3>
+        <div class="col-md-3">
+            <select class="form-control"
+                    data-ng-model="vm.projectService.project"
+                    data-ng-options="project.title for project in vm.projects"></select>
+        </div>
+        <div class="btn-group col-md-6">
+            <a class="btn" data-ng-click="vm.createNewProject()"
+               popover="Create a new project"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-plus"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.editProject()"
+               popover="Edit the project"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-edit"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.deleteProject()"
+               data-ng-disabled="vm.projectService.project == null"
+               popover="Delete project"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-trash-o"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.createExampleProject()"
+               popover="Create example project"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-gears"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.downloadProject()"
+               data-ng-disabled="vm.projectService.project == null"
+               popover="Download a project to file"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-download"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.uploadProject()"
+               style="top:-2px;">
+                <i class="fa fa-2x fa-upload"></i>
+            </a>
+            <input id="uploadFile"
+                   style="opacity:0;position:absolute;top:8px;left:260px;z-index:2;width:35px;"
+                   type="file" name="file"
+                   popover="Upload a project from file"
+                   popover-placement="top"
+                   popover-trigger="mouseenter" onchange="angular.element(this).scope().vm.uploadProject(this.files)" />
+        </div>
+    </div>
+    <div class="row">
+        <h3 class="col-md-3 text-right" style="margin-top: 3px"
+            popover="A data source, e.g. a person or calculation model, allows you to filter the items when specifying the scores."
+            popover-placement="top"
+            popover-trigger="mouseenter">
+            Data sources:
+        </h3>
+        <div class="col-md-3">
+            <select class="form-control"
+                    data-ng-model="vm.projectService.activeDataSource"
+                    data-ng-options="dataSource.title for dataSource in vm.projectService.project.dataSources">
+       <!--         <option value="" selected="selected">Existing data sources</option>-->                
+            </select>
+        </div>
+        <div class="btn-group col-md-6">
+            <a class="btn" data-ng-click="vm.createNewDataSource()" alt="Create new data source"
+               popover="Create new data source"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-plus"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.editDataSource(vm.projectService.activeDataSource)"
+               data-ng-disabled="vm.projectService.activeDataSource == null"
+               popover="Edit the data source"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-edit"></i>
+            </a>
+            <a class="btn" data-ng-click="vm.deleteDataSource(vm.projectService.activeDataSource)" alt="Delete data source"
+               data-ng-disabled="vm.projectService.activeDataSource == null"
+               popover="Delete data source"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-trash-o"></i>
+            </a>
+        </div>
+    </div>
+</div>
