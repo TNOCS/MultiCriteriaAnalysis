@@ -1,0 +1,52 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+*.map
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must ends with two \r.
+Icon
+
+
+# Thumbnails
+._*
+
+
+# Generated JavaScript files
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+obj/
+node_modules/
+public/bower_components/
+MultiCriteriaAnalysis/public/bower_components/
+MultiCriteriaAnalysis/.ntvs_analysis.dat
+MultiCriteriaAnalysis/server.js
+MultiCriteriaAnalysis/server.js.map
+MultiCriteriaAnalysis/public/**/*.js
+MultiCriteriaAnalysis/public/**/*.js.map
+Examples/~$MCA draft for GA presentation.xlsx
