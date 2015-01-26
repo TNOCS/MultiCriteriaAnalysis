@@ -47,6 +47,6 @@ public/bower_components/
 MultiCriteriaAnalysis/.ntvs_analysis.dat
 MultiCriteriaAnalysis/server.js
 MultiCriteriaAnalysis/server.js.map
-MultiCriteriaAnalysis/public/**/*.js
+# MultiCriteriaAnalysis/public/**/*.js
 MultiCriteriaAnalysis/public/**/*.js.map
 Examples/~$MCA draft for GA presentation.xlsx
