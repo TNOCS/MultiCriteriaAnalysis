@@ -9,8 +9,8 @@
             <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
             <a style="margin: 0 5px" href="" ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-lock" style="margin: 0 5px"></i>enable reorder</a>
             <a style="margin: 0 5px" href="" ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-unlock" style="margin: 0 5px"></i>disable reorder</a>
-            <a style="margin: 0 5px" href="" ng-show="!sortAscending" ng-click="vm.sortOptions()" ng-dblclick="sortAscending = !sortAscending" class="lock"><i class="fa fa-lg fa-sort-numeric-desc" style="margin: 0 5px"></i>sort descending</a>
-            <a style="margin: 0 5px" href="" ng-show="sortAscending" ng-click="vm.sortOptions()" ng-dblclick="sortAscending = !sortAscending" class="lock"><i class="fa fa-lg fa-sort-numeric-asc" style="margin: 0 5px"></i>sort ascending</a>
+            <a style="margin: 0 5px" href="" ng-show="!sortAscending" ng-click="vm.sortOptions(vm.projectService.project.criterias, sortAscending)" ng-dblclick="sortAscending = !sortAscending" class="lock"><i class="fa fa-lg fa-sort-numeric-desc" style="margin: 0 5px"></i>sort descending</a>
+            <a style="margin: 0 5px" href="" ng-show="sortAscending" ng-click="vm.sortOptions(vm.projectService.project.criterias, sortAscending)" ng-dblclick="sortAscending = !sortAscending" class="lock"><i class="fa fa-lg fa-sort-numeric-asc" style="margin: 0 5px"></i>sort ascending</a>
         </div>
     </div>
 

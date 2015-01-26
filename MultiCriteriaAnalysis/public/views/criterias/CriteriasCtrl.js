@@ -104,15 +104,13 @@ var Criterias;
             else
                 Helpers.Utils.clearSvg();
         };
-        CriteriasCtrl.prototype.sortOptions = function (criterias) {
+        CriteriasCtrl.prototype.sortOptions = function (criterias, sortDirection) {
             var _this = this;
-            if (criterias === void 0) { criterias = this.projectService.project.criterias; }
-            //this.$scope.sortAscending = !this.$scope.sortAscending;
             criterias.forEach(function (c) {
                 if (c.hasOptions())
-                    c.sortOptions(_this.$scope.sortAscending);
+                    c.sortOptions(sortDirection);
                 if (c.hasSubcriteria())
-                    _this.sortOptions(c.subCriterias);
+                    _this.sortOptions(c.subCriterias, sortDirection);
             });
         };
         // $inject annotation.

@@ -39,10 +39,10 @@
             $scope.vm = this;
             //console.log(JSON.stringify(projectService.project, null, 2));
 
-            $scope.reorder = false;
+            $scope.reorder       = false;
             $scope.sortAscending = false;
-            $scope.selectedItem = {};
-            $scope.options = {};
+            $scope.selectedItem  = {};
+            $scope.options       = {};
 
             $scope.remove = function (scope) {
                 scope.remove();                
@@ -136,11 +136,10 @@
                 Helpers.Utils.clearSvg();
         }
 
-        sortOptions(criterias = this.projectService.project.criterias) {
-            //this.$scope.sortAscending = !this.$scope.sortAscending;
+        sortOptions(criterias, sortDirection: boolean) {
             criterias.forEach((c) => {
-                if (c.hasOptions()) c.sortOptions(this.$scope.sortAscending);
-                if (c.hasSubcriteria()) this.sortOptions(c.subCriterias);
+                if (c.hasOptions()) c.sortOptions(sortDirection);
+                if (c.hasSubcriteria()) this.sortOptions(c.subCriterias, sortDirection);
             });
         }
     }
