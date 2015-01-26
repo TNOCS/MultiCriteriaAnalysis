@@ -6,12 +6,12 @@
     }
 
     export class ComparisonsCtrl {
-        public solutions       : Models.Solution[];
-        public altSolutions    : Models.Solution[] = [];
-        public dataSources     : Models.DataSourceViewModel[];
-        public scenarios       : Models.Scenario[];
-        public selectedScenario: Models.Scenario;
-        public activeCriterias : Models.SelectableCriterion[] = [];
+        public solutions          : Models.Solution[];
+        public compareToSolutions : Models.Solution[] = [];
+        public dataSources        : Models.DataSourceViewModel[];
+        public scenarios          : { title: string; scenario: Models.Scenario }[] = [];
+        public selectedScenario   : Models.Scenario;
+        public activeCriterias    : Models.SelectableCriterion[] = [];
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -39,9 +39,8 @@
             $scope.vm = this;
 
             this.solutions = projectService.project.solutions;
-            this.scenarios = projectService.project.scenarios;
-
-            $scope.selectedItem = {};
+            this.createScenarioTree(projectService.project.rootScenario);
+            $scope.selectedItem = this.scenarios[0];
 
             $scope.toggle = scope => {
                 scope.toggle();
@@ -53,45 +52,60 @@
                 : null;
             }
             this.solutions.forEach((s) => {
-                if (s.id !== projectService.activeSolution.id) this.altSolutions.push(s);
+                if (s.id !== projectService.activeSolution.id) this.compareToSolutions.push(s);
             });
             if (projectService.compareToSolutions.length === 0) {
-                if (this.altSolutions.length > 1)
-                    projectService.compareToSolutions.push(this.altSolutions[this.altSolutions.length - 1]);
+                if (this.compareToSolutions.length > 1)
+                    projectService.compareToSolutions.push(this.compareToSolutions[this.compareToSolutions.length - 1]);
             } else {
                 var i = projectService.compareToSolutions.indexOf(projectService.activeSolution);
                 if (i >= 0) projectService.compareToSolutions.slice(i, 1);
             }
+
+            //$scope.$watch('this.projectService.compareToSolutions', () => { alert('Changed'); this.select(); }, true);
 
             if (!projectService.activeScenario) return;
             // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
             $timeout(() => this.select(projectService.activeScenario), 0);
         }
 
-        select(item: Models.Scenario) {
-            //var data = {
-            //    labels: [
-            //        'resilience', 'maintainability', 'accessibility',
-            //        'uptime', 'functionality', 'impact'
-            //    ],
-            //    series: [
-            //        {
-            //            label: 'serie 1',
-            //            values: [4, 8, 15, 16, 23, 42]
-            //        },
-            //        {
-            //            label: 'serie 2',
-            //            values: [12, 43, 22, 11, 73, 25]
-            //        },
-            //        {
-            //            label: 'serie 3',
-            //            values: [31, 28, 14, 8, 15, 21]
-            //        }, ]
-            //};
-            //Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 20, 10, 250, 150);
+        private createScenarioTree(scenario: Models.Scenario, indent = 0) {
+            this.scenarios.push({
+                title: this.spaces(indent) + scenario.title,
+                scenario: scenario
+            });
+            if (scenario.hasSubs()) {
+                scenario.subScenarios.forEach(s => {
+                    this.createScenarioTree(s, indent + 2);
+                });
+            }
+        }
 
-            this.selectedScenario = item;
-            this.projectService.activeScenario = item;
+        /**
+         * Return indent number of spaces.
+         */
+        private spaces(indent = 0) {
+            if (indent === 0) return '';
+            var result = ' ';
+            indent *= 2;
+            while (--indent > 0) {
+                result += '\u00A0';
+            }
+            return result;
+        }
+
+        changeActiveSolution() {
+            this.compareToSolutions = [];
+            this.solutions.forEach((s) => {
+                if (s.id !== this.projectService.activeSolution.id) this.compareToSolutions.push(s);
+            });
+            this.select();
+        }
+
+        select(scenario: Models.Scenario = this.selectedScenario) {
+            this.selectedScenario = scenario;
+            if (scenario == null) return;
+            this.projectService.activeScenario = scenario;
             this.activeCriterias = [];
             if (!this.selectedScenario.hasSubs()) {
                 this.eachCriteria(this.projectService.project.criterias);
@@ -99,13 +113,8 @@
             this.updateResult();
         }
 
-        compareTo() {
-
-        }
-
+        /** Compute the data set for the bar chart. */
         private updateResult() {
-            //var data = [];
-
             var scenario = this.selectedScenario;
             var solution = this.projectService.activeSolution;
             var data = new Helpers.GroupedBarChartData();
@@ -127,7 +136,7 @@
                 this.addScenarioResultsToData(data, scenario, true);
             } else {
                 // Add the active solution to the data.
-                var scores = solution.scores;
+                //var scores = solution.scores;
                 this.activeCriterias.forEach(c => {
                     data.labels.push(c.title);
                     data.series[0].values.push(c.getOptionValueById(c.selectedId) * 100);
@@ -136,27 +145,20 @@
                 // Add the compared solutions to the data.
                 this.projectService.compareToSolutions.forEach(s => {
                     i++;
-                    data.series[i] = { label: s.title, values: new Array<number>(this.activeCriterias.length) };
-                    var scenarioResults = s.scores[scenario.id];
-                    for (var critId in scenarioResults) {
-                        if (!scenarioResults.hasOwnProperty(critId)) continue;
-                        var index = -1;
-                        for (var k = 0; k < this.activeCriterias.length; k++) {
-                            if (this.activeCriterias[k].criterion.id !== critId) continue;
-                            index = k;
-                            break;
-                        }
-                        if (index < 0) break;
-                        var v = scenarioResults[critId].value;
-                        data.series[i].values[index] = 100 * v;
-                    }
+                    var scores = s.scores[scenario.id];
+                    data.series[i] = { label: s.title, values: [] };
+                    this.activeCriterias.forEach(c => {
+                        var result = scores.hasOwnProperty(c.id) ? c.getOptionValueById(scores[c.id].criteriaOptionId) * 100 : 0;
+                        data.series[i].values.push(result);
+                    });
                 });
 
                 this.addScenarioResultsToData(data, scenario, true);
             }
-            Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 20, 10, 250, 150);
+            Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 20, 20, 300, 150);
         }
 
+        /** Scale and round the score. */
         private getScaledScore(solution: Models.Solution, scenario: Models.Scenario) {
             return Math.round(solution.computeScore(scenario) * 100)
         }
@@ -185,6 +187,13 @@
             });
         }
 
+        /** 
+         * The data source is changed in the menu.
+         */
+        dataSourceChanged() {
+            this.select(this.selectedScenario);
+        }
+
         private eachCriteria(criterias: Models.Criteria[], parentWeight = 1, activeScenario = this.selectedScenario) {
             var scores = this.projectService.activeSolution.scores;
             for (var k = 0; k < criterias.length; k++) {
@@ -194,11 +203,11 @@
                     this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeScenario);
                 } else {
                     var selectedId = '';
-                    if (activeScenario.id in scores &&
-                        criteria.id in scores[activeScenario.id]) {
-                        selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
+                    if (this.projectService.activeDataSource == null || this.projectService.activeDataSource.id === criteria.dataSourceId) {
+                        if (activeScenario.id in scores && criteria.id in scores[activeScenario.id])
+                            selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
+                        this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
                     }
-                    this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
                 }
             }
         }

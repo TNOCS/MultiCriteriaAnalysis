@@ -45,6 +45,8 @@ var Models;
         Object.defineProperty(McaProject.prototype, "rootScenario", {
             get: function () {
                 var scenario = new Models.Scenario();
+                scenario.id = '';
+                scenario.title = 'TOP';
                 scenario.subScenarios = this.scenarios;
                 return scenario;
             },

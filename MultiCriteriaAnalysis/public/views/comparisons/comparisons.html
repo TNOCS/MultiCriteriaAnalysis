@@ -1,31 +1,42 @@
 ﻿<div data-ng-controller="ComparisonsCtrl" class="container-fluid">
     <div class="row" style="margin-top: 22px">
-        <div class="col-md-8">
-            <h1 class="pull-left" style="margin-top:0">Compare solution&nbsp;</h1>
+        <div class="col-md-10">
+            <h1 class="pull-left" style="margin-top:0">Compare&nbsp;</h1>
             <div class="pull-left">
-                <select class="form-control pull-left"
+                <select class="form-control"
+                        data-ng-change="vm.changeActiveSolution()"
                         data-ng-model="vm.projectService.activeSolution"
                         data-ng-options="solution.title for solution in vm.solutions"></select>
             </div>
-            <h1 class="pull-left" style=" margin-top:0">&nbsp;to&nbsp;</h1>
+            <h1 class="pull-left" style="margin-top:0">&nbsp;to&nbsp;</h1>
             <div class="pull-left">
                 <!--button-label="icon name"
                     item-label="icon name maker"-->
-                <multi-select input-model="vm.altSolutions"
+                <multi-select input-model="vm.compareToSolutions"
                               output-model="vm.projectService.compareToSolutions"
                               item-label="title"
                               button-label="title"
-                              tick-property="ticked">
+                              tick-property="ticked"
+                              on-item-click="vm.select()">
                 </multi-select>
                 <!--<select class="form-control"
-                        data-ng-model="vm.altSolutions"
+                        data-ng-model="vm.compareToSolutions"
                         data-ng-options="solution.title for solution in vm.solutions"></select>-->
             </div>
+            <h1 class="pull-left" style="margin-top:0">&nbsp;for scenario&nbsp;</h1>
+            <div class="pull-left">
+                <select class="form-control"
+                        data-ng-model="selectedItem"
+                        data-ng-change="vm.select(selectedItem.scenario)"
+                        data-ng-trim="false"
+                        data-ng-options="scenario.title for scenario in vm.scenarios"></select>
+            </div>
         </div>
-        <div class="col-md-offset-2 col-md-2">
+        <div class="col-md-2">
             <!--TODO Add filter icon-->
             <select class="form-control"
                     data-ng-model="vm.projectService.activeDataSource"
+                    data-ng-change="vm.dataSourceChanged()"
                     data-ng-options="dataSource.title group by dataSource.group for dataSource in vm.projectService.project.dataSources">
                 <option value="">&nbsp;</option>
             </select>
@@ -34,13 +45,11 @@
 
     <div class="row" data-ng-if="vm.projectService.activeSolution"
          style="overflow-y: auto; overflow-x: hidden" resize resize-y="140">
-        <div>
+        <!--<div>
             <script type="text/ng-template" id="items_renderer.html">
                 <div ui-tree-handle ng-click="vm.select(item)">
                     <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
                     <span ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag>{{item.title}}</span>
-                  <!--  <rating ng-model="item.userWeight" class="span6 pull-right" style="text-align:right;" max="5" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>-->
-                    <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
                 </div>
                 <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
                     <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'"></li>
@@ -48,14 +57,13 @@
             </script>
 
             <div ui-tree="options" data-drag-enabled="false" class="col-md-3">
-                <!--              <a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
                 <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios" data-nodrop data-nodrag style="cursor: pointer">
                     <li ng-repeat="item in vm.projectService.project.scenarios"
                         ui-tree-node
                         ng-include="'items_renderer.html'"></li>
                 </ol>
             </div>
-        </div>
+        </div>-->
 
         <!-- The list of criteria that needs to be filled in -->
         <div class="col-md-6">
