@@ -689,3 +689,6 @@ rect {
     font-weight: bold;
     text-shadow: none;
 }
+.angular-ui-tree-node, .angular-ui-tree-placeholder {
+    min-height: 0;
+}

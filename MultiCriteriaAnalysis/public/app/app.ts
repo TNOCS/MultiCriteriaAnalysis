@@ -116,24 +116,6 @@
         .controller('ComparisonsCtrl',        Comparisons.ComparisonsCtrl)
         .controller('GetTitleDialogCtrl',     DialogCtrls.GetTitleDialogCtrl)
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
-        //.controller('RatingDemoCtrl',       function ($scope) {
-        //    $scope.rate =                   7;
-        //    $scope.max =                    10;
-        //    $scope.isReadonly               = false;
-
-        //    $scope.hoveringOver = function (value) {
-        //        $scope.overStar = value;
-        //        $scope.percent = 100 * (value / $scope.max);
-        //    };
-
-        //    $scope.ratingStates = [
-        //        { stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle' },
-        //        { stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty' },
-        //        { stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle' },
-        //        { stateOn: 'glyphicon-heart' },
-        //        { stateOff: 'glyphicon-off' }
-        //    ];
-        //})
         .filter('format', [
             '$filter', '$locale', (filter, locale) => (value, format) => String.format(format, value)
         ]).directive("contenteditable", () => {
@@ -155,20 +137,5 @@
                 }
             };
         });
-        // .directive('ngModelOnblur', () => {
-        //     return {
-        //         restrict: 'A',
-        //         require: 'ngModel',
-        //         priority: 1, // needed for angular 1.2.x
-        //         link: (scope, elm, attr: any, ngModelCtrl) => {
-        //             if (attr.type === 'radio' || attr.type === 'checkbox') return;
-        //             elm.unbind('input').unbind('keydown').unbind('change');
-        //             elm.bind('blur', () => {
-        //                 scope.$apply(() => {
-        //                     ngModelCtrl.$setViewValue(elm.val());
-        //                 });
-        //             });
-        //         }
-        //     };
-        //});
+
 }

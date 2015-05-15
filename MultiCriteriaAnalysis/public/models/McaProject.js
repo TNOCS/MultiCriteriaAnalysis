@@ -49,6 +49,13 @@ var Models;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(McaProject.prototype, "enabledCriterias", {
+            get: function () {
+                return this.criterias.filter(function (item) { return item.isEnabled; });
+            },
+            enumerable: true,
+            configurable: true
+        });
         McaProject.prototype.saveToJson = function () {
             return false;
         };
@@ -106,6 +113,7 @@ var Models;
             subCriteria.dataSourceId = project.findDataSourceByTitle('Explosion model').id;
             subCriteria.description = 'Repair time is dependent on the type of damage';
             subCriteria.userWeight = 3;
+            subCriteria.isScenarioDependent = true;
             subCriteria.addOption('no repair time needed', 1);
             var option = subCriteria.addOption('up to 1 week', .8);
             option.description = 'No structural and less than up to 100m2 façade/floor damages etc.';
@@ -146,6 +154,7 @@ var Models;
             criteria.userWeight = 3;
             subCriteria = new Models.Criteria();
             subCriteria.title = 'Victims';
+            subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
             subCriteria.addOption('no victims', 1);
             subCriteria.addOption('only light injuries', .7);
@@ -155,6 +164,7 @@ var Models;
             criteria.addSubCriteria(subCriteria);
             subCriteria = new Models.Criteria();
             subCriteria.title = 'Evacuation time';
+            subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
             subCriteria.addOption('up to 5 minutes', 1);
             subCriteria.addOption('up to 10 minutes', .6);
@@ -168,12 +178,14 @@ var Models;
             subCriteria = new Models.Criteria();
             subCriteria.title = 'Accessibility';
             subCriteria.userWeight = 1;
+            subCriteria.isScenarioDependent = true;
             subCriteria.addOption('all access', .2);
             subCriteria.addOption('partial access', .6);
             subCriteria.addOption('all private access', 1);
             criteria.addSubCriteria(subCriteria);
             subCriteria = new Models.Criteria();
             subCriteria.title = 'Surveilance';
+            subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
             subCriteria.addOption('no monitoring', 0);
             subCriteria.addOption('monitoring access', .4);

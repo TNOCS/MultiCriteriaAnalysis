@@ -9,6 +9,7 @@
         public solutions        : Models.Solution[];
         public dataSources      : Models.DataSourceViewModel[];
         public scenarios        : Models.Scenario[];
+        public activeScenarios  : Models.Scenario[] = [];
         public selectedScenario : Models.Scenario;
         public activeCriterias  : Models.SelectableCriterion[] = [];
 
@@ -45,6 +46,7 @@
             this.initializeDataSources();
             this.initializeCriteriaWeights();
             this.initializeScenarioWeights();
+            this.initializeActiveScenarios(projectService.project.rootScenario);
 
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
@@ -105,6 +107,23 @@
             scenario.calculateWeights();
         }
 
+        /**
+         * Initialize the activeScenarios, i.e. the leafs of the scenario trees.
+         */
+        private initializeActiveScenarios(scenario: Models.Scenario) {
+            if (scenario.subScenarios.length === 0) return;
+            scenario.subScenarios.forEach((s) => {
+                if (s.subScenarios.length === 0)
+                    this.activeScenarios.push(s);
+                else
+                    this.initializeActiveScenarios(s);
+            });
+        }
+
+        id(scenario: Models.Scenario, criteria: Models.Criteria) {
+            return scenario.id + "-" + criteria.id;
+        }
+
         deleteSolution() {
             Helpers.Utils.deleteDialog(this.$modal, 'Delete solution', 'Are you sure you want to delete the solution \'' + this.projectService.activeSolution.title + '\'?', (ok) => {
                 if (!ok) return;
@@ -121,7 +140,7 @@
         editSolution() {
             Helpers.Utils.editTextDialog(this.$modal, 'Edit title', this.projectService.activeSolution.title, (newTitle) => {
                 this.projectService.activeSolution.title = newTitle;
-            }); 
+            });
         }
 
         createNewSolution() {
@@ -172,10 +191,14 @@
             this.selectedScenario = item;
             this.projectService.activeScenario = item;
             this.activeCriterias = [];
-            if (!this.selectedScenario.hasSubs()) {
-                this.eachCriteria(this.projectService.project.criterias);
-            }
-            this.updateResult();
+            // if (item.subScenarios === null || item.subScenarios.length === 0) {
+            //     this.eachCriteria(this.projectService.project.criterias);
+            // }
+            //this.updateResult();
+        }
+
+        toggleScenario(scenario: Models.Scenario) {
+            return (scenario === this.selectedScenario);
         }
 
         private updateResult() {

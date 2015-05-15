@@ -9,6 +9,7 @@ var Solutions;
             this.$log = $log;
             this.messageBus = messageBus;
             this.projectService = projectService;
+            this.activeScenarios = [];
             this.activeCriterias = [];
             this.dataSourceFilter = function (value, idx) {
                 if (_this.projectService.activeDataSource == null)
@@ -23,6 +24,7 @@ var Solutions;
             this.initializeDataSources();
             this.initializeCriteriaWeights();
             this.initializeScenarioWeights();
+            this.initializeActiveScenarios(projectService.project.rootScenario);
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
             }
@@ -76,6 +78,20 @@ var Solutions;
             var scenario = new Models.Scenario();
             scenario.subScenarios = this.projectService.project.scenarios;
             scenario.calculateWeights();
+        };
+        SolutionsCtrl.prototype.initializeActiveScenarios = function (scenario) {
+            var _this = this;
+            if (scenario.subScenarios.length === 0)
+                return;
+            scenario.subScenarios.forEach(function (s) {
+                if (s.subScenarios.length === 0)
+                    _this.activeScenarios.push(s);
+                else
+                    _this.initializeActiveScenarios(s);
+            });
+        };
+        SolutionsCtrl.prototype.id = function (scenario, criteria) {
+            return scenario.id + "-" + criteria.id;
         };
         SolutionsCtrl.prototype.deleteSolution = function () {
             var _this = this;
@@ -143,10 +159,9 @@ var Solutions;
             this.selectedScenario = item;
             this.projectService.activeScenario = item;
             this.activeCriterias = [];
-            if (!this.selectedScenario.hasSubs()) {
-                this.eachCriteria(this.projectService.project.criterias);
-            }
-            this.updateResult();
+        };
+        SolutionsCtrl.prototype.toggleScenario = function (scenario) {
+            return (scenario === this.selectedScenario);
         };
         SolutionsCtrl.prototype.updateResult = function () {
             var data = [];

@@ -32,7 +32,7 @@
         }
 
         public hasSubs = () => {
-            return this.subScenarios.length > 0;
+            return this.subScenarios !== null && this.subScenarios.length > 0;
         }
 
         /**
@@ -71,7 +71,7 @@
         }
 
         /**
-         * Update the weights recursively. 
+         * Update the weights recursively.
          */
         public calculateWeights() {
             var totalWeight = 0;

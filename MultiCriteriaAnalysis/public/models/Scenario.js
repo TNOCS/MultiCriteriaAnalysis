@@ -7,7 +7,7 @@ var Models;
             this.subScenarios = [];
             this.score = 0;
             this.hasSubs = function () {
-                return _this.subScenarios.length > 0;
+                return _this.subScenarios !== null && _this.subScenarios.length > 0;
             };
             if (data)
                 this.fromJson(data);

@@ -32,6 +32,7 @@ var Models;
             this.userWeight = 1;
             this.subCriterias = [];
             this.options = [];
+            this.isScenarioDependent = false;
             this.isEnabled = true;
             this.canHaveOptions = function () {
                 return _this.subCriterias.length === 0;
@@ -51,6 +52,7 @@ var Models;
             this.description = data.description;
             this.userWeight = data.userWeight;
             this.dataSourceId = data.dataSourceId;
+            this.isScenarioDependent = data.isScenarioDependent;
             if (typeof data.isEnabled === 'undefined' || data.isEnabled == null)
                 this.isEnabled = true;
             else

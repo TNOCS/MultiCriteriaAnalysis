@@ -19,7 +19,7 @@
         }
 
         get fullTitle() {
-            return this.title + ' (' + this.value + ')'; 
+            return this.title + ' (' + this.value + ')';
         }
     }
 
@@ -32,6 +32,8 @@
         subCriterias : Criteria[] = [];
         options      : CriteriaOption[] = []
         dataSourceId : string;
+        /** When true, the criteria's value does not depend on the specific scenario. */
+        isScenarioDependent = false;
         isEnabled = true;
 
         constructor(data?: Criteria) {
@@ -48,6 +50,7 @@
             this.description  = data.description;
             this.userWeight   = data.userWeight;
             this.dataSourceId = data.dataSourceId;
+            this.isScenarioDependent = data.isScenarioDependent;
             if (typeof data.isEnabled === 'undefined' || data.isEnabled == null)
                 this.isEnabled = true;
             else
@@ -93,7 +96,7 @@
 
         sortOptions(sortAscending: boolean) {
             this.options = this.options.sort((o1, o2) => {
-                return sortAscending 
+                return sortAscending
                     ? o1.value - o2.value
                     : o2.value - o1.value;
             });
@@ -112,7 +115,7 @@
         }
 
         /**
-         * Update the weights recursively. 
+         * Update the weights recursively.
          */
         public calculateWeights() {
             var totalWeight = 0;

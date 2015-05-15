@@ -14,8 +14,8 @@
             if (projectData) this.fromJson(projectData);
         }
 
-        /** 
-         * Deserialize the object 
+        /**
+         * Deserialize the object
          */
         fromJson(projectData: McaProject) {
             this.title       = projectData.title;
@@ -49,6 +49,10 @@
             scenario.title = 'TOP';
             scenario.subScenarios = this.scenarios;
             return scenario;
+        }
+
+        get enabledCriterias() {
+            return this.criterias.filter((item) => item.isEnabled);
         }
 
         saveToJson(): boolean {
@@ -94,7 +98,7 @@
             }
             return null;
         }
-        
+
         //private findCriteriaByIdRecursively(crits: Criteria[], title: string): Models.Criteria {
         //    for (var i in crits) {
         //        var criteria = crits[i];
@@ -102,7 +106,7 @@
         //        if (criteria.subCriterias.length > 0) {
         //            var crit = this.findCriteriaByIdRecursively(criteria.subCriterias, title);
         //            if (crit != null) return crit;
-        //        }                
+        //        }
         //    }
         //    return null;
         //}
@@ -129,6 +133,7 @@
             subCriteria.dataSourceId = project.findDataSourceByTitle('Explosion model').id;
             subCriteria.description  = 'Repair time is dependent on the type of damage';
             subCriteria.userWeight   = 3;
+            subCriteria.isScenarioDependent = true;
             subCriteria.addOption('no repair time needed', 1);
 
             var option         = subCriteria.addOption('up to 1 week', .8);
@@ -174,6 +179,7 @@
             criteria.userWeight    = 3;
             subCriteria            = new Criteria();
             subCriteria.title      = 'Victims';
+            subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
             subCriteria.addOption('no victims', 1);
             subCriteria.addOption('only light injuries', .7);
@@ -183,6 +189,7 @@
             criteria.addSubCriteria(subCriteria);
             subCriteria            = new Criteria();
             subCriteria.title      = 'Evacuation time';
+            subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
             subCriteria.addOption('up to 5 minutes', 1);
             subCriteria.addOption('up to 10 minutes', .6);
@@ -198,12 +205,14 @@
             subCriteria            = new Criteria();
             subCriteria.title      = 'Accessibility';
             subCriteria.userWeight = 1;
+            subCriteria.isScenarioDependent = true;
             subCriteria.addOption('all access', .2);
             subCriteria.addOption('partial access', .6);
             subCriteria.addOption('all private access', 1);
             criteria.addSubCriteria(subCriteria);
             subCriteria            = new Criteria();
             subCriteria.title      = 'Surveilance';
+            subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
             subCriteria.addOption('no monitoring', 0);
             subCriteria.addOption('monitoring access', .4);
