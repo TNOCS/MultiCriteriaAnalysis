@@ -187,7 +187,7 @@
                 .sort(null)
                 .value(d => d.width);
 
-            var tip = d3.tip()
+            var tip = (<any>d3).tip()
                 .attr('class', 'd3-tip')
                 .offset([0, 0])
                 .html(d => d.data.label + ": <span style='color:white'>&nbsp; Weight: " + Math.round(d.data.weight * 100) + "%,&nbsp; Score: " + Math.round(d.data.score) + ",&nbsp; Weight*Score: " + Math.round(d.data.weight * d.data.score) + "</span>");
