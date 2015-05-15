@@ -1,0 +1,47 @@
+{
+    "version": "1.5.0-alpha",
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "declaration": false,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true,
+        "suppressImplicitAnyIndexErrors": true
+    },
+    "filesGlob": [
+        "./**/*.ts",
+        "!./public/bower_components/**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "files": [
+        "./Scripts/typings/angular-ui-router/angular-ui-router.d.ts",
+        "./Scripts/typings/angularLocalStorage/angularLocalStorage.d.ts",
+        "./Scripts/typings/angularjs/angular-cookies.d.ts",
+        "./Scripts/typings/angularjs/angular.d.ts",
+        "./Scripts/typings/d3/d3.d.ts",
+        "./Scripts/typings/express/express.d.ts",
+        "./Scripts/typings/jquery/jquery.d.ts",
+        "./Scripts/typings/node/node.d.ts",
+        "./Scripts/typings/pnotify/jquery.pnotify.d.ts",
+        "./Scripts/typings/xbbcode/xbbcode.d.ts",
+        "./public/app/app.ts",
+        "./public/helpers/Helpers.ts",
+        "./public/helpers/Resize.ts",
+        "./public/models/Criteria.ts",
+        "./public/models/DataSource.ts",
+        "./public/models/McaProject.ts",
+        "./public/models/Scenario.ts",
+        "./public/models/Solution.ts",
+        "./public/services/MessageBus.ts",
+        "./public/services/ProjectService.ts",
+        "./public/views/comparisons/ComparisonsCtrl.ts",
+        "./public/views/criterias/CriteriasCtrl.ts",
+        "./public/views/dialogs/DialogCtrls.ts",
+        "./public/views/home/HomeCtrl.ts",
+        "./public/views/scenarios/ScenariosCtrl.ts",
+        "./public/views/solutions/SolutionsCtrl.ts",
+        "./server.ts"
+    ]
+}

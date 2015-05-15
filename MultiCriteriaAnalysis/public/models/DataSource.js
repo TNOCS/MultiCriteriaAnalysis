@@ -1,4 +1,4 @@
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -6,7 +6,6 @@ var __extends = this.__extends || function (d, b) {
 };
 var Models;
 (function (Models) {
-    /** Can either be a person or a model */
     var DataSource = (function () {
         function DataSource(title, id) {
             if (!id)
@@ -14,7 +13,6 @@ var Models;
             if (title)
                 this.title = title;
         }
-        /** Deserialize the object */
         DataSource.prototype.fromJson = function (data) {
             this.id = data.id;
             this.title = data.title;
@@ -35,4 +33,3 @@ var Models;
     })(Models.DataSource);
     Models.DataSourceViewModel = DataSourceViewModel;
 })(Models || (Models = {}));
-//# sourceMappingURL=DataSource.js.map

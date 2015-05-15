@@ -2,7 +2,6 @@ var Models;
 (function (Models) {
     var McaProject = (function () {
         function McaProject(projectData) {
-            // TODO Add a saved date.
             this.criterias = [];
             this.scenarios = [];
             this.solutions = [];
@@ -11,9 +10,6 @@ var Models;
             if (projectData)
                 this.fromJson(projectData);
         }
-        /**
-         * Deserialize the object
-         */
         McaProject.prototype.fromJson = function (projectData) {
             var _this = this;
             this.title = projectData.title;
@@ -73,9 +69,6 @@ var Models;
             }
             return null;
         };
-        /**
-         * Finds a criteria by its ID. Returns null when nothing has been found.
-         */
         McaProject.prototype.findCriteriaById = function (id, criterias) {
             if (criterias === void 0) { criterias = this.criterias; }
             if (this.criteriaCache.hasOwnProperty(id))
@@ -97,28 +90,14 @@ var Models;
             }
             return null;
         };
-        //private findCriteriaByIdRecursively(crits: Criteria[], title: string): Models.Criteria {
-        //    for (var i in crits) {
-        //        var criteria = crits[i];
-        //        if (criteria.title.toLowerCase() === title) return criteria;
-        //        if (criteria.subCriterias.length > 0) {
-        //            var crit = this.findCriteriaByIdRecursively(criteria.subCriterias, title);
-        //            if (crit != null) return crit;
-        //        }                
-        //    }
-        //    return null;
-        //}
         McaProject.createExampleProject = function () {
             var project = new McaProject();
             project.title = 'MCA EXAMPLE PROJECT';
-            // DataSources
             project.dataSources.push(new Models.DataSource('Explosion model'));
             project.dataSources.push(new Models.DataSource('Flooding model'));
             project.dataSources.push(new Models.DataSource('Evacuation model'));
             project.dataSources.push(new Models.DataSource('FEM model'));
             project.dataSources.push(new Models.DataSource('Architect'));
-            // Criterias
-            // Resilience
             var criteria = new Models.Criteria();
             criteria.title = 'Resilience';
             criteria.userWeight = 2;
@@ -162,7 +141,6 @@ var Models;
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             project.criterias.push(criteria);
-            // Safety
             criteria = new Models.Criteria();
             criteria.title = 'Safety';
             criteria.userWeight = 3;
@@ -184,7 +162,6 @@ var Models;
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             project.criterias.push(criteria);
-            // Security
             criteria = new Models.Criteria();
             criteria.title = 'Security';
             criteria.userWeight = 1;
@@ -205,7 +182,6 @@ var Models;
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             project.criterias.push(criteria);
-            // Iconic
             criteria = new Models.Criteria();
             criteria.title = 'Iconic';
             criteria.userWeight = 1;
@@ -218,7 +194,6 @@ var Models;
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             project.criterias.push(criteria);
-            // Functionality
             criteria = new Models.Criteria();
             criteria.title = 'Functionality';
             criteria.userWeight = 1;
@@ -231,7 +206,6 @@ var Models;
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             project.criterias.push(criteria);
-            // Energy-efficiency
             criteria = new Models.Criteria();
             criteria.title = 'Energy-efficiency';
             criteria.userWeight = 1;
@@ -244,8 +218,6 @@ var Models;
             criteria.addSubCriteria(subCriteria);
             criteria.calculateWeights();
             project.criterias.push(criteria);
-            // Scenarios
-            // Scenario: Natural events
             var scenario = new Models.Scenario();
             scenario.title = 'Natural events';
             scenario.userWeight = 1;
@@ -256,9 +228,6 @@ var Models;
             subSubScenario.title = 'Force 1';
             subSubScenario.description = 'Description';
             subSubScenario.userWeight = 5;
-            //subSubScenario.effectedCriteriaIds.push(project.findCriteriaByTitle('Repair time').id);
-            //subSubScenario.effectedCriteriaIds.push(project.findCriteriaByTitle('Physical Usability').id);
-            //subSubScenario.effectedCriteriaIds.push(project.findCriteriaByTitle('Operational Usability').id);
             subScenario.subScenarios.push(subSubScenario);
             subSubScenario = new Models.Scenario();
             subSubScenario.title = 'Force 2';
@@ -303,7 +272,6 @@ var Models;
             scenario.subScenarios.push(subScenario);
             scenario.calculateWeights();
             project.scenarios.push(scenario);
-            // Intended incidents (terrorists)
             scenario = new Models.Scenario();
             scenario.title = 'Intended incidents (terrorists)';
             scenario.userWeight = 2;
@@ -345,7 +313,6 @@ var Models;
             scenario.subScenarios.push(subScenario);
             scenario.calculateWeights();
             project.scenarios.push(scenario);
-            // Unintended incidents
             scenario = new Models.Scenario();
             scenario.title = 'Unintended incidents (accidents)';
             scenario.userWeight = 4;
@@ -425,4 +392,3 @@ var Models;
     })();
     Models.McaProject = McaProject;
 })(Models || (Models = {}));
-//# sourceMappingURL=McaProject.js.map

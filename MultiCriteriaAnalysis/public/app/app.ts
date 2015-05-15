@@ -11,7 +11,7 @@
         title: string;
     }
 
-    declare var sffjs; // For setting the current culture for string formatting (note you need to include stringformat.nl-NL.js) 
+    declare var sffjs; // For setting the current culture for string formatting (note you need to include stringformat.nl-NL.js)
     declare var String;
 
     export class AppCtrl {
@@ -154,21 +154,21 @@
                     });
                 }
             };
-        })
-        .directive('ngModelOnblur', () => {
-            return {
-                restrict: 'A',
-                require: 'ngModel',
-                priority: 1, // needed for angular 1.2.x
-                link: (scope, elm, attr, ngModelCtrl) => {
-                    if (attr.type === 'radio' || attr.type === 'checkbox') return;
-                    elm.unbind('input').unbind('keydown').unbind('change');
-                    elm.bind('blur', () => {
-                        scope.$apply(() => {
-                            ngModelCtrl.$setViewValue(elm.val());
-                        });
-                    });
-                }
-            };
         });
+        // .directive('ngModelOnblur', () => {
+        //     return {
+        //         restrict: 'A',
+        //         require: 'ngModel',
+        //         priority: 1, // needed for angular 1.2.x
+        //         link: (scope, elm, attr: any, ngModelCtrl) => {
+        //             if (attr.type === 'radio' || attr.type === 'checkbox') return;
+        //             elm.unbind('input').unbind('keydown').unbind('change');
+        //             elm.bind('blur', () => {
+        //                 scope.$apply(() => {
+        //                     ngModelCtrl.$setViewValue(elm.val());
+        //                 });
+        //             });
+        //         }
+        //     };
+        //});
 }

@@ -1,4 +1,4 @@
-var __extends = this.__extends || function (d, b) {
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
@@ -10,7 +10,6 @@ var Models;
         function CriteriaOption() {
             this.id = Helpers.Utils.createGuid();
         }
-        /** Deserialize the object */
         CriteriaOption.prototype.fromJson = function (data) {
             this.id = data.id;
             this.title = data.title;
@@ -45,7 +44,6 @@ var Models;
             else
                 this.id = Helpers.Utils.createGuid();
         }
-        /** Deserialize the object */
         Criteria.prototype.fromJson = function (data) {
             var _this = this;
             this.id = data.id;
@@ -87,7 +85,9 @@ var Models;
         };
         Criteria.prototype.sortOptions = function (sortAscending) {
             this.options = this.options.sort(function (o1, o2) {
-                return sortAscending ? o1.value - o2.value : o2.value - o1.value;
+                return sortAscending
+                    ? o1.value - o2.value
+                    : o2.value - o1.value;
             });
         };
         Criteria.prototype.addOption = function (title, value) {
@@ -100,9 +100,6 @@ var Models;
         Criteria.prototype.addSubCriteria = function (subCriteria) {
             this.subCriterias.push(subCriteria);
         };
-        /**
-         * Update the weights recursively.
-         */
         Criteria.prototype.calculateWeights = function () {
             var totalWeight = 0;
             if (this.subCriterias.length === 0 || !this.isEnabled)
@@ -120,9 +117,6 @@ var Models;
                     c.calculateWeights();
             });
         };
-        /**
-         * Find the parent of the element. Returns null when there is no parent.
-         */
         Criteria.prototype.findParent = function (project) {
             var subs = project.criterias;
             if (subs.length == 0)
@@ -140,9 +134,6 @@ var Models;
             }
             return null;
         };
-        /**
-         * Find the parent of the element. Returns null when no parent has been found.
-         */
         Criteria.prototype.findParentRecursively = function (parent) {
             var subs = parent.subCriterias;
             for (var i = 0; i < subs.length; i++) {
@@ -174,4 +165,3 @@ var Models;
     })(Models.Criteria);
     Models.SelectableCriterion = SelectableCriterion;
 })(Models || (Models = {}));
-//# sourceMappingURL=Criteria.js.map

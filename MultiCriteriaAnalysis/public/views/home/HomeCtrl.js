@@ -112,7 +112,6 @@ var Home;
         };
         HomeCtrl.prototype.saveData = function (data, filename) {
             if (navigator.msSaveBlob) {
-                // IE 10+
                 var link = document.createElement('a');
                 link.addEventListener("click", function (event) {
                     var blob = new Blob([data], { "type": "text/csv;charset=utf-8;" });
@@ -123,12 +122,10 @@ var Home;
                 document.body.removeChild(link);
             }
             else if (!this.supportsDataUri()) {
-                // Older versions of IE: show the data in a new window
                 var popup = window.open('', 'json', '');
                 popup.document.body.innerHTML = '<pre>' + data + '</pre>';
             }
             else {
-                // Support for browsers that support the data uri.
                 var a = document.createElement('a');
                 document.body.appendChild(a);
                 a.href = 'data:text/json;charset=utf-8,' + encodeURI(data);
@@ -141,7 +138,7 @@ var Home;
         HomeCtrl.prototype.supportsDataUri = function () {
             var isOldIE = navigator.appName === "Microsoft Internet Explorer";
             var isIE11 = !!navigator.userAgent.match(/Trident\/7\./);
-            return !(isOldIE || isIE11); //Return true if not any IE
+            return !(isOldIE || isIE11);
         };
         HomeCtrl.prototype.uploadProject = function (files) {
             var _this = this;
@@ -149,11 +146,9 @@ var Home;
             var reader = new FileReader();
             var f = files[0];
             reader.onload = function (e) {
-                //var projectData: Models.McaProject = JSON.parse(reader.result);
                 var project = new Models.McaProject(JSON.parse(reader.result));
                 _this.projectService.projects.push(project);
                 _this.projectService.project = project;
-                //$('#uploadFile').val('');
             };
             reader.readAsText(f);
         };
@@ -169,4 +164,3 @@ var Home;
     })();
     Home.HomeCtrl = HomeCtrl;
 })(Home || (Home = {}));
-//# sourceMappingURL=HomeCtrl.js.map

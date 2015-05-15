@@ -1,18 +1,13 @@
 var Criterias;
 (function (Criterias) {
     var CriteriasCtrl = (function () {
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         function CriteriasCtrl($scope, $modal, messageBus, projectService) {
             var _this = this;
             this.$scope = $scope;
             this.$modal = $modal;
             this.messageBus = messageBus;
             this.projectService = projectService;
-            // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
-            // for its methods to be accessible from view / HTML
             $scope.vm = this;
-            //console.log(JSON.stringify(projectService.project, null, 2));
             $scope.reorder = false;
             $scope.sortAscending = false;
             $scope.selectedItem = {};
@@ -59,7 +54,9 @@ var Criterias;
             Helpers.Utils.deleteDialog(this.$modal, 'Delete criteria', 'Are you sure you want to delete the criteria \'' + criteria.title + '\'?', function (ok) {
                 if (!ok)
                     return;
-                var criterias = parent == null ? _this.projectService.project.criterias : parent.subCriterias;
+                var criterias = parent == null
+                    ? _this.projectService.project.criterias
+                    : parent.subCriterias;
                 var index = criterias.indexOf(criteria);
                 if (index < 0)
                     return;
@@ -74,7 +71,6 @@ var Criterias;
         };
         CriteriasCtrl.prototype.select = function (item) {
             if (!item) {
-                // Create a pseudo criteria that is the level
                 item = new Models.Criteria();
                 item.title = "Top level overview";
                 item.subCriterias = this.projectService.project.criterias;
@@ -113,10 +109,6 @@ var Criterias;
                     _this.sortOptions(c.subCriterias, sortDirection);
             });
         };
-        // $inject annotation.
-        // It provides $injector with information about dependencies to be injected into constructor
-        // it is better to have it close to the constructor, because the parameters must match in count and type.
-        // See http://docs.angularjs.org/guide/di
         CriteriasCtrl.$inject = [
             '$scope',
             '$modal',
@@ -127,4 +119,3 @@ var Criterias;
     })();
     Criterias.CriteriasCtrl = CriteriasCtrl;
 })(Criterias || (Criterias = {}));
-//# sourceMappingURL=CriteriasCtrl.js.map

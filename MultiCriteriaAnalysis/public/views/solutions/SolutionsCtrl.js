@@ -1,8 +1,6 @@
 var Solutions;
 (function (Solutions) {
     var SolutionsCtrl = (function () {
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         function SolutionsCtrl($scope, $modal, $timeout, $log, messageBus, projectService) {
             var _this = this;
             this.$scope = $scope;
@@ -12,31 +10,6 @@ var Solutions;
             this.messageBus = messageBus;
             this.projectService = projectService;
             this.activeCriterias = [];
-            //private computeScore(scenario: Models.Scenario): number {
-            //    var totalScore = 0;
-            //    if (!scenario.hasSubs()) {
-            //        // Leaf node
-            //        if (scenario.id in this.projectService.activeSolution.scores) {
-            //            var score = this.projectService.activeSolution.scores[scenario.id];
-            //            for (var criterionId in score) {
-            //                if (!score.hasOwnProperty(criterionId)) continue;
-            //                var criteriaScore = score[criterionId];
-            //                totalScore += criteriaScore.weight * criteriaScore.value;
-            //            }
-            //        }
-            //    } else {
-            //        scenario.subScenarios.forEach((s) => {
-            //            s.calculateWeights();
-            //            if (s.weight)
-            //                totalScore += s.weight * this.computeScore(s);
-            //        });
-            //    }
-            //    scenario.score = totalScore;
-            //    return totalScore;
-            //}
-            /**
-             * Use the selected data source to filter the results.
-             */
             this.dataSourceFilter = function (value, idx) {
                 if (_this.projectService.activeDataSource == null)
                     return true;
@@ -63,7 +36,6 @@ var Solutions;
             };
             if (!projectService.activeScenario)
                 return;
-            // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
             $timeout(function () { return _this.select(projectService.activeScenario); }, 0);
         }
         SolutionsCtrl.prototype.updateWeightsAndScore = function () {
@@ -76,9 +48,7 @@ var Solutions;
         SolutionsCtrl.prototype.initializeDataSources = function () {
             var _this = this;
             this.dataSources = [];
-            this.dataSources.push(new Models.DataSourceViewModel('all', '1', 'Show', function (value, idx) {
-                return true;
-            }));
+            this.dataSources.push(new Models.DataSourceViewModel('all', '1', 'Show', function (value, idx) { return true; }));
             this.dataSources.push(new Models.DataSourceViewModel('unassigned', '2', 'Show', function (value, idx) {
                 return (value.selectedId == null || value.selectedId.length === 0);
             }));
@@ -117,7 +87,9 @@ var Solutions;
                 if (index < 0)
                     return;
                 solutions.splice(index, 1);
-                _this.projectService.activeSolution = solutions.length > 0 ? solutions[solutions.length - 1] : null;
+                _this.projectService.activeSolution = solutions.length > 0
+                    ? solutions[solutions.length - 1]
+                    : null;
             });
         };
         SolutionsCtrl.prototype.editSolution = function () {
@@ -151,7 +123,6 @@ var Solutions;
             });
         };
         SolutionsCtrl.prototype.updateCriteria = function (criteria) {
-            //console.log(JSON.stringify(criteria, null, 2));
             if (!(this.selectedScenario.id in this.projectService.activeSolution.scores)) {
                 this.projectService.activeSolution.scores[this.selectedScenario.id] = {};
             }
@@ -165,7 +136,6 @@ var Solutions;
         };
         SolutionsCtrl.prototype.select = function (item) {
             if (!item) {
-                // Create a pseudo scenario that is the top level
                 item = new Models.Scenario();
                 item.title = "Top level scenario";
                 item.subScenarios = this.projectService.project.scenarios;
@@ -211,17 +181,14 @@ var Solutions;
                 }
                 else {
                     var selectedId = '';
-                    if (activeScenario.id in scores && criteria.id in scores[activeScenario.id]) {
+                    if (activeScenario.id in scores &&
+                        criteria.id in scores[activeScenario.id]) {
                         selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
                     }
                     this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
                 }
             }
         };
-        // $inject annotation.
-        // It provides $injector with information about dependencies to be injected into constructor
-        // it is better to have it close to the constructor, because the parameters must match in count and type.
-        // See http://docs.angularjs.org/guide/di
         SolutionsCtrl.$inject = [
             '$scope',
             '$modal',
@@ -234,4 +201,3 @@ var Solutions;
     })();
     Solutions.SolutionsCtrl = SolutionsCtrl;
 })(Solutions || (Solutions = {}));
-//# sourceMappingURL=SolutionsCtrl.js.map

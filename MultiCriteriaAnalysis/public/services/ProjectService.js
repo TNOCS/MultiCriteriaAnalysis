@@ -3,9 +3,7 @@ var Services;
     var ProjectService = (function () {
         function ProjectService() {
             this.compareToSolutions = [];
-            // TODO Obtain those projects from local storage or GitHub...
             this.projects = [];
-            // TODO Remove
             this.createExampleProject();
         }
         ProjectService.prototype.createExampleProject = function () {
@@ -17,4 +15,3 @@ var Services;
     })();
     Services.ProjectService = ProjectService;
 })(Services || (Services = {}));
-//# sourceMappingURL=ProjectService.js.map

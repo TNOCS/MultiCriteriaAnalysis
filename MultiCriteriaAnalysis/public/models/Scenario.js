@@ -14,7 +14,6 @@ var Models;
             else
                 this.id = Helpers.Utils.createGuid();
         }
-        /** Deserialize the object */
         Scenario.prototype.fromJson = function (data) {
             var _this = this;
             this.id = data.id;
@@ -28,9 +27,6 @@ var Models;
                 _this.subScenarios.push(scenario);
             });
         };
-        /**
-         * Find the parent of the element. Returns null when there is no parent.
-         */
         Scenario.prototype.findParent = function (project) {
             var subs = project.scenarios;
             if (subs.length == 0)
@@ -48,9 +44,6 @@ var Models;
             }
             return null;
         };
-        /**
-         * Find the parent of the element. Returns null when no parent has been found.
-         */
         Scenario.prototype.findParentRecursively = function (parent) {
             var subs = parent.subScenarios;
             for (var i = 0; i < subs.length; i++) {
@@ -65,9 +58,6 @@ var Models;
             }
             return null;
         };
-        /**
-         * Update the weights recursively.
-         */
         Scenario.prototype.calculateWeights = function () {
             var totalWeight = 0;
             if (this.subScenarios.length === 0)
@@ -87,4 +77,3 @@ var Models;
     })();
     Models.Scenario = Scenario;
 })(Models || (Models = {}));
-//# sourceMappingURL=Scenario.js.map

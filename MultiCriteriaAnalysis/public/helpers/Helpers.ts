@@ -16,7 +16,7 @@
              */
             label: string;
             /**
-             * Values belonging to this group of data. 
+             * Values belonging to this group of data.
              * NOTE The length of the values needs to be equal to the length of the labels.
              */
             values: number[];
@@ -89,14 +89,14 @@
 
             var width = 2 * Utils.pieRadius + (drawLegend ? 200 : 0),
                 height = Math.max(2 * (Utils.pieRadius + Utils.borderOffset), (drawLegend ? (data.length + 1) * (Utils.legendRectSize + Utils.legendSpacing) : 0)),
-                radius = Utils.pieRadius, 
+                radius = Utils.pieRadius,
                 innerRadius = 0.3 * radius;
 
             var pie = d3.layout.pie()
                 .sort(null)
                 .value(d => d.width);
 
-            var tip = d3.tip()
+            var tip = (<any>d3).tip()
                 .attr('class', 'd3-tip')
                 .offset([0, 0])
                 .html(d => d.data.label + ": <span style='color:orangered'>" + Math.round(d.data.weight * 100) + "%</span>");
