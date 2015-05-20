@@ -136,11 +136,12 @@ module Comparisons {
                 });
                 this.addScenarioResultsToData(data, scenario, true);
             } else {
-                // Add the active solution to the data.
-                //var scores = solution.scores;
+                // scenario.score = 0;
                 this.activeCriterias.forEach(c => {
+                    var optionValue = c.getOptionValueById(c.selectedId);
+                    // scenario.score += optionValue * c.weight; 
                     data.labels.push(c.title);
-                    data.series[0].values.push(c.getOptionValueById(c.selectedId) * 100);
+                    data.series[0].values.push(optionValue * 100);
                 });
                 var i = 0;
                 // Add the compared solutions to the data.

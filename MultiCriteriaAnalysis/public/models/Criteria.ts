@@ -86,12 +86,17 @@
         }
 
         public getOptionValueById(id: string) : number {
+            var option = this.getOptionById(id);
+            return option === null ? 0 : option.value;
+        }
+
+        public getOptionById(id: string): CriteriaOption {
             for (var k in this.options) {
                 if (!this.options.hasOwnProperty(k)) continue;
                 var option = this.options[k];
-                if (option.id === id) return option.value;
+                if (option.id === id) return option;
             }
-            return 0;
+            return null;
         }
 
         sortOptions(sortAscending: boolean) {

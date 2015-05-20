@@ -42,7 +42,7 @@
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
 
-            //$scope.clicked = (data) => { 
+            //$scope.clicked = (data) => {
             //    console.log(JSON.stringify(data, null, 2));
             //    this.selectedItem.effectedCriteriaIds = [];
             //    for (var k in $scope.multiSelectOptions) {
@@ -114,6 +114,7 @@
 
             var data = [];
             var parent = this.selectedScenario.findParent(this.projectService.project);
+            if (parent === null) return;
             parent.calculateWeights();
             for (var k in parent.subScenarios) {
                 var scenario = parent.subScenarios[k];
