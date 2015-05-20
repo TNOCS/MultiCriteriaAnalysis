@@ -281,7 +281,7 @@
             // For translating the actual value to the width of the bar.
             var x = d3.scale.linear()
                 .domain([0, d3.max(zippedData)])
-                .range([0, barWidth]);
+                .range([1, barWidth]);
 
             // For displaying the vertical line
             var y = d3.scale.linear()
