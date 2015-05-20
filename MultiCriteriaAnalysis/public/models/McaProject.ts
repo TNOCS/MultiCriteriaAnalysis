@@ -47,7 +47,22 @@
             var scenario = new Models.Scenario();
             scenario.id = '';
             scenario.title = 'TOP';
+
             scenario.subScenarios = this.scenarios;
+
+            return scenario;
+        }
+
+        get rootAndIndependentScenario() {
+            var scenario = this.rootScenario;
+            scenario.subScenarios = [];
+
+            var independentScenario = new Models.Scenario();
+            independentScenario.id = "0";
+            independentScenario.title = 'Independent of scenario';
+            scenario.subScenarios.push(independentScenario);
+            this.scenarios.forEach((s) => { scenario.subScenarios.push(s) });
+
             return scenario;
         }
 
@@ -423,6 +438,7 @@
 
             for (var i = 0; i < 5; i++) {
                 var solution = new Models.Solution();
+                solution.scores[0] = {};
                 solution.title = 'Version ' + (i+1);
 
                 for (var k = 0; k < project.scenarios.length; k++) {
@@ -459,7 +475,7 @@
                 } else {
                     var random = Math.round(Math.random() * (criteria.options.length - 1));
                     var selectedId = criteria.options[random].id;
-                    scores[scenarioId][criteria.id] = {
+                    scores[criteria.isScenarioDependent ? scenarioId : 0][criteria.id] = {
                         criteriaOptionId: selectedId,
                         value: criteria.getOptionValueById(selectedId),
                         weight: parentWeight * criteria.weight

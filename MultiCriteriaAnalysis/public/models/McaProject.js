@@ -49,6 +49,20 @@ var Models;
             enumerable: true,
             configurable: true
         });
+        Object.defineProperty(McaProject.prototype, "rootAndIndependentScenario", {
+            get: function () {
+                var scenario = this.rootScenario;
+                scenario.subScenarios = [];
+                var independentScenario = new Models.Scenario();
+                independentScenario.id = "0";
+                independentScenario.title = 'Independent of scenario';
+                scenario.subScenarios.push(independentScenario);
+                this.scenarios.forEach(function (s) { scenario.subScenarios.push(s); });
+                return scenario;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(McaProject.prototype, "enabledCriterias", {
             get: function () {
                 return this.criterias.filter(function (item) { return item.isEnabled; });
@@ -358,6 +372,7 @@ var Models;
             project.rootScenario.calculateWeights();
             for (var i = 0; i < 5; i++) {
                 var solution = new Models.Solution();
+                solution.scores[0] = {};
                 solution.title = 'Version ' + (i + 1);
                 for (var k = 0; k < project.scenarios.length; k++) {
                     var scenario = project.scenarios[k];
@@ -392,7 +407,7 @@ var Models;
                 else {
                     var random = Math.round(Math.random() * (criteria.options.length - 1));
                     var selectedId = criteria.options[random].id;
-                    scores[scenarioId][criteria.id] = {
+                    scores[criteria.isScenarioDependent ? scenarioId : 0][criteria.id] = {
                         criteriaOptionId: selectedId,
                         value: criteria.getOptionValueById(selectedId),
                         weight: parentWeight * criteria.weight
