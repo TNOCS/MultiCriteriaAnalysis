@@ -64,7 +64,8 @@ module Comparisons {
 
             //$scope.$watch('this.projectService.compareToSolutions', () => { alert('Changed'); this.select(); }, true);
 
-            if (!projectService.activeScenario) return;
+            if (!projectService.activeScenario)
+                projectService.activeScenario = projectService.project.rootScenario;
             // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
             $timeout(() => this.select(projectService.activeScenario), 0);
         }
