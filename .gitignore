@@ -53,3 +53,5 @@ Examples/~$MCA draft for GA presentation.xlsx
 MultiCriteriaAnalysis/dist/
 MultiCriteriaAnalysis/public/views/dialogs/DialogCtrls.js
 MultiCriteriaAnalysis/public/views/comparisons/ComparisonsCtrl.js
+MultiCriteriaAnalysis/public/views/home/HomeCtrl.js
+MultiCriteriaAnalysis/public/views/scenarios/ScenariosCtrl.js

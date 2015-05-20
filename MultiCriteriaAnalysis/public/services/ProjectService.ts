@@ -12,13 +12,27 @@
             // TODO Obtain those projects from local storage or GitHub...
             this.projects = [];
             // TODO Remove
-            this.createExampleProject();
+            //this.createExampleProject();
+            $.ajax({
+                url: 'data/DefaultProject.json',
+                async: false,
+                dataType: 'json',
+                success: (response) => {
+                    this.createProject(response);
+                }
+            });
         }
 
         createExampleProject() {
             var project = Models.McaProject.createExampleProject();
             this.projects.push(project);
             this.project = project;
+        }
+
+        createProject(project: Models.McaProject) {
+            var parsedProject = new Models.McaProject(project);
+            this.projects.push(parsedProject);
+            this.project = parsedProject;
         }
     }
 }

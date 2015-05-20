@@ -69,7 +69,7 @@
             Helpers.Utils.editTextDialog(this.$modal, 'Edit data source', dataSource.title, (newTitle) => {
                 if (!newTitle) return;
                 dataSource.title = newTitle;
-            }); 
+            });
         }
 
         deleteProject() {
@@ -116,7 +116,7 @@
             Helpers.Utils.editTextDialog(this.$modal, 'Edit project', project.title, (newTitle) => {
                 if (!newTitle) return;
                 project.title = newTitle;
-            }); 
+            });
         }
 
         public downloadProject() {
@@ -165,10 +165,11 @@
             var f = files[0];
 
             reader.onload = e => {
+                this.projectService.createProject(JSON.parse(reader.result));
                 //var projectData: Models.McaProject = JSON.parse(reader.result);
-                var project = new Models.McaProject(JSON.parse(reader.result));
-                this.projectService.projects.push(project);
-                this.projectService.project = project;
+                // var project = new Models.McaProject(JSON.parse(reader.result));
+                // this.projectService.projects.push(project);
+                // this.projectService.project = project;
                 //$('#uploadFile').val('');
             }
 
