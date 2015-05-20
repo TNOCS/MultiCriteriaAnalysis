@@ -1,4 +1,4 @@
-﻿module Comparisons {
+module Comparisons {
     export interface IComparisonsViewScope extends ng.IScope {
         vm: ComparisonsCtrl;
         selectedItem: any;
@@ -39,12 +39,12 @@
             $scope.vm = this;
 
             this.solutions = projectService.project.solutions;
-            this.createScenarioTree(projectService.project.rootScenario);
+            this.createScenarioTree(projectService.project.rootAndIndependentScenario);
             $scope.selectedItem = this.scenarios[0];
 
-            $scope.toggle = scope => {
-                scope.toggle();
-            };
+            // $scope.toggle = scope => {
+            //     scope.toggle();
+            // };
 
             if (projectService.activeSolution == null) {
                 projectService.activeSolution = this.solutions.length > 0
@@ -163,8 +163,8 @@
             return Math.round(solution.computeScore(scenario) * 100)
         }
 
-        /**           
-         * Add scenario results to the data. 
+        /**
+         * Add scenario results to the data.
          */
         private addScenarioResultsToData(data: Helpers.GroupedBarChartData, scenario: Models.Scenario, atStart = false) {
             var title = scenario.title.toUpperCase();
@@ -187,7 +187,7 @@
             });
         }
 
-        /** 
+        /**
          * The data source is changed in the menu.
          */
         dataSourceChanged() {
@@ -203,10 +203,11 @@
                     this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeScenario);
                 } else {
                     var selectedId = '';
-                    if (this.projectService.activeDataSource == null || this.projectService.activeDataSource.id === criteria.dataSourceId) {
-                        if (activeScenario.id in scores && criteria.id in scores[activeScenario.id])
+                    if (typeof this.projectService.activeDataSource === 'undefined' || this.projectService.activeDataSource.id === criteria.dataSourceId) {
+                        if (activeScenario.id in scores && criteria.id in scores[activeScenario.id]) {
                             selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
-                        this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
+                            this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
+                        }
                     }
                 }
             }

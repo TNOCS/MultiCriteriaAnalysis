@@ -1,4 +1,4 @@
-﻿<div data-ng-controller="ComparisonsCtrl" class="container-fluid">
+<div data-ng-controller="ComparisonsCtrl as d" class="container-fluid" >
     <div class="row" style="margin-top: 22px">
         <div class="col-md-10">
             <h1 class="pull-left" style="margin-top:0">Compare&nbsp;</h1>
@@ -32,42 +32,22 @@
                         data-ng-options="scenario.title for scenario in vm.scenarios"></select>
             </div>
         </div>
-        <div class="col-md-2">
-            <!--TODO Add filter icon-->
+        <!--TODO Add filter icon-->
+        <!-- <div class="col-md-2">
             <select class="form-control"
                     data-ng-model="vm.projectService.activeDataSource"
                     data-ng-change="vm.dataSourceChanged()"
                     data-ng-options="dataSource.title group by dataSource.group for dataSource in vm.projectService.project.dataSources">
                 <option value="">&nbsp;</option>
             </select>
-        </div>
+        </div> -->
     </div>
 
     <div class="row" data-ng-if="vm.projectService.activeSolution"
          style="overflow-y: auto; overflow-x: hidden" resize resize-y="140">
-        <!--<div>
-            <script type="text/ng-template" id="items_renderer.html">
-                <div ui-tree-handle ng-click="vm.select(item)">
-                    <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-                    <span ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag>{{item.title}}</span>
-                </div>
-                <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
-                    <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'"></li>
-                </ol>
-            </script>
 
-            <div ui-tree="options" data-drag-enabled="false" class="col-md-3">
-                <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios" data-nodrop data-nodrag style="cursor: pointer">
-                    <li ng-repeat="item in vm.projectService.project.scenarios"
-                        ui-tree-node
-                        ng-include="'items_renderer.html'"></li>
-                </ol>
-            </div>
-        </div>-->
-
-        <!-- The list of criteria that needs to be filled in -->
-        <div class="col-md-6">
-            <svg id="barChart" class="chart"></svg>
-        </div>
+         <div class="col-md-6">
+             <svg id="barChart" class="chart"></svg>
+         </div>
     </div>
 </div>
