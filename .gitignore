@@ -52,3 +52,4 @@ MultiCriteriaAnalysis/public/**/*.js.map
 Examples/~$MCA draft for GA presentation.xlsx
 MultiCriteriaAnalysis/dist/
 MultiCriteriaAnalysis/public/views/dialogs/DialogCtrls.js
+MultiCriteriaAnalysis/public/views/comparisons/ComparisonsCtrl.js
