@@ -25,6 +25,7 @@ var Solutions;
             this.initializeCriteriaWeights();
             this.initializeScenarioWeights();
             this.initializeActiveScenarios(projectService.project.rootScenario);
+            this.initializeSolution();
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
             }
@@ -90,6 +91,26 @@ var Solutions;
                     _this.initializeActiveScenarios(s);
             });
         };
+        SolutionsCtrl.prototype.initializeSolution = function () {
+            var _this = this;
+            var sol = this.projectService.activeSolution;
+            if (typeof sol === 'undefined' || sol === null)
+                return;
+            if (sol.scores === null)
+                sol.scores = {};
+            this.projectService.project.criterias.forEach(function (crit) {
+                if (crit.isScenarioDependent) {
+                    _this.projectService.project.scenarios.forEach(function (scenario) {
+                        if (sol.scores[scenario.id] === null)
+                            sol.scores[scenario.id] = {};
+                    });
+                }
+                else {
+                    if (sol.scores[0] === null)
+                        sol.scores[0] = {};
+                }
+            });
+        };
         SolutionsCtrl.prototype.id = function (scenario, criteria) {
             return scenario.id + "-" + criteria.id;
         };
@@ -138,17 +159,16 @@ var Solutions;
                 _this.$log.error('Modal dismissed at: ' + new Date());
             });
         };
-        SolutionsCtrl.prototype.updateCriteria = function (criteria) {
-            if (!(this.selectedScenario.id in this.projectService.activeSolution.scores)) {
-                this.projectService.activeSolution.scores[this.selectedScenario.id] = {};
-            }
+        SolutionsCtrl.prototype.resetCriteria = function (scenarioId, criteria) {
+            var scores = this.projectService.activeSolution.scores;
+            delete scores[scenarioId][criteria.id];
+        };
+        SolutionsCtrl.prototype.updateCriteria = function (scenarioId, criteria) {
+            var scores = this.projectService.activeSolution.scores;
             criteria.calculateWeights();
-            this.projectService.activeSolution.scores[this.selectedScenario.id][criteria.id] = {
-                criteriaOptionId: criteria.selectedId,
-                value: criteria.getOptionValueById(criteria.selectedId),
-                weight: criteria.weight
-            };
-            this.updateResult();
+            var criteriaOptionId = scores[scenarioId][criteria.id]["criteriaOptionId"];
+            scores[scenarioId][criteria.id]["value"] = criteria.getOptionValueById(criteriaOptionId);
+            scores[scenarioId][criteria.id]["weight"] = criteria.weight;
         };
         SolutionsCtrl.prototype.select = function (item) {
             if (!item) {

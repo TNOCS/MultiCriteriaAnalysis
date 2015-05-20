@@ -3,6 +3,7 @@
         <h1 class="col-md-2" style="margin-top:0">Active Solution:</h1>
         <div class="col-md-2">
             <select class="form-control"
+                    data-ng-change="vm.initializeSolution"
                     data-ng-model="vm.projectService.activeSolution"
                     data-ng-options="solution.title for solution in vm.solutions"></select>
         </div>
@@ -42,28 +43,21 @@
     <div class="row" data-ng-if="vm.projectService.activeSolution"
          style="overflow-y: auto; overflow-x: hidden" resize resize-y="140">
 
-         <script type="text/ng-template" id="scenarios_renderer.html">
-             <div ui-tree-handle data-nodrag style="cursor:auto">
-                 <span class="glyphicon glyphicon-file" style="margin-right:4px; opacity:0.25; color:grey" />
-                 <span style="font-size:20px" data-nodrag>{{item.title}}</span>
-                 <!-- Select option -->
-                 <!--<select class="pull-right" style="margin:0 10px; width:30%"
-                         data-ng-change="vm.updateCriteria(criteria)"
-                         data-ng-options="option.id as option.fullTitle for option in item.options"
-                         data-ng-model="item.selectedId"></select>-->
-             </div>
-         </script>
-
          <script type="text/ng-template" id="items_renderer.html">
              <div ui-tree-handle ng-click="vm.select(item)" ng-if="item.isEnabled">
                  <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)" data-ng-if="item.isScenarioDependent || item.subCriterias.length !== 0">
                      <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
                  </a>
                  <span style="font-size:20px" data-nodrag>{{item.title}}</span>
+                 <!-- Delete criteria -->
+                 <a class="pull-right btn btn-danger btn-xs"
+                    data-ng-if="item.options.length > 0 && !item.isScenarioDependent"
+                    data-nodrag ng-click="vm.resetCriteria(0, item)"><span class="glyphicon glyphicon-remove"></span>
+                </a>
                  <!-- Select option -->
                  <select class="pull-right" style="margin:0 10px; width:30%"
                          data-ng-if="item.options.length > 0 && !item.isScenarioDependent"
-                         data-ng-change="vm.updateCriteria(criteria)"
+                         data-ng-change="vm.updateCriteria(0, item)"
                          data-ng-options="option.id as option.fullTitle for option in item.options"
                          data-ng-model="vm.projectService.activeSolution.scores[0][item.id]['criteriaOptionId']"></select>
              </div>
@@ -74,18 +68,17 @@
                 <li ng-repeat="scenario in vm.activeScenarios track by vm.id(scenario, item)" style="margin:5px 0;list-style-type: none" >
                     <span class="glyphicon glyphicon-file" style="margin-right:4px; opacity:0.25; color:grey" />
                     <span style="font-size:20px" data-nodrag>{{scenario.title}}</span>
+                    <!-- Delete criteria -->
+                    <a class="pull-right btn btn-danger btn-xs"
+                       data-nodrag ng-click="vm.resetCriteria(scenario.id, item)"><span class="glyphicon glyphicon-remove"></span>
+                   </a>
                     <!-- Select option -->
-                    <!-- data-ng-change="vm.updateCriteria(criteria)" -->
                     <select class="pull-right" style="margin:0 10px; width:30%"
+                            data-ng-change="vm.updateCriteria(scenario.id, item)"
                             data-ng-options="option.id as option.fullTitle for option in item.options"
                             data-ng-model="vm.projectService.activeSolution.scores[scenario.id][item.id]['criteriaOptionId']"></select>
                 </li>
              </ol>
-             <!--<ol ui-tree-nodes="scenarios" ng-model="item" ng-class="{hidden: collapsed}" data-ng-if="item.isScenarioDependent && vm.toggleScenario(item)">
-                <li ng-repeat="item in vm.activeScenarios track by item.id"
-                    ui-tree-node
-                    ng-include="'scenarios_renderer.html'"></li>
-             </ol>-->
          </script>
 
          <div class="row"
