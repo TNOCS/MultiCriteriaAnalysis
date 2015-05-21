@@ -14,28 +14,32 @@ var Models;
             this.description = data.description;
             this.scores = data.scores;
         };
-        Solution.prototype.computeScore = function (scenario) {
+        Solution.prototype.computeScore = function (criterion) {
             var _this = this;
             var totalScore = 0;
-            if (!scenario.hasSubs()) {
-                if (scenario.id in this.scores) {
-                    var score = this.scores[scenario.id];
-                    for (var criterionId in score) {
-                        if (!score.hasOwnProperty(criterionId))
+            if (!criterion.hasSubcriteria()) {
+                if (criterion.id in this.scores) {
+                    var score = this.scores[criterion.id];
+                    for (var key in score) {
+                        if (!score.hasOwnProperty(key))
                             continue;
-                        var criteriaScore = score[criterionId];
-                        totalScore += criteriaScore.weight * criteriaScore.value;
+                        var activeScore = score[key];
+                        totalScore += activeScore.weight * activeScore.value;
                     }
                 }
             }
             else {
-                scenario.subScenarios.forEach(function (s) {
-                    s.calculateWeights();
-                    if (s.weight)
-                        totalScore += s.weight * _this.computeScore(s);
+                var totalWeight = 0;
+                criterion.subCriterias.forEach(function (c) {
+                    totalWeight += c.userWeight;
+                });
+                criterion.subCriterias.forEach(function (c) {
+                    c.weight = c.userWeight / totalWeight;
+                    if (c.weight)
+                        totalScore += c.weight * _this.computeScore(c);
                 });
             }
-            scenario.score = totalScore;
+            criterion.score = totalScore;
             return totalScore;
         };
         return Solution;

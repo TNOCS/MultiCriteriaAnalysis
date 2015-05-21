@@ -14,6 +14,82 @@
             if (projectData) this.fromJson(projectData);
         }
 
+        updateCriteriaAndScenarios() {
+            this.updateCriteriaWeights();
+            this.updateScenarioWeights();
+            this.updateScores();
+        }
+
+        updateCriteriaWeights() {
+            this.rootCriterion.calculateWeights();
+        }
+
+        updateScenarioWeights() {
+            this.rootScenario.calculateWeights();
+        }
+
+        updateScores() {
+            this.updateCriteriaWeights();
+            this.updateScenarioWeights();
+            var criteriaIds: { [key: string]: Models.Criteria} = {};
+            var optionIds: { [key: string]: Models.CriteriaOption} = {};
+            this.getOptionIds(optionIds, criteriaIds);
+            var scenarioIds: { [key: string]: Models.Scenario} = {};
+            this.getScenarioIds(scenarioIds);
+            this.solutions.forEach(s => {
+                for (var critKey in s.scores) {
+                    if (!s.scores.hasOwnProperty(critKey)) continue;
+                    if (!criteriaIds.hasOwnProperty(critKey)) {
+                        delete s.scores[critKey];
+                        continue;
+                    }
+
+                    var criteria = s.scores[critKey];
+                    for (var scenKey in criteria) {
+                        if (!criteria.hasOwnProperty(scenKey)) continue;
+                        if (scenKey !== "0" && !scenarioIds.hasOwnProperty(scenKey)) {
+                            delete s.scores[critKey][scenKey];
+                            continue;
+                        }
+
+                        var selectedOptionId = criteria[scenKey].criteriaOptionId;
+                        if (optionIds.hasOwnProperty(selectedOptionId)) {
+                            if (!optionIds.hasOwnProperty(selectedOptionId)) {
+                                delete s.scores[critKey][scenKey];
+                            }
+
+                            var c = criteriaIds[critKey];
+                            var selectedOption = s.scores[critKey][scenKey];
+                            selectedOption.value = optionIds[selectedOptionId].value;
+                            if (c.isScenarioDependent) {
+                                var scen = scenarioIds[scenKey];
+                                selectedOption.weight = scen.weight;
+                            } else {
+                                selectedOption.weight = 1;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        private getOptionIds(optionIds: { [key: string]: Models.CriteriaOption}, criteriaIds: { [key: string]: Models.Criteria}, criterion = this.rootCriterion) {
+            criterion.subCriterias.forEach(c => {
+                criteriaIds[c.id] = c;
+                c.options.forEach(o => {
+                    optionIds[o.id] = o;
+                });
+                if (c.subCriterias.length > 0) this.getOptionIds(optionIds, criteriaIds, c);
+            });
+        }
+
+        private getScenarioIds(scenarioIds: { [key: string]: Models.Scenario}, scenario = this.rootScenario) {
+            scenario.subScenarios.forEach(s => {
+                scenarioIds[s.id] = s;
+                if (s.subScenarios.length > 0) this.getScenarioIds(scenarioIds, s);
+            });
+        }
+
         /**
          * Deserialize the object
          */
@@ -39,6 +115,8 @@
 
         get rootCriterion() {
             var criterion = new Models.Criteria();
+            criterion.title = 'TOP';
+            criterion.weight = 1;
             criterion.subCriterias = this.criterias;
             return criterion;
         }

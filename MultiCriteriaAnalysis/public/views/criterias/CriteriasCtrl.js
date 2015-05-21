@@ -37,6 +37,7 @@ var Criterias;
                 c.title = "New Criteria";
                 _this.projectService.project.criterias.push(c);
             };
+            this.projectService.project.updateCriteriaWeights();
         }
         CriteriasCtrl.prototype.deleteOption = function (option, criteria) {
             Helpers.Utils.deleteDialog(this.$modal, 'Delete option', 'Are you sure you want to delete the option \'' + option.title + '\'?', function (ok) {
@@ -64,9 +65,7 @@ var Criterias;
             });
         };
         CriteriasCtrl.prototype.update = function () {
-            var rootCriteria = new Models.Criteria();
-            rootCriteria.subCriterias = this.projectService.project.criterias;
-            rootCriteria.calculateWeights();
+            this.projectService.project.updateCriteriaWeights();
             this.select(this.selectedCriteria);
         };
         CriteriasCtrl.prototype.select = function (item) {

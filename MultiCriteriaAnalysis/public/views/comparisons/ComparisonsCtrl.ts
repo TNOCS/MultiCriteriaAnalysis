@@ -10,7 +10,8 @@ module Comparisons {
         public compareToSolutions : Models.Solution[] = [];
         public dataSources        : Models.DataSourceViewModel[];
         public scenarios          : { title: string; scenario: Models.Scenario }[] = [];
-        public selectedScenario   : Models.Scenario;
+        public criteria           : { title: string; criterion: Models.Criteria }[] = [];
+        public activeCriterion    : Models.Criteria;
         public activeCriterias    : Models.SelectableCriterion[] = [];
 
         // $inject annotation.
@@ -39,8 +40,10 @@ module Comparisons {
             $scope.vm = this;
 
             this.solutions = projectService.project.solutions;
-            this.createScenarioTree(projectService.project.rootAndIndependentScenario);
-            $scope.selectedItem = this.scenarios[0];
+            //this.createScenarioTree(projectService.project.rootAndIndependentScenario);
+            this.createCriteriaTree(projectService.project.rootCriterion);
+
+            $scope.selectedItem = this.criteria[0];
 
             // $scope.toggle = scope => {
             //     scope.toggle();
@@ -64,10 +67,24 @@ module Comparisons {
 
             //$scope.$watch('this.projectService.compareToSolutions', () => { alert('Changed'); this.select(); }, true);
 
+            this.projectService.project.updateScores();
+
             if (!projectService.activeScenario)
                 projectService.activeScenario = projectService.project.rootScenario;
             // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
-            $timeout(() => this.select(projectService.activeScenario), 0);
+            $timeout(() => this.select(projectService.activeCriteria), 0);
+        }
+
+        private createCriteriaTree(criterion: Models.Criteria, indent = 0) {
+            this.criteria.push({
+                title: this.spaces(indent) + criterion.title,
+                criterion: criterion
+            });
+            if (criterion.hasSubcriteria()) {
+                criterion.subCriterias.forEach(c => {
+                    this.createCriteriaTree(c, indent + 2);
+                });
+            }
         }
 
         private createScenarioTree(scenario: Models.Scenario, indent = 0) {
@@ -103,74 +120,82 @@ module Comparisons {
             this.select();
         }
 
-        select(scenario: Models.Scenario = this.selectedScenario) {
-            this.selectedScenario = scenario;
-            if (scenario == null) return;
-            this.projectService.activeScenario = scenario;
-            this.activeCriterias = [];
-            if (!this.selectedScenario.hasSubs()) {
-                this.eachCriteria(this.projectService.project.criterias);
-            }
+        select(criterion: Models.Criteria = this.activeCriterion) {
+            this.activeCriterion = criterion;
+            if (criterion == null) return;
+            this.projectService.activeCriteria = criterion;
+            // this.activeCriterias = [];
+            // if (!this.activeCriterion.hasSubcriteria()) {
+            //     this.eachCriteria(this.projectService.project.criterias);
+            // }
             this.updateResult();
         }
 
         /** Compute the data set for the bar chart. */
         private updateResult() {
-            var scenario = this.selectedScenario;
+            var criterion = this.activeCriterion;
             var solution = this.projectService.activeSolution;
             var data = new Helpers.GroupedBarChartData();
             data.series[0] = { label: solution.title, values: [] };
 
-            if (scenario.hasSubs()) {
-                scenario.subScenarios.forEach(s => {
-                    data.labels.push(s.title.toUpperCase());
-                    data.series[0].values.push(this.getScaledScore(solution, s));
+            if (criterion.hasSubcriteria()) {
+                criterion.subCriterias.forEach(c => {
+                    data.labels.push(c.title.toUpperCase());
+                    data.series[0].values.push(this.getScaledScore(solution, c));
                 });
                 var i = 1;
                 this.projectService.compareToSolutions.forEach(sol => {
                     data.series[i] = { label: sol.title, values: [] };
-                    scenario.subScenarios.forEach(s => {
+                    criterion.subCriterias.forEach(s => {
                         data.series[i].values.push(this.getScaledScore(sol, s));
                     });
                     i++;
                 });
-                this.addScenarioResultsToData(data, scenario, true);
+                this.addResultsToData(data, criterion, true);
             } else {
-                // scenario.score = 0;
-                this.activeCriterias.forEach(c => {
-                    var optionValue = c.getOptionValueById(c.selectedId);
-                    // scenario.score += optionValue * c.weight; 
-                    data.labels.push(c.title);
-                    data.series[0].values.push(optionValue * 100);
-                });
-                var i = 0;
-                // Add the compared solutions to the data.
-                this.projectService.compareToSolutions.forEach(s => {
+                data.labels.push(criterion.title.toUpperCase());
+                data.series[0].values.push(this.getScaledScore(solution, criterion));
+                var i = 1;
+                this.projectService.compareToSolutions.forEach(sol => {
+                    data.series[i] = { label: sol.title, values: [] };
+                    data.series[i].values.push(this.getScaledScore(sol, criterion));
                     i++;
-                    var scores = s.scores[scenario.id];
-                    data.series[i] = { label: s.title, values: [] };
-                    this.activeCriterias.forEach(c => {
-                        var result = scores.hasOwnProperty(c.id) ? c.getOptionValueById(scores[c.id].criteriaOptionId) * 100 : 0;
-                        data.series[i].values.push(result);
-                    });
                 });
+                //this.addResultsToData(data, criterion, true);
 
-                this.addScenarioResultsToData(data, scenario, true);
+                // this.activeCriterias.forEach(c => {
+                //     var optionValue = c.getOptionValueById(c.selectedId);
+                //     data.labels.push(c.title);
+                //     data.series[0].values.push(optionValue * 100);
+                // });
+                // var i = 0;
+                // // Add the compared solutions to the data.
+                // this.projectService.compareToSolutions.forEach(s => {
+                //     i++;
+                //     var scores = s.scores[criterion.id];
+                //     data.series[i] = { label: s.title, values: [] };
+                //     this.activeCriterias.forEach(c => {
+                //         var result = scores.hasOwnProperty(c.id) ? c.getOptionValueById(scores[c.id].criteriaOptionId) * 100 : 0;
+                //         data.series[i].values.push(result);
+                //     });
+                // });
+                //
+                // this.addResultsToData(data, criterion, true);
             }
             Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 20, 20, 300, 150);
         }
 
         /** Scale and round the score. */
-        private getScaledScore(solution: Models.Solution, scenario: Models.Scenario) {
-            return Math.round(solution.computeScore(scenario) * 100)
+        private getScaledScore(solution: Models.Solution, criterion: Models.Criteria) {
+            return Math.round(solution.computeScore(criterion) * 100)
         }
 
         /**
-         * Add scenario results to the data.
+         * Add results to the data.
          */
-        private addScenarioResultsToData(data: Helpers.GroupedBarChartData, scenario: Models.Scenario, atStart = false) {
-            var title = scenario.title.toUpperCase();
-            var score = this.getScaledScore(this.projectService.activeSolution, scenario);
+        private addResultsToData(data: Helpers.GroupedBarChartData, criterion: Models.Criteria, atStart = false) {
+            var title = criterion.title.toUpperCase();
+            var score = this.getScaledScore(this.projectService.activeSolution, criterion);
             if (atStart) {
                 data.labels.unshift(title);
                 data.series[0].values.unshift(score);
@@ -180,7 +205,7 @@ module Comparisons {
             }
             var i = 1;
             this.projectService.compareToSolutions.forEach(s => {
-                var score = Math.round(s.computeScore(scenario) * 100);
+                var score = Math.round(s.computeScore(criterion) * 100);
                 if (atStart)
                     data.series[i].values.unshift(score);
                 else
@@ -193,22 +218,29 @@ module Comparisons {
          * The data source is changed in the menu.
          */
         dataSourceChanged() {
-            this.select(this.selectedScenario);
+            this.select(this.activeCriterion);
         }
 
-        private eachCriteria(criterias: Models.Criteria[], parentWeight = 1, activeScenario = this.selectedScenario) {
+        private eachCriteria(criterias: Models.Criteria[], parentWeight = 1, activeCriterion = this.activeCriterion) {
             var scores = this.projectService.activeSolution.scores;
             for (var k = 0; k < criterias.length; k++) {
                 var criteria = criterias[k];
                 if (!criteria.isEnabled) continue;
                 if (criteria.hasSubcriteria()) {
-                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeScenario);
+                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, criteria);
                 } else {
                     var selectedId = '';
-                    if (typeof this.projectService.activeDataSource === 'undefined' || this.projectService.activeDataSource.id === criteria.dataSourceId) {
-                        if (activeScenario.id in scores && criteria.id in scores[activeScenario.id]) {
-                            selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
+                    if (criteria.id in scores) {
+                        if (!activeCriterion.isScenarioDependent) {
+                            if (!scores[criteria.id].hasOwnProperty("0")) return;
+                            selectedId = scores[activeCriterion.id]["0"].criteriaOptionId;
                             this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
+                        } else {
+                            this.projectService.project.scenarios.forEach(s => {
+                                if (!scores[criteria.id].hasOwnProperty(s.id)) return;
+                                selectedId = scores[activeCriterion.id][s.id].criteriaOptionId;
+                                this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
+                            });
                         }
                     }
                 }

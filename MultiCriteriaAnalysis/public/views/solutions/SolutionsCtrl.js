@@ -21,7 +21,6 @@ var Solutions;
                 return;
             this.solutions = projectService.project.solutions;
             this.scenarios = projectService.project.scenarios;
-            this.initializeDataSources();
             this.initializeCriteriaWeights();
             this.initializeScenarioWeights();
             this.initializeActiveScenarios(projectService.project.rootScenario);
@@ -29,25 +28,18 @@ var Solutions;
             if (projectService.project.solutions.length === 0) {
                 this.createNewSolution();
             }
-            else if (projectService.activeSolution == null) {
+            else if (typeof projectService.activeSolution === 'undefined') {
                 projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
-            this.updateWeightsAndScore();
             $scope.selectedItem = {};
             $scope.toggle = function (scope) {
                 scope.toggle();
             };
+            projectService.project.updateScores();
             if (!projectService.activeScenario)
                 return;
             $timeout(function () { return _this.select(projectService.activeScenario); }, 0);
         }
-        SolutionsCtrl.prototype.updateWeightsAndScore = function () {
-            var _this = this;
-            this.projectService.project.scenarios.forEach(function (scenario) {
-                _this.eachCriteria(_this.projectService.project.criterias, 1, scenario);
-            });
-            this.activeCriterias = [];
-        };
         SolutionsCtrl.prototype.initializeDataSources = function () {
             var _this = this;
             this.dataSources = [];
@@ -72,7 +64,7 @@ var Solutions;
             }
         };
         SolutionsCtrl.prototype.initializeCriteriaWeights = function () {
-            this.projectService.project.rootCriterion.calculateWeights();
+            this.projectService.project.updateCriteriaWeights();
         };
         SolutionsCtrl.prototype.initializeScenarioWeights = function () {
             this.projectService.project.rootScenario.calculateWeights();
@@ -92,23 +84,14 @@ var Solutions;
             });
         };
         SolutionsCtrl.prototype.initializeSolution = function () {
-            var _this = this;
             var sol = this.projectService.activeSolution;
             if (typeof sol === 'undefined' || sol === null)
                 return;
             if (sol.scores === null)
                 sol.scores = {};
             this.projectService.project.criterias.forEach(function (crit) {
-                if (crit.isScenarioDependent) {
-                    _this.projectService.project.scenarios.forEach(function (scenario) {
-                        if (sol.scores[scenario.id] === null)
-                            sol.scores[scenario.id] = {};
-                    });
-                }
-                else {
-                    if (sol.scores[0] === null)
-                        sol.scores[0] = {};
-                }
+                if (sol.scores[crit.id] === null)
+                    sol.scores[crit.id] = {};
             });
         };
         SolutionsCtrl.prototype.id = function (scenario, criteria) {
@@ -163,12 +146,12 @@ var Solutions;
             var scores = this.projectService.activeSolution.scores;
             delete scores[scenarioId][criteria.id];
         };
-        SolutionsCtrl.prototype.updateCriteria = function (scenarioId, criteria) {
+        SolutionsCtrl.prototype.updateCriteria = function (scenarioId, weight, criteria) {
             var scores = this.projectService.activeSolution.scores;
             criteria.calculateWeights();
-            var criteriaOptionId = scores[scenarioId][criteria.id]["criteriaOptionId"];
-            scores[scenarioId][criteria.id]["value"] = criteria.getOptionValueById(criteriaOptionId);
-            scores[scenarioId][criteria.id]["weight"] = criteria.weight;
+            var criteriaOptionId = scores[criteria.id][scenarioId]["criteriaOptionId"];
+            scores[criteria.id][scenarioId]["value"] = criteria.getOptionValueById(criteriaOptionId);
+            scores[criteria.id][scenarioId]["weight"] = weight;
         };
         SolutionsCtrl.prototype.select = function (item) {
             if (!item) {
@@ -182,47 +165,6 @@ var Solutions;
         };
         SolutionsCtrl.prototype.toggleScenario = function (scenario) {
             return (scenario === this.selectedScenario);
-        };
-        SolutionsCtrl.prototype.updateResult = function () {
-            var data = [];
-            var parent = this.selectedScenario.findParent(this.projectService.project);
-            for (var k = 0; k < parent.subScenarios.length; k++) {
-                var scenario = parent.subScenarios[k];
-                data.push({
-                    id: k + 1,
-                    order: k + 1,
-                    color: Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
-                    weight: scenario.weight,
-                    score: this.projectService.activeSolution.computeScore(scenario) * 100,
-                    width: scenario.weight,
-                    label: scenario.title
-                });
-            }
-            if (data.length > 0)
-                Helpers.Utils.drawAsterPlot(data);
-            else
-                Helpers.Utils.clearSvg();
-        };
-        SolutionsCtrl.prototype.eachCriteria = function (criterias, parentWeight, activeScenario) {
-            if (parentWeight === void 0) { parentWeight = 1; }
-            if (activeScenario === void 0) { activeScenario = this.selectedScenario; }
-            var scores = this.projectService.activeSolution.scores;
-            for (var k = 0; k < criterias.length; k++) {
-                var criteria = criterias[k];
-                if (!criteria.isEnabled)
-                    continue;
-                if (criteria.hasSubcriteria()) {
-                    this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeScenario);
-                }
-                else {
-                    var selectedId = '';
-                    if (activeScenario.id in scores &&
-                        criteria.id in scores[activeScenario.id]) {
-                        selectedId = scores[activeScenario.id][criteria.id].criteriaOptionId;
-                    }
-                    this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
-                }
-            }
         };
         SolutionsCtrl.$inject = [
             '$scope',

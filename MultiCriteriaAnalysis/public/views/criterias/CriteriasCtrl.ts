@@ -45,7 +45,7 @@
             $scope.options       = {};
 
             $scope.remove = function (scope) {
-                scope.remove();                
+                scope.remove();
             };
 
             $scope.toggle = function (scope) {
@@ -53,26 +53,28 @@
             };
 
             $scope.newSubCriteria = (scope) => {
-                var criteria = <Models.Criteria>scope.$modelValue;                
+                var criteria = <Models.Criteria>scope.$modelValue;
                 var c = new Models.Criteria();
                 c.title = criteria.title + '.' + (criteria.subCriterias.length + 1);
                 c.userWeight = 1;
-                criteria.subCriterias.push(c);                                   
+                criteria.subCriterias.push(c);
             };
 
             $scope.newOption = (scope) => {
-                var criteria = <Models.Criteria>scope.$modelValue;    
+                var criteria = <Models.Criteria>scope.$modelValue;
                 var o = new Models.CriteriaOption();
-                o.title = "New Option";  
-                o.value = 1;              
+                o.title = "New Option";
+                o.value = 1;
                 criteria.options.push(o);
             };
 
             $scope.newCriteria = () => {
                 var c = new Models.Criteria();
                 c.title = "New Criteria";
-                this.projectService.project.criterias.push(c);                
+                this.projectService.project.criterias.push(c);
             };
+
+            this.projectService.project.updateCriteriaWeights();
         }
 
         deleteOption(option: Models.CriteriaOption, criteria: Models.Criteria) {
@@ -98,9 +100,10 @@
         }
 
         update() {
-            var rootCriteria = new Models.Criteria();
-            rootCriteria.subCriterias = this.projectService.project.criterias;
-            rootCriteria.calculateWeights();
+            // var rootCriteria = new Models.Criteria();
+            // rootCriteria.subCriterias = this.projectService.project.criterias;
+            // rootCriteria.calculateWeights();
+            this.projectService.project.updateCriteriaWeights();
             this.select(this.selectedCriteria);
         }
 

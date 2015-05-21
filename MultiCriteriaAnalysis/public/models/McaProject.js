@@ -10,6 +10,82 @@ var Models;
             if (projectData)
                 this.fromJson(projectData);
         }
+        McaProject.prototype.updateCriteriaAndScenarios = function () {
+            this.updateCriteriaWeights();
+            this.updateScenarioWeights();
+            this.updateScores();
+        };
+        McaProject.prototype.updateCriteriaWeights = function () {
+            this.rootCriterion.calculateWeights();
+        };
+        McaProject.prototype.updateScenarioWeights = function () {
+            this.rootScenario.calculateWeights();
+        };
+        McaProject.prototype.updateScores = function () {
+            this.updateCriteriaWeights();
+            this.updateScenarioWeights();
+            var criteriaIds = {};
+            var optionIds = {};
+            this.getOptionIds(optionIds, criteriaIds);
+            var scenarioIds = {};
+            this.getScenarioIds(scenarioIds);
+            this.solutions.forEach(function (s) {
+                for (var critKey in s.scores) {
+                    if (!s.scores.hasOwnProperty(critKey))
+                        continue;
+                    if (!criteriaIds.hasOwnProperty(critKey)) {
+                        delete s.scores[critKey];
+                        continue;
+                    }
+                    var criteria = s.scores[critKey];
+                    for (var scenKey in criteria) {
+                        if (!criteria.hasOwnProperty(scenKey))
+                            continue;
+                        if (scenKey !== "0" && !scenarioIds.hasOwnProperty(scenKey)) {
+                            delete s.scores[critKey][scenKey];
+                            continue;
+                        }
+                        var selectedOptionId = criteria[scenKey].criteriaOptionId;
+                        if (optionIds.hasOwnProperty(selectedOptionId)) {
+                            if (!optionIds.hasOwnProperty(selectedOptionId)) {
+                                delete s.scores[critKey][scenKey];
+                            }
+                            var c = criteriaIds[critKey];
+                            var selectedOption = s.scores[critKey][scenKey];
+                            selectedOption.value = optionIds[selectedOptionId].value;
+                            if (c.isScenarioDependent) {
+                                var scen = scenarioIds[scenKey];
+                                selectedOption.weight = scen.weight;
+                            }
+                            else {
+                                selectedOption.weight = 1;
+                            }
+                        }
+                    }
+                }
+            });
+        };
+        McaProject.prototype.getOptionIds = function (optionIds, criteriaIds, criterion) {
+            var _this = this;
+            if (criterion === void 0) { criterion = this.rootCriterion; }
+            criterion.subCriterias.forEach(function (c) {
+                criteriaIds[c.id] = c;
+                c.options.forEach(function (o) {
+                    optionIds[o.id] = o;
+                });
+                if (c.subCriterias.length > 0)
+                    _this.getOptionIds(optionIds, criteriaIds, c);
+            });
+        };
+        McaProject.prototype.getScenarioIds = function (scenarioIds, scenario) {
+            var _this = this;
+            if (scenario === void 0) { scenario = this.rootScenario; }
+            scenario.subScenarios.forEach(function (s) {
+                scenarioIds[s.id] = s;
+                if (s.subScenarios.length > 0)
+                    _this.getScenarioIds(scenarioIds, s);
+            });
+        };
         McaProject.prototype.fromJson = function (projectData) {
             var _this = this;
             this.title = projectData.title;
@@ -32,6 +108,8 @@ var Models;
         Object.defineProperty(McaProject.prototype, "rootCriterion", {
             get: function () {
                 var criterion = new Models.Criteria();
+                criterion.title = 'TOP';
+                criterion.weight = 1;
                 criterion.subCriterias = this.criterias;
                 return criterion;
             },

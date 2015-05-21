@@ -43,7 +43,7 @@
          style="overflow-y: auto; overflow-x: hidden" resize resize-y="140">
 
          <script type="text/ng-template" id="items_renderer.html">
-             <div ui-tree-handle ng-click="vm.select(item)" ng-if="item.isEnabled">
+             <div ui-tree-handle data-nodrag ng-click="vm.select(item)" ng-if="item.isEnabled">
                  <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)" data-ng-if="item.isScenarioDependent || item.subCriterias.length !== 0">
                      <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
                  </a>
@@ -56,9 +56,9 @@
                  <!-- Select option -->
                  <select class="pull-right" style="margin:0 10px; width:30%"
                          data-ng-if="item.options.length > 0 && !item.isScenarioDependent"
-                         data-ng-change="vm.updateCriteria(0, item)"
+                         data-ng-change="vm.updateCriteria(0, 1, item)"
                          data-ng-options="option.id as option.fullTitle for option in item.options"
-                         data-ng-model="vm.projectService.activeSolution.scores[0][item.id]['criteriaOptionId']"></select>
+                         data-ng-model="vm.projectService.activeSolution.scores[item.id][0]['criteriaOptionId']"></select>
              </div>
              <ol ui-tree-nodes="subCriterias" data-nodrag ng-model="item.subCriterias" ng-class="{hidden: collapsed}">
                  <li ng-repeat="item in item.subCriterias" ui-tree-node ng-include="'items_renderer.html'"></li>
@@ -73,9 +73,9 @@
                    </a>
                     <!-- Select option -->
                     <select class="pull-right" style="margin:0 10px; width:30%"
-                            data-ng-change="vm.updateCriteria(scenario.id, item)"
+                            data-ng-change="vm.updateCriteria(scenario.id, scenario.weight, item)"
                             data-ng-options="option.id as option.fullTitle for option in item.options"
-                            data-ng-model="vm.projectService.activeSolution.scores[scenario.id][item.id]['criteriaOptionId']"></select>
+                            data-ng-model="vm.projectService.activeSolution.scores[item.id][scenario.id]['criteriaOptionId']"></select>
                 </li>
              </ol>
          </script>

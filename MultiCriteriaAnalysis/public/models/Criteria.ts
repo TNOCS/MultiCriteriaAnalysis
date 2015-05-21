@@ -29,6 +29,7 @@
         description  : string;
         userWeight   : number = 1;
         weight       : number;
+        score        : number;
         subCriterias : Criteria[] = [];
         options      : CriteriaOption[] = []
         dataSourceId : string;

@@ -15,8 +15,8 @@
         public title      : string;
         public description: string;
         public scores: {
-            [scenarioId: string]: {
-                [criteriaId: string]: {
+            [criteriaId: string]: {
+                [scenarioId: string]: {
                     criteriaOptionId: string;
                     value           : number;
                     weight          : number;
@@ -42,28 +42,32 @@
         }
 
         /**
-         * Compute the score for a scenario.
+         * Compute the score for a criterion.
          */
-        public computeScore(scenario: Models.Scenario): number {
+        public computeScore(criterion: Models.Criteria): number {
             var totalScore = 0;
-            if (!scenario.hasSubs()) {
+            if (!criterion.hasSubcriteria()) {
                 // Leaf node
-                if (scenario.id in this.scores) {
-                    var score = this.scores[scenario.id];
-                    for (var criterionId in score) {
-                        if (!score.hasOwnProperty(criterionId)) continue;
-                        var criteriaScore = score[criterionId];
-                        totalScore += criteriaScore.weight * criteriaScore.value;
+                if (criterion.id in this.scores) {
+                    var score = this.scores[criterion.id];
+                    for (var key in score) {
+                        if (!score.hasOwnProperty(key)) continue;
+                        var activeScore = score[key];
+                        totalScore += activeScore.weight * activeScore.value;
                     }
                 }
             } else {
-                scenario.subScenarios.forEach((s) => {
-                    s.calculateWeights();
-                    if (s.weight)
-                        totalScore += s.weight * this.computeScore(s);
+                var totalWeight = 0;
+                criterion.subCriterias.forEach(c => {
+                    totalWeight += c.userWeight;
+                });
+                criterion.subCriterias.forEach(c => {
+                    c.weight = c.userWeight / totalWeight;
+                    if (c.weight)
+                        totalScore += c.weight * this.computeScore(c);
                 });
             }
-            scenario.score = totalScore;
+            criterion.score = totalScore;
             return totalScore;
         }
     }
