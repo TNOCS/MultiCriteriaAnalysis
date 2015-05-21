@@ -3,8 +3,8 @@
         <h1 class="col-md-8">Scenarios</h1>
         <h1 class="col-md-4" data-ng-if="vm.selectedScenario">Scenario '{{vm.selectedScenario.title}}'</h1>
     </div>
-    
-    
+
+
     <script type="text/ng-template" id="items_renderer.html">
         <div ui-tree-handle ng-click="vm.select(item)">
             <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
@@ -19,46 +19,47 @@
             </li>
         </ol>
     </script>
-    
-    <div class="row" style="margin-right: 10px">
-        <div class="col-md-8" data-ng-if="vm.projectService.project != null">
-            <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
-            <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>
-            <div ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-unlock"></i><a style="margin-left: 5px">disable reorder</a></div>
-        </div>
-    </div>
-    
-    <div class="row" data-ng-if="vm.projectService.project != null"
-         style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
-        <!-- Tree view in left panel -->
-        <div class="col-md-8" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
-             style="margin-top:5px">
-            <ol ui-tree-nodes ng-model="d.projectService.project.scenarios">
-                <li ng-repeat="item in d.projectService.project.scenarios" ui-tree-node ng-include="'items_renderer.html'"></li>
-            </ol>
-            <a class="pull-right btn btn-primary btn-xs" ng-click="newScenario()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
+
+    <div data-ng-if="vm.projectService.project != null">
+        <div class="row" style="margin-right: 10px">
+            <div class="col-md-8">
+                <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
+                <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>
+                <div ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-unlock"></i><a style="margin-left: 5px">disable reorder</a></div>
+            </div>
         </div>
 
-        <!-- Result view in right panel -->
-        <div class="col-md-4">
-            <div class="row" data-ng-if="vm.selectedScenario">
-                <!--<div data-ng-if="!vm.selectedScenario.hasSubs()">
-                    <h4>Select criteria</h4>
-                    <div max-height="250px"
-                         max-labels="3"
-                         style="margin: -8px 10px 0 10px;"
-                         multi-select
-                         input-model="multiSelectOptions"
-                         button-label="title"
-                         item-label="title"
-                         tick-property="ticked"
-                         orientation="vertical"
-                         on-item-click="clicked(data)"
-                         group-property="multiSelectGroup">
-                    </div>-->
+        <div class="row"
+             style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
+            <!-- Tree view in left panel -->
+            <div class="col-md-8" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
+                 style="margin-top:5px">
+                <ol ui-tree-nodes ng-model="d.projectService.project.scenarios">
+                    <li ng-repeat="item in d.projectService.project.scenarios" ui-tree-node ng-include="'items_renderer.html'"></li>
+                </ol>
+                <a class="pull-right btn btn-primary btn-xs" ng-click="newScenario()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
-            <div class="row" id="pieChart"></div>
+
+            <!-- Result view in right panel -->
+            <div class="col-md-4">
+                <div class="row" data-ng-if="vm.selectedScenario">
+                    <!--<div data-ng-if="!vm.selectedScenario.hasSubs()">
+                        <h4>Select criteria</h4>
+                        <div max-height="250px"
+                             max-labels="3"
+                             style="margin: -8px 10px 0 10px;"
+                             multi-select
+                             input-model="multiSelectOptions"
+                             button-label="title"
+                             item-label="title"
+                             tick-property="ticked"
+                             orientation="vertical"
+                             on-item-click="clicked(data)"
+                             group-property="multiSelectGroup">
+                        </div>-->
+                </div>
+                <div class="row" id="pieChart"></div>
+            </div>
         </div>
-    </div>
     </div>
 </div>

@@ -17,49 +17,6 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     templateCache = require('gulp-angular-templatecache');
 
-gulp.task('built_csComp', function() {
-    return gulp.src('../../csWeb/csComp/js/**/*.js')
-        .pipe(debug({
-            title: 'built_csComp:'
-        }))
-        // .pipe(debug({title: 'before ordering:'}))
-        // .pipe(order([
-        //     "translations/locale-nl.js"
-        // ]))
-        // .pipe(debug({title: 'after ordering:'}))
-        .pipe(concat('csComp.js'))
-        .pipe(gulp.dest('./public/cs/js'));
-});
-
-gulp.task('built_csComp.d.ts', function() {
-    gulp.src('../../csWeb/csComp/js/**/*.d.ts')
-        // .pipe(debug({title: 'before ordering:'}))
-        // .pipe(order([
-        //     "translations/locale-nl.js"
-        // ]))
-        // .pipe(debug({title: 'after ordering:'}))
-        .pipe(plumber())
-        .pipe(concat('csComp.d.ts'))
-        .pipe(insert.prepend('/// <reference path="../leaflet/leaflet.d.ts" />\r\n'))
-        .pipe(insert.prepend('/// <reference path="../crossfilter/crossfilter.d.ts" />\r\n'))
-        .pipe(gulp.dest('Scripts/typings/cs'));
-});
-
-gulp.task('create_templateCache', function() {
-    console.log('Creating templateCache.')
-    var options = {
-        module: appName,
-        filename: 'csTemplates.js'
-    }
-
-    gulp.src('../../csWeb/csComp/**/*.tpl.html')
-        .pipe(debug({
-            title: 'create_templateCache:'
-        }))
-        .pipe(templateCache(options))
-        .pipe(gulp.dest('public/cs/js'))
-})
-
 gulp.task('create_dist', function() {
     var assets = useref.assets();
 
