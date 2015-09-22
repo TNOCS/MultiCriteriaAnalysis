@@ -3,6 +3,6 @@
 # MultiCriteriaAnalysis
 Single Page Web application for performing a Multi-Criteria Analysis. 
 
-It was funded by the EU as part of the [ELASSIC project[(http://www.elasstic.eu/).
+It was funded by the EU as part of the [ELASSIC project](http://www.elasstic.eu/).
 
 
