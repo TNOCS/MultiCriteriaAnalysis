@@ -62,6 +62,7 @@
 
     // Start the application
     angular.module('mca', [
+        'csComp',
         'ui.router',
         'ui.bootstrap',
         'LocalStorageModule',
@@ -103,17 +104,23 @@
                     url              : "/solutions",
                     templateUrl      : "views/solutions/solutions.html",
                     sticky           : true
+                })
+                .state('user', {
+                    url              : "/user",
+                    templateUrl      : "views/users/users.html",
+                    sticky           : true
                 });
-
         })
         .service('messageBusService',         csComp.Services.MessageBusService)
         .service('projectService',            Services.ProjectService)
+        .service('userService',               Services.UserService)
         .controller('appCtrl',                AppCtrl)
         .controller('HomeCtrl',               Home.HomeCtrl)
         .controller('ScenariosCtrl',          Scenarios.ScenariosCtrl)
         .controller('CriteriasCtrl',          Criterias.CriteriasCtrl)
         .controller('SolutionsCtrl',          Solutions.SolutionsCtrl)
         .controller('ComparisonsCtrl',        Comparisons.ComparisonsCtrl)
+        .controller('UsersCtrl',              Users.UsersCtrl)
         .controller('GetTitleDialogCtrl',     DialogCtrls.GetTitleDialogCtrl)
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
         .filter('format', [

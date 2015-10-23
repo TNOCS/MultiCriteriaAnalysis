@@ -692,3 +692,19 @@ rect {
 .angular-ui-tree-node, .angular-ui-tree-placeholder {
     min-height: 0;
 }
+.edit-container .edit {
+    color: transparent;
+}
+.edit-container:hover .edit {
+    color: white;
+    cursor: pointer;
+}
+.edit-container-black:hover .edit {
+    color: black;
+    cursor: pointer;
+}
+#my-navbar {
+    font-size: 18px;
+    border-width: 1px;
+    border-radius: 4px;
+}

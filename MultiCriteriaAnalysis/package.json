@@ -8,7 +8,8 @@
     "email": "Erik.Vullings@gmail.com"
   },
   "dependencies": {
-    "express": "3.4.4"
+    "express": "3.4.4",
+    "winston": "^1.1.1"
   },
   "devDependencies": {
     "gulp": "~3.8.8",
