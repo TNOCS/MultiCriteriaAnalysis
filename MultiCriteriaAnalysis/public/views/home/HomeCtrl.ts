@@ -3,6 +3,10 @@
         vm: HomeCtrl;
     }
 
+    export interface ISavedProject {
+        users: Models.User[],
+        project: Models.McaProject
+    }
 
     export class HomeCtrl {
         public projects: Models.McaProject[];
@@ -13,7 +17,8 @@
             '$log',
             '$http',
             'messageBusService',
-            'projectService'
+            'projectService',
+            'userService'
         ];
 
         constructor(
@@ -22,7 +27,8 @@
             private $log          : ng.ILogService,
             private $http         : ng.IHttpService,
             private messageBus    : csComp.Services.MessageBusService,
-            private projectService: Services.ProjectService
+            private projectService: Services.ProjectService,
+            private userService   : Services.UserService
         ) {
             $scope.vm = this;
 
@@ -121,7 +127,11 @@
 
         public downloadProject() {
             var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title.replace(/ /g, '_') + '.json';
-            var projectAsJson = JSON.stringify(this.projectService.project);
+            var savedProject: ISavedProject = {
+                users: this.userService.users,
+                project: this.projectService.project
+            }
+            var projectAsJson = JSON.stringify(savedProject);
             this.saveData(projectAsJson, filename);
         }
 
@@ -165,12 +175,13 @@
             var f = files[0];
 
             reader.onload = e => {
-                this.projectService.createProject(JSON.parse(reader.result));
-                //var projectData: Models.McaProject = JSON.parse(reader.result);
-                // var project = new Models.McaProject(JSON.parse(reader.result));
-                // this.projectService.projects.push(project);
-                // this.projectService.project = project;
-                //$('#uploadFile').val('');
+                var result = JSON.parse(reader.result);
+                if (!result.hasOwnProperty('users')) {
+                    this.projectService.createProject(result);
+                } else {
+                    this.projectService.createProject(result.project);
+                    this.userService.setStore(result.users);
+                }
             }
 
             reader.readAsText(f);

@@ -3,7 +3,6 @@ var Helpers;
     var Resize;
     (function (Resize) {
         var moduleName = 'csWeb.resize';
-        Resize.myModule;
         try {
             Resize.myModule = angular.module(moduleName);
         }

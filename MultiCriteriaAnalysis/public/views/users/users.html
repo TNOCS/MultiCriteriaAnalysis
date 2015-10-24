@@ -1,15 +1,13 @@
-<div data-ng-controller="UsersCtrl as vm" class="container-fluid" >
+<div data-ng-controller="UsersCtrl as vm" class="container-fluid">
     <h1>User Preferences</h1>
-    <a href="" ng-click="vm.userService.save()" data-toggle="tooltip" title="Save your changes" >
+    <a href="" ng-click="vm.save()" data-toggle="tooltip" title="Save your changes">
         <i class="pull-right fa fa-lg fa-save edit" style="margin-top: -30px; font-size: 18pt;"></i>
     </a>
 
-    <div class="edit-container-black" data-toggle="tooltip"
-        title="Edit the user's name" style="margin: 12px 30px 10px 10px; color: black; font-size: 18pt;">
+    <div class="edit-container-black" data-toggle="tooltip" title="Edit the user's name" style="margin: 12px 30px 10px 10px; color: black; font-size: 18pt;">
 
         <label>Name: </label>
-        <div contenteditable strip-br style="font-style: italic; font-weight: bold; margin-left: 30px;"
-            ng-model="vm.userService.activeUser.name">
+        <div contenteditable strip-br style="font-style: italic; font-weight: bold; margin-left: 30px;" ng-model="vm.userService.activeUser.name">
         </div>
         <i class="pull-right fa fa-pencil edit" style="margin-top: -30px;"></i>
 
@@ -19,12 +17,10 @@
         <!-- <div class="pull-right" style="font-weight: bold">Player:</div> -->
     </div>
 
-    <div class="edit-container-black" data-toggle="tooltip"
-        title="Edit the user's description" style="margin: 12px 30px 10px 10px; color: black; font-size: 18pt;">
+    <div class="edit-container-black" data-toggle="tooltip" title="Edit the user's description" style="margin: 12px 30px 10px 10px; color: black; font-size: 18pt;">
 
         <label>Description: </label>
-        <div contenteditable strip-br style="font-style: italic; font-weight: bold; margin-left: 30px;"
-            ng-model="vm.userService.activeUser.description">
+        <div contenteditable strip-br style="font-style: italic; font-weight: bold; margin-left: 30px;" ng-model="vm.userService.activeUser.description">
         </div>
         <i class="pull-right fa fa-pencil edit" style="margin-top: -30px;"></i>
 
@@ -34,4 +30,54 @@
         <!-- <div class="pull-right" style="font-weight: bold">Player:</div> -->
     </div>
 
+
+    <h3>Actual settings <a href="#" ng-show="vm.showingActualValues" ng-click="vm.resetPreferences()">(apply preferences of {{vm.userService.activeUser.name}})</a></h3>
+    <div id="container4">
+        <div id="container3">
+            <div id="container2">
+                <div id="container1">
+
+                    <div id="col1">
+                        <h3>Scenarios</h3>
+                        <ul class="list-group">
+                            <li ng-repeat="scenario in vm.scenarios">{{scenario.title}}
+                                <a href="#" ng-click="scenario.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                                <rating ng-model="scenario.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="col2">
+                        <h3>Criteria</h3>
+                        <ul class="list-group">
+                            <li ng-repeat="criteria in vm.mainCriterias">{{criteria.title}}
+                                <a href="#" ng-click="criteria.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                                <rating ng-model="criteria.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="col3">
+                        <h3>Subcriteria</h3>
+                        <ul class="list-group">
+                            <li ng-repeat="sub in vm.subCriterias">{{sub.title}}
+                                <a href="#" ng-click="sub.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                                <rating ng-model="sub.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="col4">
+                        <h3>Modules</h3>
+                        <ul class="list-group">
+                            <li ng-repeat="module in vm.modules">{{module.title}}
+                                <a href="#" ng-click="module.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                                <rating ng-model="module.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
