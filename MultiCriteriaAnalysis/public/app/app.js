@@ -2,9 +2,11 @@ var App;
 (function (App) {
     'use strict';
     var AppCtrl = (function () {
-        function AppCtrl($scope, $location, $messageBusService) {
+        function AppCtrl($rootScope, $scope, $location, projectService, $messageBusService) {
+            this.$rootScope = $rootScope;
             this.$scope = $scope;
             this.$location = $location;
+            this.projectService = projectService;
             this.$messageBusService = $messageBusService;
             sffjs.setCulture("nl-NL");
             $scope.vm = this;
@@ -15,14 +17,19 @@ var App;
                 data.childrenVisible = !data.childrenVisible;
                 data.folderClass = data.childrenVisible ? "fa-folder-open" : "fa-folder";
             };
+            $rootScope.$on('$locationChangeStart', function (next, last) {
+                projectService.save();
+            });
             $messageBusService.notify('Welcome', 'You can create your own multi-criteria analysis: create categories, define scenarios, and specify the results.');
         }
         AppCtrl.prototype.isActive = function (viewLocation) {
             return viewLocation === this.$location.path();
         };
         AppCtrl.$inject = [
+            '$rootScope',
             '$scope',
             '$location',
+            'projectService',
             'messageBusService'
         ];
         return AppCtrl;

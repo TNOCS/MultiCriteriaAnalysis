@@ -9,7 +9,7 @@
     }
 
     export class HomeCtrl {
-        public projects: Models.McaProject[];
+        public projects: Services.IProjectStore;
 
         public static $inject = [
             '$scope',
@@ -82,15 +82,17 @@
             var project = this.projectService.project;
             Helpers.Utils.deleteDialog(this.$modal, 'Delete project', 'Are you sure you want to delete the project \'' + project.title + '\'?', (ok) => {
                 if (!ok) return;
-                var index = this.projectService.projects.indexOf(project);
-                if (index < 0) return;
-                this.projectService.projects.splice(index, 1);
-                project = null;
+                if (this.projectService.deleteProject(project)) {
+                    this.messageBus.notify('Deleted project successfully', 'You have successfully deleted the project.');
+                } else {
+                    this.messageBus.notify('Failed deleting project', 'Project could not be deleted.');
+                }
             });
         }
 
         createExampleProject() {
             this.projectService.createExampleProject();
+            this.messageBus.notify('Created project', 'Example project created successfully.');
         }
 
         createNewProject() {
@@ -109,9 +111,9 @@
                 if (!title) return;
                 var project = new Models.McaProject();
                 project.title = title;
-                this.projectService.projects.push(project);
-                this.projectService.project = project;
+                this.projectService.createProject(project);
                 this.$log.info(this.projectService.project);
+                this.messageBus.notify('Created project', `Project ${title} created successfully.`);
             }, () => {
                     this.$log.error('Modal dismissed at: ' + new Date());
                 });
@@ -122,6 +124,7 @@
             Helpers.Utils.editTextDialog(this.$modal, 'Edit project', project.title, (newTitle) => {
                 if (!newTitle) return;
                 project.title = newTitle;
+                this.projectService.save();
             });
         }
 

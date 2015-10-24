@@ -4,7 +4,7 @@
         <div class="col-md-3">
             <select class="form-control"
                     data-ng-model="vm.projectService.project"
-                    data-ng-options="project.title for project in vm.projects"></select>
+                    data-ng-options="project.title for (id, project) in vm.projects"></select>
         </div>
         <div class="btn-group col-md-6">
             <a class="btn" data-ng-click="vm.createNewProject()"

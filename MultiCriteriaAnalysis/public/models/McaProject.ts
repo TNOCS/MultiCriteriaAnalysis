@@ -1,5 +1,6 @@
 ﻿module Models {
     export class McaProject {
+        id         : string;
         title      : string;
         description: string;
 
@@ -12,6 +13,7 @@
 
         constructor(projectData?: McaProject) {
             if (projectData) this.fromJson(projectData);
+            if (!this.id) this.id = Helpers.Utils.createGuid();
         }
 
         updateCriteriaAndScenarios() {
@@ -94,6 +96,8 @@
          * Deserialize the object
          */
         fromJson(projectData: McaProject) {
+            if (!projectData.hasOwnProperty('title')) return null;
+            this.id          = projectData.id;
             this.title       = projectData.title;
             this.description = projectData.description;
 

@@ -20,16 +20,20 @@
         // it is better to have it close to the constructor, because the parameters must match in count and type.
         // See http://docs.angularjs.org/guide/di
         public static $inject = [
+            '$rootScope',
             '$scope',
             '$location',
+            'projectService',
             'messageBusService'
         ];
 
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
+            private $rootScope: any,
             private $scope: IAppScope,
             private $location: IAppLocationService,
+            private projectService: Services.ProjectService,
             private $messageBusService: csComp.Services.MessageBusService
         ) {
             //console.log('$location: ' + JSON.stringify($location));
@@ -51,6 +55,11 @@
                 data.childrenVisible = !data.childrenVisible;
                 data.folderClass = data.childrenVisible ? "fa-folder-open" : "fa-folder";
             };
+
+            // When the location changes, save the projects
+            $rootScope.$on('$locationChangeStart', function (next, last) {
+                projectService.save();
+            });
 
             $messageBusService.notify('Welcome', 'You can create your own multi-criteria analysis: create categories, define scenarios, and specify the results.');
         }

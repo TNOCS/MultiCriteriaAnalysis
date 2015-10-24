@@ -9,6 +9,8 @@ var Models;
             this.criteriaCache = {};
             if (projectData)
                 this.fromJson(projectData);
+            if (!this.id)
+                this.id = Helpers.Utils.createGuid();
         }
         McaProject.prototype.updateCriteriaAndScenarios = function () {
             this.updateCriteriaWeights();
@@ -88,6 +90,9 @@ var Models;
         };
         McaProject.prototype.fromJson = function (projectData) {
             var _this = this;
+            if (!projectData.hasOwnProperty('title'))
+                return null;
+            this.id = projectData.id;
             this.title = projectData.title;
             this.description = projectData.description;
             projectData.criterias.forEach(function (data) {
