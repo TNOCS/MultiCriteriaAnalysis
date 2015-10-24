@@ -211,6 +211,7 @@
         static createExampleProject(): McaProject {
             var project   = new McaProject();
             project.title = 'MCA EXAMPLE PROJECT';
+            project.description = 'This is an example project.';
 
             // DataSources
             project.dataSources.push(new DataSource('Explosion model'));

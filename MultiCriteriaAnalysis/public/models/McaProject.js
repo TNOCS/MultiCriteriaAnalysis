@@ -197,6 +197,7 @@ var Models;
         McaProject.createExampleProject = function () {
             var project = new McaProject();
             project.title = 'MCA EXAMPLE PROJECT';
+            project.description = 'This is an example project.';
             project.dataSources.push(new Models.DataSource('Explosion model'));
             project.dataSources.push(new Models.DataSource('Flooding model'));
             project.dataSources.push(new Models.DataSource('Evacuation model'));
