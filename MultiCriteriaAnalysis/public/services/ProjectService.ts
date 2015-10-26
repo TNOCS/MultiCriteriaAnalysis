@@ -78,5 +78,9 @@
         save() {
             this.localStorageService.set(ProjectService.Store, this.projects);
         }
+
+        createCsvTemplate() {
+            return Models.CsvModel.createCsvTemplate(this.project);
+        }
     }
 }

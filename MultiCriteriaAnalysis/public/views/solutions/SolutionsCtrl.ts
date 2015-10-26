@@ -216,51 +216,6 @@
             return (scenario === this.selectedScenario);
         }
 
-        // private updateResult() {
-        //     var data = [];
-        //     var parent = this.selectedScenario.findParent(this.projectService.project);
-        //     for (var k = 0; k < parent.subScenarios.length; k++) {
-        //         var scenario = parent.subScenarios[k];
-        //         data.push({
-        //             id    : k + 1,
-        //             order : k + 1,
-        //             color : Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
-        //             weight: scenario.weight,
-        //             score : this.projectService.activeSolution.computeScore(scenario) * 100,
-        //             width : scenario.weight,
-        //             label : scenario.title
-        //         });
-        //     }
-        //
-        //     if (data.length > 0)
-        //         Helpers.Utils.drawAsterPlot(data);
-        //     else
-        //         Helpers.Utils.clearSvg();
-        // }
-
-        //private computeScore(scenario: Models.Scenario): number {
-        //    var totalScore = 0;
-        //    if (!scenario.hasSubs()) {
-        //        // Leaf node
-        //        if (scenario.id in this.projectService.activeSolution.scores) {
-        //            var score = this.projectService.activeSolution.scores[scenario.id];
-        //            for (var criterionId in score) {
-        //                if (!score.hasOwnProperty(criterionId)) continue;
-        //                var criteriaScore = score[criterionId];
-        //                totalScore += criteriaScore.weight * criteriaScore.value;
-        //            }
-        //        }
-        //    } else {
-        //        scenario.subScenarios.forEach((s) => {
-        //            s.calculateWeights();
-        //            if (s.weight)
-        //                totalScore += s.weight * this.computeScore(s);
-        //        });
-        //    }
-        //    scenario.score = totalScore;
-        //    return totalScore;
-        //}
-
         /**
          * Use the selected data source to filter the results.
          */
@@ -269,23 +224,11 @@
             return this.projectService.activeDataSource.filter(value, idx);
         }
 
-        // private eachCriteria(criterias: Models.Criteria[], activeCriterion: Models.Criteria, parentWeight = 1) {
-        //     var scores = this.projectService.activeSolution.scores;
-        //     for (var k = 0; k < criterias.length; k++) {
-        //         var criteria = criterias[k];
-        //         if (!criteria.isEnabled) continue;
-        //         if (criteria.hasSubcriteria()) {
-        //             this.eachCriteria(criteria.subCriterias, parentWeight * criteria.weight, activeCriterion);
-        //         } else {
-        //             var selectedId = '';
-        //             if (activeCriterion.id in scores &&
-        //                 criteria.id in scores[activeCriterion.id]) {
-        //                 selectedId = scores[activeCriterion.id][criteria.id].criteriaOptionId;
-        //             }
-        //             this.activeCriterias.push(new Models.SelectableCriterion(criteria, selectedId, parentWeight));
-        //         }
-        //     }
-        // }
+        public downloadCsv() {
+            var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title.replace(/ /g, '_') + '.csv';
+            var csv = Models.CsvModel.createCsvTemplate(this.projectService.project);
+            Helpers.Utils.saveData(csv, filename);
+        }
     }
 
 }

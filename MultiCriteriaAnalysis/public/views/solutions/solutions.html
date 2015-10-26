@@ -7,7 +7,7 @@
                     data-ng-model="vm.projectService.activeSolution"
                     data-ng-options="solution.title for solution in vm.solutions"></select>
         </div>
-        <div class="btn-group col-md-2">
+        <div class="btn-group col-md-3">
             <a class="btn" data-ng-click="vm.editSolution()"
                popover="Edit the solution"
                popover-placement="top"
@@ -28,8 +28,14 @@
                popover-trigger="mouseenter">
                 <i class="fa fa-2x fa-plus"></i>
             </a>
+            <a class="btn" data-ng-click="vm.downloadCsv()"
+               popover="Save as CSV"
+               popover-placement="top"
+               popover-trigger="mouseenter">
+                <i class="fa fa-2x fa-save"></i>
+            </a>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- <h1 data-ng-if="vm.selectedScenario" style="margin-top:0">Scenario '{{vm.selectedScenario.title}}'</h1> -->
         </div>
         <!-- <div class="col-md-2 pull-right">

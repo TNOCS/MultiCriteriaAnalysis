@@ -22,6 +22,7 @@
         "public/helpers/Helpers.ts",
         "public/helpers/Resize.ts",
         "public/models/Criteria.ts",
+        "public/models/CsvModel.ts",
         "public/models/DataSource.ts",
         "public/models/McaProject.ts",
         "public/models/Scenario.ts",

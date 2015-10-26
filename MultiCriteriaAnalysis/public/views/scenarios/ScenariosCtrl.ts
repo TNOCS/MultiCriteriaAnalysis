@@ -137,19 +137,6 @@
             else
                 Helpers.Utils.clearSvg();
         }
-
-        //private eachCriteria(multiSelectOptions: any[], criterias: Models.Criteria[]) {
-        //    for (var k in criterias) {
-        //        var criteria: Models.Criteria = criterias[k];
-        //        if (criteria.hasSubcriteria()) {
-        //            multiSelectOptions.push(new CriteriaSelectorNode(criteria.title, true));
-        //            this.eachCriteria(multiSelectOptions, criteria.subCriterias);
-        //            multiSelectOptions.push(new CriteriaSelectorNode('', false));
-        //        } else {
-        //            multiSelectOptions.push(new CriteriaSelectorLeaf(criteria.id, criteria.title, this.selectedItem.isSelectedCriteria(criteria.id)));
-        //        }
-        //    }
-        //}
     }
 
     export class CriteriaSelectorLeaf {

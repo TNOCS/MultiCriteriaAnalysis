@@ -75,6 +75,39 @@
             return s === 'true' || s === 'false';
         }
 
+        static saveData(data: string, filename: string) {
+            if (navigator.msSaveBlob) {
+                // IE 10+
+                var link: any = document.createElement('a');
+                link.addEventListener("click", event => {
+                    var blob = new Blob([data], { "type": "text/csv;charset=utf-8;" });
+                    navigator.msSaveBlob(blob, filename);
+                }, false);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else if (!Utils.supportsDataUri()) {
+                // Older versions of IE: show the data in a new window
+                var popup = window.open('', 'json', '');
+                popup.document.body.innerHTML = '<pre>' + data + '</pre>';
+            } else {
+                // Support for browsers that support the data uri.
+                var a: any = document.createElement('a');
+                document.body.appendChild(a);
+                a.href = 'data:text/json;charset=utf-8,' + encodeURI(data);
+                a.target = '_blank';
+                a.download = filename;
+                a.click();
+                document.body.removeChild(a);
+            }
+        }
+
+        private static supportsDataUri() {
+            var isOldIE = navigator.appName === "Microsoft Internet Explorer";
+            var isIE11 = !!navigator.userAgent.match(/Trident\/7\./);
+            return !(isOldIE || isIE11);  //Return true if not any IE
+        }
+
         public static pieColors = d3.scale.category20();
 
         private static pieRadius      = 50;

@@ -166,6 +166,11 @@ var Solutions;
         SolutionsCtrl.prototype.toggleScenario = function (scenario) {
             return (scenario === this.selectedScenario);
         };
+        SolutionsCtrl.prototype.downloadCsv = function () {
+            var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title.replace(/ /g, '_') + '.csv';
+            var csv = Models.CsvModel.createCsvTemplate(this.projectService.project);
+            Helpers.Utils.saveData(csv, filename);
+        };
         SolutionsCtrl.$inject = [
             '$scope',
             '$modal',
