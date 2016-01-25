@@ -1,4 +1,27 @@
 ﻿<div data-ng-controller="HomeCtrl">
+    <script type="text/ng-template" id="items_renderer.html">
+        <div ui-tree-handle>
+            <a class="btn btn-success btn-xs" ng-click="toggle(this)">
+                <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+            </a>
+            <span class="fa" ng-class="{'fa-sitemap': item.level<=1, 'fa-puzzle-piece': item.level>1}" style="margin-right: 10px"></span>
+            <span id="compTitle" contenteditable strip-br ng-model="item.title" style="font-size:20px;cursor:text" data-ndrag></span>
+            <!-- Delete component -->
+            <a class="pull-right btn btn-danger btn-xs" data-ndrag ng-click="vm.deleteComponent(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"><span class="glyphicon glyphicon-remove"></span></a>
+            <!-- Add a new subcomponent -->
+            <a class="pull-right btn btn-primary btn-xs" ng-if="item.level <= 1" ng-click="newSubComponent(this)" style="margin-right: 8px;">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+            <span class="pull-right" style="margin: 0 13px;" ng-if="item.level > 1">&nbsp;&nbsp;</span>
+            <span id="compId" class="pull-right" contenteditable strip-br ng-model="item.id" style="font-size:20px;cursor:text; margin: 0 20px; font-family:courier new" data-ndrag></span>
+            <label for="compId" class="pull-right">Id: </label>
+        </div>
+        <ol ui-tree-nodes="subComponents" ng-model="item.components" ng-class="{hidden: collapsed}">
+            <li ng-repeat="item in item.components" ui-tree-node ng-include="'items_renderer.html'"></li>
+        </ol>
+    </script>
+
+
     <div class="row">
         <h3 class="col-md-3 text-right" style="margin-top: 3px">Active Project:</h3>
         <div class="col-md-3">
@@ -51,12 +74,50 @@
                    popover-trigger="mouseenter" onchange="angular.element(this).scope().vm.uploadProject(this.files)" />
         </div>
     </div>
-    <div class="row">
-        <div class="edit-container-black" data-toggle="tooltip" title="Edit the project's description" style="margin: 30px; color: black; font-size: 14pt;">
-            <label>Description: </label>
-            <div contenteditable strip-br style="font-style: italic; font-weight: bold; margin-left: 30px;" ng-model="vm.projectService.project.description">
+    <div class="fluid-container" style="margin: 0 30px">
+        <div class="row">
+            <div class="edit-container-black" data-toggle="tooltip" title="Edit the project's description" style="margin: 30px 0 0 0; color: black; font-size: 14pt;">
+                <label>Description:</label>
+                <div contenteditable strip-br style="margin-left: 30px;" ng-model="vm.projectService.project.description">
+                </div>
+                <i class="pull-right fa fa-pencil edit" style="margin-top: -30px;"></i>
             </div>
-            <i class="pull-right fa fa-pencil edit" style="margin-top: -30px;"></i>
+        </div>
+        <div class="row">
+            <div class="edit-container-black" data-toggle="tooltip" title="Edit the project's BIM URL" style="color: black; font-size: 14pt;">
+                <label>BIM URL:</label>
+                <div contenteditable strip-br style="margin-left: 30px;" ng-model="vm.projectService.project.url">
+                </div>
+                <i class="pull-right fa fa-pencil edit" style="margin-top: -30px;"></i>
+            </div>
+        </div>
+   </div>
+    
+    <div data-ng-if="vm.projectService.project != null" style="margin-top: 30px">
+        <div class="row" style="margin: 0 10px 0 0px">
+            <div class="col-md-8 edit-container-black" data-toggle="tooltip" title="Optionally, specify the system's components (one main, many sub-systems)." style="color: black; font-size: 14pt;">
+                <label>System Breakdown:</label>
+            </div>
+
+            <div class="col-md-4">
+                <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
+                <a style="margin: 0 5px" href="" ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-lock" style="margin: 0 5px"></i>enable reorder</a>
+                <a style="margin: 0 5px" href="" ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-unlock" style="margin: 0 5px"></i>disable reorder</a>
+            </div>
+        </div>
+
+        <div class="row"
+             style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
+            <div class="col-md-12" ui-tree data-drag-enabled="reorder" data-drag-delay="500"
+                 style="margin-top:5px">
+                <ol ui-tree-nodes ng-model="vm.projectService.project.components">
+                    <li ng-repeat="item in vm.projectService.project.components"
+                        ui-tree-node
+                        ng-include="'items_renderer.html'"></li>
+                </ol>
+                <a class="pull-right btn btn-primary btn-xs" ng-click="newComponent()" ng-if="!vm.projectService.project.components || (vm.projectService.project.components && vm.projectService.project.components.length<1)"
+                   style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
+            </div>
         </div>
     </div>
 </div>

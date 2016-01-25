@@ -40,11 +40,11 @@
             //console.log('$$search : ' + JSON.stringify($location.$$search));
             //console.log('layers   : ' + JSON.stringify($location.$$search.layers));
 
-            sffjs.setCulture("nl-NL");
+            sffjs.setCulture('nl-NL');
 
             $scope.vm = this;
 
-            $messageBusService.subscribe("project", () => {
+            $messageBusService.subscribe('project', () => {
                 // NOTE EV: You may run into problems here when calling this inside an angular apply cycle.
                 // Alternatively, check for it or use (dependency injected) $timeout.
                 // E.g. if (this.$scope.$root.$$phase != '$apply' && this.$scope.$root.$$phase != '$digest') { this.$scope.$apply(); }
@@ -53,7 +53,7 @@
 
             $scope.toggleChildren = function (data) {
                 data.childrenVisible = !data.childrenVisible;
-                data.folderClass = data.childrenVisible ? "fa-folder-open" : "fa-folder";
+                data.folderClass = data.childrenVisible ? 'fa-folder-open' : 'fa-folder';
             };
 
             // When the location changes, save the projects
@@ -85,38 +85,38 @@
         })
         .config(($stateProvider, $urlRouterProvider) => {
             // For any unmatched url, send to /
-            $urlRouterProvider.otherwise("/home");
+            $urlRouterProvider.otherwise('/home');
             $stateProvider
                 .state('home', {
-                    url              : "/home",
-                    templateUrl      : "views/home/home.html",
+                    url              : '/home',
+                    templateUrl      : 'views/home/home.html',
                     sticky           : true,
                     deepStateRedirect: true
                 })
                 .state('criterias', {
-                    url              : "/criterias",
-                    templateUrl      : "views/criterias/criterias.html",
+                    url              : '/criterias',
+                    templateUrl      : 'views/criterias/criterias.html',
                     sticky           : true,
                     deepStateRedirect: true
                 })
                 .state('scenarios', {
-                    url              : "/scenarios",
-                    templateUrl      : "views/scenarios/scenarios.html",
+                    url              : '/scenarios',
+                    templateUrl      : 'views/scenarios/scenarios.html',
                     sticky           : true
                 })
                 .state('comparisons', {
-                    url              : "/comparisons",
-                    templateUrl      : "views/comparisons/comparisons.html",
+                    url              : '/comparisons',
+                    templateUrl      : 'views/comparisons/comparisons.html',
                     sticky           : true
                 })
                 .state('solutions', {
-                    url              : "/solutions",
-                    templateUrl      : "views/solutions/solutions.html",
+                    url              : '/solutions',
+                    templateUrl      : 'views/solutions/solutions.html',
                     sticky           : true
                 })
                 .state('user', {
-                    url              : "/user",
-                    templateUrl      : "views/users/users.html",
+                    url              : '/user',
+                    templateUrl      : 'views/users/users.html',
                     sticky           : true
                 });
         })
@@ -134,22 +134,38 @@
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
         .filter('format', [
             '$filter', '$locale', (filter, locale) => (value, format) => String.format(format, value)
-        ]).directive("contenteditable", () => {
+        ]).directive('contenteditable', () => {
             return {
-                restrict: "A",
-                require: "ngModel",
-                link: (scope, element, attrs, ngModel) => {
+                restrict: 'A',
+                require: 'ngModel',
+                link: (scope, element: JQuery, attrs: any, ngModel) => {
+                    //if (!ngModel) return; // do nothing if no ng-model
                     function read() {
-                        ngModel.$setViewValue(element.html().replace(/<br[^>]*>/g, ""));
+                        var html = element.html();
+                        // When we clear the content editable the browser leaves a <br> behind
+                        // If strip-br attribute is provided then we strip this out
+                        if ( attrs.stripBr && html === '<br>' ) {
+                            html = '';
+                        }
+                        ngModel.$setViewValue(html);
+                       //ngModel.$setViewValue(element.html().replace(/<br[^>]*>/g, ''));
                     }
 
                     ngModel.$render = () => {
-                        element.html(ngModel.$viewValue || "Set title...");
+                        element.html(ngModel.$viewValue || '...');
                     };
 
-                    element.bind("blur keyup change", () => {
+                    element.keydown(e => {
+                        if (e.keyCode !== 13) return;
+                        e.preventDefault();
+                        e.stopPropagation();
+                    });
+
+                    element.bind('blur keyup change', () => {
+                        //scope.$evalAsync(read);
                         scope.$apply(read);
                     });
+                    //read();
                 }
             };
         });

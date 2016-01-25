@@ -1,11 +1,21 @@
 ﻿module Home {
     export interface IHomeScope extends ng.IScope {
         vm: HomeCtrl;
+        selectedItem      : any;
+        options           : any;
+        reorder           : boolean;
+        sortAscending     : boolean;
+        remove            : Function;
+        toggle            : Function;
+        newSubComponent    : Function;
+        newComponent       : Function;
+        newOption         : Function;
+        removeOption      : Function;
     }
 
     export interface ISavedProject {
-        users: Models.User[],
-        project: Models.McaProject
+        users:   Models.User[];
+        project: Models.McaProject;
     }
 
     export class HomeCtrl {
@@ -32,6 +42,38 @@
         ) {
             $scope.vm = this;
 
+            $scope.reorder       = false;
+            $scope.sortAscending = false;
+            $scope.selectedItem  = {};
+            $scope.options       = {};
+
+            $scope.remove = function (scope) {
+                scope.remove();
+            };
+
+            $scope.toggle = function (scope) {
+                scope.toggle();
+            };
+
+            $scope.newSubComponent = (scope) => {
+                var component = <Models.IComponent>scope.$modelValue;
+                var c = new Models.Component(<Models.IComponent>{
+                    title: 'New part',
+                    level: component.level + 1,
+                });
+                component.components.push(c);
+            };
+
+            $scope.newComponent = () => {
+                var c = new Models.Component(<Models.IComponent>{
+                    title: 'System',
+                    level: 1,
+                    components: []
+                });
+                this.projectService.project.components.push(c);
+                if (this.$scope.$$phase !== '$apply' && this.$scope.$$phase !== '$digest') { this.$scope.$apply(); }
+            };
+
             this.projects = projectService.projects;
         }
 
@@ -54,7 +96,7 @@
                 controller     : 'GetTitleDialogCtrl',
                 size           : 'sm',
                 resolve        : {
-                    header     : () => "Create new data source",
+                    header     : () => 'Create new data source',
                     title      : () => '',
                     description: () => ''
                 }
@@ -101,7 +143,7 @@
                 controller     : 'GetTitleDialogCtrl',
                 size           : 'sm', // = small or 'lg' for large
                 resolve        : {
-                    header     : () => "Create a new project",
+                    header     : () => 'Create a new project',
                     title      : () => '',
                     description: () => ''
                }
@@ -155,6 +197,18 @@
             }
 
             reader.readAsText(f);
+        }
+
+        public deleteComponent(component: Models.IComponent, parent: Models.IComponent) {
+            Helpers.Utils.deleteDialog(this.$modal, 'Delete component', 'Are you sure you want to delete the component \'' + component.title + '\'?', (ok) => {
+                if (!ok) return;
+                var components = parent == null
+                    ? this.projectService.project.components
+                    : parent.components;
+                var index = components.indexOf(component);
+                if (index < 0) return;
+                components.splice(index, 1);
+            });
         }
     }
 }

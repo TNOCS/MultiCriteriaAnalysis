@@ -1,11 +1,36 @@
 ﻿module Models {
+    /** System components are represented by their friendly name and id. */
+    export interface IComponent {
+        id?:         string;
+        title:       string;
+        level:       number;
+        components?: IComponent[];
+    }
+
+    export class Component implements IComponent {
+        title: string;
+        id:    string;
+        level: number;
+        components = [];
+
+        constructor(comp: IComponent = <IComponent>{}) {
+            this.title = comp.title || 'new component';
+            this.id = comp.id || Helpers.Utils.createGuid();
+            this.level = comp.level || 1;
+            if (!comp.components) return;
+            comp.components.forEach(c => this.components.push(new Component(c)));
+        }
+    }
+
     export class McaProject {
         id         : string;
         title      : string;
         description: string;
-
+        /** Home page url */
+        url        : string;
         // TODO Add a saved date.
 
+        components  : IComponent[] = [];
         criterias   : Criteria[]   = [];
         scenarios   : Scenario[]   = [];
         solutions   : Solution[]   = [];
@@ -101,20 +126,15 @@
             this.title       = projectData.title;
             this.description = projectData.description;
 
-            projectData.criterias.forEach((data) => {
-                this.criterias.push(new Models.Criteria(data));
-            });
-            projectData.scenarios.forEach((data) => {
-                this.scenarios.push(new Models.Scenario(data));
-            });
-            projectData.dataSources.forEach((data) => {
+            if (projectData.components) projectData.components.forEach(comp => this.components.push(new Models.Component(comp)));
+            if (projectData.criterias) projectData.criterias.forEach(data => this.criterias.push(new Models.Criteria(data)));
+            if (projectData.scenarios) projectData.scenarios.forEach(data => this.scenarios.push(new Models.Scenario(data)));
+            if (projectData.dataSources) projectData.dataSources.forEach(data => {
                 var dataSource = new Models.DataSource();
                 dataSource.fromJson(data);
                 this.dataSources.push(dataSource);
             });
-            projectData.solutions.forEach((data) => {
-                this.solutions.push(new Models.Solution(data));
-            });
+            if (projectData.solutions) projectData.solutions.forEach(data => this.solutions.push(new Models.Solution(data)));
         }
 
         get rootCriterion() {
@@ -186,7 +206,7 @@
                 var criterion = criterias[i];
                 if (criterion.id === id) {
                     this.criteriaCache[id] = criterion;
-                    return criterion
+                    return criterion;
                 };
                 if (criterion.subCriterias.length > 0) {
                     var found = this.findCriteriaById(id, criterion.subCriterias);
@@ -540,8 +560,7 @@
                 for (var i = 0; i < scenario.subScenarios.length; i++) {
                     McaProject.createSolutionForScenario(project, solution, scenario.subScenarios[i]);
                 }
-            }
-            else {
+            } else {
                 scenario.calculateWeights();
                 solution.scores[scenario.id] = {};
                 McaProject.eachCriteria(project.criterias, scenario.id, solution);

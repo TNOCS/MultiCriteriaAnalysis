@@ -1,7 +1,23 @@
 var Models;
 (function (Models) {
+    var Component = (function () {
+        function Component(comp) {
+            var _this = this;
+            if (comp === void 0) { comp = {}; }
+            this.components = [];
+            this.title = comp.title || 'new component';
+            this.id = comp.id || Helpers.Utils.createGuid();
+            this.level = comp.level || 1;
+            if (!comp.components)
+                return;
+            comp.components.forEach(function (c) { return _this.components.push(new Component(c)); });
+        }
+        return Component;
+    })();
+    Models.Component = Component;
     var McaProject = (function () {
         function McaProject(projectData) {
+            this.components = [];
             this.criterias = [];
             this.scenarios = [];
             this.solutions = [];
@@ -95,20 +111,20 @@ var Models;
             this.id = projectData.id;
             this.title = projectData.title;
             this.description = projectData.description;
-            projectData.criterias.forEach(function (data) {
-                _this.criterias.push(new Models.Criteria(data));
-            });
-            projectData.scenarios.forEach(function (data) {
-                _this.scenarios.push(new Models.Scenario(data));
-            });
-            projectData.dataSources.forEach(function (data) {
-                var dataSource = new Models.DataSource();
-                dataSource.fromJson(data);
-                _this.dataSources.push(dataSource);
-            });
-            projectData.solutions.forEach(function (data) {
-                _this.solutions.push(new Models.Solution(data));
-            });
+            if (projectData.components)
+                projectData.components.forEach(function (comp) { return _this.components.push(new Models.Component(comp)); });
+            if (projectData.criterias)
+                projectData.criterias.forEach(function (data) { return _this.criterias.push(new Models.Criteria(data)); });
+            if (projectData.scenarios)
+                projectData.scenarios.forEach(function (data) { return _this.scenarios.push(new Models.Scenario(data)); });
+            if (projectData.dataSources)
+                projectData.dataSources.forEach(function (data) {
+                    var dataSource = new Models.DataSource();
+                    dataSource.fromJson(data);
+                    _this.dataSources.push(dataSource);
+                });
+            if (projectData.solutions)
+                projectData.solutions.forEach(function (data) { return _this.solutions.push(new Models.Solution(data)); });
         };
         Object.defineProperty(McaProject.prototype, "rootCriterion", {
             get: function () {

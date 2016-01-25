@@ -28,13 +28,13 @@ var Criterias;
             $scope.newOption = function (scope) {
                 var criteria = scope.$modelValue;
                 var o = new Models.CriteriaOption();
-                o.title = "New Option";
+                o.title = 'New Option';
                 o.value = 1;
                 criteria.options.push(o);
             };
             $scope.newCriteria = function () {
                 var c = new Models.Criteria();
-                c.title = "New Criteria";
+                c.title = 'New Criteria';
                 _this.projectService.project.criterias.push(c);
             };
             this.projectService.project.updateCriteriaWeights();
@@ -71,7 +71,7 @@ var Criterias;
         CriteriasCtrl.prototype.select = function (item) {
             if (!item) {
                 item = new Models.Criteria();
-                item.title = "Top level overview";
+                item.title = 'Top level overview';
                 item.subCriterias = this.projectService.project.criterias;
             }
             this.selectedCriteria = item;

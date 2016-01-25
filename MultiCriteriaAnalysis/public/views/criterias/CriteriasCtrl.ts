@@ -8,7 +8,7 @@
         remove            : Function;
         toggle            : Function;
         newSubCriteria    : Function;
-        newCriteria       : Function
+        newCriteria       : Function;
         newOption         : Function;
         removeOption      : Function;
     }
@@ -63,14 +63,14 @@
             $scope.newOption = (scope) => {
                 var criteria = <Models.Criteria>scope.$modelValue;
                 var o = new Models.CriteriaOption();
-                o.title = "New Option";
+                o.title = 'New Option';
                 o.value = 1;
                 criteria.options.push(o);
             };
 
             $scope.newCriteria = () => {
                 var c = new Models.Criteria();
-                c.title = "New Criteria";
+                c.title = 'New Criteria';
                 this.projectService.project.criterias.push(c);
             };
 
@@ -111,7 +111,7 @@
             if (!item) {
                 // Create a pseudo criteria that is the level
                 item = new Models.Criteria();
-                item.title = "Top level overview";
+                item.title = 'Top level overview';
                 item.subCriterias = this.projectService.project.criterias;
             }
             this.selectedCriteria = item;

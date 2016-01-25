@@ -8,14 +8,14 @@ var App;
             this.$location = $location;
             this.projectService = projectService;
             this.$messageBusService = $messageBusService;
-            sffjs.setCulture("nl-NL");
+            sffjs.setCulture('nl-NL');
             $scope.vm = this;
-            $messageBusService.subscribe("project", function () {
+            $messageBusService.subscribe('project', function () {
                 $scope.$apply();
             });
             $scope.toggleChildren = function (data) {
                 data.childrenVisible = !data.childrenVisible;
-                data.folderClass = data.childrenVisible ? "fa-folder-open" : "fa-folder";
+                data.folderClass = data.childrenVisible ? 'fa-folder-open' : 'fa-folder';
             };
             $rootScope.$on('$locationChangeStart', function (next, last) {
                 projectService.save();
@@ -48,38 +48,38 @@ var App;
         localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';
     })
         .config(function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise("/home");
+        $urlRouterProvider.otherwise('/home');
         $stateProvider
             .state('home', {
-            url: "/home",
-            templateUrl: "views/home/home.html",
+            url: '/home',
+            templateUrl: 'views/home/home.html',
             sticky: true,
             deepStateRedirect: true
         })
             .state('criterias', {
-            url: "/criterias",
-            templateUrl: "views/criterias/criterias.html",
+            url: '/criterias',
+            templateUrl: 'views/criterias/criterias.html',
             sticky: true,
             deepStateRedirect: true
         })
             .state('scenarios', {
-            url: "/scenarios",
-            templateUrl: "views/scenarios/scenarios.html",
+            url: '/scenarios',
+            templateUrl: 'views/scenarios/scenarios.html',
             sticky: true
         })
             .state('comparisons', {
-            url: "/comparisons",
-            templateUrl: "views/comparisons/comparisons.html",
+            url: '/comparisons',
+            templateUrl: 'views/comparisons/comparisons.html',
             sticky: true
         })
             .state('solutions', {
-            url: "/solutions",
-            templateUrl: "views/solutions/solutions.html",
+            url: '/solutions',
+            templateUrl: 'views/solutions/solutions.html',
             sticky: true
         })
             .state('user', {
-            url: "/user",
-            templateUrl: "views/users/users.html",
+            url: '/user',
+            templateUrl: 'views/users/users.html',
             sticky: true
         });
     })
@@ -97,18 +97,28 @@ var App;
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
         .filter('format', [
         '$filter', '$locale', function (filter, locale) { return function (value, format) { return String.format(format, value); }; }
-    ]).directive("contenteditable", function () {
+    ]).directive('contenteditable', function () {
         return {
-            restrict: "A",
-            require: "ngModel",
+            restrict: 'A',
+            require: 'ngModel',
             link: function (scope, element, attrs, ngModel) {
                 function read() {
-                    ngModel.$setViewValue(element.html().replace(/<br[^>]*>/g, ""));
+                    var html = element.html();
+                    if (attrs.stripBr && html === '<br>') {
+                        html = '';
+                    }
+                    ngModel.$setViewValue(html);
                 }
                 ngModel.$render = function () {
-                    element.html(ngModel.$viewValue || "Set title...");
+                    element.html(ngModel.$viewValue || '...');
                 };
-                element.bind("blur keyup change", function () {
+                element.keydown(function (e) {
+                    if (e.keyCode !== 13)
+                        return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+                element.bind('blur keyup change', function () {
                     scope.$apply(read);
                 });
             }
