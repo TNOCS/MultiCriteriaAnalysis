@@ -11,7 +11,7 @@
             <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.deleteScenario(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"><span class="glyphicon glyphicon-remove"></span></a>
             <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubScenario(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
-            <rating ng-model="item.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+            <rating ng-if="item.subScenarios.length === 0" ng-model="item.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
         </div>
         <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
             <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'">
@@ -41,22 +41,7 @@
 
             <!-- Result view in right panel -->
             <div class="col-md-4">
-                <div class="row" data-ng-if="vm.selectedScenario">
-                    <!--<div data-ng-if="!vm.selectedScenario.hasSubs()">
-                        <h4>Select criteria</h4>
-                        <div max-height="250px"
-                             max-labels="3"
-                             style="margin: -8px 10px 0 10px;"
-                             multi-select
-                             input-model="multiSelectOptions"
-                             button-label="title"
-                             item-label="title"
-                             tick-property="ticked"
-                             orientation="vertical"
-                             on-item-click="clicked(data)"
-                             group-property="multiSelectGroup">
-                        </div>-->
-                </div>
+                <div class="row" data-ng-if="vm.selectedScenario"></div>
                 <div class="row" id="pieChart"></div>
             </div>
         </div>

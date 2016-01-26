@@ -51,7 +51,8 @@ module Users {
 
         private initialize() {
             this.project.scenarios.forEach(s => {
-                if (this.scenarios.indexOf(s) < 0) this.scenarios.push(s);
+                this.initScenarios(s);
+                //if (this.scenarios.indexOf(s) < 0) this.scenarios.push(s);
             });
 
             this.project.criterias.forEach(main => {
@@ -62,6 +63,16 @@ module Users {
                         if (this.modules.indexOf(m) < 0) this.modules.push(m);
                     });
                 });
+            });
+        }
+
+        private initScenarios(scenario: Models.Scenario) {
+            scenario.subScenarios.forEach(s => {
+                if (s.subScenarios && s.subScenarios.length === 0) {
+                    this.scenarios.push(s);
+                } else {
+                    this.initScenarios(s);
+                }
             });
         }
 

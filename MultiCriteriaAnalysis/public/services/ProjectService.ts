@@ -1,6 +1,6 @@
 ﻿module Services {
     export interface IProjectStore {
-        [id: string]: Models.McaProject
+        [id: string]: Models.McaProject;
     }
 
     export class ProjectService {
@@ -38,7 +38,11 @@
                 async: false,
                 dataType: 'json',
                 success: (response) => {
-                    this.createProject(response);
+                    if (!response.hasOwnProperty('users')) {
+                        this.createProject(response);
+                    } else {
+                        this.createProject(response.project);
+                    }
                 }
             });
         }

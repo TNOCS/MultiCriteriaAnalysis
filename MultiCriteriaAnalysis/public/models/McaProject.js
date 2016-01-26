@@ -106,7 +106,7 @@ var Models;
         };
         McaProject.prototype.fromJson = function (projectData) {
             var _this = this;
-            if (!projectData.hasOwnProperty('title'))
+            if (!projectData.title)
                 return null;
             this.id = projectData.id;
             this.title = projectData.title;
