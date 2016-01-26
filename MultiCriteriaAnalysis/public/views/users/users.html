@@ -3,28 +3,31 @@
     <a href="" ng-click="vm.save()" data-toggle="tooltip" title="Save your changes">
         <i class="pull-right fa fa-lg fa-save edit" style="margin-top: -30px; font-size: 18pt;"></i>
     </a>
-
-    <div class="edit-container-black" data-toggle="tooltip" title="Edit the user's name" style="margin: 12px 30px 10px 10px; color: black; font-size: 18pt;">
-        <label>Name: </label>
-        <div contenteditable strip-br style="font-style: italic; font-weight: bold; margin-left: 30px;" ng-model="vm.userService.activeUser.name">
+    
+    <div class="row" style="margin: -30px 0 0 10px; font-size: 18pt;">
+        <div class="col-md-2 text-right">
+            <label for="name">User</label><br/>
+            <label for="desc">Description</label><br/>
         </div>
-        <i class="pull-right fa fa-pencil edit" style="margin-top: -30px;"></i>
-    </div>
-
-    <div class="edit-container-black" data-toggle="tooltip" title="Edit the user's description" style="margin: 12px 30px 10px 10px; color: black; font-size: 18pt;">
-        <label>Description: </label>
-        <div contenteditable strip-br style="font-style: italic; font-weight: bold; margin-left: 30px;" ng-model="vm.userService.activeUser.description">
+        <div class="col-md-4">
+            <input id="name" type="text" style="width: 15em;" ng-model="vm.userService.activeUser.name"><br/>
+            <textarea id="desc" style="width: 15em;" rows="2" cols="50" ng-model="vm.userService.activeUser.description"></textarea>
         </div>
-        <i class="pull-right fa fa-pencil edit" style="margin-top: -30px;"></i>
+        <div class="col-md-2 text-right">
+            <label for="username">BIM username</label><br/>
+            <label for="password">BIM password</label>
+        </div>
+        <div class="col-md-4">
+            <input id="username" style="width: 15em;" type="text" ng-model="vm.userService.activeUser.username"><br/>
+            <input id="password" style="width: 15em;" type="password" ng-model="vm.userService.activeUser.password">
+        </div>
     </div>
-
 
     <h3>Actual settings <a href="#" ng-show="vm.showingActualValues" ng-click="vm.resetPreferences()">(apply preferences of {{vm.userService.activeUser.name}})</a></h3>
     <div id="container4">
         <div id="container3">
             <div id="container2">
                 <div id="container1">
-
                     <div id="col1">
                         <h3>Scenarios</h3>
                         <ul class="list-group">

@@ -46,7 +46,7 @@ module Users {
 
             this.userService.save();
             this.showingActualValues = false;
-            this.messageBus.notify('Save preferences', 'You have successfully saved the actual preferences and made them your own.');
+            this.messageBus.notify('Saved preferences', 'You have successfully saved the actual preferences and made them your own.');
         }
 
         private initialize() {
