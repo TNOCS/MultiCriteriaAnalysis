@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid" data-ng-controller="ScenariosCtrl as d">
     <div class="row">
         <h1 class="col-md-8">Scenarios</h1>
-        <h1 class="col-md-4" data-ng-if="vm.selectedScenario">Scenario '{{vm.selectedScenario.title}}'</h1>
+        <h1 class="col-md-4" data-ng-if="vm.selectedScenario"><div ng-bind-html="vm.selectedScenario.title"></div></h1>
     </div>
 
     <script type="text/ng-template" id="items_renderer.html">
@@ -11,10 +11,10 @@
             <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
             <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.deleteScenario(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"><span class="glyphicon glyphicon-remove"></span></a>
             <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubScenario(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
-            <rating ng-if="item.subScenarios.length === 0" ng-model="item.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+            <rating ng-model="item.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
         </div>
         <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
-            <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'">
+            <li ng-repeat="item in item.subScenarios track by item.id" ui-tree-node ng-include="'items_renderer.html'">
             </li>
         </ol>
     </script>
@@ -34,7 +34,7 @@
             <div class="col-md-8" ui-tree="options" data-drag-enabled="reorder" data-drag-delay="500"
                  style="margin-top:5px">
                 <ol ui-tree-nodes ng-model="d.projectService.project.scenarios">
-                    <li ng-repeat="item in d.projectService.project.scenarios" ui-tree-node ng-include="'items_renderer.html'"></li>
+                    <li ng-repeat="item in d.projectService.project.scenarios track by item.id" ui-tree-node ng-include="'items_renderer.html'"></li>
                 </ol>
                 <a class="pull-right btn btn-primary btn-xs" ng-click="newScenario()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
             </div>
