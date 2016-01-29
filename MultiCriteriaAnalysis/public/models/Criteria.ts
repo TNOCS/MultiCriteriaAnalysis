@@ -28,6 +28,8 @@
         title        : string;
         description  : string;
         userWeight   : number = 1;
+        /** Depth of the criteria: 0 is root, 1 is main, 2 is sub etc. */
+        level        : number;
         weight       : number;
         score        : number;
         subCriterias : Criteria[] = [];
@@ -37,11 +39,13 @@
         isScenarioDependent = false;
         isEnabled = true;
 
-        constructor(data?: Criteria) {
-            if (data)
+        constructor(level: number, data?: Criteria) {
+            this.level = level;
+            if (data) {
                 this.fromJson(data);
-            else
+            } else {
                 this.id = Helpers.Utils.createGuid();
+            }
         }
 
         /** Deserialize the object */
@@ -52,14 +56,15 @@
             this.userWeight   = data.userWeight;
             this.dataSourceId = data.dataSourceId;
             this.isScenarioDependent = data.isScenarioDependent;
-            if (typeof data.isEnabled === 'undefined' || data.isEnabled == null)
+            if (typeof data.isEnabled === 'undefined' || data.isEnabled == null) {
                 this.isEnabled = true;
-            else
+            } else {
                 this.isEnabled = data.isEnabled;
+            }
             this.calculateWeights();
 
             data.subCriterias.forEach((d) => {
-                var criteria = new Criteria();
+                var criteria = new Criteria(this.level + 1);
                 criteria.fromJson(d);
                 this.subCriterias.push(criteria);
             });
@@ -71,11 +76,11 @@
         }
 
         public canHaveOptions = () => {
-            return this.subCriterias.length === 0;
+            return this.isEnabled && this.subCriterias.length === 0;
         }
 
         public canHaveSubs = () => {
-            return this.options.length === 0;
+            return this.isEnabled && this.options.length === 0;
         }
 
         public hasOptions(): boolean {
@@ -141,11 +146,11 @@
          */
         findParent(project: McaProject): Criteria {
             var subs = project.criterias;
-            if (subs.length == 0) return null;
+            if (subs.length === 0) return null;
             for (var i = 0; i < subs.length; i++) {
                 var sub = subs[i];
                 if (sub === this) {
-                    var root = new Models.Criteria();
+                    var root = new Models.Criteria(0);
                     root.subCriterias = subs;
                     return root;
                 }
@@ -171,7 +176,7 @@
 
     export class SelectableCriterion extends Models.Criteria {
         constructor(public criterion: Models.Criteria, public selectedId: string, parentWeight: number) {
-            super();
+            super(-1);
             this.id = criterion.id;
             this.title = criterion.title;
             this.description = criterion.description;
