@@ -730,14 +730,14 @@ rect {
 	width:100%;
 	position:relative;
 	right:25%;
-	background:#ffa7a7; /* column 2 background colour */
+	background:#fff689; /* column 2 background colour */
 }
 #container1 {
 	float:left;
 	width:100%;
 	position:relative;
 	right:25%;
-	background:#fff689; /* column 1 background colour */
+	background:#ffa7a7; /* column 1 background colour */
 }
 
 #col1 {
