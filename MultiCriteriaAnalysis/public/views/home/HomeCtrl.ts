@@ -181,7 +181,7 @@
         }
 
         public uploadProject(files: any) {
-            console.log(JSON.stringify(files));
+            //console.log(JSON.stringify(files));
 
             var reader = new FileReader();
             var f = files[0];
