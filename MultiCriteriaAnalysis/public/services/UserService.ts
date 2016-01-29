@@ -61,10 +61,7 @@ module Services {
             var existingTitles: string[] = [];
 
             this.projectService.project.scenarios.forEach(s => {
-                if (scenarios.indexOf(s) >= 0) return;
-                scenarios.push(s);
-                s.userWeight = this.activeUser.getUserWeight(s.title);
-                existingTitles.push(s.title);
+                s.subScenarios.forEach(s => this.initScenarios(scenarios, s, existingTitles));
             });
 
             this.projectService.project.criterias.forEach(main => {
@@ -93,6 +90,14 @@ module Services {
                 if (existingTitles.indexOf(title) >= 0) continue;
                 delete this.activeUser.preferences[title];
             }
+        }
+
+        private initScenarios(scenarios: Models.Scenario[], scenario: Models.Scenario, existingTitles: string[]) {
+            if (scenarios.indexOf(scenario) >= 0) return;
+            scenarios.push(scenario);
+            scenario.userWeight = this.activeUser.getUserWeight(scenario.title);
+            existingTitles.push(scenario.title);
+            scenario.subScenarios.forEach(s => this.initScenarios(scenarios, s, existingTitles));
         }
 
         public save() {
