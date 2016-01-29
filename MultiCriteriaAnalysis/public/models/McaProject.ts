@@ -125,9 +125,10 @@
             this.id          = projectData.id;
             this.title       = projectData.title;
             this.description = projectData.description;
+            this.url         = projectData.url;
 
             if (projectData.components) projectData.components.forEach(comp => this.components.push(new Models.Component(comp)));
-            if (projectData.criterias) projectData.criterias.forEach(data => this.criterias.push(new Models.Criteria(data)));
+            if (projectData.criterias) projectData.criterias.forEach(data => this.criterias.push(new Models.Criteria(1, data)));
             if (projectData.scenarios) projectData.scenarios.forEach(data => this.scenarios.push(new Models.Scenario(data)));
             if (projectData.dataSources) projectData.dataSources.forEach(data => {
                 var dataSource = new Models.DataSource();
@@ -138,7 +139,7 @@
         }
 
         get rootCriterion() {
-            var criterion = new Models.Criteria();
+            var criterion = new Models.Criteria(0);
             criterion.title = 'TOP';
             criterion.weight = 1;
             criterion.subCriterias = this.criterias;
@@ -242,11 +243,11 @@
 
             // Criterias
             // Resilience
-            var criteria        = new Criteria();
+            var criteria        = new Criteria(1);
             criteria.title      = 'Resilience';
             criteria.userWeight = 2;
 
-            var subCriteria          = new Criteria();
+            var subCriteria          = new Criteria(2);
             subCriteria.title        = 'Repair time';
             subCriteria.dataSourceId = project.findDataSourceByTitle('Explosion model').id;
             subCriteria.description  = 'Repair time is dependent on the type of damage';
@@ -264,7 +265,7 @@
             option.description = 'Column failures or collapse ';
             criteria.addSubCriteria(subCriteria);
 
-            subCriteria              = new Criteria();
+            subCriteria              = new Criteria(2);
             subCriteria.title        = 'Physical Usability';
             subCriteria.dataSourceId = project.findDataSourceByTitle('Explosion model').id;
             subCriteria.description  = 'Type of damage and location of damage';
@@ -279,7 +280,7 @@
             option.description       = 'more than 500m2 not safely accessible/functional';
             criteria.addSubCriteria(subCriteria);
 
-            subCriteria             = new Criteria();
+            subCriteria             = new Criteria(2);
             subCriteria.title       = 'Operational Usability';
             subCriteria.description = 'type of damage to services and location of damage';
             subCriteria.userWeight  = 1;
@@ -292,10 +293,10 @@
             project.criterias.push(criteria);
 
             // Safety
-            criteria               = new Criteria();
+            criteria               = new Criteria(1);
             criteria.title         = 'Safety';
             criteria.userWeight    = 3;
-            subCriteria            = new Criteria();
+            subCriteria            = new Criteria(2);
             subCriteria.title      = 'Victims';
             subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
@@ -305,7 +306,7 @@
             subCriteria.addOption('heavy injuries up to 50 people including possible lethality', .2);
             subCriteria.addOption('heavy injuries more than 50 people including possible lethality', 0);
             criteria.addSubCriteria(subCriteria);
-            subCriteria            = new Criteria();
+            subCriteria            = new Criteria(2);
             subCriteria.title      = 'Evacuation time';
             subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
@@ -317,10 +318,10 @@
             project.criterias.push(criteria);
 
             // Security
-            criteria               = new Criteria();
+            criteria               = new Criteria(1);
             criteria.title         = 'Security';
             criteria.userWeight    = 1;
-            subCriteria            = new Criteria();
+            subCriteria            = new Criteria(2);
             subCriteria.title      = 'Accessibility';
             subCriteria.userWeight = 1;
             subCriteria.isScenarioDependent = true;
@@ -328,7 +329,7 @@
             subCriteria.addOption('partial access', .6);
             subCriteria.addOption('all private access', 1);
             criteria.addSubCriteria(subCriteria);
-            subCriteria            = new Criteria();
+            subCriteria            = new Criteria(2);
             subCriteria.title      = 'Surveilance';
             subCriteria.isScenarioDependent = true;
             subCriteria.userWeight = 1;
@@ -341,10 +342,10 @@
             project.criterias.push(criteria);
 
             // Iconic
-            criteria               = new Criteria();
+            criteria               = new Criteria(1);
             criteria.title         = 'Iconic';
             criteria.userWeight    = 1;
-            subCriteria            = new Criteria();
+            subCriteria            = new Criteria(2);
             subCriteria.title      = 'Impact';
             subCriteria.userWeight = 1;
             subCriteria.addOption('Low', 0.2);
@@ -355,10 +356,10 @@
             project.criterias.push(criteria);
 
             // Functionality
-            criteria               = new Criteria();
+            criteria               = new Criteria(1);
             criteria.title         = 'Functionality';
             criteria.userWeight    = 1;
-            subCriteria            = new Criteria();
+            subCriteria            = new Criteria(2);
             subCriteria.title      = 'Functionality';
             subCriteria.userWeight = 1;
             subCriteria.addOption('Low', 0.2);
@@ -369,10 +370,10 @@
             project.criterias.push(criteria);
 
             // Energy-efficiency
-            criteria               = new Criteria();
+            criteria               = new Criteria(1);
             criteria.title         = 'Energy-efficiency';
             criteria.userWeight    = 1;
-            subCriteria            = new Criteria();
+            subCriteria            = new Criteria(2);
             subCriteria.title      = 'Energy-efficiency';
             subCriteria.userWeight = 1;
             subCriteria.addOption('Low', 0.2);
