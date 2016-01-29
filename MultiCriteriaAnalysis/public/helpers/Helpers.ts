@@ -132,7 +132,7 @@
             var tip = (<any>d3).tip()
                 .attr('class', 'd3-tip')
                 .offset([0, 0])
-                .html(d => d.data.label + ": <span style='color:orangered'>" + Math.round(d.data.weight * 100) + "%</span>");
+                .html(d => d.data.label + ': <span style="color:orangered">' + Math.round(d.data.weight * 100) + '%</span>');
 
             var arc = d3.svg.arc()
                 .innerRadius(innerRadius)
@@ -142,32 +142,32 @@
                 .innerRadius(innerRadius)
                 .outerRadius(radius);
 
-            var svg = d3.select("#pieChart").append("svg")
-                .attr("id", "the_SVG_ID")
-                .attr("width", width)
-                .attr("height", height)
-                .append("g")
-                .attr("transform", "translate(" + Utils.pieRadius + "," + (Utils.pieRadius + Utils.borderOffset) + ")");
+            var svg = d3.select('#pieChart').append('svg')
+                .attr('id', 'the_SVG_ID')
+                .attr('width', width)
+                .attr('height', height)
+                .append('g')
+                .attr('transform', 'translate(' + Utils.pieRadius + ',' + (Utils.pieRadius + Utils.borderOffset) + ')');
 
             svg.call(tip);
 
-            var path = svg.selectAll(".solidArc")
+            var path = svg.selectAll('.solidArc')
                 .data(pie(data))
-                .enter().append("path")
-                .attr("fill", function (d) { return d.data.color; })
-                .attr("class", "solidArc")
-                .attr("stroke", "gray")
-                .attr("d", arc)
+                .enter().append('path')
+                .attr('fill', function (d) { return d.data.color; })
+                .attr('class', 'solidArc')
+                .attr('stroke', 'gray')
+                .attr('d', arc)
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide);
 
-            var outerPath = svg.selectAll(".outlineArc")
+            var outerPath = svg.selectAll('.outlineArc')
                 .data(pie(data))
-                .enter().append("path")
-                .attr("fill", "none")
-                .attr("stroke", "gray")
-                .attr("class", "outlineArc")
-                .attr("d", outlineArc);
+                .enter().append('path')
+                .attr('fill', 'none')
+                .attr('stroke', 'gray')
+                .attr('class', 'outlineArc')
+                .attr('d', outlineArc);
 
             if (!drawLegend) return;
 
@@ -201,7 +201,7 @@
         }
 
         public static clearSvg() {
-            var svgElement = d3.select("#the_SVG_ID");
+            var svgElement = d3.select('#the_SVG_ID');
             if (svgElement) svgElement.remove();
         }
 
@@ -223,7 +223,12 @@
             var tip = (<any>d3).tip()
                 .attr('class', 'd3-tip')
                 .offset([0, 0])
-                .html(d => d.data.label + ": <span style='color:white'>&nbsp; Weight: " + Math.round(d.data.weight * 100) + "%,&nbsp; Score: " + Math.round(d.data.score) + ",&nbsp; Weight*Score: " + Math.round(d.data.weight * d.data.score) + "</span>");
+                .html(d => d.data.label + ': <span style="color:white">&nbsp; Weight: ' +
+                    Math.round(d.data.weight * 100) +
+                    '%,&nbsp; Score: ' +
+                    Math.round(d.data.score) +
+                    ',&nbsp; Weight*Score: ' +
+                    Math.round(d.data.weight * d.data.score) + '</span>');
 
             var arc = d3.svg.arc()
                 .innerRadius(innerRadius)
@@ -233,32 +238,32 @@
                 .innerRadius(innerRadius)
                 .outerRadius(radius);
 
-            var svg = d3.select("#pieChart").append("svg")
-                .attr("id", "the_SVG_ID")
-                .attr("width", width)
-                .attr("height", height)
-                .append("g")
-                .attr("transform", "translate(" + Utils.pieRadius + "," + (Utils.pieRadius + Utils.borderOffset) + ")");
+            var svg = d3.select('#pieChart').append('svg')
+                .attr('id', 'the_SVG_ID')
+                .attr('width', width)
+                .attr('height', height)
+                .append('g')
+                .attr('transform', 'translate(' + Utils.pieRadius + ',' + (Utils.pieRadius + Utils.borderOffset) + ')');
 
             svg.call(tip);
 
-            var path = svg.selectAll(".solidArc")
+            var path = svg.selectAll('.solidArc')
                 .data(pie(data))
-                .enter().append("path")
-                .attr("fill", function (d) { return d.data.color; })
-                .attr("class", "solidArc")
-                .attr("stroke", "gray")
-                .attr("d", arc)
+                .enter().append('path')
+                .attr('fill', function (d) { return d.data.color; })
+                .attr('class', 'solidArc')
+                .attr('stroke', 'gray')
+                .attr('d', arc)
                 .on('mouseover', tip.show)
                 .on('mouseout', tip.hide);
 
-            var outerPath = svg.selectAll(".outlineArc")
+            var outerPath = svg.selectAll('.outlineArc')
                 .data(pie(data))
-                .enter().append("path")
-                .attr("fill", "none")
-                .attr("stroke", "gray")
-                .attr("class", "outlineArc")
-                .attr("d", outlineArc);
+                .enter().append('path')
+                .attr('fill', 'none')
+                .attr('stroke', 'gray')
+                .attr('class', 'outlineArc')
+                .attr('d', outlineArc);
 
 
             // calculate the weighted mean score
@@ -270,10 +275,10 @@
                     return a + b.weight;
                 }, 0);
 
-            svg.append("svg:text")
-                .attr("class", "aster-score")
-                .attr("dy", ".35em")
-                .attr("text-anchor", "middle") // text-align: right
+            svg.append('svg:text')
+                .attr('class', 'aster-score')
+                .attr('dy', '.35em')
+                .attr('text-anchor', 'middle') // text-align: right
                 .text(Math.round(score));
 
             if (!drawLegend) return;
@@ -323,55 +328,55 @@
             // Display the vertical line without ticks
             var yAxis = d3.svg.axis()
                 .scale(y)
-                .tickFormat(()=>'')
+                .tickFormat(() => '')
                 .tickSize(0)
-                .orient("left");
+                .orient('left');
 
-            $("#barChart").empty();
+            $('#barChart').empty();
 
             // Specify the chart area and dimensions
-            var chart = d3.select(".chart")
-                .attr("width" , chartWidth)
-                .attr("height", chartHeight);
+            var chart = d3.select('.chart')
+                .attr('width' , chartWidth)
+                .attr('height', chartHeight);
 
             // Create bars
-            var bar = chart.selectAll("g")
+            var bar = chart.selectAll('g')
                 .data(zippedData)
-                .enter().append("g")
-                .attr("transform", function (d, i) {
-                    return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i / data.series.length))) + ")";
+                .enter().append('g')
+                .attr('transform', function (d, i) {
+                    return 'translate(' + spaceForLabels + ',' + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i / data.series.length))) + ')';
                 });
 
             // Create rectangles of the correct width
-            bar.append("rect")
-                .attr("fill", function (d, i) { return color(i % data.series.length); })
-                .attr("class", "bar")
-                .attr("width", x)
-                .attr("height", barHeight - 1);
+            bar.append('rect')
+                .attr('fill', function (d, i) { return color(i % data.series.length); })
+                .attr('class', 'bar')
+                .attr('width', x)
+                .attr('height', barHeight - 1);
 
             // Add text label in bar
-            bar.append("text")
-                .attr("x", function (d) { return x(d) - 3; })
-                .attr("y", barHeight / 2)
-                .attr("dy", ".35em")
+            bar.append('text')
+                .attr('x', function (d) { return x(d) - 3; })
+                .attr('y', barHeight / 2)
+                .attr('dy', '.35em')
                 .text(function (d) { return d; });
 
             // Draw labels
-            bar.append("text")
-                .attr("class", "label")
-                .attr("x", function (d) { return - 10; })
-                .attr("y", groupHeight / 2)
-                .attr("dy", ".35em")
+            bar.append('text')
+                .attr('class', 'label')
+                .attr('x', function (d) { return - 10; })
+                .attr('y', groupHeight / 2)
+                .attr('dy', '.35em')
                 .text(function (d, i) {
                     if (i % data.series.length === 0)
                         return data.labels[Math.floor(i / data.series.length)];
                     else
-                        return "";
+                        return '';
                 });
 
-            chart.append("g")
-                .attr("class", "y axis")
-                .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups / 2 + ")")
+            chart.append('g')
+                .attr('class', 'y axis')
+                .attr('transform', 'translate(' + spaceForLabels + ', ' + -gapBetweenGroups / 2 + ')')
                 .call(yAxis);
 
             // Draw legend
