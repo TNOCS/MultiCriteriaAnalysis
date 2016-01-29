@@ -77,6 +77,7 @@
         'LocalStorageModule',
         'csWeb.resize',
         'multi-select',
+        'ngSanitize',
         //'angularUtils.directives.dirPagination',
         'ui.tree' // https           ://github.com/JimLiu/angular-ui-tree
         ])
@@ -134,7 +135,27 @@
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
         .filter('format', [
             '$filter', '$locale', (filter, locale) => (value, format) => String.format(format, value)
-        ]).directive('contenteditable', () => {
+        ])
+        .filter('cut', function () {
+            return function (value, wordwise, max, tail) {
+                if (!value) return '';
+
+                max = parseInt(max, 10);
+                if (!max) return value;
+                if (value.length <= max) return value;
+
+                value = value.substr(0, max);
+                if (wordwise) {
+                    var lastspace = value.lastIndexOf(' ');
+                    if (lastspace !== -1) {
+                        value = value.substr(0, lastspace);
+                    }
+                }
+
+                return value + (tail || ' …');
+            };
+        })
+        .directive('contenteditable', () => {
             return {
                 restrict: 'A',
                 require: 'ngModel',

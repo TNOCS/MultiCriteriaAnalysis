@@ -42,6 +42,7 @@ var App;
         'LocalStorageModule',
         'csWeb.resize',
         'multi-select',
+        'ngSanitize',
         'ui.tree'
     ])
         .config(function (localStorageServiceProvider) {
@@ -97,7 +98,27 @@ var App;
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
         .filter('format', [
         '$filter', '$locale', function (filter, locale) { return function (value, format) { return String.format(format, value); }; }
-    ]).directive('contenteditable', function () {
+    ])
+        .filter('cut', function () {
+        return function (value, wordwise, max, tail) {
+            if (!value)
+                return '';
+            max = parseInt(max, 10);
+            if (!max)
+                return value;
+            if (value.length <= max)
+                return value;
+            value = value.substr(0, max);
+            if (wordwise) {
+                var lastspace = value.lastIndexOf(' ');
+                if (lastspace !== -1) {
+                    value = value.substr(0, lastspace);
+                }
+            }
+            return value + (tail || ' …');
+        };
+    })
+        .directive('contenteditable', function () {
         return {
             restrict: 'A',
             require: 'ngModel',
