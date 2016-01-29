@@ -19,23 +19,65 @@ var Criterias;
                 scope.toggle();
             };
             $scope.newSubCriteria = function (scope) {
-                var criteria = scope.$modelValue;
-                var c = new Models.Criteria();
-                c.title = criteria.title + '.' + (criteria.subCriterias.length + 1);
-                c.userWeight = 1;
-                criteria.subCriterias.push(c);
+                var parent = scope.$modelValue;
+                var subCriteria = new Models.Criteria(parent.level + 1);
+                subCriteria.title = parent.title + '.' + (parent.subCriterias.length + 1);
+                subCriteria.userWeight = 1;
+                parent.subCriterias.push(subCriteria);
             };
             $scope.newOption = function (scope) {
-                var criteria = scope.$modelValue;
+                var parent = scope.$modelValue;
                 var o = new Models.CriteriaOption();
                 o.title = 'New Option';
                 o.value = 1;
-                criteria.options.push(o);
+                parent.options.push(o);
             };
             $scope.newCriteria = function () {
-                var c = new Models.Criteria();
+                var c = new Models.Criteria(1);
                 c.title = 'New Criteria';
                 _this.projectService.project.criterias.push(c);
+            };
+            $scope.addSystem = function (parent) {
+                if (!_this.projectService.project.components || _this.projectService.project.components.length === 0)
+                    return;
+                var rootComp = _this.projectService.project.components[0];
+                var c = new Models.Criteria(parent.level + 1);
+                c.title = rootComp.title;
+                c.id = rootComp.id;
+                parent.subCriterias.push(c);
+            };
+            $scope.addComponent = function (parent) {
+                if (!_this.projectService.project.components || _this.projectService.project.components.length === 0)
+                    return;
+                var rootComp = _this.projectService.project.components[0];
+                if (!rootComp.components || rootComp.components.length === 0)
+                    return;
+                if (parent.subCriterias.length === 0) {
+                    rootComp.components.forEach(function (comp) {
+                        var c = new Models.Criteria(parent.level + 1);
+                        c.title = comp.title;
+                        c.id = comp.id;
+                        parent.subCriterias.push(c);
+                    });
+                }
+                else {
+                    rootComp.components.filter(function (component) {
+                        var found = false;
+                        parent.subCriterias.some(function (crit) {
+                            if (crit.id === component.id) {
+                                found = true;
+                                return true;
+                            }
+                            return false;
+                        });
+                        return !found;
+                    }).forEach(function (comp) {
+                        var c = new Models.Criteria(parent.level + 1);
+                        c.title = comp.title;
+                        c.id = comp.id;
+                        parent.subCriterias.push(c);
+                    });
+                }
             };
             this.projectService.project.updateCriteriaWeights();
         }
@@ -70,7 +112,7 @@ var Criterias;
         };
         CriteriasCtrl.prototype.select = function (item) {
             if (!item) {
-                item = new Models.Criteria();
+                item = new Models.Criteria(0);
                 item.title = 'Top level overview';
                 item.subCriterias = this.projectService.project.criterias;
             }
@@ -94,10 +136,12 @@ var Criterias;
                     label: criteria.title
                 });
             }
-            if (data.length > 0)
+            if (data.length > 0) {
                 Helpers.Utils.drawPie(data);
-            else
+            }
+            else {
                 Helpers.Utils.clearSvg();
+            }
         };
         CriteriasCtrl.prototype.sortOptions = function (criterias, sortDirection) {
             var _this = this;

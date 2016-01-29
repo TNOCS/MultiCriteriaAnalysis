@@ -1,7 +1,7 @@
 ﻿<div class="container-fluid" data-ng-controller="CriteriasCtrl as d">
     <div class="row">
         <h1 class="col-md-8">Criteria</h1>
-        <h1 class="col-md-4" data-ng-if="vm.selectedCriteria">Criteria '{{vm.selectedCriteria.title}}'</h1>
+        <h1 class="col-md-4" data-ng-if="vm.selectedCriteria"><div ng-bind-html="vm.selectedCriteria.title"></div></h1>
     </div>
 
     <script type="text/ng-template" id="options_renderer.html">
@@ -26,12 +26,18 @@
             <!-- Delete criteria -->
             <a class="pull-right btn btn-danger btn-xs" ng-if="item.isEnabled" data-ndrag ng-click="vm.deleteCriteria(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"><span class="glyphicon glyphicon-remove"></span></a>
             <!-- Specify criteria options -->
-            <a class="pull-right btn btn-primary btn-xs" ng-if="item.canHaveOptions() && item.isEnabled"
+            <a class="pull-right btn btn-primary btn-xs" ng-if="item.canHaveOptions() && (!vm.projectService.project.components || item.level === 3)"
                data-ng-click="newOption(this)" style="margin-right: 8px;">
                 <span class="glyphicon glyphicon-list"></span>
             </a>
+            <a class="pull-right btn btn-primary btn-xs" ng-if="vm.projectService.project.components && item.level === 2" data-ng-click="addSystem(item)" style="margin-right: 8px;">
+                <span class="fa fa-sitemap"></span>
+            </a>
+            <a class="pull-right btn btn-primary btn-xs" ng-if="vm.projectService.project.components && item.level === 2" data-ng-click="addComponent(item)" style="margin-right: 8px;">
+                <span class="fa fa-puzzle-piece"></span>
+            </a>                
             <!-- Add a new subcriteria -->
-            <a class="pull-right btn btn-primary btn-xs" ng-if="item.canHaveSubs() && item.isEnabled"
+            <a class="pull-right btn btn-primary btn-xs" ng-if="item.canHaveSubs() && (!vm.projectService.project.components || item.level < 2)"
                data-ng-click="newSubCriteria(this)" style="margin-right: 8px;">
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
@@ -53,10 +59,10 @@
                     data-ng-model="item.dataSourceId"></select> -->
         </div>
         <ol ui-tree-nodes="subCriterias" ng-model="item.subCriterias" ng-if="item.isEnabled" ng-class="{hidden: collapsed}">
-            <li ng-repeat="item in item.subCriterias" ui-tree-node ng-include="'items_renderer.html'"></li>
+            <li ng-repeat="item in item.subCriterias track by item.id" ui-tree-node ng-include="'items_renderer.html'"></li>
         </ol>
         <ol ui-tree-nodes="options" ng-model="item.options" ng-if="item.isEnabled" ng-class="{hidden: collapsed}">
-            <li ng-repeat="item in item.options" ui-tree-node ng-include="'options_renderer.html'"></li>
+            <li ng-repeat="item in item.options track by item.id" ui-tree-node ng-include="'options_renderer.html'"></li>
         </ol>
     </script>
 
@@ -76,7 +82,7 @@
             <div class="col-md-8" ui-tree data-drag-enabled="reorder" data-drag-delay="500"
                  style="margin-top:5px">
                 <ol ui-tree-nodes ng-model="d.projectService.project.criterias">
-                    <li ng-repeat="item in d.projectService.project.criterias"
+                    <li ng-repeat="item in d.projectService.project.criterias track by item.id"
                         ui-tree-node
                         ng-include="'items_renderer.html'"></li>
                 </ol>
