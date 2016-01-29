@@ -34,6 +34,18 @@
                             <li ng-repeat="scenario in vm.scenarios">{{scenario.title}}
                                 <a href="#" ng-click="scenario.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
                                 <rating ng-model="scenario.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                                <ul ng-if="scenario.subScenarios.length > 0" style="margin-left: -23px">
+                                    <li ng-repeat="sub in scenario.subScenarios">{{sub.title | cut:true:30:'...'}}
+                                        <a href="#" ng-click="sub.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                                        <rating ng-model="sub.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                                        <ul ng-if="sub.subScenarios.length > 0" style="margin-left: -23px">
+                                            <li ng-repeat="subsub in sub.subScenarios">{{subsub.title | cut:true:25:'...'}}
+                                                <a href="#" ng-click="subsub.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                                                <rating ng-model="subsub.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -41,27 +53,29 @@
                     <div id="col2">
                         <h3>Criteria</h3>
                         <ul class="list-group">
-                            <li ng-repeat="criteria in vm.mainCriterias">{{criteria.title}}
-                                <a href="#" ng-click="criteria.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                            <li ng-repeat="criteria in vm.mainCriterias">
+                                <a href ng-click="vm.updateSubCriterias(criteria)">{{criteria.title}}</a>
+                                <a href ng-click="criteria.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
                                 <rating ng-model="criteria.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                             </li>
                         </ul>
                     </div>
 
                     <div id="col3">
-                        <h3>Subcriteria</h3>
+                        <h3>{{vm.selectedMainCriterion.title}} criteria</h3>
                         <ul class="list-group">
-                            <li ng-repeat="sub in vm.subCriterias">{{sub.title}}
-                                <a href="#" ng-click="sub.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                            <li ng-repeat="sub in vm.subCriterias">
+                                <a href ng-click="vm.updateModules(sub)">{{sub.title}}</a>
+                                <a ng-click="sub.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
                                 <rating ng-model="sub.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                             </li>
                         </ul>
                     </div>
 
                     <div id="col4">
-                        <h3>Modules</h3>
+                        <h3>{{vm.selectedSubCriterion.title}} modules</h3>
                         <ul class="list-group">
-                            <li ng-repeat="module in vm.modules">{{module.title}}
+                            <li ng-repeat="module in vm.modules">{{module.title | cut:true:30:'...'}}
                                 <a href="#" ng-click="module.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
                                 <rating ng-model="module.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                             </li>

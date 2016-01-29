@@ -15,6 +15,8 @@ module Users {
         public mainCriterias: Models.Criteria[] = [];
         public subCriterias: Models.Criteria[] = [];
         public modules: Models.Criteria[] = [];
+        public selectedMainCriterion: Models.Criteria;
+        public selectedSubCriterion: Models.Criteria;
 
         public static $inject = [
             '$scope',
@@ -50,21 +52,35 @@ module Users {
         }
 
         private initialize() {
-            this.project.scenarios.forEach(s => {
-                this.initScenarios(s);
-                //if (this.scenarios.indexOf(s) < 0) this.scenarios.push(s);
-            });
+            // this.project.scenarios.forEach(s => {
+            //     this.initScenarios(s);
+            // });
+            this.scenarios = this.project.scenarios;
 
             this.project.criterias.forEach(main => {
                 if (this.mainCriterias.indexOf(main) < 0) this.mainCriterias.push(main);
-                main.subCriterias.forEach(sub => {
-                    if (this.subCriterias.indexOf(sub) < 0) this.subCriterias.push(sub);
-                    sub.subCriterias.forEach(m => {
-                        if (this.modules.indexOf(m) < 0) this.modules.push(m);
-                    });
-                });
             });
+            if (this.mainCriterias.length === 0) return;
+            this.updateSubCriterias(this.mainCriterias[0]);
         }
+
+        public updateSubCriterias(crit: Models.Criteria) {
+            this.selectedMainCriterion = crit;
+            this.subCriterias          = [];
+            crit.subCriterias.forEach(sub => {
+                if (this.subCriterias.indexOf(sub) < 0) this.subCriterias.push(sub);
+            });
+            if (this.subCriterias.length === 0) return;
+            this.updateModules(this.subCriterias[0]);
+         }
+
+        public updateModules(sub: Models.Criteria) {
+            this.selectedSubCriterion = sub;
+            this.modules              = [];
+            sub.subCriterias.forEach(m => {
+                if (this.modules.indexOf(m) < 0) this.modules.push(m);
+            });
+         }
 
         private initScenarios(scenario: Models.Scenario) {
             scenario.subScenarios.forEach(s => {
