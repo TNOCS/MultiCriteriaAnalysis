@@ -3,6 +3,12 @@
   "version": "0.0.0",
   "description": "Multi-Criteria Analysis, a.k.a. MCA",
   "main": "server.js",
+  "scripts": {
+      "start": "node server.js"
+  },
+  "engines": {
+    "node": "5.4.0"
+  },
   "author": {
     "name": "Erik Vullings",
     "email": "Erik.Vullings@gmail.com"
