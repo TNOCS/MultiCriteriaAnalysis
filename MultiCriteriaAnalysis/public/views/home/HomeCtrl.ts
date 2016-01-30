@@ -176,7 +176,7 @@
                 users: this.userService.users,
                 project: this.projectService.project
             }
-            var projectAsJson = JSON.stringify(savedProject);
+            var projectAsJson = angular.toJson(savedProject);
             Helpers.Utils.saveData(projectAsJson, filename);
         }
 
