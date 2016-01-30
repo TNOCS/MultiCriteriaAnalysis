@@ -17,7 +17,7 @@
             <label for="compId" class="pull-right">Id: </label>
         </div>
         <ol ui-tree-nodes="subComponents" ng-model="item.components" ng-class="{hidden: collapsed}">
-            <li ng-repeat="item in item.components" ui-tree-node ng-include="'items_renderer.html'"></li>
+            <li ng-repeat="item in item.components track by item.id" ui-tree-node ng-include="'items_renderer.html'"></li>
         </ol>
     </script>
 
@@ -111,7 +111,7 @@
             <div class="col-md-12" ui-tree data-drag-enabled="reorder" data-drag-delay="500"
                  style="margin-top:5px">
                 <ol ui-tree-nodes ng-model="vm.projectService.project.components">
-                    <li ng-repeat="item in vm.projectService.project.components"
+                    <li ng-repeat="item in vm.projectService.project.components track by item.id"
                         ui-tree-node
                         ng-include="'items_renderer.html'"></li>
                 </ol>
