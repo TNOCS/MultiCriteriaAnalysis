@@ -14,14 +14,14 @@ module Models {
                     var isFirstModule = true;
                     sub.subCriterias.forEach(m => {
                         if (!m.isEnabled) return;
-                        csv += `${isFirstModule ? '' : ';;'} ${m.title}; ${CsvModel.optionsAsArray(m)}\r\n`;
+                        csv += `${isFirstModule ? '' : ';;'} ${m.title}; ${CsvModel.optionsAsArray(m)}; ${m.isScenarioDependent ? 'yes' : 'no'}\r\n`;
                         isFirstModule = false;
                     });
 
                 });
             });
             // Replace escaped HTML characters.
-            return csv.replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ');
+            return csv.replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
         }
 
         /**
@@ -31,11 +31,11 @@ module Models {
          * @return {[type]}                [description]
          */
         private static createCsvHeader(project: McaProject) {
-            var csv: string = '';
+            var header: string = '';
 
-            csv += `Project; ${project.title}; ${project.id}\r\n\r\n`;
-            csv += `Main criteria; Sub criteria; Modules; Options; ${CsvModel.scenariosAsString(project)}\r\n`;
-            return csv;
+            header += `Project; ${project.title}; ${project.id}\r\n\r\n`;
+            header += `Main criteria; Sub criteria; Module; Options; Uses scenario; Generic effect (no scenario); ${CsvModel.scenariosAsString(project)}\r\n`;
+            return header;
         }
 
         /**
@@ -45,11 +45,26 @@ module Models {
          * @return {[type]}                  [description]
          */
         private static scenariosAsString(project: McaProject) {
-            var str: string = '';
+            var scenarios: Models.Scenario[] = [];
             project.scenarios.forEach(s => {
-                str += `${s.title}; `;
+                if (s.subScenarios && s.subScenarios.length > 0) {
+                    CsvModel.scenarioAsStringRecursively(s, scenarios);
+                } else {
+                    scenarios.push(s);
+                }
             });
-            return str;
+            return scenarios.map(s => s.title).join('; ');
+        }
+
+        private static scenarioAsStringRecursively(scenario: Scenario, scenarios: Models.Scenario[]) {
+            scenario.subScenarios.forEach(s => {
+                if (s.subScenarios && s.subScenarios.length > 0) {
+                    CsvModel.scenarioAsStringRecursively(s, scenarios);
+                } else {
+                    scenarios.push(s);
+                }
+            });
+            return scenarios;
         }
 
         /**
