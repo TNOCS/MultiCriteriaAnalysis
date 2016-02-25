@@ -436,7 +436,7 @@
          */
         static deleteDialog(modal, title: string, text: string, callback: (result: boolean) => void) {
             var modalInstance = modal.open({
-                templateUrl: 'views/dialogs/ConfirmationDialog.html',
+                templateUrl: 'views/dialogs/confirmationDialog.html',
                 controller: 'ConfirmationDialogCtrl',
                 size: 'sm', // = small or 'lg' for large
                 resolve: {
