@@ -35,7 +35,8 @@
     "angular-ui-tree": "~2.13.0",
     "angular-multi-select": "~2.0.2",
     "d3": "~3.4.13",
-    "d3-tip": "~0.6.6"
+    "d3-tip": "~0.6.6",
+    "angular-sanitize": "~1.5.0"
   },
   "resolutions": {
     "d3": "3.5.5",
