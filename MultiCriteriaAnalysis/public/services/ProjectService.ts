@@ -84,7 +84,7 @@
         }
 
         createCsvTemplate() {
-            return Models.CsvModel.createCsvTemplate(this.project);
+            return Models.CsvModel.createCsvTemplate(this);
         }
     }
 }

@@ -168,7 +168,7 @@ var Solutions;
         };
         SolutionsCtrl.prototype.downloadCsv = function () {
             var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title.replace(/ /g, '_') + '.csv';
-            var csv = Models.CsvModel.createCsvTemplate(this.projectService.project);
+            var csv = Models.CsvModel.createCsvTemplate(this.projectService);
             Helpers.Utils.saveData(csv, filename);
         };
         SolutionsCtrl.$inject = [
