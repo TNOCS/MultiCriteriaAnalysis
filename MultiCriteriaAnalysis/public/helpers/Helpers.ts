@@ -119,6 +119,10 @@
             Utils.clearSvg();
 
             if (!data) return;
+            var sumOfWidths = 0;
+            if ($.isArray(data)) {
+                if (data.every((d) => { return (!d.width || d.width === 0); })) return;
+            }
 
             var width = 2 * Utils.pieRadius + (drawLegend ? 200 : 0),
                 height = Math.max(2 * (Utils.pieRadius + Utils.borderOffset), (drawLegend ? (data.length + 1) * (Utils.legendRectSize + Utils.legendSpacing) : 0)),
