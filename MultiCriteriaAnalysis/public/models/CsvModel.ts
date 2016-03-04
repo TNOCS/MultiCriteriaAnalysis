@@ -17,27 +17,49 @@ module Models {
                     if (!sub.isEnabled || !sub.subCriterias || sub.subCriterias.length === 0) return;
                     csv += `${main.title}; ${sub.title};`;
                     var isFirstModule = true;
-                    sub.subCriterias.forEach(m => {
-                        if (!m.isEnabled) return;
-                        csv += `${isFirstModule ? '' : ';;'} ${m.title}; ${CsvModel.optionsAsArray(m)}; ${m.isScenarioDependent ? 'yes' : 'no'};`
-                        if (!m.isScenarioDependent) {
-                            if (scores.hasOwnProperty(m.id) && (scores[m.id].hasOwnProperty('0'))) {
-                                csv += `${scores[m.id]['0'].value};`;
+                    sub.subCriterias.forEach(subsub => {
+                        if (!subsub.isEnabled) return;
+                        if (subsub.subCriterias.length > 0) {
+                            subsub.subCriterias.forEach(m => {
+                                csv += `${isFirstModule ? '' : ';;'}${subsub.title}; ${m.title}; ${CsvModel.optionsAsArray(m)}; ${m.isScenarioDependent ? 'yes' : 'no'};`
+                                if (!subsub.isScenarioDependent) {
+                                    if (scores.hasOwnProperty(m.id) && (scores[m.id].hasOwnProperty('0'))) {
+                                        csv += `${scores[m.id]['0'].value};`;
+                                    } else {
+                                        csv += `;`;
+                                    }
+                                } else {
+                                    csv += `;`;
+                                    if (scores.hasOwnProperty(subsub.id)) {
+                                        for (let i = 0; i < numberOfScenarios; i++) {
+                                            csv += `${scores[subsub.id].hasOwnProperty(Object.keys(allScenarios)[i]) ? scores[subsub.id][Object.keys(allScenarios)[i]].value + ';' : ';'}`;
+                                        }
+                                    }
+                                }
+                                csv += `\r\n`;
+                                isFirstModule = false;
+                            });
+                        } else {
+                            // in case of no sub-sub-criteria
+                            csv += `${isFirstModule ? '' : ';;'}; ${subsub.title}; ${CsvModel.optionsAsArray(subsub)}; ${subsub.isScenarioDependent ? 'yes' : 'no'};`
+                            if (!subsub.isScenarioDependent) {
+                                if (scores.hasOwnProperty(subsub.id) && (scores[subsub.id].hasOwnProperty('0'))) {
+                                    csv += `${scores[subsub.id]['0'].value};`;
+                                } else {
+                                    csv += `;`;
+                                }
                             } else {
                                 csv += `;`;
-                            }
-                        } else {
-                            csv += `;`;
-                            if (scores.hasOwnProperty(m.id)) {
-                                for (let i = 0; i < numberOfScenarios; i++) {
-                                    csv += `${scores[m.id].hasOwnProperty(Object.keys(allScenarios)[i]) ? scores[m.id][Object.keys(allScenarios)[i]].value + ';' : ';'}`;
+                                if (scores.hasOwnProperty(subsub.id)) {
+                                    for (let i = 0; i < numberOfScenarios; i++) {
+                                        csv += `${scores[subsub.id].hasOwnProperty(Object.keys(allScenarios)[i]) ? scores[subsub.id][Object.keys(allScenarios)[i]].value + ';' : ';'}`;
+                                    }
                                 }
                             }
+                            csv += `\r\n`;
+                            isFirstModule = false;
                         }
-                        csv += `\r\n`;
-                        isFirstModule = false;
                     });
-
                 });
             });
             // Replace escaped HTML characters.
@@ -54,7 +76,7 @@ module Models {
             var header: string = '';
 
             header += `Project; ${project.title}; ${project.id}\r\n\r\n`;
-            header += `Main criteria; Sub criteria; Module; Options; Uses scenario; Generic effect (no scenario); ${CsvModel.scenariosAsString(project)}\r\n`;
+            header += `Main criteria; Sub criteria; Sub sub criteria; Module; Options; Uses scenario; Generic effect (no scenario); ${CsvModel.scenariosAsString(project)}\r\n`;
             return header;
         }
 

@@ -5,6 +5,7 @@
         options           : any;
         reorder           : boolean;
         sortAscending     : boolean;
+        allCollapsed      : boolean;
         remove            : Function;
         toggle            : Function;
         newSubCriteria    : Function;
@@ -13,6 +14,7 @@
         removeOption      : Function;
         addSystem         : Function;
         addComponent      : Function;
+        collapseAll       : Function;
     }
 
     export class CriteriasCtrl {
@@ -43,6 +45,7 @@
 
             $scope.reorder       = false;
             $scope.sortAscending = false;
+            $scope.allCollapsed  = false;
             $scope.selectedItem  = {};
             $scope.options       = {};
 
@@ -81,9 +84,21 @@
                 var rootComp = this.projectService.project.components[0];
                 var c = new Models.Criteria(parent.level + 1);
                 c.title = rootComp.title;
-                c.id    = rootComp.id;
+                c.id = Helpers.Utils.createGuid();//rootComp.id; //id should be unique to prevent problems when assigning option values
                 parent.subCriterias.push(c);
             };
+
+            $scope.collapseAll = () => {
+                this.$scope.allCollapsed = !this.$scope.allCollapsed;
+                var nodes = document.getElementsByClassName("angular-ui-tree-node");
+                for (let i = 0; i < nodes.length; i++) {
+                    if (this.$scope.allCollapsed) {
+                        (<any>angular.element(nodes[i]).scope()).collapse();
+                    } else {
+                        (<any>angular.element(nodes[i]).scope()).expand();
+                    }
+                }
+            }
 
             $scope.addComponent = (parent: Models.Criteria) => {
                 if (!this.projectService.project.components || this.projectService.project.components.length === 0) return;
@@ -93,7 +108,7 @@
                     rootComp.components.forEach(comp => {
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
-                        c.id    = comp.id;
+                        c.id = Helpers.Utils.createGuid();//comp.id; //id should be unique to prevent problems when assigning option values
                         parent.subCriterias.push(c);
                     });
                 } else {
@@ -110,7 +125,7 @@
                     }).forEach(comp => {
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
-                        c.id    = comp.id;
+                        c.id    = Helpers.Utils.createGuid();// comp.id; //id should be unique to prevent problems when assigning option values
                         parent.subCriterias.push(c);
                     });
                 }

@@ -24,6 +24,10 @@
 
         <div data-ng-if="vm.projectService.project != null">
             <div class="row" style="margin-right: 10px">
+                <div class="col-md-4">
+                    <a style="margin: 0 5px" href="" ng-show="!allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-up" style="margin: 0 5px"></i>collapse all</a>
+                    <a style="margin: 0 5px" href="" ng-show="allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-down" style="margin: 0 5px"></i>expand all</a>
+                </div>
                 <div class="col-md-8">
                     <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
                     <div ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lock"></i><a style="margin-left: 5px">enable reorder</a></div>

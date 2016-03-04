@@ -7,11 +7,13 @@
         newSubScenario      : Function;
         //newSubScenario    : Function;
         reorder             : boolean;
+        allCollapsed        : boolean;
         newScenario         : Function
         newOption           : Function;
         removeOption        : Function;
         //multiSelectOptions  : any;
         clicked             : Function;
+        collapseAll         : Function;
     }
 
     export class ScenariosCtrl {
@@ -53,6 +55,7 @@
             //}
 
             $scope.reorder = false;
+            $scope.allCollapsed = false;
 
             $scope.$on('$viewContentLoaded', function() {
                 (<any>$('.multiselect')).multiselect();
@@ -79,6 +82,19 @@
                 scenario.title = "New Scenario";
                 this.projectService.project.scenarios.push(scenario);
             };
+            
+            
+            $scope.collapseAll = () => {
+                this.$scope.allCollapsed = !this.$scope.allCollapsed;
+                var nodes = document.getElementsByClassName("angular-ui-tree-node");
+                for (let i = 0; i < nodes.length; i++) {
+                    if (this.$scope.allCollapsed) {
+                        (<any>angular.element(nodes[i]).scope()).collapse();
+                    } else {
+                        (<any>angular.element(nodes[i]).scope()).expand();
+                    }
+                }
+            }
 
             if (!projectService.activeScenario) return;
 
@@ -98,7 +114,7 @@
                 var index = scenarios.indexOf(scenario);
                 if (index < 0) return;
                 scenarios.splice(index, 1);
-                this.$scope.$apply();
+                if (this.$scope.$root.$$phase != '$apply' && this.$scope.$root.$$phase != '$digest') { this.$scope.$apply(); }
             });
         }
 
