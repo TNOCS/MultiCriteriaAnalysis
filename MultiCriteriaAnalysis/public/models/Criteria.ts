@@ -168,7 +168,12 @@
             for (var i = 0; i < subs.length; i++) {
                 var sub = subs[i];
                 if (sub === this) return parent;
-                if (sub.subCriterias.length > 0) return this.findParentRecursively(sub);
+                if (sub.subCriterias.length > 0) { 
+                   var par = this.findParentRecursively(sub);
+                   if (par !== null) {
+                       return par;
+                   }
+                }
             }
             return null;
         }

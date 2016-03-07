@@ -121,7 +121,12 @@
             if (!data) return;
             var sumOfWidths = 0;
             if ($.isArray(data)) {
-                if (data.every((d) => { return (!d.width || d.width === 0); })) return;
+                if (data.every((d) => { return (!d.width || d.width === 0); })) {
+                    $('#pieChart').text('All scores are zero. To show the chart, increase the scores for the selected element.');
+                    return;
+                } else {
+                    $('#pieChart').text('');
+                }
             }
 
             var width = 2 * Utils.pieRadius + (drawLegend ? 200 : 0),
