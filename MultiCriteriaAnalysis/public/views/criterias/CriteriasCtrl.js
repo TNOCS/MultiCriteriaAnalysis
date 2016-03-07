@@ -70,6 +70,7 @@ var Criterias;
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
                         c.id = Helpers.Utils.createGuid();
+                        c.componentId = comp.id;
                         parent.subCriterias.push(c);
                     });
                 }
@@ -77,7 +78,7 @@ var Criterias;
                     rootComp.components.filter(function (component) {
                         var found = false;
                         parent.subCriterias.some(function (crit) {
-                            if (crit.id === component.id) {
+                            if (crit.componentId === component.id) {
                                 found = true;
                                 return true;
                             }
@@ -88,6 +89,7 @@ var Criterias;
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
                         c.id = Helpers.Utils.createGuid();
+                        c.componentId = comp.id;
                         parent.subCriterias.push(c);
                     });
                 }
@@ -172,6 +174,6 @@ var Criterias;
             'projectService'
         ];
         return CriteriasCtrl;
-    })();
+    }());
     Criterias.CriteriasCtrl = CriteriasCtrl;
 })(Criterias || (Criterias = {}));

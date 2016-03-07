@@ -13,7 +13,7 @@ var Models;
             comp.components.forEach(function (c) { return _this.components.push(new Component(c)); });
         }
         return Component;
-    })();
+    }());
     Models.Component = Component;
     var McaProject = (function () {
         function McaProject(projectData) {
@@ -517,6 +517,6 @@ var Models;
             }
         };
         return McaProject;
-    })();
+    }());
     Models.McaProject = McaProject;
 })(Models || (Models = {}));
