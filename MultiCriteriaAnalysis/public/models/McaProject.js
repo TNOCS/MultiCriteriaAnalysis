@@ -71,7 +71,7 @@ var Models;
                             var c = criteriaIds[critKey];
                             var selectedOption = s.scores[critKey][scenKey];
                             selectedOption.value = optionIds[selectedOptionId].value;
-                            if (c.isScenarioDependent) {
+                            if (c.isScenarioDependent && scenarioIds.hasOwnProperty(scenKey)) {
                                 var scen = scenarioIds[scenKey];
                                 selectedOption.weight = scen.weight;
                             }

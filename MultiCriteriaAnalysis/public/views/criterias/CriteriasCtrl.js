@@ -10,6 +10,7 @@ var Criterias;
             $scope.vm = this;
             $scope.reorder = false;
             $scope.sortAscending = false;
+            $scope.allCollapsed = false;
             $scope.selectedItem = {};
             $scope.options = {};
             $scope.remove = function (scope) {
@@ -43,8 +44,20 @@ var Criterias;
                 var rootComp = _this.projectService.project.components[0];
                 var c = new Models.Criteria(parent.level + 1);
                 c.title = rootComp.title;
-                c.id = rootComp.id;
+                c.id = Helpers.Utils.createGuid();
                 parent.subCriterias.push(c);
+            };
+            $scope.collapseAll = function () {
+                _this.$scope.allCollapsed = !_this.$scope.allCollapsed;
+                var nodes = document.getElementsByClassName("angular-ui-tree-node");
+                for (var i = 0; i < nodes.length; i++) {
+                    if (_this.$scope.allCollapsed) {
+                        angular.element(nodes[i]).scope().collapse();
+                    }
+                    else {
+                        angular.element(nodes[i]).scope().expand();
+                    }
+                }
             };
             $scope.addComponent = function (parent) {
                 if (!_this.projectService.project.components || _this.projectService.project.components.length === 0)
@@ -56,7 +69,7 @@ var Criterias;
                     rootComp.components.forEach(function (comp) {
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
-                        c.id = comp.id;
+                        c.id = Helpers.Utils.createGuid();
                         parent.subCriterias.push(c);
                     });
                 }
@@ -74,7 +87,7 @@ var Criterias;
                     }).forEach(function (comp) {
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
-                        c.id = comp.id;
+                        c.id = Helpers.Utils.createGuid();
                         parent.subCriterias.push(c);
                     });
                 }
