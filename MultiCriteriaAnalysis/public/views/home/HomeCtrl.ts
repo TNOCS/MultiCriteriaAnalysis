@@ -7,10 +7,11 @@
         sortAscending     : boolean;
         remove            : Function;
         toggle            : Function;
-        newSubComponent    : Function;
-        newComponent       : Function;
-        newOption         : Function;
-        removeOption      : Function;
+        newSubComponent     : Function;
+        newComponent        : Function;
+        updateComponentTitle: Function;
+        newOption           : Function;
+        removeOption        : Function;
     }
 
     export interface ISavedProject {
@@ -72,6 +73,10 @@
                 });
                 this.projectService.project.components.push(c);
                 if (this.$scope.$$phase !== '$apply' && this.$scope.$$phase !== '$digest') { this.$scope.$apply(); }
+            };
+            
+            $scope.updateComponentTitle = (item) => {
+                this.projectService.updateComponentTitles(item);
             };
 
             this.projects = projectService.projects;

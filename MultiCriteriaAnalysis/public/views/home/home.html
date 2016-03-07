@@ -5,7 +5,7 @@
                 <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
             </a>
             <span class="fa" ng-class="{'fa-sitemap': item.level<=1, 'fa-puzzle-piece': item.level>1}" style="margin-right: 10px"></span>
-            <span id="compTitle" contenteditable strip-br ng-model="item.title" style="font-size:20px;cursor:text" data-ndrag></span>
+            <span id="compTitle" contenteditable strip-br ng-model="item.title" ng-change="updateComponentTitle(item)" style="font-size:20px;cursor:text" data-ndrag></span>
             <!-- Delete component -->
             <a class="pull-right btn btn-danger btn-xs" data-ndrag ng-click="vm.deleteComponent(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"><span class="glyphicon glyphicon-remove"></span></a>
             <!-- Add a new subcomponent -->

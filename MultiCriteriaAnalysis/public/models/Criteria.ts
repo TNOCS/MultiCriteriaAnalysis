@@ -35,6 +35,8 @@
         subCriterias : Criteria[] = [];
         options      : CriteriaOption[] = []
         dataSourceId : string;
+        /** When the criteria is a component of the system, this contains its id*/
+        componentId  : string;
         /** When true, the criteria's value does not depend on the specific scenario. */
         isScenarioDependent = false;
         isEnabled = true;
@@ -55,12 +57,16 @@
             this.description  = data.description;
             this.userWeight   = data.userWeight;
             this.dataSourceId = data.dataSourceId;
+            this.componentId  = data.componentId;
             this.isScenarioDependent = data.isScenarioDependent;
             if (typeof data.isEnabled === 'undefined' || data.isEnabled == null) {
                 this.isEnabled = true;
             } else {
                 this.isEnabled = data.isEnabled;
             }
+            // if (this.userWeight === 0) {
+            //     this.isEnabled = false;
+            // }
             this.calculateWeights();
 
             data.subCriterias.forEach((d) => {
@@ -186,6 +192,7 @@
             this.title = criterion.title;
             this.description = criterion.description;
             this.userWeight = criterion.userWeight;
+            this.componentId = criterion.componentId;
             this.weight = criterion.weight * parentWeight;
             this.options = criterion.options;
         }

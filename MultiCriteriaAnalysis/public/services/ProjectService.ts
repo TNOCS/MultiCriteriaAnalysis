@@ -86,5 +86,21 @@
         createCsvTemplate() {
             return Models.CsvModel.createCsvTemplate(this);
         }
+        
+        updateComponentTitles(comp: Models.Component) {            
+            this.renameComponentRecursively(this.project.criterias, comp);
+        }
+        
+        renameComponentRecursively(crits: Models.Criteria[], comp: Models.Component) {
+            crits.forEach((c) => {
+                if (c.subCriterias.length > 0) {
+                    this.renameComponentRecursively(c.subCriterias, comp);
+                } else {
+                    if (c.componentId && c.componentId === comp.id) {
+                        c.title = comp.title;
+                    }
+                }
+            });
+        }
     }
 }

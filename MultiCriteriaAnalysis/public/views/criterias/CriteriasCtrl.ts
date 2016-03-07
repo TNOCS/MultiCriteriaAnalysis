@@ -108,14 +108,15 @@
                     rootComp.components.forEach(comp => {
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
-                        c.id = Helpers.Utils.createGuid();//comp.id; //id should be unique to prevent problems when assigning option values
+                        c.id = Helpers.Utils.createGuid(); //id should be unique to prevent problems when assigning option values
+                        c.componentId = comp.id;
                         parent.subCriterias.push(c);
                     });
                 } else {
                     rootComp.components.filter(component => {
                         var found = false;
                         parent.subCriterias.some(crit => {
-                            if (crit.id === component.id) {
+                            if (crit.componentId === component.id) {
                                 found = true;
                                 return true;
                             }
@@ -125,7 +126,8 @@
                     }).forEach(comp => {
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
-                        c.id    = Helpers.Utils.createGuid();// comp.id; //id should be unique to prevent problems when assigning option values
+                        c.id    = Helpers.Utils.createGuid(); //id should be unique to prevent problems when assigning option values
+                        c.componentId = comp.id;
                         parent.subCriterias.push(c);
                     });
                 }
