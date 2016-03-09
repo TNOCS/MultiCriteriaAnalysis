@@ -17,7 +17,7 @@
         </script>
 
         <script type="text/ng-template" id="items_renderer.html">
-            <div ui-tree-handle ng-click="vm.select(item)">
+            <div ui-tree-handle ng-click="vm.select(item)" ng-mouseenter="hovered=true" ng-mouseleave="hovered=false">
                 <a class="btn btn-success btn-xs" ng-click="toggle(this)">
                     <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
                 </a>
@@ -36,12 +36,12 @@
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
                 <!-- Add a system -->
-                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': vm.projectService.project.components && item.options.length === 0 && (item.level === 2 || item.level === 3) ? 'visible' : 'hidden'}"
+                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': vm.projectService.project.components && item.subCriterias.length === 0 && item.options.length === 0 && (item.level === 2 || item.level === 3) ? 'visible' : 'hidden'}"
                 data-ng-click="addSystem(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add system">
                     <span class="fa fa-sitemap"></span>
                 </a>
                 <!-- Add components -->
-                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': vm.projectService.project.components && item.options.length === 0 && (item.level === 2 || item.level === 3) ? 'visible' : 'hidden'}"
+                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': vm.projectService.project.components && item.subCriterias.length === 0 && item.options.length === 0 && (item.level === 2 || item.level === 3) ? 'visible' : 'hidden'}"
                 data-ng-click="addComponent(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add components">
                     <span class="fa fa-puzzle-piece"></span>
                 </a>
@@ -49,6 +49,11 @@
                 <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': item.canHaveOptions() && (!vm.projectService.project.components || item.level === 3 || item.level === 4)  ? 'visible' : 'hidden'}"
                 data-ng-click="newOption(this)" style="margin-right: 8px;" data-toggle="tooltip" title="Add options">
                     <span class="glyphicon glyphicon-list"></span>
+                </a>
+                <!--Add decision tree-->
+                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': (item.level === 2 || item.level === 3)  ? 'visible' : 'hidden'}"
+                data-ng-click="vm.chooseDecisionTree(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add a decision tree to the criteria, that will help the user to choose an option in the solution view.">
+                    <span class="glyphicon glyphicon-tree-deciduous"></span>
                 </a>
                 <!-- Rating -->
                 <rating class="pull-right" style="margin:0 10px;cursor:pointer" ng-style="{'visibility': item.isEnabled ? 'visible' : 'hidden'}" ng-model="item.userWeight" max="5"
@@ -59,6 +64,7 @@
                         <input type="checkbox" style="cursor:pointer" ng-model="item.isScenarioDependent" ng-true-value="false" ng-false-value="true"
                         class="pull-right checkbox" style="margin-right: 8px;"> &nbsp;No scenario input&nbsp;&nbsp;</label>
                 </div>
+                <span contenteditable is-description="true" ng-show="hovered && item.isEnabled && !item.componentId" type="text" ng-model="item.description" style="font-size:16px;cursor:text;margin-left:36px;display:block;" data-ndrag></span>
                 <!-- <div>
                 <span class="pull-right">&nbsp;No scenario input&nbsp;&nbsp;</span>
                 <input type="checkbox" ng-model="item.isScenarioDependent" class="pull-right checkbox">

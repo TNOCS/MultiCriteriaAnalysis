@@ -5,6 +5,7 @@
         remove              : Function;
         toggle              : Function;
         newSubScenario      : Function;
+        addModuleSubScenarios: Function;
         //newSubScenario    : Function;
         reorder             : boolean;
         allCollapsed        : boolean;
@@ -67,6 +68,22 @@
 
             $scope.toggle = function(scope) {
                 scope.toggle();
+            };
+            
+            $scope.addModuleSubScenarios = (scope) => {
+                var scenario = <Models.Scenario>scope.$modelValue;
+                var system = this.projectService.project.components;
+                var components;
+                if (system && system.length > 0) {
+                    components = system[0].components;
+                }
+                components.forEach((c) => {
+                    var s = new Models.Scenario();
+                    s.title = scenario.title + ' ' + (c.title);
+                    s.componentId = c.id;
+                    s.userWeight = 1;
+                    scenario.subScenarios.push(s);
+                })
             };
 
             $scope.newSubScenario = (scope) => {

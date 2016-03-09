@@ -8,6 +8,7 @@
         public weight             : number;
         public subScenarios       : Scenario[] = [];
         public score = 0;
+        public componentId        : string;
 
         constructor(data?: Scenario) {
             if (data)
@@ -22,6 +23,7 @@
             this.title               = data.title;
             this.description         = data.description;
             this.userWeight          = data.userWeight;
+            this.componentId         = data.componentId;
             this.calculateWeights();
 
             data.subScenarios.forEach((d) => {

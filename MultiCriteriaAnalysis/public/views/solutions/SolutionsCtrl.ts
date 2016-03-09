@@ -1,17 +1,36 @@
 ﻿module Solutions {
     export interface ISolutionsViewScope extends ng.IScope {
-        vm          : SolutionsCtrl;
+        vm: SolutionsCtrl;
         selectedItem: any;
-        toggle      : Function;
+        toggle: Function;
+    }
+
+    export interface IDecisionTree {
+        id: string;
+        title: string,
+        questions: IQuestion;
+    }
+
+    export interface IQuestion {
+        question: string;
+        answers: { [key: string]: IQuestion | string };
     }
 
     export class SolutionsCtrl {
-        public solutions        : Models.Solution[];
-        public dataSources      : Models.DataSourceViewModel[];
-        public scenarios        : Models.Scenario[];
-        public activeScenarios  : Models.Scenario[] = [];
-        public selectedScenario : Models.Scenario;
-        public activeCriterias  : Models.SelectableCriterion[] = [];
+        public solutions: Models.Solution[];
+        public dataSources: Models.DataSourceViewModel[];
+        public scenarios: Models.Scenario[];
+        public activeScenarios: Models.Scenario[] = [];
+        public selectedScenario: Models.Scenario;
+        public selectedCriteria: Models.Criteria;
+        public activeCriterias: Models.SelectableCriterion[] = [];
+        public parentCriteria: Models.Criteria;
+        public description: string;
+        private activeDecisionTree;
+        private activeQuestion: IQuestion;
+        private activeQuestionIndex: number;
+        private questions: IQuestion[] = [];
+        private finalAnswer: string; 
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -29,19 +48,19 @@
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
-            private $scope        : ISolutionsViewScope,
-            private $modal        : any,
-            private $timeout      : ng.ITimeoutService,
-            private $log          : ng.ILogService,
-            private messageBus    : csComp.Services.MessageBusService,
+            private $scope: ISolutionsViewScope,
+            private $modal: any,
+            private $timeout: ng.ITimeoutService,
+            private $log: ng.ILogService,
+            private messageBus: csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
-            ) {
+        ) {
             $scope.vm = this;
 
             if (projectService.project == null) return;
 
-            this.solutions  = projectService.project.solutions;
-            this.scenarios  = projectService.project.scenarios;
+            this.solutions = projectService.project.solutions;
+            this.scenarios = projectService.project.scenarios;
 
             //this.initializeDataSources();
             this.initializeCriteriaWeights();
@@ -64,9 +83,9 @@
 
             projectService.project.updateScores();
 
-            if (!projectService.activeScenario) return;
+            if (!projectService.activeCriteria) return;
             // Select the scenario using a timeout, so we know for sure that one rendering of GUI has taken place (and the pieChart id is present).
-            $timeout(() => this.select(projectService.activeScenario),0);
+            $timeout(() => this.select(projectService.activeCriteria), 0);
         }
 
         // private updateWeightsAndScore() {
@@ -160,13 +179,13 @@
 
         createNewSolution() {
             var modalInstance = this.$modal.open({
-                templateUrl     : 'views/dialogs/getTitleDialog.html',
-                controller      : 'GetTitleDialogCtrl',
-                size            : 'sm',
-                resolve         : {
-                    header      : () => 'Create a new solution',
-                    title       : () => '',
-                    description : () => ''
+                templateUrl: 'views/dialogs/getTitleDialog.html',
+                controller: 'GetTitleDialogCtrl',
+                size: 'sm',
+                resolve: {
+                    header: () => 'Create a new solution',
+                    title: () => '',
+                    description: () => ''
                 }
             });
 
@@ -191,30 +210,68 @@
             var scores = this.projectService.activeSolution.scores;
             criteria.calculateWeights();
             var criteriaOptionId = scores[criteria.id][scenarioId]["criteriaOptionId"];
-            scores[criteria.id][scenarioId]["value"]  = criteria.getOptionValueById(criteriaOptionId);
+            scores[criteria.id][scenarioId]["value"] = criteria.getOptionValueById(criteriaOptionId);
             scores[criteria.id][scenarioId]["weight"] = weight;
             //this.updateResult();
         }
 
-        select(item: Models.Scenario) {
+        select(item: Models.Criteria) {
             if (!item) {
-                // Create a pseudo scenario that is the top level
-                item              = new Models.Scenario();
-                item.title        = "Top level scenario";
-                item.subScenarios = this.projectService.project.scenarios;
+                // Create a pseudo criteria that is the top level
+                item = new Models.Criteria(0);
+                item.title = "Top level criteria";
+                item.subCriterias = this.projectService.project.criterias;
+                item.description = 'No description available';
             }
-            this.selectedScenario = item;
-            this.projectService.activeScenario = item;
+            this.selectedCriteria = item;
+            this.projectService.activeCriteria = item;
+            this.selectedScenario = null;
             this.activeCriterias = [];
+            this.parentCriteria = item.findParent(this.projectService.project);
+            this.description = item.description || 'No description available';
+            this.activeQuestion = null;
+            this.activeDecisionTree = null;
             // if (item.subScenarios === null || item.subScenarios.length === 0) {
             //     this.eachCriteria(this.projectService.project.criterias);
             // }
             //this.updateResult();
         }
 
-        toggleScenario(scenario: Models.Scenario) {
-            return (scenario === this.selectedScenario);
+
+        selectScenario(item: Models.Scenario) {
+            if (!item) return;
+            this.selectedScenario = item;
         }
+
+        selectDecisionTree() {
+            this.activeQuestionIndex = null;
+            this.activeQuestion = null;
+            this.questions = null;
+            this.finalAnswer = null;
+            if (!this.selectedCriteria) return;
+            var decisionTreeId = this.selectedCriteria.decisionTreeId || this.parentCriteria.decisionTreeId;
+            var decisionTree = this.projectService.findDecisionTreeById(decisionTreeId);
+            if (!decisionTree || !decisionTree.questions) return;
+            this.activeQuestion = decisionTree.questions;
+            this.activeQuestionIndex = 0;
+            this.questions = [this.activeQuestion];
+        }
+
+        answerChanged(answerKey: string, index: number) {
+            var answer = this.activeQuestion.answers[answerKey];
+            if (typeof answer === 'string') {
+                this.finalAnswer = answer;
+            } else {
+                if (this.finalAnswer) this.finalAnswer = null;
+                this.activeQuestion = answer;
+                this.questions.push(this.activeQuestion);
+                this.activeQuestionIndex += 1;
+            }
+        }
+
+        // toggleScenario(scenario: Models.Scenario) {
+        //     return (scenario === this.selectedCriteria);
+        // }
 
         /**
          * Use the selected data source to filter the results.

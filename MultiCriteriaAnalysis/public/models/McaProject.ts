@@ -30,15 +30,19 @@
         url        : string;
         // TODO Add a saved date.
 
-        components  : IComponent[] = [];
-        criterias   : Criteria[]   = [];
-        scenarios   : Scenario[]   = [];
-        solutions   : Solution[]   = [];
-        dataSources : DataSource[] = [];
+        components   : IComponent[] = [];
+        criterias    : Criteria[]   = [];
+        scenarios    : Scenario[]   = [];
+        solutions    : Solution[]   = [];
+        dataSources  : DataSource[] = [];
+        decisionTrees: Solutions.IDecisionTree[] = [];
 
         constructor(projectData?: McaProject) {
             if (projectData) this.fromJson(projectData);
             if (!this.id) this.id = Helpers.Utils.createGuid();
+            if (this.decisionTrees.length === 0) {
+                this.decisionTrees = McaProject.defaultDecisionTrees();
+            }
         }
 
         updateCriteriaAndScenarios() {
@@ -136,6 +140,7 @@
                 this.dataSources.push(dataSource);
             });
             if (projectData.solutions) projectData.solutions.forEach(data => this.solutions.push(new Models.Solution(data)));
+            if (projectData.decisionTrees) projectData.decisionTrees.forEach(data => this.decisionTrees.push(data));
         }
 
         get rootCriterion() {
@@ -586,7 +591,98 @@
                 }
             }
         }
-
+        
+        private static defaultDecisionTrees(): Solutions.IDecisionTree[] {
+            var decision1: Solutions.IDecisionTree = {
+                id: 'bb148298-020d-4fb7-ae65-9635bcd5c7bb',
+                title: 'Repair time',
+                questions: {
+                    question: 'Is there an unrepairable structural damage?',
+                    answers: {
+                        yes: 'Unrepairable',
+                        no: {
+                            question: 'Is there repairable damage on a large scale?',
+                            answers: {
+                                yes: 'Long repair time',
+                                no: {
+                                    question: 'Is there a contamination?',
+                                    answers: {
+                                        yes: 'Long repair time',
+                                        no: {
+                                            question: 'Is there repairable damage on a small scale (locally)?',
+                                            answers: {
+                                                yes: 'Short repair time',
+                                                no: {
+                                                    question: 'Is there a dirt / rubbish?',
+                                                    answers: {
+                                                        yes: 'Short repair time',
+                                                        no: {
+                                                            question: 'Is there a service damage?',
+                                                            answers: {
+                                                                yes: 'Short repair time',
+                                                                no: 'No repair time'
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            var decision2: Solutions.IDecisionTree = {
+                id: 'a3148248-020d-4fa7-ae65-9635bcd5c7fa',
+                title: 'Post-incident capacity',
+                questions: {
+                    question: 'Is there an unrepairable structural damage?',
+                    answers: {
+                        yes: 'No capacity',
+                        no: {
+                            question: 'Is there repairable damage on a large scale?',
+                            answers: {
+                                yes: 'No capacity',
+                                no: {
+                                    question: 'Is there a contamination?',
+                                    answers: {
+                                        yes: 'No capacity',
+                                        no: {
+                                            question: 'Is the electricity available?',
+                                            answers: {
+                                                no: 'No capacity',
+                                                yes: {
+                                                    question: 'Is there repairable damage on a small scale (locally)?',
+                                                    answers: {
+                                                        yes: 'Maybe/partly capacity',
+                                                        no: {
+                                                            question: 'Is there a dirt / rubbish?',
+                                                            answers: {
+                                                                yes: 'Maybe/partly capacity',
+                                                                no: {
+                                                                    question: 'Is there a service damage?',
+                                                                    answers: {
+                                                                        yes: 'Maybe/partly capacity',
+                                                                        maybe: 'Maybe/partly capacity',
+                                                                        no: 'Full capacity'
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+            return [decision1, decision2];
+        }
     }
-
 }

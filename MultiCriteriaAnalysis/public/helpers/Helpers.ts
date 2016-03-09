@@ -122,7 +122,7 @@
             var sumOfWidths = 0;
             if ($.isArray(data)) {
                 if (data.every((d) => { return (!d.width || d.width === 0); })) {
-                    $('#pieChart').text('All scores are zero. To show the chart, increase the scores for the selected element.');
+                    $('#pieChart').text('All weights are zero. To show the chart, increase the weights for the selected element.');
                     return;
                 } else {
                     $('#pieChart').text('');
@@ -439,7 +439,30 @@
                 callback(text);
             });
         }
+        
+        /**
+         * Choose DecisionTree dialog.
+         */
+        static chooseDecisionTreeDialog(modal, title: string, text: string, trees: Solutions.IDecisionTree[], callback: (selectedTreeId: string) => void) {
+            var modalInstance = modal.open({
+                templateUrl: 'views/dialogs/chooseDecisionTreeDialog.html',
+                controller: 'ChooseDecisionTreeDialogCtrl',
+                size: 'sm', // = small or 'lg' for large
+                resolve: {
+                    header     : () => title,
+                    title      : () => text,
+                    description: () => '',
+                    trees      : () => trees,
+                    selectedTreeId: () => ''
+                }
+            });
 
+            modalInstance.result.then((selectedTreeId: string) => {
+                callback(selectedTreeId);
+            }, () => {
+                callback('cancel');
+            });
+        }
         /**
          * Delete dialog.
          */

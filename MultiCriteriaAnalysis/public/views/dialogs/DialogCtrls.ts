@@ -67,4 +67,42 @@
             this.$modalInstance.dismiss('cancel');
         }
     }
+    
+    export interface IChooseDecisionTreeDialogScope extends ng.IScope {
+        vm: ChooseDecisionTreeDialogCtrl;
+        header: string;
+    }
+    
+    export class ChooseDecisionTreeDialogCtrl {
+        public static $inject = [
+            '$scope',
+            '$modalInstance',
+            'header',
+            'title',
+            'description', 
+            'trees',
+            'selectedTreeId'
+        ];
+
+        constructor(
+            private $scope: IChooseDecisionTreeDialogScope,
+            private $modalInstance: any,
+            private header: string,
+            public title: string,
+            public description: string,
+            public trees: Solutions.IDecisionTree[],
+            public selectedTreeId: string) {
+
+            $scope.vm = this;
+            $scope.header = header;
+        }
+
+        public ok() {
+            this.$modalInstance.close(this.selectedTreeId);
+        }
+
+        public cancel() {
+            this.$modalInstance.dismiss('cancel');
+        }
+    }
 }

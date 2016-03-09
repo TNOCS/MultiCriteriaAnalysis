@@ -37,6 +37,8 @@
         dataSourceId : string;
         /** When the criteria is a component of the system, this contains its id*/
         componentId  : string;
+        /** The id of the input model (decision tree) for the criteria */
+        decisionTreeId: string;
         /** When true, the criteria's value does not depend on the specific scenario. */
         isScenarioDependent = false;
         isEnabled = true;
@@ -58,6 +60,7 @@
             this.userWeight   = data.userWeight;
             this.dataSourceId = data.dataSourceId;
             this.componentId  = data.componentId;
+            this.decisionTreeId      = data.decisionTreeId;
             this.isScenarioDependent = data.isScenarioDependent;
             if (typeof data.isEnabled === 'undefined' || data.isEnabled == null) {
                 this.isEnabled = true;
@@ -123,6 +126,7 @@
             var option = new CriteriaOption();
             option.title = title;
             option.value = value;
+            option.description = 'Description';
             this.options.push(option);
             return option;
         }
@@ -150,7 +154,7 @@
         /**
          * Find the parent of the element. Returns null when there is no parent.
          */
-        findParent(project: McaProject): Criteria {
+        public findParent(project: McaProject): Criteria {
             var subs = project.criterias;
             if (subs.length === 0) return null;
             for (var i = 0; i < subs.length; i++) {
@@ -193,6 +197,7 @@
             this.description = criterion.description;
             this.userWeight = criterion.userWeight;
             this.componentId = criterion.componentId;
+            this.decisionTreeId = criterion.decisionTreeId;
             this.weight = criterion.weight * parentWeight;
             this.options = criterion.options;
         }

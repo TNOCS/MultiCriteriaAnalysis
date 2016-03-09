@@ -102,5 +102,10 @@
                 }
             });
         }
+        
+        findDecisionTreeById(decisionTreeId: string): Solutions.IDecisionTree {
+            if (!this.project.decisionTrees || this.project.decisionTrees.length === 0) return null;
+            return (this.project.decisionTrees.filter((tree)=>{return tree.id === decisionTreeId;}).pop());
+        }
     }
 }

@@ -20,6 +20,7 @@ var Models;
             this.title = data.title;
             this.description = data.description;
             this.userWeight = data.userWeight;
+            this.componentId = data.componentId;
             this.calculateWeights();
             data.subScenarios.forEach(function (d) {
                 var scenario = new Scenario();

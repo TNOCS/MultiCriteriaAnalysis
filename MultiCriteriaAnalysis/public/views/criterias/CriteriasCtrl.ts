@@ -84,7 +84,8 @@
                 var rootComp = this.projectService.project.components[0];
                 var c = new Models.Criteria(parent.level + 1);
                 c.title = rootComp.title;
-                c.id = Helpers.Utils.createGuid();//rootComp.id; //id should be unique to prevent problems when assigning option values
+                c.id = Helpers.Utils.createGuid(); //id should be unique to prevent problems when assigning option values
+                c.componentId = rootComp.id;
                 parent.subCriterias.push(c);
             };
 
@@ -155,6 +156,13 @@
                 var index = criterias.indexOf(criteria);
                 if (index < 0) return;
                 criterias.splice(index, 1);
+            });
+        }
+        
+        chooseDecisionTree(item: Models.Criteria) {
+            Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], (treeId) => {
+                if (!treeId || treeId === '') return;
+                item.decisionTreeId = treeId;
             });
         }
 

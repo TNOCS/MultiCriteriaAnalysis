@@ -59,7 +59,7 @@
             $scope.newSubComponent = (scope) => {
                 var component = <Models.IComponent>scope.$modelValue;
                 var c = new Models.Component(<Models.IComponent>{
-                    title: 'New part',
+                    title: 'New part ' + (component.components.length + 1),
                     level: component.level + 1,
                 });
                 component.components.push(c);

@@ -45,6 +45,7 @@ var Criterias;
                 var c = new Models.Criteria(parent.level + 1);
                 c.title = rootComp.title;
                 c.id = Helpers.Utils.createGuid();
+                c.componentId = rootComp.id;
                 parent.subCriterias.push(c);
             };
             $scope.collapseAll = function () {
@@ -119,6 +120,13 @@ var Criterias;
                 if (index < 0)
                     return;
                 criterias.splice(index, 1);
+            });
+        };
+        CriteriasCtrl.prototype.chooseDecisionTree = function (item) {
+            Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], function (treeId) {
+                if (!treeId || treeId === '')
+                    return;
+                item.decisionTreeId = treeId;
             });
         };
         CriteriasCtrl.prototype.update = function () {

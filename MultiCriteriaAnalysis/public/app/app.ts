@@ -7,7 +7,7 @@
 
     export interface IAppScope extends ng.IScope {
         vm: AppCtrl;
-        toggleChildren : Function;
+        toggleChildren: Function;
         title: string;
     }
 
@@ -51,13 +51,13 @@
                 $scope.$apply();
             });
 
-            $scope.toggleChildren = function (data) {
+            $scope.toggleChildren = function(data) {
                 data.childrenVisible = !data.childrenVisible;
                 data.folderClass = data.childrenVisible ? 'fa-folder-open' : 'fa-folder';
             };
 
             // When the location changes, save the projects
-            $rootScope.$on('$locationChangeStart', function (next, last) {
+            $rootScope.$on('$locationChangeStart', function(next, last) {
                 projectService.save();
             });
 
@@ -78,9 +78,10 @@
         'csWeb.resize',
         'multi-select',
         'ngSanitize',
+        'wiz.markdown',
         //'angularUtils.directives.dirPagination',
         'ui.tree' // https           ://github.com/JimLiu/angular-ui-tree
-        ])
+    ])
         .config(localStorageServiceProvider => {
             localStorageServiceProvider.prefix = 'MultiCriteriaAnalysis';
         })
@@ -89,55 +90,56 @@
             $urlRouterProvider.otherwise('/home');
             $stateProvider
                 .state('home', {
-                    url              : '/home',
-                    templateUrl      : 'views/home/home.html',
-                    sticky           : true,
+                    url: '/home',
+                    templateUrl: 'views/home/home.html',
+                    sticky: true,
                     deepStateRedirect: true
                 })
                 .state('criterias', {
-                    url              : '/criterias',
-                    templateUrl      : 'views/criterias/criterias.html',
-                    sticky           : true,
+                    url: '/criterias',
+                    templateUrl: 'views/criterias/criterias.html',
+                    sticky: true,
                     deepStateRedirect: true
                 })
                 .state('scenarios', {
-                    url              : '/scenarios',
-                    templateUrl      : 'views/scenarios/scenarios.html',
-                    sticky           : true
+                    url: '/scenarios',
+                    templateUrl: 'views/scenarios/scenarios.html',
+                    sticky: true
                 })
                 .state('comparisons', {
-                    url              : '/comparisons',
-                    templateUrl      : 'views/comparisons/comparisons.html',
-                    sticky           : true
+                    url: '/comparisons',
+                    templateUrl: 'views/comparisons/comparisons.html',
+                    sticky: true
                 })
                 .state('solutions', {
-                    url              : '/solutions',
-                    templateUrl      : 'views/solutions/solutions.html',
-                    sticky           : true
+                    url: '/solutions',
+                    templateUrl: 'views/solutions/solutions.html',
+                    sticky: true
                 })
                 .state('user', {
-                    url              : '/user',
-                    templateUrl      : 'views/users/users.html',
-                    sticky           : true
+                    url: '/user',
+                    templateUrl: 'views/users/users.html',
+                    sticky: true
                 });
         })
-        .service('messageBusService',         csComp.Services.MessageBusService)
-        .service('projectService',            Services.ProjectService)
-        .service('userService',               Services.UserService)
-        .controller('appCtrl',                AppCtrl)
-        .controller('HomeCtrl',               Home.HomeCtrl)
-        .controller('ScenariosCtrl',          Scenarios.ScenariosCtrl)
-        .controller('CriteriasCtrl',          Criterias.CriteriasCtrl)
-        .controller('SolutionsCtrl',          Solutions.SolutionsCtrl)
-        .controller('ComparisonsCtrl',        Comparisons.ComparisonsCtrl)
-        .controller('UsersCtrl',              Users.UsersCtrl)
-        .controller('GetTitleDialogCtrl',     DialogCtrls.GetTitleDialogCtrl)
+        .service('messageBusService', csComp.Services.MessageBusService)
+        .service('projectService', Services.ProjectService)
+        .service('userService', Services.UserService)
+        .controller('appCtrl', AppCtrl)
+        .controller('HomeCtrl', Home.HomeCtrl)
+        .controller('ScenariosCtrl', Scenarios.ScenariosCtrl)
+        .controller('CriteriasCtrl', Criterias.CriteriasCtrl)
+        .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
+        .controller('ComparisonsCtrl', Comparisons.ComparisonsCtrl)
+        .controller('UsersCtrl', Users.UsersCtrl)
+        .controller('GetTitleDialogCtrl', DialogCtrls.GetTitleDialogCtrl)
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
+        .controller('ChooseDecisionTreeDialogCtrl', DialogCtrls.ChooseDecisionTreeDialogCtrl)
         .filter('format', [
             '$filter', '$locale', (filter, locale) => (value, format) => String.format(format, value)
         ])
-        .filter('cut', function () {
-            return function (value, wordwise, max, tail) {
+        .filter('cut', function() {
+            return function(value, wordwise, max, tail) {
                 if (!value) return '';
 
                 max = parseInt(max, 10);
@@ -165,15 +167,16 @@
                         var html = element.html();
                         // When we clear the content editable the browser leaves a <br> behind
                         // If strip-br attribute is provided then we strip this out
-                        if ( attrs.stripBr && html === '<br>' ) {
+                        if (attrs.stripBr && html === '<br>') {
                             html = '';
                         }
                         ngModel.$setViewValue(html);
-                       //ngModel.$setViewValue(element.html().replace(/<br[^>]*>/g, ''));
+                        //ngModel.$setViewValue(element.html().replace(/<br[^>]*>/g, ''));
                     }
 
                     ngModel.$render = () => {
-                        element.html(ngModel.$viewValue || '...');
+                        let emptyText = (attrs.isDescription) ? 'Add description' : '...';
+                        element.html(ngModel.$viewValue || emptyText);
                     };
 
                     element.keydown(e => {
@@ -190,5 +193,4 @@
                 }
             };
         });
-
 }
