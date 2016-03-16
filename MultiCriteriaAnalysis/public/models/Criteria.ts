@@ -140,8 +140,10 @@
          */
         public calculateWeights() {
             var totalWeight = 0;
+            if (this.userWeight === 0) { this.isEnabled = false; }
             if (this.subCriterias.length === 0 || !this.isEnabled) return;
             this.subCriterias.forEach((c) => {
+                if (c.userWeight === 0) { c.isEnabled = false; }
                 if (c.isEnabled) totalWeight += c.userWeight;
             });
             if (totalWeight == 0) return;

@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{vm.header}}</h3>
+</div>
+<div class="modal-body">
+    <input type="text" ng-keyup="$event.keyCode == 13 && vm.ok()" 
+           data-ng-model="vm.title" 
+           placeholder="New title" 
+           class="form-control"
+           style="margin-bottom:10px">
+    <label for="decision-tree">Copy other solution</label>
+    <select id="decision-tree" data-ng-model="vm.selectedSolutionId">
+        <option ng-repeat="sln in vm.solutions track by $index" value="{{sln.id}}">{{sln.title}}</option>
+    </select>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" ng-click="vm.cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="vm.ok()">OK</button>
+</div>

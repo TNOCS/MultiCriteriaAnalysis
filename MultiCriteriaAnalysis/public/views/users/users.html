@@ -3,14 +3,17 @@
     <a href="" ng-click="vm.save()" data-toggle="tooltip" title="Save your changes">
         <i class="pull-right fa fa-lg fa-save edit" style="margin-top: -30px; font-size: 18pt;"></i>
     </a>
-    
+
     <div class="row" style="margin: -30px 0 0 10px; font-size: 18pt;">
         <div class="col-md-2 text-right">
-            <label for="name">User</label><br/>
-            <label for="desc">Description</label><br/>
+            <label for="name">User</label>
+            <br/>
+            <label for="desc">Description</label>
+            <br/>
         </div>
         <div class="col-md-4">
-            <input id="name" type="text" style="width: 15em;" ng-model="vm.userService.activeUser.name"><br/>
+            <input id="name" type="text" style="width: 15em;" ng-model="vm.userService.activeUser.name">
+            <br/>
             <textarea id="desc" style="width: 15em;" rows="2" cols="50" ng-model="vm.userService.activeUser.description"></textarea>
         </div>
         <!--<div class="col-md-2 text-right">
@@ -23,8 +26,8 @@
         </div>-->
     </div>
 
-    <h3>Actual settings <a href="#" ng-show="vm.showingActualValues" ng-click="vm.resetPreferences()">(apply preferences of {{vm.userService.activeUser.name}})</a></h3>
-    <div id="container4">
+    <h3>Actual settings <a ng-show="vm.showingActualValues" ng-click="vm.resetPreferences()">(apply preferences of {{vm.userService.activeUser.name}})</a></h3>
+    <!--<div id="container4">
         <div id="container3">
             <div id="container2">
                 <div id="container1">
@@ -83,6 +86,83 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>-->
+    <div class="table">
+        <div class="row">
+            <div class="col-md-12 container4">
+                <h3>Scenarios</h3>
+                <ul class="list-group">
+                    <li ng-repeat="scenario in vm.scenarios track by scenario.id">{{scenario.title}}
+                        <a href ng-click="scenario.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                        <rating ng-model="scenario.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly"
+                        on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                        <ul ng-if="scenario.subScenarios.length > 0" style="margin-left: -23px">
+                            <li ng-repeat="sub in scenario.subScenarios track by sub.id">{{sub.title | cut:true:30:'...'}}
+                                <a href ng-click="sub.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                                <rating ng-model="sub.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly"
+                                on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                                <ul ng-if="sub.subScenarios.length > 0" style="margin-left: -23px">
+                                    <li ng-repeat="subsub in sub.subScenarios track by subsub.id">{{subsub.title | cut:true:25:'...'}}
+                                        <a href ng-click="subsub.userWeight=0" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                                        <rating ng-model="subsub.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly"
+                                        on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 container3">
+                <h3>Criteria</h3>
+                <ul class="list-group">
+                    <li ng-repeat="criteria in vm.mainCriterias track by criteria.id">
+                        <a href ng-click="vm.updateSubCriterias(criteria)" ng-bind-html="criteria.title"></a>
+                        <a href ng-click="criteria.userWeight=0;criteria.isEnabled=false" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                        <rating ng-model="criteria.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly"
+                        on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 container2">
+                <h3 ng-bind-html="vm.selectedMainCriterion.title || 'No' + ' subcriteria'"></h3>
+                <ul class="list-group">
+                    <li ng-repeat="sub in vm.subCriterias track by sub.id">
+                        <a href ng-click="vm.updateSubSubCriterias(sub)" ng-bind-html="sub.title"></a>
+                        <a href ng-click="sub.userWeight=0;sub.isEnabled=false" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                        <rating ng-model="sub.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly"
+                        on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 container1">
+                <h3 ng-bind-html="vm.selectedSubCriterion.title || 'No' + ' sub-subcriteria'"></h3>
+                <ul class="list-group">
+                    <li ng-repeat="subSub in vm.subSubCriterias track by subSub.id">
+                        <a href ng-click="vm.selectedSubSubCriterion=subSub;vm.updateModules(subSub)" ng-bind-html="subSub.title"></a>
+                        <a href ng-click="subSub.userWeight=0;subSub.isEnabled=false" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                        <rating ng-model="subSub.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly"
+                        on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-3 container0">
+                <h3 ng-bind-html="vm.selectedSubSubCriterion.title || vm.selectedSubCriterion.title || 'No' + ' modules'"></h3>
+                <ul class="list-group">
+                    <li ng-repeat="module in vm.modules track by module.id">{{module.title | cut:true:30:'...'}}
+                        <a href ng-click="module.userWeight=0;module.isEnabled=false" data-toggle="tooltip" title="Reset - not interested" class="pull-right"><i class="fa fa-remove"></i></a>
+                        <rating ng-model="module.userWeight" class="pull-right" style="margin: 0 10px; cursor:pointer" max="5" readonly="isReadonly"
+                        on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>

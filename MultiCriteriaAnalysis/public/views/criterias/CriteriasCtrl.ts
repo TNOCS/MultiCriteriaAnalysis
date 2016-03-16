@@ -1,20 +1,20 @@
 ﻿module Criterias {
     export interface ICriteriasViewScope extends ng.IScope {
-        vm                : CriteriasCtrl;
-        selectedItem      : any;
-        options           : any;
-        reorder           : boolean;
-        sortAscending     : boolean;
-        allCollapsed      : boolean;
-        remove            : Function;
-        toggle            : Function;
-        newSubCriteria    : Function;
-        newCriteria       : Function;
-        newOption         : Function;
-        removeOption      : Function;
-        addSystem         : Function;
-        addComponent      : Function;
-        collapseAll       : Function;
+        vm: CriteriasCtrl;
+        selectedItem: any;
+        options: any;
+        reorder: boolean;
+        sortAscending: boolean;
+        allCollapsed: boolean;
+        remove: Function;
+        toggle: Function;
+        newSubCriteria: Function;
+        newCriteria: Function;
+        newOption: Function;
+        removeOption: Function;
+        addSystem: Function;
+        addComponent: Function;
+        collapseAll: Function;
     }
 
     export class CriteriasCtrl {
@@ -33,27 +33,27 @@
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in Application.ts and specified from ng-controller attribute in index.html
         constructor(
-            private $scope        : ICriteriasViewScope,
-            private $modal        : any,
-            private messageBus    : csComp.Services.MessageBusService,
+            private $scope: ICriteriasViewScope,
+            private $modal: any,
+            private messageBus: csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
-            ) {
+        ) {
             // 'vm' stands for 'view model'. We're adding a reference to the controller to the scope
             // for its methods to be accessible from view / HTML
             $scope.vm = this;
             //console.log(JSON.stringify(projectService.project, null, 2));
 
-            $scope.reorder       = false;
+            $scope.reorder = false;
             $scope.sortAscending = false;
-            $scope.allCollapsed  = false;
-            $scope.selectedItem  = {};
-            $scope.options       = {};
+            $scope.allCollapsed = false;
+            $scope.selectedItem = {};
+            $scope.options = {};
 
-            $scope.remove = function (scope) {
+            $scope.remove = function(scope) {
                 scope.remove();
             };
 
-            $scope.toggle = function (scope) {
+            $scope.toggle = function(scope) {
                 scope.toggle();
             };
 
@@ -127,7 +127,7 @@
                     }).forEach(comp => {
                         var c = new Models.Criteria(parent.level + 1);
                         c.title = comp.title;
-                        c.id    = Helpers.Utils.createGuid(); //id should be unique to prevent problems when assigning option values
+                        c.id = Helpers.Utils.createGuid(); //id should be unique to prevent problems when assigning option values
                         c.componentId = comp.id;
                         parent.subCriterias.push(c);
                     });
@@ -158,12 +158,27 @@
                 criterias.splice(index, 1);
             });
         }
-        
+
         chooseDecisionTree(item: Models.Criteria) {
-            Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], (treeId) => {
+            Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], item.decisionTreeId, (treeId) => {
                 if (!treeId || treeId === '') return;
                 item.decisionTreeId = treeId;
             });
+        }
+
+        setFocus(id: string) {
+            var el = document.getElementById(id);
+            if (el) {
+                setTimeout(() => { el.focus(); }, 0);
+            }
+        }
+        
+        setEnabled(item: Models.Criteria) {
+            if (!item) return;
+            // Make sure user weight >0 when enabled
+            if (item.isEnabled && (!item.userWeight || item.userWeight === 0)) {
+                item.userWeight = 1;
+            }
         }
 
         update() {
@@ -190,13 +205,13 @@
                 var criteria = parent.subCriterias[k];
                 if (!criteria.isEnabled) continue;
                 data.push({
-                    id    : k + 1,
-                    order : k + 1,
-                    color : Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
+                    id: k + 1,
+                    order: k + 1,
+                    color: Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
                     weight: criteria.weight,
-                    score : 100,
-                    width : criteria.weight,
-                    label : criteria.title
+                    score: 100,
+                    width: criteria.weight,
+                    label: criteria.title
                 });
             }
 

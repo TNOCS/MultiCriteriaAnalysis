@@ -40,6 +40,14 @@
             this.description = data.description;
             this.scores      = data.scores;
         }
+        
+        /** Clone the object */
+        public cloneSolution(data: Solution) {
+            this.id          = Helpers.Utils.createGuid();
+            this.title       = data.title;
+            this.description = data.description;
+            this.scores      = JSON.parse(JSON.stringify(data.scores)); //Clone data instead of making a reference
+        }
 
         /**
          * Compute the score for a criterion.

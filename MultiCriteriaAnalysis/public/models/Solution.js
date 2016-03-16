@@ -14,6 +14,12 @@ var Models;
             this.description = data.description;
             this.scores = data.scores;
         };
+        Solution.prototype.cloneSolution = function (data) {
+            this.id = Helpers.Utils.createGuid();
+            this.title = data.title;
+            this.description = data.description;
+            this.scores = JSON.parse(JSON.stringify(data.scores));
+        };
         Solution.prototype.computeScore = function (criterion) {
             var _this = this;
             var totalScore = 0;

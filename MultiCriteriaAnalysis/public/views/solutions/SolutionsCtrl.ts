@@ -30,7 +30,7 @@
         private activeQuestion: IQuestion;
         private activeQuestionIndex: number;
         private questions: IQuestion[] = [];
-        private finalAnswer: string; 
+        private finalAnswer: string;
 
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor
@@ -179,20 +179,26 @@
 
         createNewSolution() {
             var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller: 'GetTitleDialogCtrl',
+                templateUrl: 'views/dialogs/newSolutionDialog.html',
+                controller: 'NewSolutionDialogCtrl',
                 size: 'sm',
                 resolve: {
                     header: () => 'Create a new solution',
                     title: () => '',
-                    description: () => ''
+                    description: () => '',
+                    solutions: () => this.projectService.project.solutions,
+                    selectedSolutionId: () => ''
                 }
             });
 
-            modalInstance.result.then((title: string) => {
-                if (!title) return;
+            modalInstance.result.then((data: { title: string, referenceId: string }) => {
+                if (!data || !data.title) return;
                 var solution = new Models.Solution();
-                solution.title = title;
+                if (data.referenceId && data.referenceId !== '') {
+                    var referenceSolution = this.projectService.findSolutionById(data.referenceId);
+                    solution.cloneSolution(referenceSolution);
+                }
+                solution.title = data.title;
                 this.projectService.project.solutions.push(solution);
                 this.projectService.activeSolution = solution;
                 this.$log.info(this.projectService.project.solutions);
@@ -221,14 +227,14 @@
                 item = new Models.Criteria(0);
                 item.title = "Top level criteria";
                 item.subCriterias = this.projectService.project.criterias;
-                item.description = 'No description available';
+                item.description = '';
             }
             this.selectedCriteria = item;
             this.projectService.activeCriteria = item;
             this.selectedScenario = null;
             this.activeCriterias = [];
             this.parentCriteria = item.findParent(this.projectService.project);
-            this.description = item.description || 'No description available';
+            this.description = item.description || '';
             this.activeQuestion = null;
             this.activeDecisionTree = null;
             // if (item.subScenarios === null || item.subScenarios.length === 0) {

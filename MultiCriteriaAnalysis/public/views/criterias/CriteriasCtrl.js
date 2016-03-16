@@ -123,11 +123,24 @@ var Criterias;
             });
         };
         CriteriasCtrl.prototype.chooseDecisionTree = function (item) {
-            Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], function (treeId) {
+            Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], item.decisionTreeId, function (treeId) {
                 if (!treeId || treeId === '')
                     return;
                 item.decisionTreeId = treeId;
             });
+        };
+        CriteriasCtrl.prototype.setFocus = function (id) {
+            var el = document.getElementById(id);
+            if (el) {
+                setTimeout(function () { el.focus(); }, 0);
+            }
+        };
+        CriteriasCtrl.prototype.setEnabled = function (item) {
+            if (!item)
+                return;
+            if (item.isEnabled && (!item.userWeight || item.userWeight === 0)) {
+                item.userWeight = 1;
+            }
         };
         CriteriasCtrl.prototype.update = function () {
             this.projectService.project.updateCriteriaWeights();

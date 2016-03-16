@@ -122,20 +122,26 @@ var Solutions;
         SolutionsCtrl.prototype.createNewSolution = function () {
             var _this = this;
             var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller: 'GetTitleDialogCtrl',
+                templateUrl: 'views/dialogs/newSolutionDialog.html',
+                controller: 'NewSolutionDialogCtrl',
                 size: 'sm',
                 resolve: {
                     header: function () { return 'Create a new solution'; },
                     title: function () { return ''; },
-                    description: function () { return ''; }
+                    description: function () { return ''; },
+                    solutions: function () { return _this.projectService.project.solutions; },
+                    selectedSolutionId: function () { return ''; }
                 }
             });
-            modalInstance.result.then(function (title) {
-                if (!title)
+            modalInstance.result.then(function (data) {
+                if (!data || !data.title)
                     return;
                 var solution = new Models.Solution();
-                solution.title = title;
+                if (data.referenceId && data.referenceId !== '') {
+                    var referenceSolution = _this.projectService.findSolutionById(data.referenceId);
+                    solution.cloneSolution(referenceSolution);
+                }
+                solution.title = data.title;
                 _this.projectService.project.solutions.push(solution);
                 _this.projectService.activeSolution = solution;
                 _this.$log.info(_this.projectService.project.solutions);
@@ -159,14 +165,14 @@ var Solutions;
                 item = new Models.Criteria(0);
                 item.title = "Top level criteria";
                 item.subCriterias = this.projectService.project.criterias;
-                item.description = 'No description available';
+                item.description = '';
             }
             this.selectedCriteria = item;
             this.projectService.activeCriteria = item;
             this.selectedScenario = null;
             this.activeCriterias = [];
             this.parentCriteria = item.findParent(this.projectService.project);
-            this.description = item.description || 'No description available';
+            this.description = item.description || '';
             this.activeQuestion = null;
             this.activeDecisionTree = null;
         };

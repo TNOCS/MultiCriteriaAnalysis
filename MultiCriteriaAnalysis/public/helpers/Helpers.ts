@@ -443,7 +443,7 @@
         /**
          * Choose DecisionTree dialog.
          */
-        static chooseDecisionTreeDialog(modal, title: string, text: string, trees: Solutions.IDecisionTree[], callback: (selectedTreeId: string) => void) {
+        static chooseDecisionTreeDialog(modal, title: string, text: string, trees: Solutions.IDecisionTree[], selectedTree: string, callback: (selectedTreeId: string) => void) {
             var modalInstance = modal.open({
                 templateUrl: 'views/dialogs/chooseDecisionTreeDialog.html',
                 controller: 'ChooseDecisionTreeDialogCtrl',
@@ -453,14 +453,14 @@
                     title      : () => text,
                     description: () => '',
                     trees      : () => trees,
-                    selectedTreeId: () => ''
+                    selectedTreeId: () => selectedTree || ''
                 }
             });
 
             modalInstance.result.then((selectedTreeId: string) => {
                 callback(selectedTreeId);
             }, () => {
-                callback('cancel');
+                callback('');
             });
         }
         /**

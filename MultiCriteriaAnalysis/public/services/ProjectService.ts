@@ -103,9 +103,16 @@
             });
         }
         
+        /** Returns the first decision tree in the projects decision trees of which the ID equals the supplied parameter */
         findDecisionTreeById(decisionTreeId: string): Solutions.IDecisionTree {
             if (!this.project.decisionTrees || this.project.decisionTrees.length === 0) return null;
             return (this.project.decisionTrees.filter((tree)=>{return tree.id === decisionTreeId;}).pop());
+        }
+        
+        /** Returns the first solution in the projects solutions of which the ID equals the supplied parameter */
+        findSolutionById(slnId: string): Models.Solution {
+            if (!this.project.solutions || this.project.solutions.length === 0) return null;
+            return (this.project.solutions.filter((sln)=>{return sln.id === slnId;}).pop());
         }
     }
 }

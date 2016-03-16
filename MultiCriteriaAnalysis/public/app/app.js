@@ -97,6 +97,7 @@ var App;
         .controller('UsersCtrl', Users.UsersCtrl)
         .controller('GetTitleDialogCtrl', DialogCtrls.GetTitleDialogCtrl)
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
+        .controller('NewSolutionDialogCtrl', DialogCtrls.NewSolutionDialogCtrl)
         .controller('ChooseDecisionTreeDialogCtrl', DialogCtrls.ChooseDecisionTreeDialogCtrl)
         .filter('format', [
         '$filter', '$locale', function (filter, locale) { return function (value, format) { return String.format(format, value); }; }
@@ -133,7 +134,7 @@ var App;
                     ngModel.$setViewValue(html);
                 }
                 ngModel.$render = function () {
-                    var emptyText = (attrs.isDescription) ? 'Add description' : '...';
+                    var emptyText = '...';
                     element.html(ngModel.$viewValue || emptyText);
                 };
                 element.keydown(function (e) {

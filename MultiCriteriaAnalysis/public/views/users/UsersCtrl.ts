@@ -14,9 +14,11 @@ module Users {
         public scenarios: Models.Scenario[] = [];
         public mainCriterias: Models.Criteria[] = [];
         public subCriterias: Models.Criteria[] = [];
+        public subSubCriterias: Models.Criteria[] = [];
         public modules: Models.Criteria[] = [];
         public selectedMainCriterion: Models.Criteria;
         public selectedSubCriterion: Models.Criteria;
+        public selectedSubSubCriterion: Models.Criteria;
 
         public static $inject = [
             '$scope',
@@ -44,6 +46,7 @@ module Users {
             this.scenarios.forEach(s => prefs[s.title] = s.userWeight);
             this.mainCriterias.forEach(s => prefs[s.title] = s.userWeight);
             this.subCriterias.forEach(s => prefs[s.title] = s.userWeight);
+            this.subSubCriterias.forEach(s => prefs[s.title] = s.userWeight);
             this.modules.forEach(s => prefs[s.title] = s.userWeight);
 
             this.userService.save();
@@ -65,21 +68,44 @@ module Users {
         }
 
         public updateSubCriterias(crit: Models.Criteria) {
-            this.selectedMainCriterion = crit;
-            this.subCriterias          = [];
+            this.selectedMainCriterion   = crit;
+            this.subCriterias            = [];
+            this.subSubCriterias         = [];
+            this.selectedSubCriterion    = null;
+            this.selectedSubSubCriterion = null;
+            this.modules                 = [];
             crit.subCriterias.forEach(sub => {
                 if (this.subCriterias.indexOf(sub) < 0) this.subCriterias.push(sub);
             });
             if (this.subCriterias.length === 0) return;
-            this.updateModules(this.subCriterias[0]);
+            this.updateSubSubCriterias(this.subCriterias[0]);
+         }
+         
+         public updateSubSubCriterias(crit: Models.Criteria) {
+            this.selectedSubCriterion    = crit;
+            this.selectedSubSubCriterion = null;
+            this.subSubCriterias         = [];
+            this.modules                 = [];
+            if (crit.subCriterias.length === 0) {
+                this.selectedSubCriterion = null;
+                return;
+            } else if (crit.subCriterias.length !== 0 && crit.subCriterias[0].subCriterias.length === 0) {
+                this.updateModules(crit);
+            } else {
+                crit.subCriterias.forEach(subSub => {
+                    if (this.subSubCriterias.indexOf(subSub) < 0) this.subSubCriterias.push(subSub);
+                });
+                if (this.subSubCriterias.length === 0) return;
+                this.selectedSubSubCriterion = this.subSubCriterias[0];
+                this.updateModules(this.subSubCriterias[0]);
+            }
          }
 
-        public updateModules(sub: Models.Criteria) {
-            this.selectedSubCriterion = sub;
-            this.modules              = [];
-            sub.subCriterias.forEach(m => {
-                if (this.modules.indexOf(m) < 0) this.modules.push(m);
-            });
+         public updateModules(sub: Models.Criteria) {
+             this.modules = [];
+             sub.subCriterias.forEach(m => {
+                 if (this.modules.indexOf(m) < 0) this.modules.push(m);
+             });
          }
 
         private initScenarios(scenario: Models.Scenario) {
@@ -99,9 +125,10 @@ module Users {
         private resetPreferences() {
             var user = this.userService.activeUser;
             this.scenarios.forEach(s => s.userWeight = user.getUserWeight(s.title));
-            this.mainCriterias.forEach(s => s.userWeight = user.getUserWeight(s.title));
-            this.subCriterias.forEach(s => s.userWeight = user.getUserWeight(s.title));
-            this.modules.forEach(s => s.userWeight = user.getUserWeight(s.title));
+            this.mainCriterias.forEach(s => { s.userWeight = user.getUserWeight(s.title); s.isEnabled = (s.userWeight > 0); });
+            this.subCriterias.forEach(s => { s.userWeight = user.getUserWeight(s.title); s.isEnabled = (s.userWeight > 0); });
+            this.subSubCriterias.forEach(s => { s.userWeight = user.getUserWeight(s.title); s.isEnabled = (s.userWeight > 0); });
+            this.modules.forEach(s => { s.userWeight = user.getUserWeight(s.title); s.isEnabled = (s.userWeight > 0); });
             this.showingActualValues = false;
             this.messageBus.notify('Reset preferences', 'You have successfully reset the actual preferences with your own.');
         }

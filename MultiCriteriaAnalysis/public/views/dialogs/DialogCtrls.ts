@@ -35,8 +35,8 @@
 
 
     export interface IConfirmationDialogScope extends ng.IScope {
-        vm      : ConfirmationDialogCtrl;
-        header  : string;
+        vm: ConfirmationDialogCtrl;
+        header: string;
         question: string;
     }
 
@@ -54,8 +54,8 @@
             private header: string,
             private question: string) {
 
-            $scope.vm       = this;
-            $scope.header   = header;
+            $scope.vm = this;
+            $scope.header = header;
             $scope.question = question;
         }
 
@@ -67,19 +67,19 @@
             this.$modalInstance.dismiss('cancel');
         }
     }
-    
+
     export interface IChooseDecisionTreeDialogScope extends ng.IScope {
         vm: ChooseDecisionTreeDialogCtrl;
         header: string;
     }
-    
+
     export class ChooseDecisionTreeDialogCtrl {
         public static $inject = [
             '$scope',
             '$modalInstance',
             'header',
             'title',
-            'description', 
+            'description',
             'trees',
             'selectedTreeId'
         ];
@@ -99,6 +99,44 @@
 
         public ok() {
             this.$modalInstance.close(this.selectedTreeId);
+        }
+
+        public cancel() {
+            this.$modalInstance.dismiss('cancel');
+        }
+    }
+
+    export interface INewSolutionDialogScope extends ng.IScope {
+        vm: NewSolutionDialogCtrl;
+        header: string;
+    }
+
+    export class NewSolutionDialogCtrl {
+        public static $inject = [
+            '$scope',
+            '$modalInstance',
+            'header',
+            'title',
+            'description',
+            'solutions',
+            'selectedSolutionId'
+        ];
+
+        constructor(
+            private $scope: INewSolutionDialogScope,
+            private $modalInstance: any,
+            private header: string,
+            public title: string,
+            public description: string,
+            public solutions: Models.Solution[],
+            public selectedSolutionId: string) {
+
+            $scope.vm = this;
+            $scope.header = header;
+        }
+
+        public ok() {
+            this.$modalInstance.close({ title: this.title, referenceId: this.selectedSolutionId });
         }
 
         public cancel() {
