@@ -6,8 +6,11 @@
         public value      : number
         public description: string;
 
-        constructor() {
-            this.id = Helpers.Utils.createGuid();
+        constructor(title?: string, value?: number, description?: string, id?: string) {
+            this.title = title;
+            this.value = value;
+            this.description = description;
+            this.id = id || Helpers.Utils.createGuid();
         }
 
         /** Deserialize the object */
@@ -188,6 +191,11 @@
                 }
             }
             return null;
+        }
+        
+        findOptionByTitle(optionTitle: string): CriteriaOption {
+            if (!this.options || this.options.length === 0) return;
+            return (this.options.filter((o) => { return o.title === optionTitle }).pop());
         }
     }
 

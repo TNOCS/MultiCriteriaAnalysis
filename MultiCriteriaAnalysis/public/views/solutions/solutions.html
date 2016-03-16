@@ -95,21 +95,27 @@
         <div class="row">
             <h1 class="col-md-12" data-ng-if="vm.selectedCriteria"><div ng-bind-html="vm.selectedCriteria.title"></div></h1>
             <h1 class="col-md-12" data-ng-if="!vm.selectedCriteria"><div>No criterion selected</div></h1>
-        </div>
+        </div>       
         <div class="row" data-ng-if="vm.selectedCriteria">
             <wiz-markdown class="col-md-12" content="vm.description" style="font-size:16px;"></wiz-markdown>
         </div>
-        <div class="row" style="margin-top:40px;">
-            <h1 data-ng-if="vm.activeQuestion" class="col-md-12">Input helper</h1>
-        </div>
         <div class="row" data-ng-if="vm.selectedScenario">
-            <div data-ng-bind-html="vm.selectedScenario.title" style="font-size:16px;"></div>
+            <h2 class="col-md-12" data-ng-bind-html="vm.selectedScenario.title"></h2>
+        </div> 
+        <div class="row" style="margin-top:40px;">
+            <h1 data-ng-if="vm.activeQuestion" class="col-md-8">Input helper</h1>
+            <h1 data-ng-if="vm.activeQuestion" class="col-md-4">
+                <a href ng-click="vm.resetDecisionTree()" data-toggle="tooltip" title="Reset decision tree">
+                    <i class="fa fa-trash" style="font-size:20px"></i>
+                </a>
+            </h1>
         </div>
         <div data-ng-if="vm.activeQuestion">
             <div class="col-md-12">
                 <div class="row" ng-repeat="q in vm.questions track by $index">
                     <label for="question-{{$index}}" style="margin-right: 4px;">{{q.question}}</label>
-                    <select id="question-{{$index}}" data-ng-model="myAnswer" ng-change="vm.answerChanged(myAnswer, $index)" ng-disabled="$index !== vm.activeQuestionIndex">
+                    <select id="question-{{$index}}" data-ng-model="vm.answers[$index]" ng-change="vm.answerChanged(vm.answers[$index], $index)"
+                    ng-disabled="$index !== vm.activeQuestionIndex">
                         <option ng-repeat="(key, val) in q.answers track by $index">{{key}}</option>
                     </select>
                 </div>

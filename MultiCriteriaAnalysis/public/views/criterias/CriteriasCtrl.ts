@@ -161,9 +161,26 @@
 
         chooseDecisionTree(item: Models.Criteria) {
             Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], item.decisionTreeId, (treeId) => {
-                if (!treeId || treeId === '') return;
+                if (treeId == null) return;
                 item.decisionTreeId = treeId;
+                var decTree = this.projectService.findDecisionTreeById(treeId);
+                if (!decTree || !decTree.answerOptions || item.subCriterias.length === 0) return;
+                this.addDecisionTreeAnswers(item.subCriterias, decTree);
             });
+        }
+        
+        addDecisionTreeAnswers(items: Models.Criteria[], decTree: Solutions.IDecisionTree) {
+            items.forEach((item) => {
+                if (item.subCriterias.length === 0) {
+                    decTree.answerOptions.forEach((ans) => {
+                        if (!item.options.some((o) => { return o.title === ans })) {
+                            item.addOption(ans, 1);
+                        }
+                    });
+                } else {
+                    this.addDecisionTreeAnswers(item.subCriterias, decTree);
+                }
+            })
         }
 
         setFocus(id: string) {

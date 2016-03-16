@@ -595,6 +595,9 @@
         private static defaultDecisionTrees(): Solutions.IDecisionTree[] {
             var decision1: Solutions.IDecisionTree = {
                 id: 'bb148298-020d-4fb7-ae65-9635bcd5c7bb',
+                answerOptions: [
+                    'Unrepairable', 'Long repair time', 'Short repair time', 'No repair time'
+                ],
                 title: 'Repair time',
                 questions: {
                     question: 'Is there an unrepairable structural damage?',
@@ -637,6 +640,9 @@
             var decision2: Solutions.IDecisionTree = {
                 id: 'a3148248-020d-4fa7-ae65-9635bcd5c7fa',
                 title: 'Post-incident capacity',
+                answerOptions: [
+                    'No capacity', 'Maybe/partly capacity', 'Full capacity'
+                ],
                 questions: {
                     question: 'Is there an unrepairable structural damage?',
                     answers: {

@@ -8,6 +8,7 @@
     export interface IDecisionTree {
         id: string;
         title: string,
+        answerOptions: string[],
         questions: IQuestion;
     }
 
@@ -30,6 +31,7 @@
         private activeQuestion: IQuestion;
         private activeQuestionIndex: number;
         private questions: IQuestion[] = [];
+        private answers: string[] = [];
         private finalAnswer: string;
 
         // $inject annotation.
@@ -215,6 +217,8 @@
         updateCriteria(scenarioId, weight: number, criteria: Models.SelectableCriterion) {
             var scores = this.projectService.activeSolution.scores;
             criteria.calculateWeights();
+            if (!scores.hasOwnProperty(criteria.id)) scores[criteria.id] = {};
+            if (!scores[criteria.id].hasOwnProperty(scenarioId)) scores[criteria.id][scenarioId] = <any>{};
             var criteriaOptionId = scores[criteria.id][scenarioId]["criteriaOptionId"];
             scores[criteria.id][scenarioId]["value"] = criteria.getOptionValueById(criteriaOptionId);
             scores[criteria.id][scenarioId]["weight"] = weight;
@@ -252,27 +256,79 @@
         selectDecisionTree() {
             this.activeQuestionIndex = null;
             this.activeQuestion = null;
-            this.questions = null;
+            this.questions = [];
+            this.answers = [];
             this.finalAnswer = null;
             if (!this.selectedCriteria) return;
             var decisionTreeId = this.selectedCriteria.decisionTreeId || this.parentCriteria.decisionTreeId;
             var decisionTree = this.projectService.findDecisionTreeById(decisionTreeId);
             if (!decisionTree || !decisionTree.questions) return;
+            // Load previous answers or initialize
+            let scores = this.projectService.activeSolution.scores;
+            if (!this.selectedCriteria.isScenarioDependent) {
+                if (scores.hasOwnProperty(this.selectedCriteria.id) && scores[this.selectedCriteria.id].hasOwnProperty('0') && scores[this.selectedCriteria.id][0].hasOwnProperty('decisionTreeAnswers')) {
+                    this.answers = scores[this.selectedCriteria.id][0]['decisionTreeAnswers'];
+                }
+            } else {
+                if (this.selectedScenario) {
+                    if (scores.hasOwnProperty(this.selectedCriteria.id) && scores[this.selectedCriteria.id].hasOwnProperty(this.selectedScenario.id) && scores[this.selectedCriteria.id][this.selectedScenario.id].hasOwnProperty('decisionTreeAnswers')) {
+                        this.answers = scores[this.selectedCriteria.id][this.selectedScenario.id]['decisionTreeAnswers'];
+                    }
+                }
+            }
             this.activeQuestion = decisionTree.questions;
             this.activeQuestionIndex = 0;
             this.questions = [this.activeQuestion];
+            if (this.answers) {
+                this.answers.forEach((ans, ind)=>{
+                    this.answerChanged(ans, ind, false);
+                });
+            }
+            if (this.answers.length === 0) this.answers.push('');
+            if (this.$scope.$root.$$phase != '$apply' && this.$scope.$root.$$phase != '$digest') { this.$scope.$apply(); }
         }
 
-        answerChanged(answerKey: string, index: number) {
+        answerChanged(answerKey: string, index: number, doSaveAnswer: boolean = true) {
+            if (doSaveAnswer) {
+                if (this.answers.length > this.activeQuestionIndex) {
+                    this.answers[this.activeQuestionIndex] = answerKey;
+                } else if (this.answers.length === this.activeQuestionIndex) {
+                    this.answers.push(answerKey);
+                }
+            }
             var answer = this.activeQuestion.answers[answerKey];
             if (typeof answer === 'string') {
                 this.finalAnswer = answer;
-            } else {
+                var answerOption = this.selectedCriteria.findOptionByTitle(this.finalAnswer);
+                this.$timeout(() => { this.setScore(this.selectedCriteria, answerOption), 0 });
+            } else if (typeof answer === 'object') {
                 if (this.finalAnswer) this.finalAnswer = null;
                 this.activeQuestion = answer;
                 this.questions.push(this.activeQuestion);
                 this.activeQuestionIndex += 1;
+            } else {
+                console.log('Unknown answer: ' + answerKey);
             }
+        }
+        
+        setScore(item: Models.Criteria, answerOption: Models.CriteriaOption) {
+            if (!answerOption) return;
+            if (!item.isScenarioDependent) {
+                this.updateCriteria(0, 1, <Models.SelectableCriterion>item);
+                this.projectService.activeSolution.scores[item.id][0]['criteriaOptionId'] = answerOption.id;
+                this.projectService.activeSolution.scores[item.id][0]['decisionTreeAnswers'] = JSON.parse(JSON.stringify(this.answers));
+            } else {
+                this.updateCriteria(this.selectedScenario.id, this.selectedScenario.weight, <Models.SelectableCriterion>item);
+                this.projectService.activeSolution.scores[item.id][this.selectedScenario.id]['criteriaOptionId'] = answerOption.id;
+                this.projectService.activeSolution.scores[item.id][this.selectedScenario.id]['decisionTreeAnswers'] = JSON.parse(JSON.stringify(this.answers));
+            }
+        }
+        
+        resetDecisionTree() {
+            this.answers = [];
+            var emptyAnswer = new Models.CriteriaOption(null, null, null, null);
+            this.setScore(this.selectedCriteria, emptyAnswer);
+            this.selectDecisionTree();
         }
 
         // toggleScenario(scenario: Models.Scenario) {
