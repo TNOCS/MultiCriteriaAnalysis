@@ -38,6 +38,7 @@
         "public/views/scenarios/ScenariosCtrl.ts",
         "public/views/solutions/SolutionsCtrl.ts",
         "public/views/users/UsersCtrl.ts",
+        "public/views/visualise/VisualiseCtrl.ts",
         "Scripts/typings/angular-ui-router/angular-ui-router.d.ts",
         "Scripts/typings/angularjs/angular-cookies.d.ts",
         "Scripts/typings/angularjs/angular.d.ts",
@@ -50,6 +51,5 @@
         "Scripts/typings/winston/winston.d.ts",
         "Scripts/typings/xbbcode/xbbcode.d.ts",
         "server.ts"
-    ],
-    "exclude": []
+    ]
 }

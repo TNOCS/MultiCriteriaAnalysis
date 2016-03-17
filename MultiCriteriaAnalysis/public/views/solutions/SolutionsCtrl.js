@@ -217,6 +217,6 @@ var Solutions;
             'projectService'
         ];
         return SolutionsCtrl;
-    }());
+    })();
     Solutions.SolutionsCtrl = SolutionsCtrl;
 })(Solutions || (Solutions = {}));

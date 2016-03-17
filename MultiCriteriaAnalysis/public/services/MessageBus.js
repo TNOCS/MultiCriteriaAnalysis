@@ -8,7 +8,7 @@ var csComp;
                 this.callback = callback;
             }
             return MessageBusHandle;
-        }());
+        })();
         Services.MessageBusHandle = MessageBusHandle;
         var MessageBusService = (function () {
             function MessageBusService() {
@@ -65,7 +65,7 @@ var csComp;
             };
             MessageBusService.cache = {};
             return MessageBusService;
-        }());
+        })();
         Services.MessageBusService = MessageBusService;
         var EventObj = (function () {
             function EventObj() {
@@ -119,7 +119,7 @@ var csComp;
                 });
             };
             return EventObj;
-        }());
+        })();
         Services.EventObj = EventObj;
     })(Services = csComp.Services || (csComp.Services = {}));
 })(csComp || (csComp = {}));

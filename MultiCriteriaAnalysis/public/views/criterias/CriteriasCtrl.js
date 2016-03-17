@@ -182,6 +182,6 @@ var Criterias;
             'projectService'
         ];
         return CriteriasCtrl;
-    }());
+    })();
     Criterias.CriteriasCtrl = CriteriasCtrl;
 })(Criterias || (Criterias = {}));

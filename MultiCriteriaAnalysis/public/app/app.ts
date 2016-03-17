@@ -116,6 +116,11 @@
                     templateUrl: 'views/solutions/solutions.html',
                     sticky: true
                 })
+                .state('visualise', {
+                    url: '/visualise',
+                    templateUrl: 'views/visualise/visualise.html',
+                    sticky: true
+                })
                 .state('user', {
                     url: '/user',
                     templateUrl: 'views/users/users.html',
@@ -132,6 +137,7 @@
         .controller('SolutionsCtrl', Solutions.SolutionsCtrl)
         .controller('ComparisonsCtrl', Comparisons.ComparisonsCtrl)
         .controller('UsersCtrl', Users.UsersCtrl)
+        .controller('VisualiseCtrl', Visualise.VisualiseCtrl)
         .controller('GetTitleDialogCtrl', DialogCtrls.GetTitleDialogCtrl)
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
         .controller('ChooseDecisionTreeDialogCtrl', DialogCtrls.ChooseDecisionTreeDialogCtrl)

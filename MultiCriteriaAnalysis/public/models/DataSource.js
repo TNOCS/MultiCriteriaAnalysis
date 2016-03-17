@@ -17,7 +17,7 @@ var Models;
             this.title = data.title;
         };
         return DataSource;
-    }());
+    })();
     Models.DataSource = DataSource;
     var DataSourceViewModel = (function (_super) {
         __extends(DataSourceViewModel, _super);
@@ -29,6 +29,6 @@ var Models;
             this.filter = filter;
         }
         return DataSourceViewModel;
-    }(Models.DataSource));
+    })(Models.DataSource);
     Models.DataSourceViewModel = DataSourceViewModel;
 })(Models || (Models = {}));
