@@ -709,62 +709,22 @@ rect {
     border-radius: 4px;
 }
 /* Start of Column CSS */
-#container4 {
-	clear:left;
-	float:left;
-	width:100%;
-	overflow:hidden;
+.container4 {
 	background:#b2f0f9; /* column 4 background colour */
 }
-#container3 {
-	clear:left;
-	float:left;
-	width:100%;
-	position:relative;
-	right:25%;
+.container3 {
 	background:#89ffa2; /* column 3 background colour */
 }
-#container2 {
-	clear:left;
-	float:left;
-	width:100%;
-	position:relative;
-	right:25%;
+.container2 {
 	background:#fff689; /* column 2 background colour */
 }
-#container1 {
-	float:left;
-	width:100%;
-	position:relative;
-	right:25%;
+.container1 {
+	background:#ffc7a7; /* column 1 background colour */
+}
+.container0 {
 	background:#ffa7a7; /* column 1 background colour */
 }
 
-#col1 {
-	float:left;
-	width:21%;
-	position:relative;
-	left:77%;
-	overflow:hidden;
-}
-#col2 {
-	float:left;
-	width:21%;
-	position:relative;
-	left:81%;
-	overflow:hidden;
-}
-#col3 {
-	float:left;
-	width:21%;
-	position:relative;
-	left:85%;
-	overflow:hidden;
-}
-#col4 {
-	float:left;
-	width:21%;
-	position:relative;
-	left:89%;
-	overflow:hidden;
+.list-group {
+    margin-left: 4px; 
 }

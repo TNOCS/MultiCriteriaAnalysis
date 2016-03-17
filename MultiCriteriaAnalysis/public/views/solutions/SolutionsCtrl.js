@@ -12,6 +12,7 @@ var Solutions;
             this.activeScenarios = [];
             this.activeCriterias = [];
             this.questions = [];
+            this.answers = [];
             this.dataSourceFilter = function (value, idx) {
                 if (_this.projectService.activeDataSource == null)
                     return true;
@@ -122,20 +123,26 @@ var Solutions;
         SolutionsCtrl.prototype.createNewSolution = function () {
             var _this = this;
             var modalInstance = this.$modal.open({
-                templateUrl: 'views/dialogs/getTitleDialog.html',
-                controller: 'GetTitleDialogCtrl',
+                templateUrl: 'views/dialogs/newSolutionDialog.html',
+                controller: 'NewSolutionDialogCtrl',
                 size: 'sm',
                 resolve: {
                     header: function () { return 'Create a new solution'; },
                     title: function () { return ''; },
-                    description: function () { return ''; }
+                    description: function () { return ''; },
+                    solutions: function () { return _this.projectService.project.solutions; },
+                    selectedSolutionId: function () { return ''; }
                 }
             });
-            modalInstance.result.then(function (title) {
-                if (!title)
+            modalInstance.result.then(function (data) {
+                if (!data || !data.title)
                     return;
                 var solution = new Models.Solution();
-                solution.title = title;
+                if (data.referenceId && data.referenceId !== '') {
+                    var referenceSolution = _this.projectService.findSolutionById(data.referenceId);
+                    solution.cloneSolution(referenceSolution);
+                }
+                solution.title = data.title;
                 _this.projectService.project.solutions.push(solution);
                 _this.projectService.activeSolution = solution;
                 _this.$log.info(_this.projectService.project.solutions);
@@ -150,6 +157,10 @@ var Solutions;
         SolutionsCtrl.prototype.updateCriteria = function (scenarioId, weight, criteria) {
             var scores = this.projectService.activeSolution.scores;
             criteria.calculateWeights();
+            if (!scores.hasOwnProperty(criteria.id))
+                scores[criteria.id] = {};
+            if (!scores[criteria.id].hasOwnProperty(scenarioId))
+                scores[criteria.id][scenarioId] = {};
             var criteriaOptionId = scores[criteria.id][scenarioId]["criteriaOptionId"];
             scores[criteria.id][scenarioId]["value"] = criteria.getOptionValueById(criteriaOptionId);
             scores[criteria.id][scenarioId]["weight"] = weight;
@@ -159,14 +170,14 @@ var Solutions;
                 item = new Models.Criteria(0);
                 item.title = "Top level criteria";
                 item.subCriterias = this.projectService.project.criterias;
-                item.description = 'No description available';
+                item.description = '';
             }
             this.selectedCriteria = item;
             this.projectService.activeCriteria = item;
             this.selectedScenario = null;
             this.activeCriterias = [];
             this.parentCriteria = item.findParent(this.projectService.project);
-            this.description = item.description || 'No description available';
+            this.description = item.description || '';
             this.activeQuestion = null;
             this.activeDecisionTree = null;
         };
@@ -176,9 +187,11 @@ var Solutions;
             this.selectedScenario = item;
         };
         SolutionsCtrl.prototype.selectDecisionTree = function () {
+            var _this = this;
             this.activeQuestionIndex = null;
             this.activeQuestion = null;
-            this.questions = null;
+            this.questions = [];
+            this.answers = [];
             this.finalAnswer = null;
             if (!this.selectedCriteria)
                 return;
@@ -186,22 +199,80 @@ var Solutions;
             var decisionTree = this.projectService.findDecisionTreeById(decisionTreeId);
             if (!decisionTree || !decisionTree.questions)
                 return;
+            var scores = this.projectService.activeSolution.scores;
+            if (!this.selectedCriteria.isScenarioDependent) {
+                if (scores.hasOwnProperty(this.selectedCriteria.id) && scores[this.selectedCriteria.id].hasOwnProperty('0') && scores[this.selectedCriteria.id][0].hasOwnProperty('decisionTreeAnswers')) {
+                    this.answers = scores[this.selectedCriteria.id][0]['decisionTreeAnswers'];
+                }
+            }
+            else {
+                if (this.selectedScenario) {
+                    if (scores.hasOwnProperty(this.selectedCriteria.id) && scores[this.selectedCriteria.id].hasOwnProperty(this.selectedScenario.id) && scores[this.selectedCriteria.id][this.selectedScenario.id].hasOwnProperty('decisionTreeAnswers')) {
+                        this.answers = scores[this.selectedCriteria.id][this.selectedScenario.id]['decisionTreeAnswers'];
+                    }
+                }
+            }
             this.activeQuestion = decisionTree.questions;
             this.activeQuestionIndex = 0;
             this.questions = [this.activeQuestion];
+            if (this.answers) {
+                this.answers.forEach(function (ans, ind) {
+                    _this.answerChanged(ans, ind, false);
+                });
+            }
+            if (this.answers.length === 0)
+                this.answers.push('');
+            if (this.$scope.$root.$$phase != '$apply' && this.$scope.$root.$$phase != '$digest') {
+                this.$scope.$apply();
+            }
         };
-        SolutionsCtrl.prototype.answerChanged = function (answerKey, index) {
+        SolutionsCtrl.prototype.answerChanged = function (answerKey, index, doSaveAnswer) {
+            var _this = this;
+            if (doSaveAnswer === void 0) { doSaveAnswer = true; }
+            if (doSaveAnswer) {
+                if (this.answers.length > this.activeQuestionIndex) {
+                    this.answers[this.activeQuestionIndex] = answerKey;
+                }
+                else if (this.answers.length === this.activeQuestionIndex) {
+                    this.answers.push(answerKey);
+                }
+            }
             var answer = this.activeQuestion.answers[answerKey];
             if (typeof answer === 'string') {
                 this.finalAnswer = answer;
+                var answerOption = this.selectedCriteria.findOptionByTitle(this.finalAnswer);
+                this.$timeout(function () { _this.setScore(_this.selectedCriteria, answerOption), 0; });
             }
-            else {
+            else if (typeof answer === 'object') {
                 if (this.finalAnswer)
                     this.finalAnswer = null;
                 this.activeQuestion = answer;
                 this.questions.push(this.activeQuestion);
                 this.activeQuestionIndex += 1;
             }
+            else {
+                console.log('Unknown answer: ' + answerKey);
+            }
+        };
+        SolutionsCtrl.prototype.setScore = function (item, answerOption) {
+            if (!answerOption)
+                return;
+            if (!item.isScenarioDependent) {
+                this.updateCriteria(0, 1, item);
+                this.projectService.activeSolution.scores[item.id][0]['criteriaOptionId'] = answerOption.id;
+                this.projectService.activeSolution.scores[item.id][0]['decisionTreeAnswers'] = JSON.parse(JSON.stringify(this.answers));
+            }
+            else {
+                this.updateCriteria(this.selectedScenario.id, this.selectedScenario.weight, item);
+                this.projectService.activeSolution.scores[item.id][this.selectedScenario.id]['criteriaOptionId'] = answerOption.id;
+                this.projectService.activeSolution.scores[item.id][this.selectedScenario.id]['decisionTreeAnswers'] = JSON.parse(JSON.stringify(this.answers));
+            }
+        };
+        SolutionsCtrl.prototype.resetDecisionTree = function () {
+            this.answers = [];
+            var emptyAnswer = new Models.CriteriaOption(null, null, null, null);
+            this.setScore(this.selectedCriteria, emptyAnswer);
+            this.selectDecisionTree();
         };
         SolutionsCtrl.prototype.downloadCsv = function () {
             var filename = Helpers.Utils.getDate() + '_' + this.projectService.project.title.replace(/ /g, '_') + '.csv';

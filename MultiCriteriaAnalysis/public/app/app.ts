@@ -140,6 +140,7 @@
         .controller('VisualiseCtrl', Visualise.VisualiseCtrl)
         .controller('GetTitleDialogCtrl', DialogCtrls.GetTitleDialogCtrl)
         .controller('ConfirmationDialogCtrl', DialogCtrls.ConfirmationDialogCtrl)
+        .controller('NewSolutionDialogCtrl', DialogCtrls.NewSolutionDialogCtrl)
         .controller('ChooseDecisionTreeDialogCtrl', DialogCtrls.ChooseDecisionTreeDialogCtrl)
         .filter('format', [
             '$filter', '$locale', (filter, locale) => (value, format) => String.format(format, value)
@@ -181,7 +182,7 @@
                     }
 
                     ngModel.$render = () => {
-                        let emptyText = (attrs.isDescription) ? 'Add description' : '...';
+                        let emptyText = '...';
                         element.html(ngModel.$viewValue || emptyText);
                     };
 

@@ -6,6 +6,7 @@
     <select id="decision-tree" data-ng-model="vm.selectedTreeId">
         <option ng-repeat="tree in vm.trees track by $index" value="{{tree.id}}">{{tree.title}}</option>
     </select>
+    <span class="fa fa-remove" ng-click="vm.selectedTreeId=''" data-toggle="tooltip" title="Unassign decision tree"></span>
     <!--<input type="text" ng-keyup="$event.keyCode == 13 && vm.ok()" 
            data-ng-model="vm.title" 
            placeholder="New title" 

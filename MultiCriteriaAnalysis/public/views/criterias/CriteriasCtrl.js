@@ -123,11 +123,44 @@ var Criterias;
             });
         };
         CriteriasCtrl.prototype.chooseDecisionTree = function (item) {
-            Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], function (treeId) {
-                if (!treeId || treeId === '')
+            var _this = this;
+            Helpers.Utils.chooseDecisionTreeDialog(this.$modal, 'Choose decision tree', 'Decision tree: ', this.projectService.project.decisionTrees || [], item.decisionTreeId, function (treeId) {
+                if (treeId == null)
                     return;
                 item.decisionTreeId = treeId;
+                var decTree = _this.projectService.findDecisionTreeById(treeId);
+                if (!decTree || !decTree.answerOptions || item.subCriterias.length === 0)
+                    return;
+                _this.addDecisionTreeAnswers(item.subCriterias, decTree);
             });
+        };
+        CriteriasCtrl.prototype.addDecisionTreeAnswers = function (items, decTree) {
+            var _this = this;
+            items.forEach(function (item) {
+                if (item.subCriterias.length === 0) {
+                    decTree.answerOptions.forEach(function (ans) {
+                        if (!item.options.some(function (o) { return o.title === ans; })) {
+                            item.addOption(ans, 1);
+                        }
+                    });
+                }
+                else {
+                    _this.addDecisionTreeAnswers(item.subCriterias, decTree);
+                }
+            });
+        };
+        CriteriasCtrl.prototype.setFocus = function (id) {
+            var el = document.getElementById(id);
+            if (el) {
+                setTimeout(function () { el.focus(); }, 0);
+            }
+        };
+        CriteriasCtrl.prototype.setEnabled = function (item) {
+            if (!item)
+                return;
+            if (item.isEnabled && (!item.userWeight || item.userWeight === 0)) {
+                item.userWeight = 1;
+            }
         };
         CriteriasCtrl.prototype.update = function () {
             this.projectService.project.updateCriteriaWeights();

@@ -6,8 +6,11 @@
         public value      : number
         public description: string;
 
-        constructor() {
-            this.id = Helpers.Utils.createGuid();
+        constructor(title?: string, value?: number, description?: string, id?: string) {
+            this.title = title;
+            this.value = value;
+            this.description = description;
+            this.id = id || Helpers.Utils.createGuid();
         }
 
         /** Deserialize the object */
@@ -140,8 +143,10 @@
          */
         public calculateWeights() {
             var totalWeight = 0;
+            if (this.userWeight === 0) { this.isEnabled = false; }
             if (this.subCriterias.length === 0 || !this.isEnabled) return;
             this.subCriterias.forEach((c) => {
+                if (c.userWeight === 0) { c.isEnabled = false; }
                 if (c.isEnabled) totalWeight += c.userWeight;
             });
             if (totalWeight == 0) return;
@@ -186,6 +191,11 @@
                 }
             }
             return null;
+        }
+        
+        findOptionByTitle(optionTitle: string): CriteriaOption {
+            if (!this.options || this.options.length === 0) return;
+            return (this.options.filter((o) => { return o.title === optionTitle }).pop());
         }
     }
 
