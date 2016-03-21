@@ -3,6 +3,8 @@
         vm: SolutionsCtrl;
         selectedItem: any;
         toggle: Function;
+        allCollapsed: boolean;
+        collapseAll: Function;
     }
 
     export interface IDecisionTree {
@@ -57,7 +59,7 @@
             private messageBus: csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
         ) {
-            $scope.vm = this;
+            $scope.vm = this;           
 
             if (projectService.project == null) return;
 
@@ -78,10 +80,23 @@
             //this.updateWeightsAndScore();
 
             $scope.selectedItem = {};
+            $scope.allCollapsed = false;
 
             $scope.toggle = scope => {
                 scope.toggle();
             };
+            
+            $scope.collapseAll = () => {
+                this.$scope.allCollapsed = !this.$scope.allCollapsed;
+                var nodes = document.getElementsByClassName("angular-ui-tree-node");
+                for (let i = 0; i < nodes.length; i++) {
+                    if (this.$scope.allCollapsed) {
+                        (<any>angular.element(nodes[i]).scope()).collapse();
+                    } else {
+                        (<any>angular.element(nodes[i]).scope()).expand();
+                    }
+                }
+            }
 
             projectService.project.updateScores();
 

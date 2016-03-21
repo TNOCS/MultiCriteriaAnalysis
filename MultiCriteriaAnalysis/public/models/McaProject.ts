@@ -103,6 +103,10 @@
                 }
             });
         }
+        
+        private calculateModuleScores() {
+            
+        }
 
         private getOptionIds(optionIds: { [key: string]: Models.CriteriaOption}, criteriaIds: { [key: string]: Models.Criteria}, criterion = this.rootCriterion) {
             criterion.subCriterias.forEach(c => {

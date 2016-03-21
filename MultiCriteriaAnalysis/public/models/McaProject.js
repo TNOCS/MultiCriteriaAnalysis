@@ -87,6 +87,8 @@ var Models;
                 }
             });
         };
+        McaProject.prototype.calculateModuleScores = function () {
+        };
         McaProject.prototype.getOptionIds = function (optionIds, criteriaIds, criterion) {
             var _this = this;
             if (criterion === void 0) { criterion = this.rootCriterion; }

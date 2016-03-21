@@ -120,6 +120,7 @@ module Services {
         public addUser() {
             this.activeUser = new Models.User({ name: 'Unknown' });
             this.userStore.push(this.activeUser);
+            this.initializeActiveUser();
         }
 
     }
