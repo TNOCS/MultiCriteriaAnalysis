@@ -16,10 +16,15 @@
              */
             label: string;
             /**
-             * Values belonging to this group of data.
+             * Values belonging to this group of data. Values map to bar lengths.
              * NOTE The length of the values needs to be equal to the length of the labels.
              */
             values: number[];
+            /**
+             * Weights belonging to this group of data. Weights map to bar width/thickness.
+             * NOTE The length of the weights needs to be equal to the length of the labels.
+             */
+            weights: number[];
         }[] = [];
     }
 
@@ -305,29 +310,49 @@
          * @param {number} spaceForLegend - The room at the right reserved for writing the legend (default 150).
          * NOTE In your HTML code, it expects an svg element with class chart, e.g. <svg class="chart"></svg>
          * NOTE In your CSS code, you can use several classes: .chart .legend, .chart text, .chart .label, .chart .bar, .axis path, .axis line
+         * NOTE For a simple non-grouped version of this chart, set the 'useGrouping' parameter to false. The first label will then serve as title, 
+         *  the first series will serve as data. Additional entries will be ignored.
          */
         static drawHorizontalGroupedBarChart(data: GroupedBarChartData,
-            barWidth = 300, barHeight = 20, gapBetweenGroups = 10, spaceForLabels = 150, spaceForLegend = 150) {
-            var groupHeight = barHeight * data.series.length; // The height of a group of bars
+            barWidth = 300, minBarHeight = 5, maxBarHeight = 25, gapBetweenGroups = 10, spaceForLabels = 150, spaceForLegend = 150, useGrouping = true) {
+            var groupHeight = maxBarHeight * data.series.length; // The height of a group of bars
+            
+            if (useGrouping === false) {
+                spaceForLabels = 24;
+            }
 
-            // Zip the series data together (first values, second values, etc.)
+            // Zip the series data together (first values-weights, second values-weights, etc.)
             var zippedData = [];
             for (var i = 0; i < data.labels.length; i++) {
                 for (var j = 0; j < data.series.length; j++) {
-                    zippedData.push(data.series[j].values[i]);
+                    zippedData.push({ value: data.series[j].values[i], width: data.series[j].weights[i] });
                 }
             }
+
+            var tip = (<any>d3).tip()
+                .attr('class', 'd3-tip')
+                .offset([-8, 0])
+                .html(d => '<span style="color:white">Weight: ' +
+                    Math.round(d.width) +
+                    ',&nbsp; Score: ' +
+                    Math.round(d.value) +
+                    '</span>');
 
             // Color scale
             var color = d3.scale.category20();
 
             // Chart dimensions
             var chartWidth  = spaceForLabels + barWidth + spaceForLegend;                               // The occupied width of the chart
-            var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;    // The occupied height of the chart.
+            var chartHeight = maxBarHeight * zippedData.length + gapBetweenGroups * data.labels.length;    // The occupied height of the chart.
 
-            // For translating the actual value to the width of the bar.
+            // For translating the actual value to the width/thickness of the bar.
+            var w = d3.scale.linear()
+                .domain([0, 5])
+                .range([minBarHeight, maxBarHeight]);
+
+            // For translating the actual value to the length of the bar.
             var x = d3.scale.linear()
-                .domain([0, d3.max(zippedData)])
+                .domain([0, d3.max(zippedData, function(d) { return d.value; })])
                 .range([1, barWidth]);
 
             // For displaying the vertical line
@@ -346,50 +371,57 @@
             // Specify the chart area and dimensions
             var chart = d3.select('.chart')
                 .attr('width' , chartWidth)
-                .attr('height', chartHeight);
+                .attr('height', chartHeight)
+                .data(zippedData);
 
+            chart.call(tip);
+            
             // Create bars
             var bar = chart.selectAll('g')
                 .data(zippedData)
                 .enter().append('g')
                 .attr('transform', function (d, i) {
-                    return 'translate(' + spaceForLabels + ',' + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i / data.series.length))) + ')';
+                    return 'translate(' + spaceForLabels + ',' + (i * maxBarHeight + gapBetweenGroups * (0.5 + Math.floor(i / data.series.length))) + ')';
                 });
 
             // Create rectangles of the correct width
             bar.append('rect')
                 .attr('fill', function (d, i) { return color(i % data.series.length); })
                 .attr('class', 'bar')
-                .attr('width', x)
-                .attr('height', barHeight - 1);
+                .attr('width', function (d) { return x(d.value) })
+                .attr('height', function (d) { return w(d.width) })
+                .on('mouseover', tip.show)
+                .on('mouseout', tip.hide);
 
             // Add text label in bar
             bar.append('text')
-                .attr('x', function (d) { return x(d) - 3; })
-                .attr('y', barHeight / 2)
+                .attr('x', function (d) { return (d.value === 0) ? 12 : x(d.value) - 3; })
+                .attr('y', function (d) { return w(d.width) / 2 })
                 .attr('dy', '.35em')
-                .text(function (d) { return d; });
+                .text(function (d) { return d.value; });
 
             // Draw labels
-            bar.append('text')
-                .attr('class', 'label')
-                .attr('x', function (d) { return - 10; })
-                .attr('y', groupHeight / 2)
-                .attr('dy', '.35em')
-                .text(function (d, i) {
-                    if (i % data.series.length === 0)
-                        return data.labels[Math.floor(i / data.series.length)];
-                    else
-                        return '';
-                });
+            if (useGrouping === true) {
+                bar.append('text')
+                    .attr('class', 'label')
+                    .attr('x', function(d) { return - 10; })
+                    .attr('y', groupHeight / 2)
+                    .attr('dy', '.35em')
+                    .text(function(d, i) {
+                        if (i % data.series.length === 0)
+                            return data.labels[Math.floor(i / data.series.length)];
+                        else
+                            return '';
+                    });
 
-            chart.append('g')
-                .attr('class', 'y axis')
-                .attr('transform', 'translate(' + spaceForLabels + ', ' + -gapBetweenGroups / 2 + ')')
-                .call(yAxis);
+                chart.append('g')
+                    .attr('class', 'y axis')
+                    .attr('transform', 'translate(' + spaceForLabels + ', ' + -gapBetweenGroups / 2 + ')')
+                    .call(yAxis);
+            }
 
             // Draw legend
-            var legendRectSize = 18,
+            var legendRectSize = (useGrouping === false) ? maxBarHeight - 4 : 18,
                 legendSpacing = 4;
 
             var legend = chart.selectAll('.legend')
@@ -407,15 +439,39 @@
             legend.append('rect')
                 .attr('width', legendRectSize)
                 .attr('height', legendRectSize)
-                .style('fill', function (d, i) { return color(i); })
-                .style('stroke', function (d, i) { return color(i); });
+                .style('fill', function(d, i) { return color(i); })
+                .style('stroke', function(d, i) { return color(i); });
 
             legend.append('text')
                 .attr('class', 'legend')
                 .attr('x', legendRectSize + legendSpacing)
                 .attr('y', legendRectSize - legendSpacing)
-                .text(function (d) { return d.label; });
+                .text(function(d) { return d.label; });
 
+            legend.append('text')
+                .attr('class', 'legend-weight')
+                .attr('x', legendRectSize / 2)
+                .attr('y', legendRectSize / 2)
+                .attr("dx", ".1em")
+                .attr("dy", ".1em")
+                .text(function(d) { return d.weights[0]; });
+
+            // Draw axes
+            chart.append("text")
+                .attr("class", "x label")
+                .attr("text-anchor", "end")
+                .attr("x", function(d) { return x(d.value) / 2 })
+                .attr("y", chartHeight - 6)
+                .text("Score");
+
+            chart.append("text")
+                .attr("class", "y label")
+                .attr("text-anchor", "end")
+                .attr("x", -24)
+                .attr("y", 0)
+                .attr("dy", ".75em")
+                .attr("transform", "rotate(-90)")
+                .text("Weight [0-5]");
         }
 
         /**

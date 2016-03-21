@@ -98,13 +98,24 @@
         </div>
     </div>
     <div style="width:25%;float:right">
-        <div class="row" id="pieChart"></div>
         <div class="row">
             <h1 class="col-md-12" data-ng-if="vm.selectedCriteria"><div ng-bind-html="vm.selectedCriteria.title"></div></h1>
             <h1 class="col-md-12" data-ng-if="!vm.selectedCriteria"><div>No criterion selected</div></h1>
         </div>
         <div class="row" data-ng-if="vm.selectedCriteria">
             <wiz-markdown class="col-md-12" content="vm.description" style="font-size:16px;"></wiz-markdown>
+        </div>
+        <div class="row">
+            <h3 class="col-md-12">Scores</h3>
+        </div>
+        <div class="row">
+            <svg id="barChart" class="chart"></svg>
+        </div>
+        <div class="row">
+            <h3 class="col-md-12">Weights</h3>
+        </div>
+        <div class="row">
+            <div id="pieChart"></div>
         </div>
         <div class="row">
             <h2 class="col-md-12" data-ng-if="vm.selectedScenario"><div ng-bind-html="vm.selectedScenario.title"></div></h2>

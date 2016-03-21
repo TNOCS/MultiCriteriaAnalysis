@@ -165,7 +165,7 @@ var Solutions;
         };
         SolutionsCtrl.prototype.resetCriteria = function (scenarioId, criteria) {
             var scores = this.projectService.activeSolution.scores;
-            delete scores[scenarioId][criteria.id];
+            delete scores[criteria.id][scenarioId];
         };
         SolutionsCtrl.prototype.updateCriteria = function (scenarioId, weight, criteria) {
             var scores = this.projectService.activeSolution.scores;
@@ -193,6 +193,50 @@ var Solutions;
             this.description = item.description || '';
             this.activeQuestion = null;
             this.activeDecisionTree = null;
+            var data = this.getDataForCharts();
+            if (Object.keys(data).length > 0) {
+                Helpers.Utils.drawHorizontalGroupedBarChart(data.group, 300, 5, 25, 20, 300, 150, false);
+                Helpers.Utils.drawPie(data.pie);
+            }
+            else {
+                Helpers.Utils.clearSvg();
+            }
+        };
+        SolutionsCtrl.prototype.getDataForCharts = function () {
+            var groupData = {};
+            var pieData = [];
+            var parent = this.selectedCriteria.findParent(this.projectService.project);
+            if (parent == null)
+                parent = this.selectedCriteria;
+            this.projectService.project.updateScores();
+            var scores = this.projectService.activeSolution.scores;
+            var scoreValue = 100;
+            for (var k in parent.subCriterias) {
+                var criteria = parent.subCriterias[k];
+                if (!criteria.isEnabled)
+                    continue;
+                if (scores.hasOwnProperty(criteria.id)) {
+                    if (scores[criteria.id].hasOwnProperty('0')) {
+                        scoreValue = scores[criteria.id]['0'].value * 100;
+                    }
+                }
+                var kIndex = +k;
+                if (!groupData.labels)
+                    groupData.labels = [parent.title];
+                if (!groupData.series)
+                    groupData.series = [];
+                groupData.series.push({ label: criteria.title, values: [scoreValue], weights: [criteria.userWeight] });
+                pieData.push({
+                    id: k + 1,
+                    order: k + 1,
+                    color: Helpers.Utils.pieColors(kIndex % Helpers.Utils.pieColors.range().length),
+                    weight: criteria.weight,
+                    score: 100,
+                    width: criteria.weight,
+                    label: criteria.title
+                });
+            }
+            return { group: groupData, pie: pieData };
         };
         SolutionsCtrl.prototype.selectScenario = function (item) {
             if (!item)

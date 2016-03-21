@@ -136,18 +136,20 @@ module Comparisons {
             var criterion = this.activeCriterion;
             var solution = this.projectService.activeSolution;
             var data = new Helpers.GroupedBarChartData();
-            data.series[0] = { label: solution.title, values: [] };
+            data.series[0] = { label: solution.title, values: [], weights: [] };
 
             if (criterion.hasSubcriteria()) {
                 criterion.subCriterias.forEach(c => {
                     data.labels.push(c.title.toUpperCase());
                     data.series[0].values.push(this.getScaledScore(solution, c));
+                    data.series[0].weights.push(c.userWeight);
                 });
                 var i = 1;
                 this.projectService.compareToSolutions.forEach(sol => {
-                    data.series[i] = { label: sol.title, values: [] };
+                    data.series[i] = { label: sol.title, values: [], weights: [] };
                     criterion.subCriterias.forEach(s => {
                         data.series[i].values.push(this.getScaledScore(sol, s));
+                        data.series[i].weights.push(s.userWeight);
                     });
                     i++;
                 });
@@ -155,10 +157,12 @@ module Comparisons {
             } else {
                 data.labels.push(criterion.title.toUpperCase());
                 data.series[0].values.push(this.getScaledScore(solution, criterion));
+                data.series[0].weights.push(criterion.userWeight);
                 var i = 1;
                 this.projectService.compareToSolutions.forEach(sol => {
-                    data.series[i] = { label: sol.title, values: [] };
+                    data.series[i] = { label: sol.title, values: [], weights: [] };
                     data.series[i].values.push(this.getScaledScore(sol, criterion));
+                    data.series[i].weights.push(criterion.userWeight);
                     i++;
                 });
                 //this.addResultsToData(data, criterion, true);
@@ -182,7 +186,7 @@ module Comparisons {
                 //
                 // this.addResultsToData(data, criterion, true);
             }
-            Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 20, 20, 300, 150);
+            Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 5, 25, 20, 300, 150);
         }
 
         /** Scale and round the score. */
@@ -199,17 +203,22 @@ module Comparisons {
             if (atStart) {
                 data.labels.unshift(title);
                 data.series[0].values.unshift(score);
+                data.series[0].weights.unshift(criterion.userWeight);
             } else {
                 data.labels.push(title);
                 data.series[0].values.push(score);
+                data.series[0].weights.push(criterion.userWeight);
             }
             var i = 1;
             this.projectService.compareToSolutions.forEach(s => {
                 var score = Math.round(s.computeScore(criterion) * 100);
-                if (atStart)
+                if (atStart) {
                     data.series[i].values.unshift(score);
-                else
+                    data.series[i].weights.unshift(criterion.userWeight);
+                } else {
                     data.series[i].values.push(score);
+                    data.series[i].weights.push(criterion.userWeight);
+                }
                 i++;
             });
         }
