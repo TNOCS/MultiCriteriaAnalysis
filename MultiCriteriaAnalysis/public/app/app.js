@@ -33,7 +33,7 @@ var App;
             'messageBusService'
         ];
         return AppCtrl;
-    })();
+    }());
     App.AppCtrl = AppCtrl;
     angular.module('mca', [
         'csComp',

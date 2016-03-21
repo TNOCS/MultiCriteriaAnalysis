@@ -35,8 +35,14 @@
         <div class="row">
             <h1 class="col-md-12">Criteria</h1>
         </div>
+        <div class="row">
+            <div class="col-md-4">
+                <a style="margin: 0 5px" href="" ng-show="!allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-up" style="margin: 0 5px"></i>collapse all</a>
+                <a style="margin: 0 5px" href="" ng-show="allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-down" style="margin: 0 5px"></i>expand all</a>
+            </div>
+        </div>
 
-        <div class="row" data-ng-if="vm.projectService.activeSolution" style="overflow-y: auto; overflow-x: hidden" resize resize-y="140">
+        <div class="row" data-ng-if="vm.projectService.activeSolution" style="overflow-y: auto; overflow-x: hidden" resize resize-y="150">
 
             <script type="text/ng-template" id="items_renderer.html">
                 <div ui-tree-handle data-nodrag ng-click="vm.select(item);vm.selectDecisionTree(item);" ng-if="item.isEnabled">
@@ -72,8 +78,7 @@
                 </ol>
             </script>
 
-            <div class="row" data-ng-if="vm.projectService.project != null" style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white"
-            resize resize-y="150">
+            <div class="row" data-ng-if="vm.projectService.project != null" style="background: white; background-color: white">
                 <div class="col-md-12" ui-tree="options" style="margin-top:5px">
                     <ol ui-tree-nodes ng-model="vm.projectService.project.criterias">
                         <li ng-repeat="item in vm.projectService.project.criterias" ui-tree-node ng-include="'items_renderer.html'"></li>
@@ -89,19 +94,21 @@
                 <!--</div>-->
 
             </div>
+            <div class="row" id="padding-at-the-bottom" style="height:80px" />
         </div>
     </div>
     <div style="width:25%;float:right">
+        <div class="row" id="pieChart"></div>
         <div class="row">
             <h1 class="col-md-12" data-ng-if="vm.selectedCriteria"><div ng-bind-html="vm.selectedCriteria.title"></div></h1>
             <h1 class="col-md-12" data-ng-if="!vm.selectedCriteria"><div>No criterion selected</div></h1>
-        </div>       
+        </div>
         <div class="row" data-ng-if="vm.selectedCriteria">
             <wiz-markdown class="col-md-12" content="vm.description" style="font-size:16px;"></wiz-markdown>
         </div>
-        <div class="row" data-ng-if="vm.selectedScenario">
-            <h2 class="col-md-12" data-ng-bind-html="vm.selectedScenario.title"></h2>
-        </div> 
+        <div class="row">
+            <h2 class="col-md-12" data-ng-if="vm.selectedScenario"><div ng-bind-html="vm.selectedScenario.title"></div></h2>
+        </div>
         <div class="row" style="margin-top:40px;">
             <h1 data-ng-if="vm.activeQuestion" class="col-md-8">Input helper</h1>
             <h1 data-ng-if="vm.activeQuestion" class="col-md-4">

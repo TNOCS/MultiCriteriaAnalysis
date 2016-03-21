@@ -34,8 +34,21 @@ var Solutions;
                 projectService.activeSolution = projectService.project.solutions[projectService.project.solutions.length - 1];
             }
             $scope.selectedItem = {};
+            $scope.allCollapsed = false;
             $scope.toggle = function (scope) {
                 scope.toggle();
+            };
+            $scope.collapseAll = function () {
+                _this.$scope.allCollapsed = !_this.$scope.allCollapsed;
+                var nodes = document.getElementsByClassName("angular-ui-tree-node");
+                for (var i = 0; i < nodes.length; i++) {
+                    if (_this.$scope.allCollapsed) {
+                        angular.element(nodes[i]).scope().collapse();
+                    }
+                    else {
+                        angular.element(nodes[i]).scope().expand();
+                    }
+                }
             };
             projectService.project.updateScores();
             if (!projectService.activeCriteria)
@@ -288,6 +301,6 @@ var Solutions;
             'projectService'
         ];
         return SolutionsCtrl;
-    })();
+    }());
     Solutions.SolutionsCtrl = SolutionsCtrl;
 })(Solutions || (Solutions = {}));

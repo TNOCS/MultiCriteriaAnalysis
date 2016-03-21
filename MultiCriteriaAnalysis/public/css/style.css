@@ -714,15 +714,19 @@ rect {
 }
 .container3 {
 	background:#89ffa2; /* column 3 background colour */
+    height: 100%;
 }
 .container2 {
 	background:#fff689; /* column 2 background colour */
+    height: 100%;
 }
 .container1 {
 	background:#ffc7a7; /* column 1 background colour */
+    height: 100%;
 }
 .container0 {
 	background:#ffa7a7; /* column 1 background colour */
+    height: 100%;
 }
 
 .list-group {

@@ -30,9 +30,9 @@ module Models {
             this.password = user.password || '';
         }
 
-        /** Get the user weight. In case the user has no preference set, add it (and set it to 0) */
+        /** Get the user weight. In case the user has no preference set, add it (and set it to 1) */
         public getUserWeight(title: string) {
-            if (!this.preferences.hasOwnProperty(title)) this.preferences[title] = 0;
+            if (!this.preferences.hasOwnProperty(title)) this.preferences[title] = 1;
             return this.preferences[title];
         }
     }

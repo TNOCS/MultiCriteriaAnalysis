@@ -49,6 +49,6 @@ var Models;
             return totalScore;
         };
         return Solution;
-    })();
+    }());
     Models.Solution = Solution;
 })(Models || (Models = {}));

@@ -25,8 +25,8 @@
                 data-ndrag></span>
                 <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
                 <!-- Disable criteria -->
-                <input type="checkbox" ng-model="item.isEnabled" class="pull-right checkbox" ng-click="vm.setEnabled(item);vm.update();" data-toggle="tooltip"
-                title="{{item.isEnabled ? 'Disable criterion' : 'Enable criterion'}}">
+                <input type="checkbox" ng-model="item.isEnabled" class="pull-right checkbox" ng-click="vm.setEnabled(item);vm.update();"
+                data-toggle="tooltip" title="{{item.isEnabled ? 'Disable criterion' : 'Enable criterion'}}">
                 <!-- Delete criteria -->
                 <a class="pull-right btn btn-danger btn-xs" ng-style="{'visibility': item.isEnabled ? 'visible' : 'hidden'}" data-ndrag ng-click="vm.deleteCriteria(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"
                 data-toggle="tooltip" title="Delete row"><span class="glyphicon glyphicon-remove"></span></a>
@@ -126,12 +126,11 @@
                 <input type="text" id="description-edit-box" ng-model="vm.selectedCriteria.description" ng-show="isEditing" ng-blur="isEditing=!isEditing">
             </div>
         </div>
-    </div>
-    <!-- Result view -->
-    <div class="row">
-        <div class="col-md-12" style="margin-top: 36px">
-            <div class="row" id="pieChart"></div>
+        <!-- Result view -->
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 36px">
+                <div class="row" id="pieChart"></div>
+            </div>
         </div>
     </div>
-</div>
 </div>
