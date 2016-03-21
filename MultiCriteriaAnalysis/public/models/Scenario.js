@@ -75,6 +75,6 @@ var Models;
             });
         };
         return Scenario;
-    })();
+    }());
     Models.Scenario = Scenario;
 })(Models || (Models = {}));

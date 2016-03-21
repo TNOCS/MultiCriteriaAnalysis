@@ -1,3 +1,14 @@
-<div data-ng-controller="VisualiseCtrl as vm" class="container-fluid">
-    <h1>Visual</h1>
+<div data-ng-controller="VisualiseCtrl as vm">
+    <style>
+      @import url(js/cesium/Widgets/widgets.css);
+      #cesiumContainer {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+        font-family: sans-serif;
+      }
+    </style>
+    <div id="cesiumContainer"></div>
 </div>

@@ -182,10 +182,11 @@ var Criterias;
                 var criteria = parent.subCriterias[k];
                 if (!criteria.isEnabled)
                     continue;
+                var kIndex = +k;
                 data.push({
                     id: k + 1,
                     order: k + 1,
-                    color: Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
+                    color: Helpers.Utils.pieColors(kIndex % Helpers.Utils.pieColors.range().length),
                     weight: criteria.weight,
                     score: 100,
                     width: criteria.weight,
@@ -215,6 +216,6 @@ var Criterias;
             'projectService'
         ];
         return CriteriasCtrl;
-    })();
+    }());
     Criterias.CriteriasCtrl = CriteriasCtrl;
 })(Criterias || (Criterias = {}));

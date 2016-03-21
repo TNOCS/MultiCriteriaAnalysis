@@ -131,7 +131,7 @@
                 var index = scenarios.indexOf(scenario);
                 if (index < 0) return;
                 scenarios.splice(index, 1);
-                if (this.$scope.$root.$$phase != '$apply' && this.$scope.$root.$$phase != '$digest') { this.$scope.$apply(); }
+                if (this.$scope.$root.$$phase !== '$apply' && this.$scope.$root.$$phase !== '$digest') { this.$scope.$apply(); }
             });
         }
 
@@ -139,7 +139,7 @@
             if (!item) {
                 // Create a pseudo criteria that is the level
                 item              = new Models.Scenario();
-                item.title        = "Top level scenario";
+                item.title        = 'Top level scenario';
                 item.subScenarios = this.projectService.project.scenarios;
             }
             this.selectedScenario = item;
@@ -154,10 +154,11 @@
             parent.calculateWeights();
             for (var k in parent.subScenarios) {
                 var scenario = parent.subScenarios[k];
+                var kIndex = +k;
                 data.push({
                     id    : k + 1,
                     order : k + 1,
-                    color : Helpers.Utils.pieColors(k % Helpers.Utils.pieColors.range().length),
+                    color : Helpers.Utils.pieColors(kIndex % Helpers.Utils.pieColors.range().length),
                     weight: scenario.weight,
                     score : 100,
                     width : scenario.weight,
