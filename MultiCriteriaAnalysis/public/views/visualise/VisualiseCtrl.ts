@@ -331,6 +331,10 @@ module Visualise {
         });
 
         }
-
+        
+        private getModuleScores() {
+            this.projectService.activeSolution.computeModuleScores(this.project.rootCriterion, this.project);
+            var moduleScores: Models.IModuleScores = this.projectService.activeSolution.moduleScores;
+        }
     }
 }

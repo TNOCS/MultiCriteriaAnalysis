@@ -7,6 +7,10 @@
     //    public value: number;
     //}
 
+    export interface IModuleScores {
+        [componentId: string]: number;
+    }
+
     /**
      * MCA solution alternative
      */
@@ -23,9 +27,7 @@
                 }
             }
         } = {};
-        public moduleScores: {
-            [componentId: string]: number
-        } = {};
+        public moduleScores: IModuleScores = {};
         //public scores    : Score[] = [];
         public totalValue: number;
 
