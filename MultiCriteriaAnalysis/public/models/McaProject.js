@@ -24,6 +24,7 @@ var Models;
             this.dataSources = [];
             this.decisionTrees = [];
             this.criteriaCache = {};
+            this.componentCache = {};
             if (projectData)
                 this.fromJson(projectData);
             if (!this.id)
@@ -213,6 +214,27 @@ var Models;
                 ;
                 if (criterion.subCriterias.length > 0) {
                     var found = this.findCriteriaById(id, criterion.subCriterias);
+                    if (found != null)
+                        return found;
+                }
+            }
+            return null;
+        };
+        McaProject.prototype.findComponentById = function (id, components) {
+            if (components === void 0) { components = this.components; }
+            if (this.componentCache.hasOwnProperty(id))
+                return this.componentCache[id];
+            if (components.length === 0)
+                return null;
+            for (var i = 0; i < components.length; i++) {
+                var component = components[i];
+                if (component.id === id) {
+                    this.componentCache[id] = component;
+                    return component;
+                }
+                ;
+                if (component.components.length > 0) {
+                    var found = this.findComponentById(id, component.components);
                     if (found != null)
                         return found;
                 }

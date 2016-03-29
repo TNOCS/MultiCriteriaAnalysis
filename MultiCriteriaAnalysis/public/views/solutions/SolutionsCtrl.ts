@@ -263,10 +263,14 @@
             
             var data = this.getDataForCharts();
             if (Object.keys(data).length > 0) {
-                Helpers.Utils.drawHorizontalGroupedBarChart(data.group, 300, 5, 25, 20, 300, 150, false);
-                Helpers.Utils.drawPie(data.pie);
+                this.$timeout(() => {
+                    Helpers.Utils.drawHorizontalGroupedBarChart('#barChart', data.group, 270, 5, 25, 20, 300, 150, false);
+                    Helpers.Utils.drawPie(data.pie);
+                }, 0);
             } else {
-                Helpers.Utils.clearSvg();
+                this.$timeout(() => {
+                    Helpers.Utils.clearSvg();
+                }, 0);
             }
         }
         
@@ -287,7 +291,7 @@
                     }
                 }
                 var kIndex = +k;
-                if (!groupData.labels) groupData.labels = [parent.title];
+                if (!groupData.labels || groupData.labels.length === 0) groupData.labels = [parent.title];
                 if (!groupData.series) groupData.series = [];
                 groupData.series.push({label: criteria.title, values: [scoreValue], weights: [criteria.userWeight]});
                 pieData.push({

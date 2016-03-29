@@ -195,11 +195,15 @@ var Solutions;
             this.activeDecisionTree = null;
             var data = this.getDataForCharts();
             if (Object.keys(data).length > 0) {
-                Helpers.Utils.drawHorizontalGroupedBarChart(data.group, 300, 5, 25, 20, 300, 150, false);
-                Helpers.Utils.drawPie(data.pie);
+                this.$timeout(function () {
+                    Helpers.Utils.drawHorizontalGroupedBarChart('#barChart', data.group, 270, 5, 25, 20, 300, 150, false);
+                    Helpers.Utils.drawPie(data.pie);
+                }, 0);
             }
             else {
-                Helpers.Utils.clearSvg();
+                this.$timeout(function () {
+                    Helpers.Utils.clearSvg();
+                }, 0);
             }
         };
         SolutionsCtrl.prototype.getDataForCharts = function () {
@@ -221,7 +225,7 @@ var Solutions;
                     }
                 }
                 var kIndex = +k;
-                if (!groupData.labels)
+                if (!groupData.labels || groupData.labels.length === 0)
                     groupData.labels = [parent.title];
                 if (!groupData.series)
                     groupData.series = [];

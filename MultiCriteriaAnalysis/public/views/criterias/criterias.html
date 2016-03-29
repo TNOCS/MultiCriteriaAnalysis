@@ -1,135 +1,139 @@
 ﻿<div class="container-fluid" data-ng-controller="CriteriasCtrl as d">
 
-    <div style="width:72%;float:left">
-        <div class="row">
-            <h1 class="col-md-12">Criteria</h1>
-        </div>
-
-        <script type="text/ng-template" id="options_renderer.html">
-            <div ui-tree-handle style="cursor:auto">
-                <span class="glyphicon glyphicon-list" style="margin-right:4px; opacity:0.25; color:grey" />
-                <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text" data-ndrag></span>
-                <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
-                <a class="pull-right btn btn-danger btn-xs" data-ndrag ng-click="vm.deleteOption(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"
-                style="margin-right:20px;"><span class="glyphicon glyphicon-remove"></span></a>
-                <input type="number" ng-model="item.value" min="0" max="1" step="0.1" class="pull-right text-right" style="margin:0 130px 0 0">
+    <div class="mca-leftbody">
+        <div class="table">
+            <div class="row">
+                <h1 class="col-md-12">Criteria</h1>
             </div>
-        </script>
 
-        <script type="text/ng-template" id="items_renderer.html">
-            <div ui-tree-handle ng-click="vm.select(item)" ng-mouseenter="hovered=true" ng-mouseleave="hovered=false">
-                <a class="btn btn-success btn-xs" ng-click="toggle(this)">
-                    <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
-                </a>
-                <span contenteditable ng-model="item.title" ng-class="{'disabledItem': !item.isEnabled}" style="font-size:20px;cursor:text"
-                data-ndrag></span>
-                <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
-                <!-- Disable criteria -->
-                <input type="checkbox" ng-model="item.isEnabled" class="pull-right checkbox" ng-click="vm.setEnabled(item);vm.update();"
-                data-toggle="tooltip" title="{{item.isEnabled ? 'Disable criterion' : 'Enable criterion'}}">
-                <!-- Delete criteria -->
-                <a class="pull-right btn btn-danger btn-xs" ng-style="{'visibility': item.isEnabled ? 'visible' : 'hidden'}" data-ndrag ng-click="vm.deleteCriteria(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"
-                data-toggle="tooltip" title="Delete row"><span class="glyphicon glyphicon-remove"></span></a>
-                <!-- Add a new subcriteria -->
-                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': item.canHaveSubs() && (!vm.projectService.project.components || item.level < 3) ? 'visible' : 'hidden'}"
-                data-ng-click="newSubCriteria(this)" style="margin-right: 8px;" data-toggle="tooltip" title="Add subcriteria">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-                <!-- Add a system -->
-                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': vm.projectService.project.components && item.subCriterias.length === 0 && item.options.length === 0 && (item.level === 2 || item.level === 3) ? 'visible' : 'hidden'}"
-                data-ng-click="addSystem(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add system">
-                    <span class="fa fa-sitemap"></span>
-                </a>
-                <!-- Add components -->
-                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': vm.projectService.project.components && item.subCriterias.length === 0 && item.options.length === 0 && (item.level === 2 || item.level === 3) ? 'visible' : 'hidden'}"
-                data-ng-click="addComponent(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add components">
-                    <span class="fa fa-puzzle-piece"></span>
-                </a>
-                <!-- Specify criteria options -->
-                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': item.canHaveOptions() && (!vm.projectService.project.components || item.level === 3 || item.level === 4)  ? 'visible' : 'hidden'}"
-                data-ng-click="newOption(this)" style="margin-right: 8px;" data-toggle="tooltip" title="Add options">
-                    <span class="glyphicon glyphicon-list"></span>
-                </a>
-                <!--Add decision tree-->
-                <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': (item.level === 2 || item.level === 3)  ? 'visible' : 'hidden','color': (item.decisionTreeId && item.decisionTreeId !== '') ? 'greenyellow' : 'white'}"
-                data-ng-click="vm.chooseDecisionTree(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add a decision tree to the criteria, that will help the user to choose an option in the solution view.">
-                    <span class="glyphicon glyphicon-tree-deciduous"></span>
-                </a>
-                <!-- Rating -->
-                <rating class="pull-right" style="margin:0 10px;cursor:pointer" ng-style="{'visibility': item.isEnabled ? 'visible' : 'hidden'}"
-                ng-model="item.userWeight" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-                <!-- Specify whether to use the scenario or not -->
-                <div class="pull-right" ng-if="!item.canHaveSubs()">
-                    <label>
-                        <input type="checkbox" style="cursor:pointer" ng-model="item.isScenarioDependent" ng-true-value="false" ng-false-value="true"
-                        class="pull-right checkbox" style="margin-right: 8px;"> &nbsp;No scenario input&nbsp;&nbsp;</label>
+            <script type="text/ng-template" id="options_renderer.html">
+                <div ui-tree-handle style="cursor:auto">
+                    <span class="glyphicon glyphicon-list" style="margin-right:4px; opacity:0.25; color:grey" />
+                    <span contenteditable ng-model="item.title" style="font-size:20px;cursor:text" data-ndrag></span>
+                    <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
+                    <a class="pull-right btn btn-danger btn-xs" data-ndrag ng-click="vm.deleteOption(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"
+                    style="margin-right:20px;"><span class="glyphicon glyphicon-remove"></span></a>
+                    <input type="number" ng-model="item.value" min="0" max="1" step="0.1" class="pull-right text-right" style="margin:0 130px 0 0">
                 </div>
-                <!--<span contenteditable is-description="true" ng-show="hovered && item.isEnabled && !item.componentId" type="text" ng-model="item.description"
+            </script>
+
+            <script type="text/ng-template" id="items_renderer.html">
+                <div ui-tree-handle ng-click="vm.select(item)" ng-mouseenter="hovered=true" ng-mouseleave="hovered=false">
+                    <a class="btn btn-success btn-xs" ng-click="toggle(this)">
+                        <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+                    </a>
+                    <span contenteditable ng-model="item.title" ng-class="{'disabledItem': !item.isEnabled}" style="font-size:20px;cursor:text"
+                    data-ndrag></span>
+                    <!--<span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>-->
+                    <!-- Disable criteria -->
+                    <input type="checkbox" ng-model="item.isEnabled" class="pull-right checkbox" ng-click="vm.setEnabled(item);vm.update();"
+                    data-toggle="tooltip" title="{{item.isEnabled ? 'Disable criterion' : 'Enable criterion'}}">
+                    <!-- Delete criteria -->
+                    <a class="pull-right btn btn-danger btn-xs" ng-style="{'visibility': item.isEnabled ? 'visible' : 'hidden'}" data-ndrag ng-click="vm.deleteCriteria(this.$nodeScope.$modelValue, $parentNodeScope.$modelValue)"
+                    data-toggle="tooltip" title="Delete row"><span class="glyphicon glyphicon-remove"></span></a>
+                    <!-- Add a new subcriteria -->
+                    <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': item.canHaveSubs() && (!vm.projectService.project.components || item.level < 3) ? 'visible' : 'hidden'}"
+                    data-ng-click="newSubCriteria(this)" style="margin-right: 8px;" data-toggle="tooltip" title="Add subcriteria">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                    <!-- Add a system -->
+                    <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': vm.projectService.project.components && item.subCriterias.length === 0 && item.options.length === 0 && (item.level === 2 || item.level === 3) ? 'visible' : 'hidden'}"
+                    data-ng-click="addSystem(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add system">
+                        <span class="fa fa-sitemap"></span>
+                    </a>
+                    <!-- Add components -->
+                    <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': vm.projectService.project.components && item.subCriterias.length === 0 && item.options.length === 0 && (item.level === 2 || item.level === 3) ? 'visible' : 'hidden'}"
+                    data-ng-click="addComponent(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add components">
+                        <span class="fa fa-puzzle-piece"></span>
+                    </a>
+                    <!-- Specify criteria options -->
+                    <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': item.canHaveOptions() && (!vm.projectService.project.components || item.level === 3 || item.level === 4)  ? 'visible' : 'hidden'}"
+                    data-ng-click="newOption(this)" style="margin-right: 8px;" data-toggle="tooltip" title="Add options">
+                        <span class="glyphicon glyphicon-list"></span>
+                    </a>
+                    <!--Add decision tree-->
+                    <a class="pull-right btn btn-primary btn-xs" ng-style="{'visibility': (item.level === 2 || item.level === 3)  ? 'visible' : 'hidden','color': (item.decisionTreeId && item.decisionTreeId !== '') ? 'greenyellow' : 'white'}"
+                    data-ng-click="vm.chooseDecisionTree(item)" style="margin-right: 8px;" data-toggle="tooltip" title="Add a decision tree to the criteria, that will help the user to choose an option in the solution view.">
+                        <span class="glyphicon glyphicon-tree-deciduous"></span>
+                    </a>
+                    <!-- Rating -->
+                    <rating class="pull-right" style="margin:0 10px;cursor:pointer" ng-style="{'visibility': item.isEnabled ? 'visible' : 'hidden'}"
+                    ng-model="item.userWeight" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    <!-- Specify whether to use the scenario or not -->
+                    <div class="pull-right" ng-if="!item.canHaveSubs()">
+                        <label>
+                            <input type="checkbox" style="cursor:pointer" ng-model="item.isScenarioDependent" ng-true-value="false" ng-false-value="true"
+                            class="pull-right checkbox" style="margin-right: 8px;"> &nbsp;No scenario input&nbsp;&nbsp;</label>
+                    </div>
+                    <!--<span contenteditable is-description="true" ng-show="hovered && item.isEnabled && !item.componentId" type="text" ng-model="item.description"
                 style="font-size:16px;cursor:text;margin-left:36px;display:block;" data-ndrag></span>-->
-                <!-- <div>
+                    <!-- <div>
                 <span class="pull-right">&nbsp;No scenario input&nbsp;&nbsp;</span>
                 <input type="checkbox" ng-model="item.isScenarioDependent" class="pull-right checkbox">
             </div> -->
-                <!-- Specify datasource -->
-                <!-- <select class="pull-right" style="margin:0 10px;"
+                    <!-- Specify datasource -->
+                    <!-- <select class="pull-right" style="margin:0 10px;"
                     data-ng-if="item.options.length > 0 && item.isEnabled"
                     data-ng-options="ds.id as ds.title for ds in vm.projectService.project.dataSources"
                     data-ng-model="item.dataSourceId"></select> -->
-            </div>
-            <ol ui-tree-nodes="subCriterias" ng-model="item.subCriterias" ng-if="item.isEnabled" ng-class="{hidden: collapsed}">
-                <li ng-repeat="item in item.subCriterias track by item.id" ui-tree-node ng-include="'items_renderer.html'"></li>
-            </ol>
-            <ol ui-tree-nodes="options" ng-model="item.options" ng-if="item.isEnabled" ng-class="{hidden: collapsed}">
-                <li ng-repeat="item in item.options track by item.id" ui-tree-node ng-include="'options_renderer.html'"></li>
-            </ol>
-        </script>
-
-        <div data-ng-if="vm.projectService.project != null">
-            <div class="row" style="margin-right: 10px">
-                <div class="col-md-4">
-                    <a style="margin: 0 5px" href="" ng-show="!allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-up" style="margin: 0 5px"></i>collapse all</a>
-                    <a style="margin: 0 5px" href="" ng-show="allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-down" style="margin: 0 5px"></i>expand all</a>
                 </div>
-                <div class="col-md-8">
-                    <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
-                    <a style="margin: 0 5px" href="" ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-lock" style="margin: 0 5px"></i>enable reorder</a>
-                    <a style="margin: 0 5px" href="" ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-unlock" style="margin: 0 5px"></i>disable reorder</a>
-                    <a style="margin: 0 5px" href="" ng-show="!sortAscending" ng-click="vm.sortOptions(vm.projectService.project.criterias, sortAscending)"
-                    ng-dblclick="sortAscending = !sortAscending" class="lock"><i class="fa fa-lg fa-sort-numeric-desc" style="margin: 0 5px"></i>sort descending</a>
-                    <a style="margin: 0 5px" href="" ng-show="sortAscending" ng-click="vm.sortOptions(vm.projectService.project.criterias, sortAscending)"
-                    ng-dblclick="sortAscending = !sortAscending" class="lock"><i class="fa fa-lg fa-sort-numeric-asc" style="margin: 0 5px"></i>sort ascending</a>
-                </div>
-            </div>
+                <ol ui-tree-nodes="subCriterias" ng-model="item.subCriterias" ng-if="item.isEnabled" ng-class="{hidden: collapsed}">
+                    <li ng-repeat="item in item.subCriterias track by item.id" ui-tree-node ng-include="'items_renderer.html'"></li>
+                </ol>
+                <ol ui-tree-nodes="options" ng-model="item.options" ng-if="item.isEnabled" ng-class="{hidden: collapsed}">
+                    <li ng-repeat="item in item.options track by item.id" ui-tree-node ng-include="'options_renderer.html'"></li>
+                </ol>
+            </script>
 
-            <div class="row" style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
-                <div class="col-md-12" ui-tree data-drag-enabled="reorder" data-drag-delay="500" style="margin-top:5px" id="tree-root">
-                    <ol ui-tree-nodes ng-model="d.projectService.project.criterias">
-                        <li ng-repeat="item in d.projectService.project.criterias track by item.id" ui-tree-node ng-include="'items_renderer.html'"></li>
-                    </ol>
-                    <a class="pull-right btn btn-primary btn-xs" ng-click="newCriteria()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
+            <div data-ng-if="vm.projectService.project != null">
+                <div class="row" style="margin-right: 10px">
+                    <div class="col-md-4">
+                        <a style="margin: 0 5px" href="" ng-show="!allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-up" style="margin: 0 5px"></i>collapse all</a>
+                        <a style="margin: 0 5px" href="" ng-show="allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-down" style="margin: 0 5px"></i>expand all</a>
+                    </div>
+                    <div class="col-md-8">
+                        <!--<a ng-click="vm.select()"><i class="fa fa-pie-chart"></i> select top element</a>-->
+                        <a style="margin: 0 5px" href="" ng-show="!reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-lock" style="margin: 0 5px"></i>enable reorder</a>
+                        <a style="margin: 0 5px" href="" ng-show="reorder" ng-click="reorder = !reorder" class="lock"><i class="fa fa-lg fa-unlock" style="margin: 0 5px"></i>disable reorder</a>
+                        <a style="margin: 0 5px" href="" ng-show="!sortAscending" ng-click="vm.sortOptions(vm.projectService.project.criterias, sortAscending)"
+                        ng-dblclick="sortAscending = !sortAscending" class="lock"><i class="fa fa-lg fa-sort-numeric-desc" style="margin: 0 5px"></i>sort descending</a>
+                        <a style="margin: 0 5px" href="" ng-show="sortAscending" ng-click="vm.sortOptions(vm.projectService.project.criterias, sortAscending)"
+                        ng-dblclick="sortAscending = !sortAscending" class="lock"><i class="fa fa-lg fa-sort-numeric-asc" style="margin: 0 5px"></i>sort ascending</a>
+                    </div>
+                </div>
+
+                <div class="row" style="overflow-y: auto; overflow-x: hidden;  background: white; background-color: white" resize resize-y="150">
+                    <div class="col-md-12" ui-tree data-drag-enabled="reorder" data-drag-delay="500" style="margin-top:5px" id="tree-root">
+                        <ol ui-tree-nodes ng-model="d.projectService.project.criterias">
+                            <li ng-repeat="item in d.projectService.project.criterias track by item.id" ui-tree-node ng-include="'items_renderer.html'"></li>
+                        </ol>
+                        <a class="pull-right btn btn-primary btn-xs" ng-click="newCriteria()" style="margin-right: 18px;margin-top:10px"><span class="glyphicon glyphicon-plus"></span></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div style="width:25%;float:right">
-        <!-- Selected criterion and description in right panel-->
-        <div class="row">
-            <h1 class="col-md-12" data-ng-if="vm.selectedCriteria"><div ng-bind-html="vm.selectedCriteria.title"></div></h1>
-        </div>
-        <div class="row" data-ng-if="vm.selectedCriteria">
-            <div class="col-md-12">
-                <span class="fa fa-info-circle" ng-show="!vm.selectedCriteria.description && !isEditing" style="margin-right:8px" ng-click="isEditing=!isEditing"
-                data-toggle="tooltip" title="Click to add a description"></span>
-                <span contenteditable type="text" id="description-box" ng-show="vm.selectedCriteria.description && !isEditing" ng-model="vm.selectedCriteria.description"
-                style="font-size:16px;cursor:text;display:inline-block;"></span>
-                <label for="description-edit-box" ng-show="isEditing" style="margin-right: 4px;">Description:</label>
-                <input type="text" id="description-edit-box" ng-model="vm.selectedCriteria.description" ng-show="isEditing" ng-blur="isEditing=!isEditing">
+    <div class="mca-rightpanel">
+        <div class="table">
+            <!-- Selected criterion and description in right panel-->
+            <div class="row">
+                <h1 class="col-md-12" data-ng-if="vm.selectedCriteria"><div ng-bind-html="vm.selectedCriteria.title"></div></h1>
             </div>
-        </div>
-        <!-- Result view -->
-        <div class="row">
-            <div class="col-md-12" style="margin-top: 36px">
-                <div class="row" id="pieChart"></div>
+            <div class="row" data-ng-if="vm.selectedCriteria">
+                <div class="col-md-12">
+                    <span class="fa fa-info-circle" ng-show="!vm.selectedCriteria.description && !isEditing" style="margin-right:8px" ng-click="isEditing=!isEditing"
+                    data-toggle="tooltip" title="Click to add a description"></span>
+                    <span contenteditable type="text" id="description-box" ng-show="vm.selectedCriteria.description && !isEditing" ng-model="vm.selectedCriteria.description"
+                    style="font-size:16px;cursor:text;display:inline-block;"></span>
+                    <label for="description-edit-box" ng-show="isEditing" style="margin-right: 4px;">Description:</label>
+                    <input type="text" id="description-edit-box" ng-model="vm.selectedCriteria.description" ng-show="isEditing" ng-blur="isEditing=!isEditing">
+                </div>
+            </div>
+            <!-- Result view -->
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 36px">
+                    <div id="pieChart"></div>
+                </div>
             </div>
         </div>
     </div>

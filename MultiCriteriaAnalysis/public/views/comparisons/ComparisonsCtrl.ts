@@ -135,6 +135,8 @@ module Comparisons {
         private updateResult() {
             var criterion = this.activeCriterion;
             var solution = this.projectService.activeSolution;
+            
+            // Solution comparison
             var data = new Helpers.GroupedBarChartData();
             data.series[0] = { label: solution.title, values: [], weights: [] };
 
@@ -165,28 +167,26 @@ module Comparisons {
                     data.series[i].weights.push(criterion.userWeight);
                     i++;
                 });
-                //this.addResultsToData(data, criterion, true);
-
-                // this.activeCriterias.forEach(c => {
-                //     var optionValue = c.getOptionValueById(c.selectedId);
-                //     data.labels.push(c.title);
-                //     data.series[0].values.push(optionValue * 100);
-                // });
-                // var i = 0;
-                // // Add the compared solutions to the data.
-                // this.projectService.compareToSolutions.forEach(s => {
-                //     i++;
-                //     var scores = s.scores[criterion.id];
-                //     data.series[i] = { label: s.title, values: [] };
-                //     this.activeCriterias.forEach(c => {
-                //         var result = scores.hasOwnProperty(c.id) ? c.getOptionValueById(scores[c.id].criteriaOptionId) * 100 : 0;
-                //         data.series[i].values.push(result);
-                //     });
-                // });
-                //
-                // this.addResultsToData(data, criterion, true);
             }
-            Helpers.Utils.drawHorizontalGroupedBarChart(data, 300, 5, 25, 20, 300, 150);
+            
+            //Module comparison
+            this.projectService.activeSolution.computeModuleScores(this.activeCriterion, this.projectService.project);
+            var moduleData = new Helpers.GroupedBarChartData();
+            if (!moduleData.labels || moduleData.labels.length === 0) moduleData.labels = [criterion.title];
+            if (!moduleData.series) moduleData.series = [];
+
+            var componentKeys = Object.keys(this.projectService.activeSolution.moduleScores);
+            componentKeys.forEach((key) => {
+                var scoreValue = this.projectService.activeSolution.moduleScores[key];
+                var component = this.projectService.project.findComponentById(key);
+                var labelValue = (component.title) ? component.title : key;
+                moduleData.series.push({ label: labelValue, values: [Math.round(scoreValue * 100)], weights: [4] });
+            });
+
+            this.$timeout(() => {
+                Helpers.Utils.drawHorizontalGroupedBarChart('#barChart', data, 300, 5, 25, 20, 300, 150);
+                Helpers.Utils.drawHorizontalGroupedBarChart('#barChart2', moduleData, 300, 5, 25, 20, 300, 150, false);
+            }, 0);
         }
 
         /** Scale and round the score. */

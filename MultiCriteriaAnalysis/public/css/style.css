@@ -650,6 +650,24 @@ rect {
     stroke-width: 2;
 }
 /* START CSS style for the horizontally grouped bar chart. */
+.chart .legend-weight {
+    fill: white;
+    font: 18px ROSans;
+    font-weight: bold;
+    text-anchor: middle;
+}
+
+.chart .legend-small {
+    fill: black;
+    text-anchor: start;
+    font: 12px ROSans;
+    text-overflow: ellipsis;
+}
+
+.chart .axis {
+    fill: black;
+    font: 11px ROSans;
+}
 
 .chart .legend {
     fill: black;
@@ -658,9 +676,7 @@ rect {
     font-size: 12px;
 }
 .chart text {
-    fill: white;
     font: 10px sans-serif;
-    text-anchor: end;
 }
 .chart .label {
     fill: black;
@@ -671,6 +687,19 @@ rect {
     fill: brown;
 }
 /* END CSS style for the horizontally grouped bar chart. */
+
+.mca-leftbody {
+    padding-right: 455px;
+}
+
+.mca-rightpanel {
+    position: fixed;
+    top: 50px;
+    right: 0;
+    width: 450px;
+    height: 100%;
+    padding: 5px;
+}
 
 /* Adjust Menu colors - Normal */
 .navbar .nav > li > a {

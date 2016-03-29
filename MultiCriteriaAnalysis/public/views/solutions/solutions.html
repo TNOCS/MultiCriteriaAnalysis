@@ -31,152 +31,119 @@
         </div> -->
     </div>
 
-    <div style="width:72%;float:left">
-        <div class="row">
-            <h1 class="col-md-12">Criteria</h1>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <a style="margin: 0 5px" href="" ng-show="!allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-up" style="margin: 0 5px"></i>collapse all</a>
-                <a style="margin: 0 5px" href="" ng-show="allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-down" style="margin: 0 5px"></i>expand all</a>
+    <div class="mca-leftbody">
+        <div class="table">
+            <div class="row">
+                <h1 class="col-md-12">Criteria</h1>
             </div>
-        </div>
-
-        <div class="row" data-ng-if="vm.projectService.activeSolution" style="overflow-y: auto; overflow-x: hidden" resize resize-y="150">
-
-            <script type="text/ng-template" id="items_renderer.html">
-                <div ui-tree-handle data-nodrag ng-click="vm.select(item);vm.selectDecisionTree(item);" ng-if="item.isEnabled">
-                    <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)" data-ng-if="item.isScenarioDependent || item.subCriterias.length !== 0">
-                        <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
-                    </a>
-                    <span style="font-size:20px" data-nodrag data-ng-bind-html="item.title"></span>
-                    <!-- Delete criteria -->
-                    <a class="pull-right btn btn-danger btn-xs" data-ng-if="item.options.length > 0 && !item.isScenarioDependent" data-nodrag
-                    ng-click="vm.resetCriteria(0, item)"><span class="glyphicon glyphicon-remove"></span>
-                </a>
-                    <!-- Select option -->
-                    <select class="pull-right" style="margin:0 10px; width:30%" data-ng-if="item.options.length > 0 && !item.isScenarioDependent"
-                    data-ng-change="vm.updateCriteria(0, 1, item)" data-ng-options="option.id as option.fullTitle for option in item.options"
-                    data-ng-model="vm.projectService.activeSolution.scores[item.id][0]['criteriaOptionId']"></select>
+            <div class="row">
+                <div class="col-md-4">
+                    <a style="margin: 0 5px" href="" ng-show="!allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-up" style="margin: 0 5px"></i>collapse all</a>
+                    <a style="margin: 0 5px" href="" ng-show="allCollapsed" ng-click="collapseAll()"><i class="fa fa-lg fa-chevron-down" style="margin: 0 5px"></i>expand all</a>
                 </div>
-                <ol ui-tree-nodes="subCriterias" data-nodrag ng-model="item.subCriterias" ng-class="{hidden: collapsed}">
-                    <li ng-repeat="item in item.subCriterias" ui-tree-node ng-include="'items_renderer.html'"></li>
-                </ol>
-                <ol ng-class="{hidden: collapsed}" data-nodrag style="margin-left:10px" ui-tree-handle data-ng-if="item.isScenarioDependent">
-                    <!-- && vm.toggleScenario(item)-->
-                    <li ng-repeat="scenario in vm.activeScenarios track by vm.id(scenario, item)" style="margin:5px 0;list-style-type: none"
-                    ng-click="vm.select(item);vm.selectScenario(scenario);vm.selectDecisionTree(item);">
-                        <span class="glyphicon glyphicon-file" style="margin-right:4px; opacity:0.25; color:grey" />
-                        <span style="font-size:20px" data-nodrag data-ng-bind-html="scenario.title"></span>
+            </div>
+
+            <div class="row" data-ng-if="vm.projectService.activeSolution" style="overflow-y: auto; overflow-x: hidden" resize resize-y="150">
+
+                <script type="text/ng-template" id="items_renderer.html">
+                    <div ui-tree-handle data-nodrag ng-click="vm.select(item);vm.selectDecisionTree(item);" ng-if="item.isEnabled">
+                        <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)" data-ng-if="item.isScenarioDependent || item.subCriterias.length !== 0">
+                            <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+                        </a>
+                        <span style="font-size:20px" data-nodrag data-ng-bind-html="item.title"></span>
                         <!-- Delete criteria -->
-                        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.resetCriteria(scenario.id, item)"><span class="glyphicon glyphicon-remove"></span>
-                   </a>
+                        <a class="pull-right btn btn-danger btn-xs" data-ng-if="item.options.length > 0 && !item.isScenarioDependent" data-nodrag
+                        ng-click="vm.resetCriteria(0, item)"><span class="glyphicon glyphicon-remove"></span>
+                </a>
                         <!-- Select option -->
-                        <select class="pull-right" style="margin:0 10px; width:30%" data-ng-change="vm.updateCriteria(scenario.id, scenario.weight, item)"
-                        data-ng-options="option.id as option.fullTitle for option in item.options" data-ng-model="vm.projectService.activeSolution.scores[item.id][scenario.id]['criteriaOptionId']"></select>
-                    </li>
-                </ol>
-            </script>
-
-            <div class="row" data-ng-if="vm.projectService.project != null" style="background: white; background-color: white">
-                <div class="col-md-12" ui-tree="options" style="margin-top:5px">
-                    <ol ui-tree-nodes ng-model="vm.projectService.project.criterias">
-                        <li ng-repeat="item in vm.projectService.project.criterias" ui-tree-node ng-include="'items_renderer.html'"></li>
+                        <select class="pull-right" style="margin:0 10px; width:30%" data-ng-if="item.options.length > 0 && !item.isScenarioDependent"
+                        data-ng-change="vm.updateCriteria(0, 1, item)" data-ng-options="option.id as option.fullTitle for option in item.options"
+                        data-ng-model="vm.projectService.activeSolution.scores[item.id][0]['criteriaOptionId']"></select>
+                    </div>
+                    <ol ui-tree-nodes="subCriterias" data-nodrag ng-model="item.subCriterias" ng-class="{hidden: collapsed}">
+                        <li ng-repeat="item in item.subCriterias" ui-tree-node ng-include="'items_renderer.html'"></li>
                     </ol>
-                </div>
-                <!--<div class="col-md-4">-->
-                <!--<div class="row" data-ng-if="vm.selectedCriteria">-->
-                <!--<span contenteditable ng-model="vm.selectedCriteria.description" style="font-size:20px;cursor:text"></span>-->
-                <!--<div id="pieChart"></div>-->
-                <!--<script src="../../js/draw.js"></script>-->
-                <!--</div>-->
-                <!--<div class="row" id="pieChart"></div>-->
-                <!--</div>-->
+                    <ol ng-class="{hidden: collapsed}" data-nodrag style="margin-left:10px" ui-tree-handle data-ng-if="item.isScenarioDependent">
+                        <!-- && vm.toggleScenario(item)-->
+                        <li ng-repeat="scenario in vm.activeScenarios track by vm.id(scenario, item)" style="margin:5px 0;list-style-type: none"
+                        ng-click="vm.select(item);vm.selectScenario(scenario);vm.selectDecisionTree(item);">
+                            <span class="glyphicon glyphicon-file" style="margin-right:4px; opacity:0.25; color:grey" />
+                            <span style="font-size:20px" data-nodrag data-ng-bind-html="scenario.title"></span>
+                            <!-- Delete criteria -->
+                            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="vm.resetCriteria(scenario.id, item)"><span class="glyphicon glyphicon-remove"></span>
+                   </a>
+                            <!-- Select option -->
+                            <select class="pull-right" style="margin:0 10px; width:30%" data-ng-change="vm.updateCriteria(scenario.id, scenario.weight, item)"
+                            data-ng-options="option.id as option.fullTitle for option in item.options" data-ng-model="vm.projectService.activeSolution.scores[item.id][scenario.id]['criteriaOptionId']"></select>
+                        </li>
+                    </ol>
+                </script>
 
+                <div class="row" data-ng-if="vm.projectService.project != null" style="background: white; background-color: white">
+                    <div class="col-md-12" ui-tree="options" style="margin-top:5px">
+                        <ol ui-tree-nodes ng-model="vm.projectService.project.criterias">
+                            <li ng-repeat="item in vm.projectService.project.criterias" ui-tree-node ng-include="'items_renderer.html'"></li>
+                        </ol>
+                    </div>
+                    <!--<div class="col-md-4">-->
+                    <!--<div class="row" data-ng-if="vm.selectedCriteria">-->
+                    <!--<span contenteditable ng-model="vm.selectedCriteria.description" style="font-size:20px;cursor:text"></span>-->
+                    <!--<div id="pieChart"></div>-->
+                    <!--<script src="../../js/draw.js"></script>-->
+                    <!--</div>-->
+                    <!--<div class="row" id="pieChart"></div>-->
+                    <!--</div>-->
+
+                </div>
+                <div class="row" id="padding-at-the-bottom" style="height:80px"></div>
             </div>
-            <div class="row" id="padding-at-the-bottom" style="height:80px" />
         </div>
     </div>
-    <div style="width:25%;float:right">
-        <div class="row">
-            <h1 class="col-md-12" data-ng-if="vm.selectedCriteria"><div ng-bind-html="vm.selectedCriteria.title"></div></h1>
-            <h1 class="col-md-12" data-ng-if="!vm.selectedCriteria"><div>No criterion selected</div></h1>
-        </div>
-        <div class="row" data-ng-if="vm.selectedCriteria">
-            <wiz-markdown class="col-md-12" content="vm.description" style="font-size:16px;"></wiz-markdown>
-        </div>
-        <div class="row">
-            <h3 class="col-md-12">Scores</h3>
-        </div>
-        <div class="row">
-            <svg id="barChart" class="chart"></svg>
-        </div>
-        <div class="row">
-            <h3 class="col-md-12">Weights</h3>
-        </div>
-        <div class="row">
-            <div id="pieChart"></div>
-        </div>
-        <div class="row">
-            <h2 class="col-md-12" data-ng-if="vm.selectedScenario"><div ng-bind-html="vm.selectedScenario.title"></div></h2>
-        </div>
-        <div class="row" style="margin-top:40px;">
-            <h1 data-ng-if="vm.activeQuestion" class="col-md-8">Input helper</h1>
-            <h1 data-ng-if="vm.activeQuestion" class="col-md-4">
+
+    <div class="mca-rightpanel">
+        <div class="table">
+            <div class="row">
+                <h1 class="col-md-12" data-ng-if="vm.selectedCriteria"><div ng-bind-html="vm.selectedCriteria.title"></div></h1>
+                <h1 class="col-md-12" data-ng-if="!vm.selectedCriteria"><div>No criterion selected</div></h1>
+            </div>
+            <div class="row" data-ng-if="vm.selectedCriteria">
+                <wiz-markdown class="col-md-12" content="vm.description" style="font-size:16px;"></wiz-markdown>
+            </div>
+            <div class="row">
+                <h3 class="col-md-12">Scores</h3>
+            </div>
+            <div class="row">
+                <svg id="barChart" class="col-md-12 chart"></svg>
+            </div>
+            <div class="row">
+                <h3 class="col-md-12">Weights</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-12" id="pieChart"></div>
+            </div>
+            <div class="row">
+                <h2 class="col-md-12" data-ng-if="vm.selectedScenario"><div ng-bind-html="vm.selectedScenario.title"></div></h2>
+            </div>
+            <div class="row" style="margin-top:40px;">
+                <h1 data-ng-if="vm.activeQuestion" class="col-md-8">Input helper</h1>
+                <h1 data-ng-if="vm.activeQuestion" class="col-md-4">
                 <a href ng-click="vm.resetDecisionTree()" data-toggle="tooltip" title="Reset decision tree">
                     <i class="fa fa-trash" style="font-size:20px"></i>
                 </a>
             </h1>
-        </div>
-        <div data-ng-if="vm.activeQuestion">
-            <div class="col-md-12">
-                <div class="row" ng-repeat="q in vm.questions track by $index">
-                    <label for="question-{{$index}}" style="margin-right: 4px;">{{q.question}}</label>
-                    <select id="question-{{$index}}" data-ng-model="vm.answers[$index]" ng-change="vm.answerChanged(vm.answers[$index], $index)"
-                    ng-disabled="$index !== vm.activeQuestionIndex">
-                        <option ng-repeat="(key, val) in q.answers track by $index">{{key}}</option>
-                    </select>
-                </div>
-                <div class="row" ng-if="vm.finalAnswer">Based on your answers the outcome of the expert model is: <b>{{vm.finalAnswer}}</b></div>
             </div>
-        </div>
-
-        <!-- <div>option.id as option.fullTitle for option in item.options
-            <script type="text/ng-template" id="items_renderer.html">
-                <div ui-tree-handle ng-click="vm.select(item)">
-                    <a ng-if="item.hasSubs()" class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)"><span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
-                    <span ng-model="item.title" style="font-size:20px;cursor:text;margin-right:20px" data-nodrag>{{item.title}}</span>
-                    <rating ng-model="item.userWeight" class="span6 pull-right" style="text-align:right;" max="5" readonly="true" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-                </div>
-                <ol ui-tree-nodes="options" ng-model="item.subScenarios" ng-class="{hidden: collapsed}">
-                    <li ng-repeat="item in item.subScenarios track by $index" ui-tree-node ng-include="'items_renderer.html'"></li>
-                </ol>
-            </script>
-
-            <div ui-tree="options" data-drag-enabled="false" class="col-md-6">
-                 <ol ui-tree-nodes ng-model="vm.projectService.project.scenarios" data-nodrop data-nodrag style="cursor: pointer">
-                    <li ng-repeat="item in vm.projectService.project.scenarios"
-                        ui-tree-node
-                        ng-include="'items_renderer.html'"></li>
-                </ol>
-            </div>
-        </div> -->
-
-        <!-- The list of criteria that needs to be filled in -->
-        <!-- <div class="col-md-6">
-            <div class="row" id="pieChart"></div>
-            <div class="row" data-ng-if="vm.activeCriterias.length > 0">
-                <h3>Specify the results</h3>
-                <div class="col-md-12" data-ng-repeat="criteria in vm.activeCriterias | filter: vm.dataSourceFilter">
-                    <div class="col-md-6"><h4>{{criteria.title}}</h4></div>
-                    <div class="col-md-6">
-                        <select style="margin:10px 0;width:90%"
-                                data-ng-change="vm.updateCriteria(criteria)"
-                                data-ng-options="option.id as option.fullTitle for option in criteria.options"
-                                data-ng-model="criteria.selectedId"></select>
+            <div data-ng-if="vm.activeQuestion">
+                <div class="col-md-12">
+                    <div class="row" ng-repeat="q in vm.questions track by $index">
+                        <label for="question-{{$index}}" style="margin-right: 4px;">{{q.question}}</label>
+                        <select id="question-{{$index}}" data-ng-model="vm.answers[$index]" ng-change="vm.answerChanged(vm.answers[$index], $index)"
+                        ng-disabled="$index !== vm.activeQuestionIndex">
+                            <option ng-repeat="(key, val) in q.answers track by $index">{{key}}</option>
+                        </select>
                     </div>
+                    <div class="row" ng-if="vm.finalAnswer">Based on your answers the outcome of the expert model is: <b>{{vm.finalAnswer}}</b></div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>

@@ -226,6 +226,28 @@
             return null;
         }
 
+        private componentCache: { [id: string]: Models.IComponent } = {};
+        
+        /**
+         * Finds a component by its ID. Returns null when nothing has been found.
+         */
+        findComponentById(id: string, components = this.components): IComponent {
+            if (this.componentCache.hasOwnProperty(id)) return this.componentCache[id];
+            if (components.length === 0) return null;
+            for (var i = 0; i < components.length; i++) {
+                var component = components[i];
+                if (component.id === id) {
+                    this.componentCache[id] = component;
+                    return component;
+                };
+                if (component.components.length > 0) {
+                    var found = this.findComponentById(id, component.components);
+                    if (found != null) return found;
+                }
+            }
+            return null;
+        }
+
         //private findCriteriaByIdRecursively(crits: Criteria[], title: string): Models.Criteria {
         //    for (var i in crits) {
         //        var criteria = crits[i];
