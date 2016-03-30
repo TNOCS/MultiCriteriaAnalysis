@@ -59,7 +59,7 @@
             private messageBus: csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
         ) {
-            $scope.vm = this;           
+            $scope.vm = this;
 
             if (projectService.project == null) return;
 
@@ -85,7 +85,7 @@
             $scope.toggle = scope => {
                 scope.toggle();
             };
-            
+
             $scope.collapseAll = () => {
                 this.$scope.allCollapsed = !this.$scope.allCollapsed;
                 var nodes = document.getElementsByClassName("angular-ui-tree-node");

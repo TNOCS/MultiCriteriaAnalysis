@@ -5,8 +5,26 @@ module Visualise {
         vm: VisualiseCtrl;
     }
 
+    export interface XYZ {
+        x: number;
+        y: number;
+        z: number;
+    }
+
+    /** Interface to describe a building block */
+    export interface IBuildingBox {
+        guid:   string;
+        name:   string;
+        oid:    number;
+        color?: any;
+        min:    XYZ;
+        max:    XYZ;
+    }
+
     export class VisualiseCtrl {
         private project: Models.McaProject;
+        private viewer: any;
+        private location: any;
 
         public static $inject = [
             '$scope',
@@ -20,321 +38,370 @@ module Visualise {
             public userService: Services.UserService,
             private messageBus: csComp.Services.MessageBusService,
             private projectService: Services.ProjectService
-            ) {
+        ) {
             $scope.vm = this;
 
             if (projectService.project == null) return;
             this.project = projectService.project;
 
             this.initialize();
+            this.updateModel();
         }
 
         private initialize() {
-            var imageProvider;
-            var viewer = new Cesium.Viewer('cesiumContainer', {
-                    selectionIndicator:   false,
-                    infoBox:              false,
-                    scene3DOnly:          true,
-                    sceneModePicker:      false,
-                    fullscreenButton:     false,
-                    homeButton:           false,
-                    baseLayerPicker:      false,
-                    animation:            false,
-                    timeline:             false,
-                    geocoder:             false,
-                    navigationHelpButton: false,
-                    imageryProvider:      imageProvider
+            Cesium.BingMapsApi.defaultKey = 'AixgYcSF8GWn2Fs0o1bv8Scqm7rDcYToscQg1qFFYgNiOEEEVvy8aUkDTIgpbNW4';
+
+            this.viewer = new Cesium.Viewer('cesiumContainer', {
+                selectionIndicator:   false,
+                infoBox:              false,
+                scene3DOnly:          true,
+                sceneModePicker:      false,
+                fullscreenButton:     false,
+                homeButton:           false,
+                baseLayerPicker:      false,
+                animation:            false,
+                timeline:             false,
+                geocoder:             false,
+                navigationHelpButton: true
+            });
+
+            // var scene = this.viewer.scene;
+
+            this.location = Cesium.Cartesian3.fromDegrees(4.323693, 52.082356, 50);
+
+            this.viewer.camera.flyTo({
+                destination: this.location
+            });
+        }
+
+        private updateModel() {
+            var scene = this.viewer.scene;
+
+            const unitConversion = 1000;
+
+            var data = this.model;
+            data.forEach(boundingBox => {
+                var min = boundingBox.min;
+                var max = boundingBox.max;
+
+                var m = Cesium.Matrix4.multiplyByTranslation(
+                    Cesium.Transforms.eastNorthUpToFixedFrame(this.location),
+                    new Cesium.Cartesian3(0, 0, 0),
+                    new Cesium.Matrix4());
+
+                var aabb = new Cesium.AxisAlignedBoundingBox(
+                    new Cesium.Cartesian3(min.x / unitConversion, min.y / unitConversion, min.z / unitConversion),
+                    new Cesium.Cartesian3(max.x / unitConversion, max.y / unitConversion, max.z / unitConversion));
+                var box = Cesium.BoxGeometry.fromAxisAlignedBoundingBox(aabb);
+
+                var instance = new Cesium.GeometryInstance({
+                    geometry: box,
+                    modelMatrix: m,
+                    attributes: {
+                        color: Cesium.ColorGeometryInstanceAttribute.fromColor(boundingBox.color)
+                    },
+                    id: boundingBox.guid
                 });
 
-            var scene = viewer.scene;
+                var material;
+                material = Cesium.Material.fromType('Color');
+                material.uniforms.color = boundingBox.color; // new Cesium.Color(1.0, 1.0, 0.0, 1.0);
 
-            var location = Cesium.Cartesian3.fromDegrees(4.323693, 52.082356, 50); // Rotterdam
-            var camera = viewer.camera;
-
-            var unitConversion = 1000;
-
-            viewer.camera.flyTo({
-                destination : location
+                scene.primitives.add(new Cesium.Primitive({
+                    geometryInstances: instance,
+                    appearance: new Cesium.EllipsoidSurfaceAppearance({
+                        material: material // Cesium.Material.fromType('Color')
+                    })
+                }));
             });
-
-        var boxes = [  
-        {  
-            "guid":"3AD1pxR0z3vedFg0gqE_dY",
-            "name":"Housing Ribbon 4.3",
-            "oid":1048853,
-            "min":{  
-                "x":-66129.03130048513,
-                "y":-29425.553000867367,
-                "z":-38165.0
-            },
-            "max":{  
-                "x":-11179.45703125,
-                "y":17951.732177734375,
-                "z":-25665.15625
-            }
-        },
-        {  
-            "guid":"1mcEPlFFr32gxEa922f46_",
-            "name":"Housing Ribbon 4.1",
-            "oid":327957,
-            "min":{  
-                "x":-105996.890625,
-                "y":-53334.11996459961,
-                "z":-58165.000007192895
-            },
-            "max":{  
-                "x":-66128.57421875,
-                "y":-6613.002197265625,
-                "z":-46164.99996948242
-            }
-        },
-        {  
-            "guid":"0JVVvaMiv4yfY1vk3ZwIH_",
-            "name":"Housing Ribbon 1",
-            "oid":262421,
-            "min":{  
-                "x":-89178.76904296875,
-                "y":-73995.29077148438,
-                "z":-58165.0
-            },
-            "max":{  
-                "x":-59567.021484375,
-                "y":-42771.619384765625,
-                "z":54165.00000000055
-            }
-        },
-        {  
-            "guid":"2K9461lA927fwl5JSLbDLY",
-            "name":"Housing Ribbon 4.4",
-            "oid":459029,
-            "min":{  
-                "x":-40795.83517456055,
-                "y":-10062.324310302734,
-                "z":-58165.0
-            },
-            "max":{  
-                "x":-11180.564453125,
-                "y":17956.706787109375,
-                "z":-38164.99987841895
-            }
-        },
-        {  
-            "guid":"2by76t3gH7K8MaeOtzAB1f",
-            "name":"Housing Ribbon 4.2",
-            "oid":393493,
-            "min":{  
-                "x":-86368.18377685547,
-                "y":-39113.294189453125,
-                "z":-46165.000001032866
-            },
-            "max":{  
-                "x":-56229.54296875,
-                "y":-6594.256103515625,
-                "z":-25665.15625
-            }
-        },
-        {  
-            "guid":"2Jw2Dx7n19IPTNh7g12cWR",
-            "name":"Garage Ribbon 0",
-            "oid":65813,
-            "min":{  
-                "x":-40611.616638183594,
-                "y":-55179.290771484375,
-                "z":-70835.0
-            },
-            "max":{  
-                "x":105604.875,
-                "y":73995.29077148438,
-                "z":-58165.0
-            }
-        },
-        {  
-            "guid":"1kQ773cv9CrBXFi2Cg$UT8",
-            "name":"Theater Ribbon 1",
-            "oid":196885,
-            "min":{  
-                "x":-89181.6953125,
-                "y":-73982.79516601562,
-                "z":54164.999999995984
-            },
-            "max":{  
-                "x":42375.353515625,
-                "y":35138.527099609375,
-                "z":70835.0
-            }
-        },
-        {  
-            "guid":"0EBknzY554nOiBLXOfWgHw",
-            "name":"Hotel Ribbon 1",
-            "oid":131349,
-            "min":{  
-                "x":12525.23046875,
-                "y":3732.7109375,
-                "z":-57835.00003814612
-            },
-            "max":{  
-                "x":47015.734375,
-                "y":38684.298583984375,
-                "z":54164.9999618539
-            }
-        },
-        {  
-            "guid":"0_gjzzTF10OvDMJyJAfQzo",
-            "name":"Museum Ribbon 3.1",
-            "oid":852245,
-            "min":{  
-                "x":31229.23095703125,
-                "y":18036.709228515625,
-                "z":-25835.00000000298
-            },
-            "max":{  
-                "x":86871.59765625,
-                "y":69150.69702148438,
-                "z":-13165.0
-            }
-        },
-        {  
-            "guid":"1c68cj5Aj6xB4C_m19qMaW",
-            "name":"Shops Ribbon 3.1",
-            "oid":786709,
-            "min":{  
-                "x":31229.23095703125,
-                "y":18036.709228515625,
-                "z":-57835.00003814708
-            },
-            "max":{  
-                "x":61206.48828125,
-                "y":49539.671630859375,
-                "z":-25835.00003814699
-            }
-        },
-        {  
-            "guid":"2rpH22DmH5fxMqZEyvb9bR",
-            "name":"Museum Ribbon 3.2",
-            "oid":983317,
-            "min":{  
-                "x":70185.5541381836,
-                "y":3827.0139770507812,
-                "z":-58164.999921328126
-            },
-            "max":{  
-                "x":105996.890625,
-                "y":36712.796630859375,
-                "z":-45164.99969482422
-            }
-        },
-        {  
-            "guid":"3vxLhVtKzFJQvESrJeOUbw",
-            "name":"Shops Ribbon 3.2",
-            "oid":917781,
-            "min":{  
-                "x":66211.53581237793,
-                "y":20927.835693359375,
-                "z":-58165.0
-            },
-            "max":{  
-                "x":95856.611328125,
-                "y":48473.663818359375,
-                "z":-13165.0
-            }
-        },
-        {  
-            "guid":"3GVtpp8KvAnxIseahiSPhO",
-            "name":"Offices Ribbon 2.1",
-            "oid":590101,
-            "min":{  
-                "x":-7642.7691650390625,
-                "y":-55179.291015625,
-                "z":-58165.00001484036
-            },
-            "max":{  
-                "x":23127.3828125,
-                "y":-25814.886962890625,
-                "z":5835.000030517578
-            }
-        },
-        {  
-            "guid":"3wPFtUHx5EGxpc0Co63Os_",
-            "name":"Shops Ribbon 4",
-            "oid":524565,
-            "min":{  
-                "x":-31204.7001953125,
-                "y":-41125.187744140625,
-                "z":-58165.000033947465
-            },
-            "max":{  
-                "x":12376.3671875,
-                "y":5004.966552734375,
-                "z":-45495.00003051758
-            }
-        },
-        {  
-            "guid":"0vN2XGRrr8dR6nj1aagXrh",
-            "name":"Offices Ribbon 2.3",
-            "oid":721173,
-            "min":{  
-                "x":49557.23083496094,
-                "y":-11467.291015625,
-                "z":-58164.999938964844
-            },
-            "max":{  
-                "x":80327.3828125,
-                "y":17897.113037109375,
-                "z":5835.000793457031
-            }
-        },
-        {  
-            "guid":"1IPtICIvP0CBDUnsRVLaQz",
-            "name":"Offices Ribbon 2.2",
-            "oid":655637,
-            "min":{  
-                "x":-7642.76904296875,
-                "y":-55179.29089355469,
-                "z":5834.999997834311
-            },
-            "max":{  
-                "x":80330.7421875,
-                "y":17894.907958984375,
-                "z":22835.0
-            }
         }
-        ]
 
-        boxes.forEach(function(boundingBox){
-            var min = boundingBox.min;
-            var max = boundingBox.max;
-
-            var m = Cesium.Matrix4.multiplyByTranslation(
-            Cesium.Transforms.eastNorthUpToFixedFrame(location), 
-            new Cesium.Cartesian3(min.x / unitConversion, min.y / unitConversion, min.z / unitConversion), 
-            new Cesium.Matrix4());
-
-            var geometry = Cesium.BoxGeometry.fromDimensions({
-            vertexFormat : Cesium.VertexFormat.POSITION_AND_NORMAL,
-            dimensions : new Cesium.Cartesian3((max.x - min.x) / unitConversion, (max.y - min.y) / unitConversion, (max.z - min.z) / unitConversion)
-            });
-            var instance = new Cesium.GeometryInstance({
-            geometry : geometry,
-            modelMatrix : m,
-            id : boundingBox.guid
-            });
-
-            var material = Cesium.Material.fromType('Color');
-            material.uniforms.color = new Cesium.Color(1.0, 1.0, 0.0, 0.8);
-
-            scene.primitives.add(new Cesium.Primitive({
-            geometryInstances : instance,
-            appearance : new Cesium.EllipsoidSurfaceAppearance({
-                material : material
-            })
-            }));
-        });
-
-        }
-        
-        private getModuleScores() {
+        private get moduleScores() {
+            if (typeof this.projectService.activeSolution === 'undefined') {
+                this.projectService.activeSolution = this.project.solutions[this.project.solutions.length - 1];
+            }
+            if (!this.projectService.activeSolution) {
+                this.messageBus.notifyBottom('Active solution', 'Please create an new solution in the Solutions tab.');
+                return;
+            }
             this.projectService.activeSolution.computeModuleScores(this.project.rootCriterion, this.project);
             var moduleScores: Models.IModuleScores = this.projectService.activeSolution.moduleScores;
+            return moduleScores;
+        }
+
+        private convertScoreToColor(score: number) {
+            // http://colorbrewer2.org/?type=diverging&scheme=RdYlGn&n=5
+            //const colors = ['#d7191c','#fdae61','#ffffbf','#a6d96a','#1a9641'];
+            const alpha = 0.9;
+            const color0 = new Cesium.Color(215 / 255,  48 / 255,  39 / 255, alpha);
+            const color1 = new Cesium.Color(253 / 255, 174 / 255,  97 / 255, alpha);
+            const color2 = new Cesium.Color(255 / 255, 255 / 255, 191 / 255, alpha);
+            const color3 = new Cesium.Color(166 / 255, 217 / 255, 106 / 255, alpha);
+            const color4 = new Cesium.Color( 26 / 255, 150 / 255,  65 / 255, alpha);
+            if (score < 1) return color0;
+            if (score < 2) return color1;
+            if (score < 3) return color2;
+            if (score < 4) return color3;
+            return color4;
+        }
+
+        private get model(): IBuildingBox[] {
+            const defaultColor = new Cesium.Color(1, 1, 0, 0.9);
+            var scores = this.moduleScores;
+            var data: IBuildingBox[] = [
+                {
+                    'guid': '3rIuqF0Jz0PuyvSPtUZiO3',
+                    'name': 'Housing Ribbon 4.2',
+                    'oid': 59048085,
+                    'min': {
+                        'x': 13900.000000001899,
+                        'y': 60150.000000030544,
+                        'z': -46165.000023550674
+                    },
+                    'max': {
+                        'x': 42600.0000000019,
+                        'y': 76150.00000003052,
+                        'z': -25665.15625
+                    }
+                },
+                {
+                    'guid': '3YkSWD8JP7CwtL4CmZcwfH',
+                    'name': 'Housing Ribbon 4.1',
+                    'oid': 58982549,
+                    'min': {
+                        'x': 14900.001953126899,
+                        'y': 60150.000000030544,
+                        'z': -58165.00000741584
+                    },
+                    'max': {
+                        'x': 42600.0000000019,
+                        'y': 100850.00000003052,
+                        'z': -46165
+                    }
+                },
+                {
+                    'guid': '2ALmB0ioP6hBY0H4_lrJpE',
+                    'name': 'Shops Ribbon 4',
+                    'oid': 59179157,
+                    'min': {
+                        'x': -24899.998046928446,
+                        'y': 3449.999979956163,
+                        'z': -58165
+                    },
+                    'max': {
+                        'x': 13900.001953126899,
+                        'y': 28650.000000030515,
+                        'z': -45495
+                    }
+                },
+                {
+                    'guid': '2JTB0GoBT04gW4ChJLUYTr',
+                    'name': 'Housing Ribbon 4.4',
+                    'oid': 59113621,
+                    'min': {
+                        'x': 13900.003906251899,
+                        'y': 3450.0000000305445,
+                        'z': -58165.000077458026
+                    },
+                    'max': {
+                        'x': 30200.0039062519,
+                        'y': 28266.322265655515,
+                        'z': -38165
+                    }
+                },
+                {
+                    'guid': '2zjWPjRbbEIfNfpqygiK2M',
+                    'name': 'Hotel Ribbon 1',
+                    'oid': 58785941,
+                    'min': {
+                        'x': -11099.995926185242,
+                        'y': -44949.999999969485,
+                        'z': -57835.00000000119
+                    },
+                    'max': {
+                        'x': 14900.001953126899,
+                        'y': -27149.999999969485,
+                        'z': 54165
+                    }
+                },
+                {
+                    'guid': '3aXivM03D3GQF_Heouqn5j',
+                    'name': 'Garage Ribbon 0',
+                    'oid': 58720405,
+                    'min': {
+                        'x': -42600.0000000019,
+                        'y': -100350.00176998902,
+                        'z': -70835
+                    },
+                    'max': {
+                        'x': 29400.007812498116,
+                        'y': 28650.006042510984,
+                        'z': -58165
+                    }
+                },
+                {
+                    'guid': '08Jsd0B1TAYfsPzp7oDIGF',
+                    'name': 'Housing Ribbon 1',
+                    'oid': 58917013,
+                    'min': {
+                        'x': -11099.99418484226,
+                        'y': 83450.00000002676,
+                        'z': -58165
+                    },
+                    'max': {
+                        'x': 14900.005859376899,
+                        'y': 100850.00000003052,
+                        'z': 54165
+                    }
+                },
+                {
+                    'guid': '27dkbiQ890hv5IbUYa_pey',
+                    'name': 'Theater Ribbon 1',
+                    'oid': 58851477,
+                    'min': {
+                        'x': -11099.996294837074,
+                        'y': -44849.99998588357,
+                        'z': 54164.99999999997
+                    },
+                    'max': {
+                        'x': 14900.005859376899,
+                        'y': 100850.00000003052,
+                        'z': 70835
+                    }
+                },
+                {
+                    'guid': '1VrGcni0L3ufpDqgJgJsZZ',
+                    'name': 'Shops Ribbon 3.2',
+                    'oid': 59572373,
+                    'min': {
+                        'x': -25899.998046873094,
+                        'y': -100850.00000003052,
+                        'z': -58165
+                    },
+                    'max': {
+                        'x': -11099.998046873101,
+                        'y': -74850.00000003052,
+                        'z': -13165
+                    }
+                },
+                {
+                    'guid': '02bCzYcXn54O3nh64daW9p',
+                    'name': 'Museum Ribbon 3.1',
+                    'oid': 59506837,
+                    'min': {
+                        'x': -11099.998046873101,
+                        'y': -100849.99998518969,
+                        'z': -25835
+                    },
+                    'max': {
+                        'x': 14900.001953126899,
+                        'y': -50689.99998518969,
+                        'z': -13165
+                    }
+                },
+                {
+                    'guid': '3OktZOHpX6Iu2XfSzCmozs',
+                    'name': 'Housing Ribbon 4.3',
+                    'oid': 59703445,
+                    'min': {
+                        'x': 13900.003906161714,
+                        'y': 3450.000000030501,
+                        'z': -38165
+                    },
+                    'max': {
+                        'x': 30200.0039062519,
+                        'y': 60150.000000030515,
+                        'z': -25665.1572265625
+                    }
+                },
+                {
+                    'guid': '3QWSY7Mtn9eQeLCOQJVn1c',
+                    'name': 'Museum Ribbon 3.2',
+                    'oid': 59637909,
+                    'min': {
+                        'x': -42599.998535840576,
+                        'y': -100849.99980065304,
+                        'z': -58165.00000353016
+                    },
+                    'max': {
+                        'x': -25899.998362406703,
+                        'y': -68541.46073815304,
+                        'z': -45165
+                    }
+                },
+                {
+                    'guid': '1YOYVu_sf30ASMOqTA7UuO',
+                    'name': 'Offices Ribbon 2.2',
+                    'oid': 59310229,
+                    'min': {
+                        'x': -42599.99978686297,
+                        'y': -68541.46093771016,
+                        'z': 5834.999943042771
+                    },
+                    'max': {
+                        'x': -24899.997770545444,
+                        'y': 28650.000000030515,
+                        'z': 22835
+                    }
+                },
+                {
+                    'guid': '28_SWML_X3GgDKJjDSm7yD',
+                    'name': 'Offices Ribbon 2.1',
+                    'oid': 59244693,
+                    'min': {
+                        'x': -42599.99892303032,
+                        'y': 3450.000000017433,
+                        'z': -58165.00009944775
+                    },
+                    'max': {
+                        'x': -24899.99693348872,
+                        'y': 28650.000000030515,
+                        'z': 5835
+                    }
+                },
+                {
+                    'guid': '2Xkm2RuJf1jfPyhmyxgsbc',
+                    'name': 'Shops Ribbon 3.1',
+                    'oid': 59441301,
+                    'min': {
+                        'x': -11099.998046873101,
+                        'y': -68549.99999996947,
+                        'z': -57835
+                    },
+                    'max': {
+                        'x': 14900.001953126899,
+                        'y': -50689.999999969485,
+                        'z': -25835
+                    }
+                },
+                {
+                    'guid': '3ZltnP9q1DsBuy9Eds2wy6',
+                    'name': 'Offices Ribbon 2.3',
+                    'oid': 59375765,
+                    'min': {
+                        'x': -42599.999693944315,
+                        'y': -68541.46095234368,
+                        'z': -58165.000065055894
+                    },
+                    'max': {
+                        'x': -24899.998012553864,
+                        'y': -43341.460937469485,
+                        'z': 5835
+                    }
+                }
+            ];
+            data.forEach(box => {
+                box.color = defaultColor;
+                for (var key in scores) {
+                    if (!scores.hasOwnProperty(key)) continue;
+                    if (key.indexOf(box.guid) < 0) continue;
+                    let score = scores[key];
+                    box.color = this.convertScoreToColor(score);
+                    console.log(box);
+                    return;
+                }
+            });
+            return data;
         }
     }
 }

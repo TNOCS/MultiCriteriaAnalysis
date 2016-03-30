@@ -1,1 +1,2647 @@
-{"users":[{"id":"a3148248-020d-4fa7-ae65-9635bcd5c7fa","name":"Testuser","description":"...","preferences":{"Security, Safety &amp; Resilience":5,"Business Continuity":3,"Repair time":3,"Post-incident usability":3,"Functionality":3,"Size":0,"Accessibility":5,"Museum":1,"Offices":1,"Plane Impact Offices":0,"Plane Impact Museum":0,"Plane Impact Theatre":0,"On trusses":0,"In between trusses":0,"Plane Impact Hotel":0,"On concrete tower":0,"Plane Impact Housing":0,"Fire Offices":0,"Fire Museum":0,"Fire Theatre ":0,"Fire Hotel (in Lobby)":0,"Fire Housing":0,"Fire Commerce":0,"Fire Parking":0,"Case bomb (small)":0,"Case bomb (small)&nbsp;Offices":0,"Case bomb (small) Museum":0,"Case bomb (small) Theatre":0,"Case bomb (small) Hotel":0,"Case bomb (small)&nbsp;Housing":0,"Case bomb (small) Commerce":0,"Case bomb (small) Parking":0,"Car bomb":0,"Car bomb Offices":0,"Car bomb Hotel":0,"Car bomb Housing":0,"Car bomb Commerce":0,"Car bomb Parking":0,"Truck (External)":0,"Truck (External) Offices":0,"Truck (External) Hotel":0,"Truck (External) Housing":0,"Truck (External) Commerce":0,"Case bomb (heavy)":0,"Case bomb (heavy) Offices":0,"Case bomb (heavy) Museum":0,"Case bomb (heavy) Theatre":0,"Case bomb (heavy) Hotel":0,"Case bomb (heavy) Housing":0,"Case bomb (heavy) Commerce":0,"Case bomb (heavy) Parking":0,"Building":0,"Theatre":1,"Architectural Quality":0,"Recognizability":0,"Urban Integration":0,"Accessibility ":0,"During opening hours":0,"Supply":0,"Parking":0,"Spatial use":0,"<br>":0,"Travel time":0,"Environmental Impact":0,"EPC value":0,"Hotel":0,"Housing":0,"Commerce":0,"Safety, Security and Resilience":0,"Access security ":0,"People being safe":0,"Non-attacked zone":0,"Attacked zone":0,"External":0,"Business continuity ":0},"username":"","password":""},{"id":"a51b3055-720c-43fd-b582-b95acbb5a1ae","name":"Unknown","description":"...","preferences":{"Plane Impact":0,"Fire":0,"Flooding":0,"Earthquake":0,"Extreme wind":0,"CBR attack":0,"Explosion":0,"Security, Safety &amp; Resilience":1,"Functionality":1,"Architectural Quality":1,"Environmental Impact":0,"Safety, Security and Resilience":0,"Business Continuity":0,"Repair time":0,"Post-incident usability":0,"Offices":3,"Museum":1,"Theatre":1,"EPC value":1,"Hotel":1,"Housing":1,"Commerce":1,"Parking":1},"username":"","password":""},{"id":"d7e30f3f-262c-409b-8384-2018d9b0f265","name":"User2","description":"...","preferences":{"Plane Impact Offices":1,"Plane Impact Museum":1,"Plane Impact Theatre":1,"On trusses":1,"In between trusses":1,"Plane Impact Hotel":1,"On concrete tower":1,"Plane Impact Housing":1,"Fire Offices":1,"Fire Museum":1,"Fire Theatre ":1,"Fire Hotel (in Lobby)":1,"Fire Housing":1,"Fire Commerce":1,"Fire Parking":1,"Case bomb (small)":1,"Case bomb (small)&nbsp;Offices":1,"Case bomb (small) Museum":1,"Case bomb (small) Theatre":1,"Case bomb (small) Hotel":1,"Case bomb (small)&nbsp;Housing":1,"Case bomb (small) Commerce":1,"Case bomb (small) Parking":1,"Car bomb":1,"Car bomb Offices":1,"Car bomb Hotel":1,"Car bomb Housing":1,"Car bomb Commerce":1,"Car bomb Parking":1,"Truck (External)":1,"Truck (External) Offices":1,"Truck (External) Hotel":1,"Truck (External) Housing":1,"Truck (External) Commerce":1,"Case bomb (heavy)":1,"Case bomb (heavy) Offices":1,"Case bomb (heavy) Museum":1,"Case bomb (heavy) Theatre":1,"Case bomb (heavy) Hotel":1,"Case bomb (heavy) Housing":1,"Case bomb (heavy) Commerce":1,"Case bomb (heavy) Parking":1,"Repair time":1,"Post-incident usability":1,"Functionality":4,"Accessibility":5,"Offices":3,"Museum":3,"Theatre":1,"Architectural Quality":4,"Recognizability":3,"Urban Integration":2,"Accessibility ":1,"During opening hours":1,"Supply":1,"Parking":1,"Spatial use":1,"Travel time":1,"Environmental Impact":3,"EPC value":1,"Hotel":4,"Housing":5,"Commerce":3,"Safety, Security and Resilience":1,"Access security ":1,"People being safe":1,"Non-attacked zone":1,"Attacked zone":1,"External":1,"Business continuity ":1},"username":"","password":""}],"project":{"components":[{"components":[{"components":[],"title":"Offices","id":"9fccd534-f314-48b6-8d92-bee19694ef52","level":2},{"components":[],"title":"Museum","id":"6482c307-cf9e-46da-9b97-efc96f349c98","level":2},{"components":[],"title":"Theatre","id":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","level":2},{"components":[],"title":"Hotel","id":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","level":2},{"components":[],"title":"Housing","id":"d82bbee4-e248-4be8-9d37-32b563d7afbb","level":2},{"components":[],"title":"Commerce","id":"75f3965e-e57c-46bf-9a2a-5f70cf369288","level":2},{"components":[],"title":"Parking","id":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","level":2}],"title":"Building","id":"b956b95a-5645-463f-972c-9b2fc4be9b62","level":1}],"criterias":[{"userWeight":4,"subCriterias":[{"userWeight":3,"subCriterias":[],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"5378fa19-cc6a-4e07-bcc5-d81243c58346","title":"Recognizability","decisionTreeId":"","weight":0.3,"score":0},{"userWeight":2,"subCriterias":[],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"ad83f411-76cd-4ee2-9bd7-4ef6ca832ba2","title":"Urban Integration","weight":0.2,"score":0},{"userWeight":5,"subCriterias":[],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"27702710-bf79-41cc-9fe7-9974109ba429","title":"Accessibility","weight":0.5,"score":0}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":1,"id":"a6397271-8d8b-4c6c-ba4a-cd83d3ad68fa","title":"Architectural Quality","weight":0.3333333333333333,"score":0},{"userWeight":4,"subCriterias":[{"userWeight":1,"subCriterias":[{"userWeight":1,"subCriterias":[{"userWeight":3,"subCriterias":[],"options":[{"title":"Public access in all entrances&nbsp;","value":1,"id":"4a5cbac7-7d4e-4b6a-8cd0-b3ec4e18ee0b"},{"title":"Public access with guards/cameras","value":0.9,"id":"5c2756e1-ba9f-4f02-ae70-f8e56281ca96"},{"title":"Access with key-code/card","value":0.5,"id":"7b2d1b1e-a75a-49e7-8f08-fa73e928e25d"},{"title":"Access with security check","value":0,"id":"2570fb7f-2cbe-4136-b7cc-8cede97296f0"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"8972c47a-5bb2-4c9d-9332-cfb20602193b","title":"Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.13043478260869565,"score":1},{"userWeight":3,"subCriterias":[],"options":[{"title":"Public access in all entrances&nbsp;","value":1,"id":"aa928259-1cb0-4004-8967-a2d28ba503d6"},{"title":"Public access with guards/cameras","value":0.5,"id":"9f15da5a-377f-43bc-852e-fa3e990861cb"},{"title":"Public access with security check","value":0,"id":"c0543a7d-a148-4fa2-9adf-8d6a10bb4630"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"3192ec07-92f3-41f8-be3d-230f23fd58a1","title":"Museum","componentId":"6482c307-cf9e-46da-9b97-efc96f349c98","weight":0.13043478260869565,"score":1},{"userWeight":2,"subCriterias":[],"options":[{"title":"Public access in all entrances&nbsp;","value":1,"id":"b5ecb529-697b-4bf4-996b-7587cf876e18"},{"title":"Public access with guards/cameras","value":0.5,"id":"3d84d002-698e-41ac-bc26-8f6486279199"},{"title":"Public access with security check","value":0,"id":"73832c5b-88f6-4e11-8765-cad31f49025a"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"2995ce40-aa10-492b-9b22-9092609e87f7","title":"Theatre","componentId":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","weight":0.08695652173913043,"score":0.5},{"userWeight":5,"subCriterias":[],"options":[{"title":"Public access in all entrances&nbsp;","value":1,"id":"d66026fb-c131-4478-b769-eec08c9909a3"},{"title":"Public access with guards/cameras","value":0.7,"id":"74bd7827-a034-484a-987f-6c9b6bdfb8f6"},{"title":"Access with key-code/card","value":0.7,"id":"942e86d3-9242-4fd9-9bbb-aba3fbe0a565"},{"title":"Public Access with security check","value":0,"id":"b0e8026a-6c79-4944-a843-0da693e41e5c"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"f496d56d-56ed-4a22-b448-fc2e3787e69e","title":"Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.21739130434782608,"score":0.7},{"userWeight":4,"subCriterias":[],"options":[{"title":"Public access in all entrances&nbsp;","value":1,"id":"37fd4acf-43f2-4328-b321-3c12a975821c"},{"title":"Public access with guards/cameras","value":0.9,"id":"a1b4801b-6537-4304-bcfc-7dff510c605a"},{"title":"Access with key-code/card","value":0.9,"id":"87c4ca19-425b-4031-9c36-0363232cdb5f"},{"title":"Public Access with security check","value":0,"id":"b2c90f10-0790-4223-88e2-f96957a01ca7"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"f77eced8-70dc-4e3b-aa06-6ece252c36e8","title":"Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.17391304347826086,"score":0.9},{"userWeight":5,"subCriterias":[],"options":[{"title":"Public access in all entrances&nbsp;","value":1,"id":"25754c1c-dfee-4779-8ff9-77d1b02d6e70"},{"title":"Public access with guards/cameras","value":0.7,"id":"aa5b882a-e34b-4ed7-b9b4-3b36a9b28d3f"},{"title":"Public Access with security check","value":0,"id":"1ab9da57-e5d0-4a6e-aee8-326e366ac981"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"2fe36412-056c-4275-99ef-c73b8b80716c","title":"Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.21739130434782608,"score":0.7},{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":0.5,"id":"6c177755-9fb5-4e7f-8096-78cd43af7b45"},{"title":"Public access with cameras","value":1,"id":"c1f76516-74e7-4b2a-9446-d60f546fce6c"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"e26ed14d-53a9-4611-85f3-a7a923b3eeb3","title":"Parking","componentId":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","weight":0.043478260869565216,"score":0.5}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"3ef1d4d3-cf83-4518-a880-68403333a62a","title":"During opening hours","weight":0.3333333333333333,"score":0.7869565217391304},{"userWeight":1,"subCriterias":[{"userWeight":1,"subCriterias":[],"options":[{"title":"Truck can freely reach (un)loading point.","value":1,"id":"1e729608-b5d9-4939-b8cc-e981f66e5acc"},{"title":"Truck can reach the (un)loading point with security card.","value":0.7,"id":"039cc837-bc51-4b2a-a933-b1839d6d3487"},{"title":"Truck cannot reach the building.","value":0,"id":"2adc15ee-16fb-4d22-b2f2-2a03642a4638"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"fcddbf3b-1e78-4693-8bbb-8433137ddd7d","title":"Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.14285714285714285,"score":1},{"userWeight":1,"subCriterias":[],"options":[{"title":"Truck can freely reach (un)loading point.","value":1,"id":"acd2ee3d-8494-4ada-9d3d-e9c6a191975e"},{"title":"Truck can reach the (un)loading point with security card.","value":0.7,"id":"3e884443-9210-487a-9fa2-7a26022c38d1"},{"title":"Truck cannot reach the building.","value":0,"id":"f68ab6c8-dbc5-450f-9955-dcb54ccbea8f"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"d17a4b25-5964-412a-a1c8-7d321cb104d2","title":"Museum","componentId":"6482c307-cf9e-46da-9b97-efc96f349c98","weight":0.14285714285714285,"score":1},{"userWeight":1,"subCriterias":[],"options":[{"title":"Truck can freely reach (un)loading point.","value":1,"id":"158e77d9-12d7-41af-8f21-193e19f6c291"},{"title":"Truck can reach the (un)loading point with security card.","value":0.7,"id":"3c42381d-342b-4eab-9831-5d47d62521de"},{"title":"Truck cannot reach the building.","value":0,"id":"dfec1bc7-31c0-4e74-8dad-654fece1a866"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"f19aaff4-2a2a-48f0-bf7c-f0a4dec1f9b6","title":"Theatre","componentId":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","weight":0.14285714285714285,"score":0},{"userWeight":1,"subCriterias":[],"options":[{"title":"Truck can freely reach (un)loading point.","value":1,"id":"7e72eb21-832d-40c7-af6a-e30d8df26d44"},{"title":"Truck can reach the (un)loading point with security card.","value":0.7,"id":"bd84d847-6199-4d03-85f9-bc5e20da8369"},{"title":"Truck cannot reach the building.","value":0,"id":"be7342c8-21ae-4494-8e5f-c8c191bfa144"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"c2223d9c-b3be-434b-a460-b6e4870c1128","title":"Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.14285714285714285,"score":1},{"userWeight":1,"subCriterias":[],"options":[{"title":"Truck can freely reach (un)loading point.","value":1,"id":"f6874ed4-6591-4ce0-afdf-a380c7b51590"},{"title":"Truck can reach the (un)loading point with security card.","value":0.7,"id":"b77bf664-75ad-438c-9ad2-61f673b5a631"},{"title":"Truck cannot reach the building.","value":0,"id":"973b54a5-c012-4cbd-94e9-181844f60422"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"cd789579-7873-4d7c-975f-ac23cca51d21","title":"Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.14285714285714285,"score":0.7},{"userWeight":1,"subCriterias":[],"options":[{"title":"Truck can freely reach (un)loading point.","value":1,"id":"3547f7fa-5a5a-44a9-83d4-83258b3540d7"},{"title":"Truck can reach the (un)loading point with security card.","value":0.7,"id":"1dbcad26-c62e-4416-b667-96269b85bda9"},{"title":"Truck cannot reach the building.","value":0,"id":"5b198c24-f77f-496b-9def-bebabbff3efc"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"3fdac6b4-21b2-45b0-86c8-ed790cba8ae2","title":"Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.14285714285714285,"score":0.7},{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":0.6,"id":"e1bc0971-1b5c-463f-a982-c2048aa6b93d"},{"title":"Public access with cameras","value":1,"id":"05fc2a9b-d61e-4e73-9dfb-4b9c6573a6a5"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"d349bf0e-e59e-4b07-87ae-09c45d77a0d6","title":"Parking","componentId":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","weight":0.14285714285714285,"score":0.6}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"2a60c732-d3ac-4d2d-ba58-e4625a332fe3","title":"Supply","weight":0.3333333333333333,"score":0.7142857142857143},{"userWeight":1,"subCriterias":[{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":1,"id":"45126330-c69e-4ad7-a65e-fcddf1f1c2b3"},{"title":"Private access","value":0.5,"id":"9dfa3f3c-4fba-475c-9ab9-e1f4de6afd0f"},{"title":"No parking spots","value":0,"id":"fe9742d0-e9fa-41b9-97f9-786eef459b53"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"9d6dcc16-ba38-4f0e-87e3-eafd53fa85f7","title":"Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.14285714285714285,"score":0.5},{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":1,"id":"502137be-3240-4541-a124-e315299eea4f"},{"title":"Private access","value":0.5,"id":"a6e33be2-4980-401f-ae05-3ad1cb334bfe"},{"title":"No parking spots","value":0,"id":"00c09d57-1d2e-4614-b481-e5bc4f9cf635"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"6f5ff29d-f92d-477a-a50d-40187439692f","title":"Museum","componentId":"6482c307-cf9e-46da-9b97-efc96f349c98","weight":0.14285714285714285,"score":0},{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":1,"id":"12a9c0f9-91e3-4518-a7b1-64047e515527"},{"title":"Private access","value":0.5,"id":"ee28e588-5a27-4c73-b8c9-c4664045c309"},{"title":"No parking spots","value":0,"id":"896690b4-6073-4f79-9f43-2b548a8b3b83"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"64b3c795-3faa-49af-8516-85e3330914c0","title":"Theatre","componentId":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","weight":0.14285714285714285,"score":1},{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":1,"id":"8c15ef5d-683d-467e-8851-6661ec5a54e3"},{"title":"Private access","value":0.8,"id":"ab0b3ca5-6574-4949-8aff-59206f2ec300"},{"title":"No parking spots","value":1,"id":"92358438-700a-47f8-88a7-70222bd5bd5c"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"b137aee9-79de-4c6d-9731-34e0daf37401","title":"Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.14285714285714285,"score":1},{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":0.5,"id":"8f9a3ff7-5d1e-4dc3-9c72-b5118825429f"},{"title":"Private access","value":1,"id":"6b52f3db-fc35-4333-a36b-85ffabbbd21e"},{"title":"No parking spots","value":0,"id":"6d507c5b-194a-4483-8f0e-469cc52c9b6e"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"963c7a73-71ef-4304-a102-f92656a70ffb","title":"Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.14285714285714285,"score":1},{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":1,"id":"33475542-2fb6-4b93-b750-55241aac9782"},{"title":"Private access","value":0.5,"id":"ecade599-1b99-48b2-bbc4-9aac77213cd3"},{"title":"No parking spots","value":0,"id":"eb367ee2-97e7-4f56-915c-6084b4f4d72e"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"021f9a97-494b-4eb9-8a45-aa53929353c1","title":"Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.14285714285714285,"score":0},{"userWeight":1,"subCriterias":[],"options":[{"title":"Public access","value":1,"id":"8947a6f3-a2f7-44cd-a052-cb6987e24a8b"}],"isScenarioDependent":false,"isEnabled":true,"level":4,"id":"0d312fc8-7230-4168-ba9d-bb640fd5c70e","title":"Parking","componentId":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","weight":0.14285714285714285,"score":0}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"70794d58-35ca-46e4-842c-f80077b80a58","title":"Parking","weight":0.3333333333333333,"score":0.49999999999999994}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"05e4ce1f-ae97-4429-8720-f2f82273ffe6","title":"Accessibility ","weight":0.5,"score":0.6670807453416149},{"userWeight":1,"subCriterias":[{"userWeight":1,"subCriterias":[],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"465d3345-22f3-435f-bdc7-9834bc4ce0ca","title":"Travel time","weight":1,"score":0}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"7f00cffc-2ca8-468e-86f9-18fbd3e92f45","title":"Spatial use","weight":0.5,"score":0}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":1,"id":"ecddbec0-88b1-4a21-a1b7-9e60ded63257","title":"Functionality","weight":0.3333333333333333,"score":0.33354037267080744},{"userWeight":3,"subCriterias":[{"userWeight":1,"subCriterias":[{"userWeight":3,"subCriterias":[],"options":[{"title":"A (92-100)","value":1,"id":"218db5f3-a641-4a88-b51e-c799e0aa70fc"},{"title":"B (81-91)","value":0.9,"id":"49e45840-955a-478d-bf2c-0a3d07ff5356"},{"title":"C (69-80)","value":0.8,"id":"5f3ab814-7009-416a-87a1-247b94f9e1a6"},{"title":"D (55-69)","value":0.6,"id":"c8341c20-b305-4cbf-af01-3fc0849a717f"},{"title":"E (39-54)","value":0.4,"id":"f05f6932-275f-4f2b-a0e9-6d3e882db199"},{"title":"F (21-38)","value":0.1,"id":"728d074f-6280-4018-a65a-96c13c426742"},{"title":"G (1-20)","value":0,"id":"bb23c920-bb19-4548-8842-1c3a5a1f8e5b"}],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"634a4552-3fd5-4265-ad0e-1c2a6d0f8a89","title":"Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.15,"score":1},{"userWeight":3,"subCriterias":[],"options":[{"title":"A (92-100)","value":1,"id":"61efec34-fd53-437e-a4e5-59d3fb0e68e9"},{"title":"B (81-91)","value":0.9,"id":"7ce08579-0356-45ae-8f6c-0e771cde90d2"},{"title":"C (69-80)","value":0.8,"id":"072dff75-17d9-4de1-b6aa-ac11470771c0"},{"title":"D (55-69)","value":0.8,"id":"7e514834-63af-447b-9cba-38a77b7d9ca6"},{"title":"E (39-54)","value":0.6,"id":"e723247a-b465-4324-8eab-64d5942acf1c"},{"title":"F (21-38)","value":0.5,"id":"fd508b94-9983-4cb3-8436-3e6938174e30"},{"title":"G (1-20)","value":0,"id":"1afeac70-a064-46d7-92ef-95bebbb3c90a"}],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"2cc5dfa4-bde2-47ba-a6ad-1291058ec8f2","title":"Museum","componentId":"6482c307-cf9e-46da-9b97-efc96f349c98","weight":0.15,"score":1},{"userWeight":1,"subCriterias":[],"options":[{"title":"A (92-100)","value":1,"id":"fa80a420-eec9-40a4-8cd9-1a66fd340495"},{"title":"B (81-91)","value":0.9,"id":"9f83c91c-0efa-4eb5-8db2-4569212a8870"},{"title":"C (69-80)","value":0.8,"id":"928ceca4-bd1f-43f1-b3d6-e6211debd71a"},{"title":"D (55-69)","value":0.6,"id":"7eddf7e1-3c44-4087-a4b5-271568f3bad8"},{"title":"E (39-54)","value":0.4,"id":"ab2bb24c-5f02-4550-947e-87909d931114"},{"title":"F (21-38)","value":0.1,"id":"5a90d80a-eef4-4175-b5e2-69a1fa7d0aba"},{"title":"G (1-20)","value":0,"id":"e5ad57f7-f6f2-4bca-bd12-0d82336cda94"}],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"81b52c1a-95b4-4bce-ac56-847e1d3938c8","title":"Theatre","componentId":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","weight":0.05,"score":0.9},{"userWeight":4,"subCriterias":[],"options":[{"title":"A (92-100)","value":1,"id":"01a513d7-6233-4988-95cd-9cbc599423bc"},{"title":"B (81-91)","value":0.9,"id":"31a0bf16-7e8b-4640-8c62-8dc2315a48d5"},{"title":"C (69-80)","value":0.8,"id":"cf95a9aa-539b-44db-a1ba-e0928dde6ec8"},{"title":"D (55-69)","value":0.6,"id":"439e1900-adb7-4f33-b8fe-1d75b54e7331"},{"title":"E (39-54)","value":0.4,"id":"e732dd1b-3fbf-4ce6-9876-c53e0f16d477"},{"title":"F (21-38)","value":0.1,"id":"593358e0-7684-4687-b07a-bc79e782be52"},{"title":"G (1-20)","value":0,"id":"46b5bc37-e9ec-4cab-a0ab-11409cbfd4eb"}],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"a5577745-4b34-4020-b6e7-22b94dddd52e","title":"Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.2,"score":0.8},{"userWeight":5,"subCriterias":[],"options":[{"title":"A (92-100)","value":1,"id":"8cf2d3c9-dece-4bb0-a1a2-36654bb5daac"},{"title":"B (81-91)","value":0.9,"id":"beb74e45-fbb4-4f3a-b269-5e59dd2a76c9"},{"title":"C (69-80)","value":0.8,"id":"1a863ac0-8138-4d2d-b4f0-9d981f639160"},{"title":"D (55-69)","value":0.4,"id":"15635386-d034-4eaf-a7f3-cc625c9fc4cc"},{"title":"E (39-54)","value":0.2,"id":"efe2d78a-a190-44fc-9a6a-853225f7b4ec"},{"title":"F (21-38)","value":0.1,"id":"1d06df94-be66-41da-aeba-fe6438a63144"},{"title":"G (1-20)","value":0,"id":"c496bc3d-2432-40a5-a28d-37ea69996a34"}],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"fd7fc311-25d5-4457-80a6-dcd6bc3bde2d","title":"Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.25,"score":0.4},{"userWeight":3,"subCriterias":[],"options":[{"title":"A (92-100)","value":1,"id":"fde55989-baf7-4d28-af6e-bd5f5138ee72"},{"title":"B (81-91)","value":0.9,"id":"c0a4b81f-d1dd-4865-9327-7f3250458f13"},{"title":"C (69-80)","value":0.8,"id":"e6c84cee-b797-4d8f-997c-29be10682ef6"},{"title":"D (55-69)","value":0.5,"id":"46bccee5-f9b6-4d37-a1d7-46d02efa27c1"},{"title":"E (39-54)","value":0.3,"id":"05f84ea9-bbd1-4eee-bdf5-0bad21d7df2c"},{"title":"F (21-38)","value":0.1,"id":"3e188b49-36e9-4ae5-ac5c-18ae07760ba1"},{"title":"G (1-20)","value":0,"id":"057fcf73-0ac7-4031-91c6-2b0933de2874"}],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"ade2d6ff-194c-4acd-9217-1937358d2f84","title":"Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.15,"score":0.1},{"userWeight":1,"subCriterias":[],"options":[{"title":"A (92-100)","value":1,"id":"47d35cae-07c0-4930-b729-4583aa6967e3"},{"title":"B (81-91)","value":1,"id":"c1670ed4-f68f-448a-86d8-bbaffd5552b4"},{"title":"C (69-80)","value":1,"id":"27c03059-f612-49fd-99b1-d8068da6ae34"},{"title":"D (55-69)","value":1,"id":"49ccd8a2-f0bf-4a25-8f8f-997184022c21"},{"title":"E (39-54)","value":1,"id":"a0a138ee-d2d4-4f0a-9162-38cdd76a00a6"},{"title":"F (21-38)","value":1,"id":"e9aa4ac8-c536-4695-97c8-0d01efe2e193"},{"title":"G (1-20)","value":1,"id":"56e97ebe-6460-4b7c-b218-e58355944d1f"}],"isScenarioDependent":false,"isEnabled":true,"level":3,"id":"d46c301c-e587-4044-956e-b7a6122e5f9b","title":"Parking","componentId":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","weight":0.05,"score":1}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"49cf501c-e7a7-4aaf-b9fb-7abbe498f503","title":"EPC value","weight":1,"score":0.67}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":1,"id":"545ddffc-1418-48a5-a919-3be05f8991e1","title":"Environmental Impact","weight":0.25,"score":0.67},{"userWeight":1,"subCriterias":[{"userWeight":1,"subCriterias":[],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"838e229a-2683-491e-ad66-9aa3d9a1d173","title":"Access security ","weight":0.3333333333333333,"score":0},{"userWeight":1,"subCriterias":[{"userWeight":1,"subCriterias":[],"options":[{"title":"No victims","value":1,"id":"e606b525-50ab-48a1-9658-a45b25f6644e"},{"title":"Few victims","value":0.8,"id":"12525615-6ae4-429f-a322-4ed060f606fc"},{"title":"Severe amount of victims","value":0,"id":"850ef1b2-3beb-484d-a05d-faf24d82b179"}],"isScenarioDependent":true,"isEnabled":true,"level":3,"id":"b437201c-ca2d-4c88-a2f2-ceedc75216da","title":"Non-attacked zone","weight":0.3333333333333333,"score":0},{"userWeight":1,"subCriterias":[],"options":[{"title":"No victims","value":1,"id":"13df0e50-fd8a-45b2-9333-6f116a5d0854"},{"title":"Few victims","value":0.7,"id":"0405c415-93ef-43b8-8163-e4468d086dc6"},{"title":"Severe amount of victims","value":0.35,"id":"10efe355-488f-4a3c-9c39-f31ba1ad963b"},{"title":"Extreme amount of victims","value":0,"id":"66794885-b042-4d45-8591-cf8700196a3b"}],"isScenarioDependent":true,"isEnabled":true,"level":3,"id":"fda8a58a-b2b6-4c19-98f5-208cb1baa6f6","title":"Attacked zone","weight":0.3333333333333333,"score":0},{"userWeight":1,"subCriterias":[],"options":[{"title":"No victims","value":1,"id":"e90d33fa-e17e-4565-b5b5-e8f975396ccd"},{"title":"Few victims","value":0.7,"id":"4ddff098-5d06-4212-9d6b-1c3fb79fcea1"},{"title":"Severe amount of victims","value":0.35,"id":"85a0ad41-9acd-4827-96b0-067d801c99f6"},{"title":"Extreme amount of victims","value":0,"id":"8d1f490e-9dc5-43df-9773-25c2cf71e4b2"}],"isScenarioDependent":true,"isEnabled":true,"level":3,"id":"9fc20ac6-ef57-4ae5-8014-798dfcebd2ed","title":"External","weight":0.3333333333333333,"score":0}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"e0529400-9451-4f48-92e5-a1e73b78aa64","title":"People being safe","weight":0.3333333333333333,"score":0},{"userWeight":1,"subCriterias":[{"userWeight":1,"subCriterias":[],"options":[{"title":"Full capacity","value":1,"id":"b873eafd-0b8a-4313-a925-6f84d46d3129"},{"title":"Partly capacity","value":1,"id":"750985e7-8b4e-4634-8f90-abdf3f30f96e"},{"title":"No capacity","value":1,"id":"8ecafba2-b2c4-40c6-9f8c-8dbb3c1af455"}],"isScenarioDependent":true,"isEnabled":true,"level":3,"id":"51966788-fdad-4b4f-b17c-7090ed89871a","title":"Post-incident usability","weight":0.5,"score":0.9},{"userWeight":1,"subCriterias":[],"options":[{"title":"No repair time","value":1,"id":"d24ac9e7-50bc-41b7-8ad4-045f6d456272"},{"title":"Short repair time","value":0.8,"id":"2b96cd18-e619-4f4d-9477-95d9a3a4ae11"},{"title":"Long repair time","value":0.4,"id":"02d53579-d24d-4a16-8f79-71ab851d9cdd"},{"title":"Unrepairable","value":0,"id":"3af6a6f8-c518-48ce-b3e6-da8b77c1fa20"}],"isScenarioDependent":true,"isEnabled":true,"level":3,"id":"df560813-6bea-4276-b199-a6b919afeb9c","title":"Repair time","weight":0.5,"score":0.68}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":2,"id":"ff81ebb2-8004-4810-8abe-7d73b1bef7e2","title":"Business continuity ","weight":0.3333333333333333,"score":0.79}],"options":[],"isScenarioDependent":false,"isEnabled":true,"level":1,"id":"4e66de89-3e74-46cb-93c6-cf4c12572ea2","title":"Safety, Security and Resilience","weight":0.08333333333333333,"score":0.2633333333333333}],"scenarios":[{"userWeight":3,"subScenarios":[{"userWeight":1,"subScenarios":[],"score":0,"id":"a32e1b28-f4fc-46ab-88d2-92db65630cb2","title":"Plane Impact Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.2},{"userWeight":1,"subScenarios":[],"score":0,"id":"23cc75b0-62b4-46f7-8aad-1501a13ba4ec","title":"Plane Impact Museum","componentId":"6482c307-cf9e-46da-9b97-efc96f349c98","weight":0.2},{"userWeight":1,"subScenarios":[{"userWeight":1,"subScenarios":[],"score":0,"id":"5b472715-adf6-480e-9351-b7ada796615e","title":"On trusses","weight":0.5},{"userWeight":1,"subScenarios":[],"score":0,"id":"8dc6ae08-3beb-43f1-8205-d806b1aeba4b","title":"In between trusses","weight":0.5}],"score":0,"id":"85452481-75b9-4ccb-bca8-4553d502792c","title":"Plane Impact Theatre","componentId":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","weight":0.2},{"userWeight":1,"subScenarios":[{"userWeight":1,"subScenarios":[],"score":0,"id":"06fae7df-ba18-4803-a5c2-4c9e619ffc41","title":"On concrete tower","weight":1}],"score":0,"id":"aa7bd1a7-45c9-4582-903f-7e33b49e57d4","title":"Plane Impact Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.2},{"userWeight":1,"subScenarios":[],"score":0,"id":"aabfd134-ba20-4bee-ad88-fc6b735314cd","title":"Plane Impact Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.2}],"score":0,"id":"53dc2431-5663-484c-b714-2b24d3c37c96","title":"Plane Impact","weight":0.3333333333333333},{"userWeight":1,"subScenarios":[{"userWeight":1,"subScenarios":[],"score":0,"id":"903f86eb-b462-406a-8fb5-79e5774ba4ce","title":"Fire Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"a5058411-37cf-422c-8380-e5420ee54bbd","title":"Fire Museum","componentId":"6482c307-cf9e-46da-9b97-efc96f349c98","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"7da0b65a-d2b6-4dda-87f3-7595b680583f","title":"Fire Theatre ","componentId":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"dd877a05-0448-4b11-aa08-a3cd67c72e93","title":"Fire Hotel (in Lobby)","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"a1af79b7-3087-44e1-8a96-7d22c0069a3f","title":"Fire Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"88d9c0cb-cbfd-4715-8315-38d34571b2d4","title":"Fire Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"c212c842-14e8-4965-8d10-521485633a74","title":"Fire Parking","componentId":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","weight":0.14285714285714285}],"score":0,"id":"b944454a-2ecf-4b54-82af-c67104ef0ca2","title":"Fire","weight":0.1111111111111111},{"userWeight":1,"subScenarios":[],"score":0,"id":"ed2a8dc6-965b-4671-bea2-9a8a308800f6","title":"Flooding","weight":0.1111111111111111},{"userWeight":1,"subScenarios":[],"score":0,"id":"822a2829-4abc-4bc6-9efe-29b809f0d963","title":"Earthquake","weight":0.1111111111111111},{"userWeight":1,"subScenarios":[],"score":0,"id":"2811f134-f1cd-4cda-aff5-64a40f8d2fd7","title":"Extreme wind","weight":0.1111111111111111},{"userWeight":1,"subScenarios":[],"score":0,"id":"1db02a29-9d78-4c34-9c7c-c4f5d5f5e164","title":"CBR attack","weight":0.1111111111111111},{"userWeight":1,"subScenarios":[{"userWeight":1,"subScenarios":[{"userWeight":1,"subScenarios":[],"score":0,"id":"fd30601e-d9e0-4fc1-91b4-22f7a741a217","title":"Case bomb (small)&nbsp;Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"3b6ace22-1764-41a5-992d-c60077ffb874","title":"Case bomb (small) Museum","componentId":"6482c307-cf9e-46da-9b97-efc96f349c98","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"8927dd98-68f2-4656-9a14-788555f2db29","title":"Case bomb (small) Theatre","componentId":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"f64590ca-d197-438a-a286-3ce2c739ea9f","title":"Case bomb (small) Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"2ca8daae-7599-423d-9da3-a4175eb80b9c","title":"Case bomb (small)&nbsp;Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"ee3eaa4a-3a43-43bd-8c51-95fafb6650cd","title":"Case bomb (small) Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"7e3ebe3a-985b-4446-a4c1-6ada7199f6e1","title":"Case bomb (small) Parking","componentId":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","weight":0.14285714285714285}],"score":0,"id":"76c2c218-fdef-40ff-ac10-5431911e78e3","title":"Case bomb (small)","weight":0.25},{"userWeight":1,"subScenarios":[{"userWeight":1,"subScenarios":[],"score":0,"id":"10508477-8f74-46a2-b9e2-85519a5c4a20","title":"Car bomb Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.2},{"userWeight":1,"subScenarios":[],"score":0,"id":"6adfc918-c911-409e-9443-0e3a9311edb9","title":"Car bomb Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.2},{"userWeight":1,"subScenarios":[],"score":0,"id":"fb13cd3b-8b0a-4cd0-981a-fbc41a1036da","title":"Car bomb Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.2},{"userWeight":1,"subScenarios":[],"score":0,"id":"3b64ec18-d47a-4fe3-84da-a179e0772b6c","title":"Car bomb Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.2},{"userWeight":1,"subScenarios":[],"score":0,"id":"411b90b5-a14a-4c95-b70e-79d774fb8574","title":"Car bomb Parking","componentId":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","weight":0.2}],"score":0,"id":"c26995d1-2412-459b-a710-bf09dae5fbbf","title":"Car bomb","weight":0.25},{"userWeight":1,"subScenarios":[{"userWeight":1,"subScenarios":[],"score":0,"id":"74bb8605-8937-49b0-96ab-fa1b6bb9a23b","title":"Truck (External) Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.25},{"userWeight":1,"subScenarios":[],"score":0,"id":"e9ed1712-8bd5-46de-ba6c-dadeb31624f3","title":"Truck (External) Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.25},{"userWeight":1,"subScenarios":[],"score":0,"id":"946fa3fd-6a7f-4ddc-8cc2-a7132b633feb","title":"Truck (External) Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.25},{"userWeight":1,"subScenarios":[],"score":0,"id":"fc8007d2-8d1e-479e-8ba5-2ce6a94fcb9e","title":"Truck (External) Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.25}],"score":0,"id":"ed5afcb5-75de-4aca-9131-74ae45c74dc9","title":"Truck (External)","weight":0.25},{"userWeight":1,"subScenarios":[{"userWeight":1,"subScenarios":[],"score":0,"id":"ecc1aa9e-8b60-43ad-abd7-83f13847137a","title":"Case bomb (heavy) Offices","componentId":"9fccd534-f314-48b6-8d92-bee19694ef52","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"f80d7495-c714-4d9c-8e4d-f743f2fabce6","title":"Case bomb (heavy) Museum","componentId":"6482c307-cf9e-46da-9b97-efc96f349c98","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"79f0c64d-c43b-4dbb-9fc4-7431e60e3859","title":"Case bomb (heavy) Theatre","componentId":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"021fbf85-6fbf-466c-a010-45ed39c8ebd6","title":"Case bomb (heavy) Hotel","componentId":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"b591f36b-1b40-4d56-80a4-fa6dc676d537","title":"Case bomb (heavy) Housing","componentId":"d82bbee4-e248-4be8-9d37-32b563d7afbb","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"93a23076-f004-41ca-a425-44ee0ca6148d","title":"Case bomb (heavy) Commerce","componentId":"75f3965e-e57c-46bf-9a2a-5f70cf369288","weight":0.14285714285714285},{"userWeight":1,"subScenarios":[],"score":0,"id":"9c25093d-2f24-4079-a6eb-b930c86115c6","title":"Case bomb (heavy) Parking","componentId":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","weight":0.14285714285714285}],"score":0,"id":"7f68c7cd-7900-46e9-b11a-4fb6a4f94bf2","title":"Case bomb (heavy)","weight":0.25}],"score":0,"id":"5191c39c-b327-4dc8-9976-e4d19bcf687d","title":"Explosion","weight":0.1111111111111111}],"solutions":[{"scores":{"8972c47a-5bb2-4c9d-9332-cfb20602193b":{"0":{"criteriaOptionId":"2570fb7f-2cbe-4136-b7cc-8cede97296f0","value":0,"weight":1}},"3192ec07-92f3-41f8-be3d-230f23fd58a1":{"0":{"criteriaOptionId":"9f15da5a-377f-43bc-852e-fa3e990861cb","value":0.5,"weight":1}},"2995ce40-aa10-492b-9b22-9092609e87f7":{"0":{"criteriaOptionId":"3d84d002-698e-41ac-bc26-8f6486279199","value":0.5,"weight":1}},"f496d56d-56ed-4a22-b448-fc2e3787e69e":{"0":{"criteriaOptionId":"d66026fb-c131-4478-b769-eec08c9909a3","value":1,"weight":1}},"f77eced8-70dc-4e3b-aa06-6ece252c36e8":{"0":{"criteriaOptionId":"87c4ca19-425b-4031-9c36-0363232cdb5f","value":0.9,"weight":1}},"2fe36412-056c-4275-99ef-c73b8b80716c":{"0":{"criteriaOptionId":"25754c1c-dfee-4779-8ff9-77d1b02d6e70","value":1,"weight":1}},"51966788-fdad-4b4f-b17c-7090ed89871a":{"a32e1b28-f4fc-46ab-88d2-92db65630cb2":{"criteriaOptionId":"8ecafba2-b2c4-40c6-9f8c-8dbb3c1af455","value":1,"weight":0.2},"23cc75b0-62b4-46f7-8aad-1501a13ba4ec":{"criteriaOptionId":"750985e7-8b4e-4634-8f90-abdf3f30f96e","value":1,"weight":0.2},"5b472715-adf6-480e-9351-b7ada796615e":{"criteriaOptionId":"750985e7-8b4e-4634-8f90-abdf3f30f96e","value":1,"weight":0.5}},"df560813-6bea-4276-b199-a6b919afeb9c":{"a32e1b28-f4fc-46ab-88d2-92db65630cb2":{"criteriaOptionId":"02d53579-d24d-4a16-8f79-71ab851d9cdd","value":0.4,"weight":0.2},"23cc75b0-62b4-46f7-8aad-1501a13ba4ec":{"criteriaOptionId":"02d53579-d24d-4a16-8f79-71ab851d9cdd","value":0.4,"weight":0.2},"5b472715-adf6-480e-9351-b7ada796615e":{"criteriaOptionId":"d24ac9e7-50bc-41b7-8ad4-045f6d456272","value":1,"weight":0.5}},"634a4552-3fd5-4265-ad0e-1c2a6d0f8a89":{"0":{"criteriaOptionId":"5f3ab814-7009-416a-87a1-247b94f9e1a6","value":0.8,"weight":1}},"2cc5dfa4-bde2-47ba-a6ad-1291058ec8f2":{"0":{"criteriaOptionId":"072dff75-17d9-4de1-b6aa-ac11470771c0","value":0.8,"weight":1}},"81b52c1a-95b4-4bce-ac56-847e1d3938c8":{"0":{"criteriaOptionId":"fa80a420-eec9-40a4-8cd9-1a66fd340495","value":1,"weight":1}},"a5577745-4b34-4020-b6e7-22b94dddd52e":{"0":{"criteriaOptionId":"46b5bc37-e9ec-4cab-a0ab-11409cbfd4eb","value":0,"weight":1}},"fd7fc311-25d5-4457-80a6-dcd6bc3bde2d":{"0":{"criteriaOptionId":"1d06df94-be66-41da-aeba-fe6438a63144","value":0.1,"weight":1}},"ade2d6ff-194c-4acd-9217-1937358d2f84":{"0":{"criteriaOptionId":"c0a4b81f-d1dd-4865-9327-7f3250458f13","value":0.9,"weight":1}},"d46c301c-e587-4044-956e-b7a6122e5f9b":{"0":{"criteriaOptionId":"49ccd8a2-f0bf-4a25-8f8f-997184022c21","value":1,"weight":1}},"e26ed14d-53a9-4611-85f3-a7a923b3eeb3":{"0":{"criteriaOptionId":"c1f76516-74e7-4b2a-9446-d60f546fce6c","value":1,"weight":1}},"9d6dcc16-ba38-4f0e-87e3-eafd53fa85f7":{"0":{"criteriaOptionId":"9dfa3f3c-4fba-475c-9ab9-e1f4de6afd0f","value":0.5,"weight":1}},"6f5ff29d-f92d-477a-a50d-40187439692f":{"0":{"criteriaOptionId":"502137be-3240-4541-a124-e315299eea4f","value":1,"weight":1}},"64b3c795-3faa-49af-8516-85e3330914c0":{"0":{"criteriaOptionId":"896690b4-6073-4f79-9f43-2b548a8b3b83","value":0,"weight":1}},"b137aee9-79de-4c6d-9731-34e0daf37401":{"0":{"criteriaOptionId":"8c15ef5d-683d-467e-8851-6661ec5a54e3","value":1,"weight":1}},"963c7a73-71ef-4304-a102-f92656a70ffb":{"0":{"criteriaOptionId":"6b52f3db-fc35-4333-a36b-85ffabbbd21e","value":1,"weight":1}},"021f9a97-494b-4eb9-8a45-aa53929353c1":{"0":{"criteriaOptionId":"ecade599-1b99-48b2-bbc4-9aac77213cd3","value":0.5,"weight":1}},"d349bf0e-e59e-4b07-87ae-09c45d77a0d6":{"0":{"criteriaOptionId":"05fc2a9b-d61e-4e73-9dfb-4b9c6573a6a5","value":1,"weight":1}},"3fdac6b4-21b2-45b0-86c8-ed790cba8ae2":{"0":{"criteriaOptionId":"3547f7fa-5a5a-44a9-83d4-83258b3540d7","value":1,"weight":1}},"cd789579-7873-4d7c-975f-ac23cca51d21":{"0":{"criteriaOptionId":"973b54a5-c012-4cbd-94e9-181844f60422","value":0,"weight":1}},"c2223d9c-b3be-434b-a460-b6e4870c1128":{"0":{"criteriaOptionId":"bd84d847-6199-4d03-85f9-bc5e20da8369","value":0.7,"weight":1}},"f19aaff4-2a2a-48f0-bf7c-f0a4dec1f9b6":{"0":{"criteriaOptionId":"3c42381d-342b-4eab-9831-5d47d62521de","value":0.7,"weight":1}},"d17a4b25-5964-412a-a1c8-7d321cb104d2":{"0":{"criteriaOptionId":"acd2ee3d-8494-4ada-9d3d-e9c6a191975e","value":1,"weight":1}},"fcddbf3b-1e78-4693-8bbb-8433137ddd7d":{"0":{"criteriaOptionId":"039cc837-bc51-4b2a-a933-b1839d6d3487","value":0.7,"weight":1}},"0d312fc8-7230-4168-ba9d-bb640fd5c70e":{"0":{"criteriaOptionId":"8947a6f3-a2f7-44cd-a052-cb6987e24a8b","value":1,"weight":1}}},"moduleScores":{},"id":"4702d6ff-ec8d-442b-91e4-1b596a0ad870","title":"Version 2","spc_pfymI":0,"idx_pfymI":0},{"scores":{"8972c47a-5bb2-4c9d-9332-cfb20602193b":{"0":{"criteriaOptionId":"4a5cbac7-7d4e-4b6a-8cd0-b3ec4e18ee0b","value":1,"weight":1}},"3192ec07-92f3-41f8-be3d-230f23fd58a1":{"0":{"criteriaOptionId":"aa928259-1cb0-4004-8967-a2d28ba503d6","value":1,"weight":1}},"2995ce40-aa10-492b-9b22-9092609e87f7":{"0":{"criteriaOptionId":"3d84d002-698e-41ac-bc26-8f6486279199","value":0.5,"weight":1}},"f496d56d-56ed-4a22-b448-fc2e3787e69e":{"0":{"criteriaOptionId":"942e86d3-9242-4fd9-9bbb-aba3fbe0a565","value":0.7,"weight":1}},"f77eced8-70dc-4e3b-aa06-6ece252c36e8":{"0":{"criteriaOptionId":"87c4ca19-425b-4031-9c36-0363232cdb5f","value":0.9,"weight":1}},"2fe36412-056c-4275-99ef-c73b8b80716c":{"0":{"criteriaOptionId":"aa5b882a-e34b-4ed7-b9b4-3b36a9b28d3f","value":0.7,"weight":1}},"df560813-6bea-4276-b199-a6b919afeb9c":{"a32e1b28-f4fc-46ab-88d2-92db65630cb2":{"criteriaOptionId":"d24ac9e7-50bc-41b7-8ad4-045f6d456272","value":1,"weight":0.2},"23cc75b0-62b4-46f7-8aad-1501a13ba4ec":{"criteriaOptionId":"02d53579-d24d-4a16-8f79-71ab851d9cdd","value":0.4,"weight":0.2},"5b472715-adf6-480e-9351-b7ada796615e":{"criteriaOptionId":"2b96cd18-e619-4f4d-9477-95d9a3a4ae11","value":0.8,"weight":0.5}},"51966788-fdad-4b4f-b17c-7090ed89871a":{"a32e1b28-f4fc-46ab-88d2-92db65630cb2":{"criteriaOptionId":"b873eafd-0b8a-4313-a925-6f84d46d3129","value":1,"weight":0.2},"23cc75b0-62b4-46f7-8aad-1501a13ba4ec":{"criteriaOptionId":"750985e7-8b4e-4634-8f90-abdf3f30f96e","value":1,"weight":0.2},"5b472715-adf6-480e-9351-b7ada796615e":{"criteriaOptionId":"8ecafba2-b2c4-40c6-9f8c-8dbb3c1af455","value":1,"weight":0.5}},"634a4552-3fd5-4265-ad0e-1c2a6d0f8a89":{"0":{"criteriaOptionId":"218db5f3-a641-4a88-b51e-c799e0aa70fc","value":1,"weight":1}},"2cc5dfa4-bde2-47ba-a6ad-1291058ec8f2":{"0":{"criteriaOptionId":"61efec34-fd53-437e-a4e5-59d3fb0e68e9","value":1,"weight":1}},"81b52c1a-95b4-4bce-ac56-847e1d3938c8":{"0":{"criteriaOptionId":"9f83c91c-0efa-4eb5-8db2-4569212a8870","value":0.9,"weight":1}},"a5577745-4b34-4020-b6e7-22b94dddd52e":{"0":{"criteriaOptionId":"cf95a9aa-539b-44db-a1ba-e0928dde6ec8","value":0.8,"weight":1}},"fd7fc311-25d5-4457-80a6-dcd6bc3bde2d":{"0":{"criteriaOptionId":"15635386-d034-4eaf-a7f3-cc625c9fc4cc","value":0.4,"weight":1}},"ade2d6ff-194c-4acd-9217-1937358d2f84":{"0":{"criteriaOptionId":"3e188b49-36e9-4ae5-ac5c-18ae07760ba1","value":0.1,"weight":1}},"d46c301c-e587-4044-956e-b7a6122e5f9b":{"0":{"criteriaOptionId":"56e97ebe-6460-4b7c-b218-e58355944d1f","value":1,"weight":1}},"e26ed14d-53a9-4611-85f3-a7a923b3eeb3":{"0":{"criteriaOptionId":"6c177755-9fb5-4e7f-8096-78cd43af7b45","value":0.5,"weight":1}},"fcddbf3b-1e78-4693-8bbb-8433137ddd7d":{"0":{"criteriaOptionId":"1e729608-b5d9-4939-b8cc-e981f66e5acc","value":1,"weight":1}},"d17a4b25-5964-412a-a1c8-7d321cb104d2":{"0":{"criteriaOptionId":"acd2ee3d-8494-4ada-9d3d-e9c6a191975e","value":1,"weight":1}},"f19aaff4-2a2a-48f0-bf7c-f0a4dec1f9b6":{"0":{"criteriaOptionId":"dfec1bc7-31c0-4e74-8dad-654fece1a866","value":0,"weight":1}},"c2223d9c-b3be-434b-a460-b6e4870c1128":{"0":{"criteriaOptionId":"7e72eb21-832d-40c7-af6a-e30d8df26d44","value":1,"weight":1}},"cd789579-7873-4d7c-975f-ac23cca51d21":{"0":{"criteriaOptionId":"b77bf664-75ad-438c-9ad2-61f673b5a631","value":0.7,"weight":1}},"3fdac6b4-21b2-45b0-86c8-ed790cba8ae2":{"0":{"criteriaOptionId":"1dbcad26-c62e-4416-b667-96269b85bda9","value":0.7,"weight":1}},"d349bf0e-e59e-4b07-87ae-09c45d77a0d6":{"0":{"criteriaOptionId":"e1bc0971-1b5c-463f-a982-c2048aa6b93d","value":0.6,"weight":1}},"9d6dcc16-ba38-4f0e-87e3-eafd53fa85f7":{"0":{"criteriaOptionId":"9dfa3f3c-4fba-475c-9ab9-e1f4de6afd0f","value":0.5,"weight":1}},"6f5ff29d-f92d-477a-a50d-40187439692f":{"0":{"criteriaOptionId":"00c09d57-1d2e-4614-b481-e5bc4f9cf635","value":0,"weight":1}},"64b3c795-3faa-49af-8516-85e3330914c0":{"0":{"criteriaOptionId":"12a9c0f9-91e3-4518-a7b1-64047e515527","value":1,"weight":1}},"b137aee9-79de-4c6d-9731-34e0daf37401":{"0":{"criteriaOptionId":"8c15ef5d-683d-467e-8851-6661ec5a54e3","value":1,"weight":1}},"963c7a73-71ef-4304-a102-f92656a70ffb":{"0":{"criteriaOptionId":"6b52f3db-fc35-4333-a36b-85ffabbbd21e","value":1,"weight":1}},"021f9a97-494b-4eb9-8a45-aa53929353c1":{"0":{"criteriaOptionId":"eb367ee2-97e7-4f56-915c-6084b4f4d72e","value":0,"weight":1}},"0d312fc8-7230-4168-ba9d-bb640fd5c70e":{"0":{"criteriaOptionId":"8947a6f3-a2f7-44cd-a052-cb6987e24a8b","value":1,"weight":1}}},"moduleScores":{"9fccd534-f314-48b6-8d92-bee19694ef52":0,"6482c307-cf9e-46da-9b97-efc96f349c98":0,"e1695bc8-323f-4f58-941a-8e09f6cda4f1":0,"0ae21d90-3409-429e-a6c3-2fc08dfb106d":0,"d82bbee4-e248-4be8-9d37-32b563d7afbb":0,"75f3965e-e57c-46bf-9a2a-5f70cf369288":0,"4b8edcbb-bb8f-46c1-b389-70896f217ba6":0},"id":"3ab48913-364d-4911-8a8a-b0f577480d52","title":"Version 1"}],"dataSources":[],"decisionTrees":[{"id":"bb148298-020d-4fb7-ae65-9635bcd5c7bb","answerOptions":["Unrepairable","Long repair time","Short repair time","No repair time"],"title":"Repair time","questions":{"question":"Is there an unrepairable structural damage?","answers":{"yes":"Unrepairable","no":{"question":"Is there repairable damage on a large scale?","answers":{"yes":"Long repair time","no":{"question":"Is there a contamination?","answers":{"yes":"Long repair time","no":{"question":"Is there repairable damage on a small scale (locally)?","answers":{"yes":"Short repair time","no":{"question":"Is there a dirt / rubbish?","answers":{"yes":"Short repair time","no":{"question":"Is there a service damage?","answers":{"yes":"Short repair time","no":"No repair time"}}}}}}}}}}}}},{"id":"a3148248-020d-4fa7-ae65-9635bcd5c7fa","title":"Post-incident capacity","answerOptions":["No capacity","Maybe/partly capacity","Full capacity"],"questions":{"question":"Is there an unrepairable structural damage?","answers":{"yes":"No capacity","no":{"question":"Is there repairable damage on a large scale?","answers":{"yes":"No capacity","no":{"question":"Is there a contamination?","answers":{"yes":"No capacity","no":{"question":"Is the electricity available?","answers":{"no":"No capacity","yes":{"question":"Is there repairable damage on a small scale (locally)?","answers":{"yes":"Maybe/partly capacity","no":{"question":"Is there a dirt / rubbish?","answers":{"yes":"Maybe/partly capacity","no":{"question":"Is there a service damage?","answers":{"yes":"Maybe/partly capacity","maybe":"Maybe/partly capacity","no":"Full capacity"}}}}}}}}}}}}}}}],"criteriaCache":{},"componentCache":{"9fccd534-f314-48b6-8d92-bee19694ef52":{"components":[],"title":"Offices","id":"9fccd534-f314-48b6-8d92-bee19694ef52","level":2},"6482c307-cf9e-46da-9b97-efc96f349c98":{"components":[],"title":"Museum","id":"6482c307-cf9e-46da-9b97-efc96f349c98","level":2},"e1695bc8-323f-4f58-941a-8e09f6cda4f1":{"components":[],"title":"Theatre","id":"e1695bc8-323f-4f58-941a-8e09f6cda4f1","level":2},"0ae21d90-3409-429e-a6c3-2fc08dfb106d":{"components":[],"title":"Hotel","id":"0ae21d90-3409-429e-a6c3-2fc08dfb106d","level":2},"d82bbee4-e248-4be8-9d37-32b563d7afbb":{"components":[],"title":"Housing","id":"d82bbee4-e248-4be8-9d37-32b563d7afbb","level":2},"75f3965e-e57c-46bf-9a2a-5f70cf369288":{"components":[],"title":"Commerce","id":"75f3965e-e57c-46bf-9a2a-5f70cf369288","level":2},"4b8edcbb-bb8f-46c1-b389-70896f217ba6":{"components":[],"title":"Parking","id":"4b8edcbb-bb8f-46c1-b389-70896f217ba6","level":2}},"id":"49158967-dbec-4423-9ea5-65240c50d565","title":"Elasstic"}}
+{
+    "users": [
+        {
+            "id": "a3148248-020d-4fa7-ae65-9635bcd5c7fa",
+            "name": "Testuser",
+            "description": "...",
+            "preferences": {
+                "Security, Safety &amp; Resilience": 5,
+                "Business Continuity": 3,
+                "Repair time": 3,
+                "Post-incident usability": 3,
+                "Functionality": 3,
+                "Size": 0,
+                "Accessibility": 5,
+                "Museum": 1,
+                "Offices": 1,
+                "Plane Impact Offices": 0,
+                "Plane Impact Museum": 0,
+                "Plane Impact Theatre": 0,
+                "On trusses": 0,
+                "In between trusses": 0,
+                "Plane Impact Hotel": 0,
+                "On concrete tower": 0,
+                "Plane Impact Housing": 0,
+                "Fire Offices": 0,
+                "Fire Museum": 0,
+                "Fire Theatre ": 0,
+                "Fire Hotel (in Lobby)": 0,
+                "Fire Housing": 0,
+                "Fire Commerce": 0,
+                "Fire Parking": 0,
+                "Case bomb (small)": 0,
+                "Case bomb (small)&nbsp;Offices": 0,
+                "Case bomb (small) Museum": 0,
+                "Case bomb (small) Theatre": 0,
+                "Case bomb (small) Hotel": 0,
+                "Case bomb (small)&nbsp;Housing": 0,
+                "Case bomb (small) Commerce": 0,
+                "Case bomb (small) Parking": 0,
+                "Car bomb": 0,
+                "Car bomb Offices": 0,
+                "Car bomb Hotel": 0,
+                "Car bomb Housing": 0,
+                "Car bomb Commerce": 0,
+                "Car bomb Parking": 0,
+                "Truck (External)": 0,
+                "Truck (External) Offices": 0,
+                "Truck (External) Hotel": 0,
+                "Truck (External) Housing": 0,
+                "Truck (External) Commerce": 0,
+                "Case bomb (heavy)": 0,
+                "Case bomb (heavy) Offices": 0,
+                "Case bomb (heavy) Museum": 0,
+                "Case bomb (heavy) Theatre": 0,
+                "Case bomb (heavy) Hotel": 0,
+                "Case bomb (heavy) Housing": 0,
+                "Case bomb (heavy) Commerce": 0,
+                "Case bomb (heavy) Parking": 0,
+                "Building": 0,
+                "Theatre": 1,
+                "Architectural Quality": 0,
+                "Recognizability": 0,
+                "Urban Integration": 0,
+                "Accessibility ": 0,
+                "During opening hours": 0,
+                "Supply": 0,
+                "Parking": 0,
+                "Spatial use": 0,
+                "<br>": 0,
+                "Travel time": 0,
+                "Environmental Impact": 0,
+                "EPC value": 0,
+                "Hotel": 0,
+                "Housing": 0,
+                "Commerce": 0,
+                "Safety, Security and Resilience": 0,
+                "Access security ": 0,
+                "People being safe": 0,
+                "Non-attacked zone": 0,
+                "Attacked zone": 0,
+                "External": 0,
+                "Business continuity ": 0
+            },
+            "username": "",
+            "password": ""
+        },
+        {
+            "id": "a51b3055-720c-43fd-b582-b95acbb5a1ae",
+            "name": "Unknown",
+            "description": "...",
+            "preferences": {
+                "Plane Impact": 0,
+                "Fire": 0,
+                "Flooding": 0,
+                "Earthquake": 0,
+                "Extreme wind": 0,
+                "CBR attack": 0,
+                "Explosion": 0,
+                "Security, Safety &amp; Resilience": 1,
+                "Functionality": 1,
+                "Architectural Quality": 1,
+                "Environmental Impact": 0,
+                "Safety, Security and Resilience": 0,
+                "Business Continuity": 0,
+                "Repair time": 0,
+                "Post-incident usability": 0,
+                "Offices": 3,
+                "Museum": 1,
+                "Theatre": 1,
+                "EPC value": 1,
+                "Hotel": 1,
+                "Housing": 1,
+                "Commerce": 1,
+                "Parking": 1
+            },
+            "username": "",
+            "password": ""
+        },
+        {
+            "id": "d7e30f3f-262c-409b-8384-2018d9b0f265",
+            "name": "User2",
+            "description": "...",
+            "preferences": {
+                "Plane Impact Offices": 1,
+                "Plane Impact Museum": 1,
+                "Plane Impact Theatre": 1,
+                "On trusses": 1,
+                "In between trusses": 1,
+                "Plane Impact Hotel": 1,
+                "On concrete tower": 1,
+                "Plane Impact Housing": 1,
+                "Fire Offices": 1,
+                "Fire Museum": 1,
+                "Fire Theatre ": 1,
+                "Fire Hotel (in Lobby)": 1,
+                "Fire Housing": 1,
+                "Fire Commerce": 1,
+                "Fire Parking": 1,
+                "Case bomb (small)": 1,
+                "Case bomb (small)&nbsp;Offices": 1,
+                "Case bomb (small) Museum": 1,
+                "Case bomb (small) Theatre": 1,
+                "Case bomb (small) Hotel": 1,
+                "Case bomb (small)&nbsp;Housing": 1,
+                "Case bomb (small) Commerce": 1,
+                "Case bomb (small) Parking": 1,
+                "Car bomb": 1,
+                "Car bomb Offices": 1,
+                "Car bomb Hotel": 1,
+                "Car bomb Housing": 1,
+                "Car bomb Commerce": 1,
+                "Car bomb Parking": 1,
+                "Truck (External)": 1,
+                "Truck (External) Offices": 1,
+                "Truck (External) Hotel": 1,
+                "Truck (External) Housing": 1,
+                "Truck (External) Commerce": 1,
+                "Case bomb (heavy)": 1,
+                "Case bomb (heavy) Offices": 1,
+                "Case bomb (heavy) Museum": 1,
+                "Case bomb (heavy) Theatre": 1,
+                "Case bomb (heavy) Hotel": 1,
+                "Case bomb (heavy) Housing": 1,
+                "Case bomb (heavy) Commerce": 1,
+                "Case bomb (heavy) Parking": 1,
+                "Repair time": 1,
+                "Post-incident usability": 1,
+                "Functionality": 4,
+                "Accessibility": 5,
+                "Offices": 3,
+                "Museum": 3,
+                "Theatre": 1,
+                "Architectural Quality": 4,
+                "Recognizability": 3,
+                "Urban Integration": 2,
+                "Accessibility ": 1,
+                "During opening hours": 1,
+                "Supply": 1,
+                "Parking": 1,
+                "Spatial use": 1,
+                "Travel time": 1,
+                "Environmental Impact": 3,
+                "EPC value": 1,
+                "Hotel": 4,
+                "Housing": 5,
+                "Commerce": 3,
+                "Safety, Security and Resilience": 1,
+                "Access security ": 1,
+                "People being safe": 1,
+                "Non-attacked zone": 1,
+                "Attacked zone": 1,
+                "External": 1,
+                "Business continuity ": 1
+            },
+            "username": "",
+            "password": ""
+        }
+    ],
+    "project": {
+        "components": [
+            {
+                "components": [
+                    {
+                        "components": [],
+                        "title": "Offices",
+                        "id": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                        "level": 2
+                    },
+                    {
+                        "components": [],
+                        "title": "Museum",
+                        "id": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                        "level": 2
+                    },
+                    {
+                        "components": [],
+                        "title": "Theatre",
+                        "id": "27dkbiQ890hv5IbUYa_pey",
+                        "level": 2
+                    },
+                    {
+                        "components": [],
+                        "title": "Hotel",
+                        "id": "2zjWPjRbbEIfNfpqygiK2M",
+                        "level": 2
+                    },
+                    {
+                        "components": [],
+                        "title": "Housing",
+                        "id": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                        "level": 2
+                    },
+                    {
+                        "components": [],
+                        "title": "Commerce",
+                        "id": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                        "level": 2
+                    },
+                    {
+                        "components": [],
+                        "title": "Parking",
+                        "id": "3aXivM03D3GQF_Heouqn5j",
+                        "level": 2
+                    }
+                ],
+                "title": "Building",
+                "id": "b956b95a-5645-463f-972c-9b2fc4be9b62",
+                "level": 1
+            }
+        ],
+        "criterias": [
+            {
+                "userWeight": 4,
+                "subCriterias": [
+                    {
+                        "userWeight": 3,
+                        "subCriterias": [],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "5378fa19-cc6a-4e07-bcc5-d81243c58346",
+                        "title": "Recognizability",
+                        "decisionTreeId": "",
+                        "weight": 0.3,
+                        "score": 0
+                    },
+                    {
+                        "userWeight": 2,
+                        "subCriterias": [],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "ad83f411-76cd-4ee2-9bd7-4ef6ca832ba2",
+                        "title": "Urban Integration",
+                        "weight": 0.2,
+                        "score": 0
+                    },
+                    {
+                        "userWeight": 5,
+                        "subCriterias": [],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "27702710-bf79-41cc-9fe7-9974109ba429",
+                        "title": "Accessibility",
+                        "weight": 0.5,
+                        "score": 0
+                    }
+                ],
+                "options": [],
+                "isScenarioDependent": false,
+                "isEnabled": true,
+                "level": 1,
+                "id": "a6397271-8d8b-4c6c-ba4a-cd83d3ad68fa",
+                "title": "Architectural Quality",
+                "weight": 0.3333333333333333,
+                "score": 0
+            },
+            {
+                "userWeight": 4,
+                "subCriterias": [
+                    {
+                        "userWeight": 1,
+                        "subCriterias": [
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [
+                                    {
+                                        "userWeight": 3,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access in all entrances&nbsp;",
+                                                "value": 1,
+                                                "id": "4a5cbac7-7d4e-4b6a-8cd0-b3ec4e18ee0b"
+                                            },
+                                            {
+                                                "title": "Public access with guards/cameras",
+                                                "value": 0.9,
+                                                "id": "5c2756e1-ba9f-4f02-ae70-f8e56281ca96"
+                                            },
+                                            {
+                                                "title": "Access with key-code/card",
+                                                "value": 0.5,
+                                                "id": "7b2d1b1e-a75a-49e7-8f08-fa73e928e25d"
+                                            },
+                                            {
+                                                "title": "Access with security check",
+                                                "value": 0,
+                                                "id": "2570fb7f-2cbe-4136-b7cc-8cede97296f0"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "8972c47a-5bb2-4c9d-9332-cfb20602193b",
+                                        "title": "Offices",
+                                        "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                                        "weight": 0.13043478260869565,
+                                        "score": 1
+                                    },
+                                    {
+                                        "userWeight": 3,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access in all entrances&nbsp;",
+                                                "value": 1,
+                                                "id": "aa928259-1cb0-4004-8967-a2d28ba503d6"
+                                            },
+                                            {
+                                                "title": "Public access with guards/cameras",
+                                                "value": 0.5,
+                                                "id": "9f15da5a-377f-43bc-852e-fa3e990861cb"
+                                            },
+                                            {
+                                                "title": "Public access with security check",
+                                                "value": 0,
+                                                "id": "c0543a7d-a148-4fa2-9adf-8d6a10bb4630"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "3192ec07-92f3-41f8-be3d-230f23fd58a1",
+                                        "title": "Museum",
+                                        "componentId": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                                        "weight": 0.13043478260869565,
+                                        "score": 1
+                                    },
+                                    {
+                                        "userWeight": 2,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access in all entrances&nbsp;",
+                                                "value": 1,
+                                                "id": "b5ecb529-697b-4bf4-996b-7587cf876e18"
+                                            },
+                                            {
+                                                "title": "Public access with guards/cameras",
+                                                "value": 0.5,
+                                                "id": "3d84d002-698e-41ac-bc26-8f6486279199"
+                                            },
+                                            {
+                                                "title": "Public access with security check",
+                                                "value": 0,
+                                                "id": "73832c5b-88f6-4e11-8765-cad31f49025a"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "2995ce40-aa10-492b-9b22-9092609e87f7",
+                                        "title": "Theatre",
+                                        "componentId": "27dkbiQ890hv5IbUYa_pey",
+                                        "weight": 0.08695652173913043,
+                                        "score": 0.5
+                                    },
+                                    {
+                                        "userWeight": 5,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access in all entrances&nbsp;",
+                                                "value": 1,
+                                                "id": "d66026fb-c131-4478-b769-eec08c9909a3"
+                                            },
+                                            {
+                                                "title": "Public access with guards/cameras",
+                                                "value": 0.7,
+                                                "id": "74bd7827-a034-484a-987f-6c9b6bdfb8f6"
+                                            },
+                                            {
+                                                "title": "Access with key-code/card",
+                                                "value": 0.7,
+                                                "id": "942e86d3-9242-4fd9-9bbb-aba3fbe0a565"
+                                            },
+                                            {
+                                                "title": "Public Access with security check",
+                                                "value": 0,
+                                                "id": "b0e8026a-6c79-4944-a843-0da693e41e5c"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "f496d56d-56ed-4a22-b448-fc2e3787e69e",
+                                        "title": "Hotel",
+                                        "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                                        "weight": 0.21739130434782608,
+                                        "score": 0.7
+                                    },
+                                    {
+                                        "userWeight": 4,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access in all entrances&nbsp;",
+                                                "value": 1,
+                                                "id": "37fd4acf-43f2-4328-b321-3c12a975821c"
+                                            },
+                                            {
+                                                "title": "Public access with guards/cameras",
+                                                "value": 0.9,
+                                                "id": "a1b4801b-6537-4304-bcfc-7dff510c605a"
+                                            },
+                                            {
+                                                "title": "Access with key-code/card",
+                                                "value": 0.9,
+                                                "id": "87c4ca19-425b-4031-9c36-0363232cdb5f"
+                                            },
+                                            {
+                                                "title": "Public Access with security check",
+                                                "value": 0,
+                                                "id": "b2c90f10-0790-4223-88e2-f96957a01ca7"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "f77eced8-70dc-4e3b-aa06-6ece252c36e8",
+                                        "title": "Housing",
+                                        "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                                        "weight": 0.17391304347826086,
+                                        "score": 0.9
+                                    },
+                                    {
+                                        "userWeight": 5,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access in all entrances&nbsp;",
+                                                "value": 1,
+                                                "id": "25754c1c-dfee-4779-8ff9-77d1b02d6e70"
+                                            },
+                                            {
+                                                "title": "Public access with guards/cameras",
+                                                "value": 0.7,
+                                                "id": "aa5b882a-e34b-4ed7-b9b4-3b36a9b28d3f"
+                                            },
+                                            {
+                                                "title": "Public Access with security check",
+                                                "value": 0,
+                                                "id": "1ab9da57-e5d0-4a6e-aee8-326e366ac981"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "2fe36412-056c-4275-99ef-c73b8b80716c",
+                                        "title": "Commerce",
+                                        "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                                        "weight": 0.21739130434782608,
+                                        "score": 0.7
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 0.5,
+                                                "id": "6c177755-9fb5-4e7f-8096-78cd43af7b45"
+                                            },
+                                            {
+                                                "title": "Public access with cameras",
+                                                "value": 1,
+                                                "id": "c1f76516-74e7-4b2a-9446-d60f546fce6c"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "e26ed14d-53a9-4611-85f3-a7a923b3eeb3",
+                                        "title": "Parking",
+                                        "componentId": "3aXivM03D3GQF_Heouqn5j",
+                                        "weight": 0.043478260869565216,
+                                        "score": 0.5
+                                    }
+                                ],
+                                "options": [],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "3ef1d4d3-cf83-4518-a880-68403333a62a",
+                                "title": "During opening hours",
+                                "weight": 0.3333333333333333,
+                                "score": 0.7869565217391304
+                            },
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Truck can freely reach (un)loading point.",
+                                                "value": 1,
+                                                "id": "1e729608-b5d9-4939-b8cc-e981f66e5acc"
+                                            },
+                                            {
+                                                "title": "Truck can reach the (un)loading point with security card.",
+                                                "value": 0.7,
+                                                "id": "039cc837-bc51-4b2a-a933-b1839d6d3487"
+                                            },
+                                            {
+                                                "title": "Truck cannot reach the building.",
+                                                "value": 0,
+                                                "id": "2adc15ee-16fb-4d22-b2f2-2a03642a4638"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "fcddbf3b-1e78-4693-8bbb-8433137ddd7d",
+                                        "title": "Offices",
+                                        "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                                        "weight": 0.14285714285714285,
+                                        "score": 1
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Truck can freely reach (un)loading point.",
+                                                "value": 1,
+                                                "id": "acd2ee3d-8494-4ada-9d3d-e9c6a191975e"
+                                            },
+                                            {
+                                                "title": "Truck can reach the (un)loading point with security card.",
+                                                "value": 0.7,
+                                                "id": "3e884443-9210-487a-9fa2-7a26022c38d1"
+                                            },
+                                            {
+                                                "title": "Truck cannot reach the building.",
+                                                "value": 0,
+                                                "id": "f68ab6c8-dbc5-450f-9955-dcb54ccbea8f"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "d17a4b25-5964-412a-a1c8-7d321cb104d2",
+                                        "title": "Museum",
+                                        "componentId": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                                        "weight": 0.14285714285714285,
+                                        "score": 1
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Truck can freely reach (un)loading point.",
+                                                "value": 1,
+                                                "id": "158e77d9-12d7-41af-8f21-193e19f6c291"
+                                            },
+                                            {
+                                                "title": "Truck can reach the (un)loading point with security card.",
+                                                "value": 0.7,
+                                                "id": "3c42381d-342b-4eab-9831-5d47d62521de"
+                                            },
+                                            {
+                                                "title": "Truck cannot reach the building.",
+                                                "value": 0,
+                                                "id": "dfec1bc7-31c0-4e74-8dad-654fece1a866"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "f19aaff4-2a2a-48f0-bf7c-f0a4dec1f9b6",
+                                        "title": "Theatre",
+                                        "componentId": "27dkbiQ890hv5IbUYa_pey",
+                                        "weight": 0.14285714285714285,
+                                        "score": 0
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Truck can freely reach (un)loading point.",
+                                                "value": 1,
+                                                "id": "7e72eb21-832d-40c7-af6a-e30d8df26d44"
+                                            },
+                                            {
+                                                "title": "Truck can reach the (un)loading point with security card.",
+                                                "value": 0.7,
+                                                "id": "bd84d847-6199-4d03-85f9-bc5e20da8369"
+                                            },
+                                            {
+                                                "title": "Truck cannot reach the building.",
+                                                "value": 0,
+                                                "id": "be7342c8-21ae-4494-8e5f-c8c191bfa144"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "c2223d9c-b3be-434b-a460-b6e4870c1128",
+                                        "title": "Hotel",
+                                        "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                                        "weight": 0.14285714285714285,
+                                        "score": 1
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Truck can freely reach (un)loading point.",
+                                                "value": 1,
+                                                "id": "f6874ed4-6591-4ce0-afdf-a380c7b51590"
+                                            },
+                                            {
+                                                "title": "Truck can reach the (un)loading point with security card.",
+                                                "value": 0.7,
+                                                "id": "b77bf664-75ad-438c-9ad2-61f673b5a631"
+                                            },
+                                            {
+                                                "title": "Truck cannot reach the building.",
+                                                "value": 0,
+                                                "id": "973b54a5-c012-4cbd-94e9-181844f60422"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "cd789579-7873-4d7c-975f-ac23cca51d21",
+                                        "title": "Housing",
+                                        "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                                        "weight": 0.14285714285714285,
+                                        "score": 0.7
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Truck can freely reach (un)loading point.",
+                                                "value": 1,
+                                                "id": "3547f7fa-5a5a-44a9-83d4-83258b3540d7"
+                                            },
+                                            {
+                                                "title": "Truck can reach the (un)loading point with security card.",
+                                                "value": 0.7,
+                                                "id": "1dbcad26-c62e-4416-b667-96269b85bda9"
+                                            },
+                                            {
+                                                "title": "Truck cannot reach the building.",
+                                                "value": 0,
+                                                "id": "5b198c24-f77f-496b-9def-bebabbff3efc"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "3fdac6b4-21b2-45b0-86c8-ed790cba8ae2",
+                                        "title": "Commerce",
+                                        "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                                        "weight": 0.14285714285714285,
+                                        "score": 0.7
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 0.6,
+                                                "id": "e1bc0971-1b5c-463f-a982-c2048aa6b93d"
+                                            },
+                                            {
+                                                "title": "Public access with cameras",
+                                                "value": 1,
+                                                "id": "05fc2a9b-d61e-4e73-9dfb-4b9c6573a6a5"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "d349bf0e-e59e-4b07-87ae-09c45d77a0d6",
+                                        "title": "Parking",
+                                        "componentId": "3aXivM03D3GQF_Heouqn5j",
+                                        "weight": 0.14285714285714285,
+                                        "score": 0.6
+                                    }
+                                ],
+                                "options": [],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "2a60c732-d3ac-4d2d-ba58-e4625a332fe3",
+                                "title": "Supply",
+                                "weight": 0.3333333333333333,
+                                "score": 0.7142857142857143
+                            },
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 1,
+                                                "id": "45126330-c69e-4ad7-a65e-fcddf1f1c2b3"
+                                            },
+                                            {
+                                                "title": "Private access",
+                                                "value": 0.5,
+                                                "id": "9dfa3f3c-4fba-475c-9ab9-e1f4de6afd0f"
+                                            },
+                                            {
+                                                "title": "No parking spots",
+                                                "value": 0,
+                                                "id": "fe9742d0-e9fa-41b9-97f9-786eef459b53"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "9d6dcc16-ba38-4f0e-87e3-eafd53fa85f7",
+                                        "title": "Offices",
+                                        "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                                        "weight": 0.14285714285714285,
+                                        "score": 0.5
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 1,
+                                                "id": "502137be-3240-4541-a124-e315299eea4f"
+                                            },
+                                            {
+                                                "title": "Private access",
+                                                "value": 0.5,
+                                                "id": "a6e33be2-4980-401f-ae05-3ad1cb334bfe"
+                                            },
+                                            {
+                                                "title": "No parking spots",
+                                                "value": 0,
+                                                "id": "00c09d57-1d2e-4614-b481-e5bc4f9cf635"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "6f5ff29d-f92d-477a-a50d-40187439692f",
+                                        "title": "Museum",
+                                        "componentId": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                                        "weight": 0.14285714285714285,
+                                        "score": 0
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 1,
+                                                "id": "12a9c0f9-91e3-4518-a7b1-64047e515527"
+                                            },
+                                            {
+                                                "title": "Private access",
+                                                "value": 0.5,
+                                                "id": "ee28e588-5a27-4c73-b8c9-c4664045c309"
+                                            },
+                                            {
+                                                "title": "No parking spots",
+                                                "value": 0,
+                                                "id": "896690b4-6073-4f79-9f43-2b548a8b3b83"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "64b3c795-3faa-49af-8516-85e3330914c0",
+                                        "title": "Theatre",
+                                        "componentId": "27dkbiQ890hv5IbUYa_pey",
+                                        "weight": 0.14285714285714285,
+                                        "score": 1
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 1,
+                                                "id": "8c15ef5d-683d-467e-8851-6661ec5a54e3"
+                                            },
+                                            {
+                                                "title": "Private access",
+                                                "value": 0.8,
+                                                "id": "ab0b3ca5-6574-4949-8aff-59206f2ec300"
+                                            },
+                                            {
+                                                "title": "No parking spots",
+                                                "value": 1,
+                                                "id": "92358438-700a-47f8-88a7-70222bd5bd5c"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "b137aee9-79de-4c6d-9731-34e0daf37401",
+                                        "title": "Hotel",
+                                        "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                                        "weight": 0.14285714285714285,
+                                        "score": 1
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 0.5,
+                                                "id": "8f9a3ff7-5d1e-4dc3-9c72-b5118825429f"
+                                            },
+                                            {
+                                                "title": "Private access",
+                                                "value": 1,
+                                                "id": "6b52f3db-fc35-4333-a36b-85ffabbbd21e"
+                                            },
+                                            {
+                                                "title": "No parking spots",
+                                                "value": 0,
+                                                "id": "6d507c5b-194a-4483-8f0e-469cc52c9b6e"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "963c7a73-71ef-4304-a102-f92656a70ffb",
+                                        "title": "Housing",
+                                        "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                                        "weight": 0.14285714285714285,
+                                        "score": 1
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 1,
+                                                "id": "33475542-2fb6-4b93-b750-55241aac9782"
+                                            },
+                                            {
+                                                "title": "Private access",
+                                                "value": 0.5,
+                                                "id": "ecade599-1b99-48b2-bbc4-9aac77213cd3"
+                                            },
+                                            {
+                                                "title": "No parking spots",
+                                                "value": 0,
+                                                "id": "eb367ee2-97e7-4f56-915c-6084b4f4d72e"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "021f9a97-494b-4eb9-8a45-aa53929353c1",
+                                        "title": "Commerce",
+                                        "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                                        "weight": 0.14285714285714285,
+                                        "score": 0
+                                    },
+                                    {
+                                        "userWeight": 1,
+                                        "subCriterias": [],
+                                        "options": [
+                                            {
+                                                "title": "Public access",
+                                                "value": 1,
+                                                "id": "8947a6f3-a2f7-44cd-a052-cb6987e24a8b"
+                                            }
+                                        ],
+                                        "isScenarioDependent": false,
+                                        "isEnabled": true,
+                                        "level": 4,
+                                        "id": "0d312fc8-7230-4168-ba9d-bb640fd5c70e",
+                                        "title": "Parking",
+                                        "componentId": "3aXivM03D3GQF_Heouqn5j",
+                                        "weight": 0.14285714285714285,
+                                        "score": 0
+                                    }
+                                ],
+                                "options": [],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "70794d58-35ca-46e4-842c-f80077b80a58",
+                                "title": "Parking",
+                                "weight": 0.3333333333333333,
+                                "score": 0.49999999999999994
+                            }
+                        ],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "05e4ce1f-ae97-4429-8720-f2f82273ffe6",
+                        "title": "Accessibility ",
+                        "weight": 0.5,
+                        "score": 0.6670807453416149
+                    },
+                    {
+                        "userWeight": 1,
+                        "subCriterias": [
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [],
+                                "options": [],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "465d3345-22f3-435f-bdc7-9834bc4ce0ca",
+                                "title": "Travel time",
+                                "weight": 1,
+                                "score": 0
+                            }
+                        ],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "7f00cffc-2ca8-468e-86f9-18fbd3e92f45",
+                        "title": "Spatial use",
+                        "weight": 0.5,
+                        "score": 0
+                    }
+                ],
+                "options": [],
+                "isScenarioDependent": false,
+                "isEnabled": true,
+                "level": 1,
+                "id": "ecddbec0-88b1-4a21-a1b7-9e60ded63257",
+                "title": "Functionality",
+                "weight": 0.3333333333333333,
+                "score": 0.33354037267080744
+            },
+            {
+                "userWeight": 3,
+                "subCriterias": [
+                    {
+                        "userWeight": 1,
+                        "subCriterias": [
+                            {
+                                "userWeight": 3,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "A (92-100)",
+                                        "value": 1,
+                                        "id": "218db5f3-a641-4a88-b51e-c799e0aa70fc"
+                                    },
+                                    {
+                                        "title": "B (81-91)",
+                                        "value": 0.9,
+                                        "id": "49e45840-955a-478d-bf2c-0a3d07ff5356"
+                                    },
+                                    {
+                                        "title": "C (69-80)",
+                                        "value": 0.8,
+                                        "id": "5f3ab814-7009-416a-87a1-247b94f9e1a6"
+                                    },
+                                    {
+                                        "title": "D (55-69)",
+                                        "value": 0.6,
+                                        "id": "c8341c20-b305-4cbf-af01-3fc0849a717f"
+                                    },
+                                    {
+                                        "title": "E (39-54)",
+                                        "value": 0.4,
+                                        "id": "f05f6932-275f-4f2b-a0e9-6d3e882db199"
+                                    },
+                                    {
+                                        "title": "F (21-38)",
+                                        "value": 0.1,
+                                        "id": "728d074f-6280-4018-a65a-96c13c426742"
+                                    },
+                                    {
+                                        "title": "G (1-20)",
+                                        "value": 0,
+                                        "id": "bb23c920-bb19-4548-8842-1c3a5a1f8e5b"
+                                    }
+                                ],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "634a4552-3fd5-4265-ad0e-1c2a6d0f8a89",
+                                "title": "Offices",
+                                "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                                "weight": 0.15,
+                                "score": 1
+                            },
+                            {
+                                "userWeight": 3,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "A (92-100)",
+                                        "value": 1,
+                                        "id": "61efec34-fd53-437e-a4e5-59d3fb0e68e9"
+                                    },
+                                    {
+                                        "title": "B (81-91)",
+                                        "value": 0.9,
+                                        "id": "7ce08579-0356-45ae-8f6c-0e771cde90d2"
+                                    },
+                                    {
+                                        "title": "C (69-80)",
+                                        "value": 0.8,
+                                        "id": "072dff75-17d9-4de1-b6aa-ac11470771c0"
+                                    },
+                                    {
+                                        "title": "D (55-69)",
+                                        "value": 0.8,
+                                        "id": "7e514834-63af-447b-9cba-38a77b7d9ca6"
+                                    },
+                                    {
+                                        "title": "E (39-54)",
+                                        "value": 0.6,
+                                        "id": "e723247a-b465-4324-8eab-64d5942acf1c"
+                                    },
+                                    {
+                                        "title": "F (21-38)",
+                                        "value": 0.5,
+                                        "id": "fd508b94-9983-4cb3-8436-3e6938174e30"
+                                    },
+                                    {
+                                        "title": "G (1-20)",
+                                        "value": 0,
+                                        "id": "1afeac70-a064-46d7-92ef-95bebbb3c90a"
+                                    }
+                                ],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "2cc5dfa4-bde2-47ba-a6ad-1291058ec8f2",
+                                "title": "Museum",
+                                "componentId": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                                "weight": 0.15,
+                                "score": 1
+                            },
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "A (92-100)",
+                                        "value": 1,
+                                        "id": "fa80a420-eec9-40a4-8cd9-1a66fd340495"
+                                    },
+                                    {
+                                        "title": "B (81-91)",
+                                        "value": 0.9,
+                                        "id": "9f83c91c-0efa-4eb5-8db2-4569212a8870"
+                                    },
+                                    {
+                                        "title": "C (69-80)",
+                                        "value": 0.8,
+                                        "id": "928ceca4-bd1f-43f1-b3d6-e6211debd71a"
+                                    },
+                                    {
+                                        "title": "D (55-69)",
+                                        "value": 0.6,
+                                        "id": "7eddf7e1-3c44-4087-a4b5-271568f3bad8"
+                                    },
+                                    {
+                                        "title": "E (39-54)",
+                                        "value": 0.4,
+                                        "id": "ab2bb24c-5f02-4550-947e-87909d931114"
+                                    },
+                                    {
+                                        "title": "F (21-38)",
+                                        "value": 0.1,
+                                        "id": "5a90d80a-eef4-4175-b5e2-69a1fa7d0aba"
+                                    },
+                                    {
+                                        "title": "G (1-20)",
+                                        "value": 0,
+                                        "id": "e5ad57f7-f6f2-4bca-bd12-0d82336cda94"
+                                    }
+                                ],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "81b52c1a-95b4-4bce-ac56-847e1d3938c8",
+                                "title": "Theatre",
+                                "componentId": "27dkbiQ890hv5IbUYa_pey",
+                                "weight": 0.05,
+                                "score": 0.9
+                            },
+                            {
+                                "userWeight": 4,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "A (92-100)",
+                                        "value": 1,
+                                        "id": "01a513d7-6233-4988-95cd-9cbc599423bc"
+                                    },
+                                    {
+                                        "title": "B (81-91)",
+                                        "value": 0.9,
+                                        "id": "31a0bf16-7e8b-4640-8c62-8dc2315a48d5"
+                                    },
+                                    {
+                                        "title": "C (69-80)",
+                                        "value": 0.8,
+                                        "id": "cf95a9aa-539b-44db-a1ba-e0928dde6ec8"
+                                    },
+                                    {
+                                        "title": "D (55-69)",
+                                        "value": 0.6,
+                                        "id": "439e1900-adb7-4f33-b8fe-1d75b54e7331"
+                                    },
+                                    {
+                                        "title": "E (39-54)",
+                                        "value": 0.4,
+                                        "id": "e732dd1b-3fbf-4ce6-9876-c53e0f16d477"
+                                    },
+                                    {
+                                        "title": "F (21-38)",
+                                        "value": 0.1,
+                                        "id": "593358e0-7684-4687-b07a-bc79e782be52"
+                                    },
+                                    {
+                                        "title": "G (1-20)",
+                                        "value": 0,
+                                        "id": "46b5bc37-e9ec-4cab-a0ab-11409cbfd4eb"
+                                    }
+                                ],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "a5577745-4b34-4020-b6e7-22b94dddd52e",
+                                "title": "Hotel",
+                                "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                                "weight": 0.2,
+                                "score": 0.8
+                            },
+                            {
+                                "userWeight": 5,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "A (92-100)",
+                                        "value": 1,
+                                        "id": "8cf2d3c9-dece-4bb0-a1a2-36654bb5daac"
+                                    },
+                                    {
+                                        "title": "B (81-91)",
+                                        "value": 0.9,
+                                        "id": "beb74e45-fbb4-4f3a-b269-5e59dd2a76c9"
+                                    },
+                                    {
+                                        "title": "C (69-80)",
+                                        "value": 0.8,
+                                        "id": "1a863ac0-8138-4d2d-b4f0-9d981f639160"
+                                    },
+                                    {
+                                        "title": "D (55-69)",
+                                        "value": 0.4,
+                                        "id": "15635386-d034-4eaf-a7f3-cc625c9fc4cc"
+                                    },
+                                    {
+                                        "title": "E (39-54)",
+                                        "value": 0.2,
+                                        "id": "efe2d78a-a190-44fc-9a6a-853225f7b4ec"
+                                    },
+                                    {
+                                        "title": "F (21-38)",
+                                        "value": 0.1,
+                                        "id": "1d06df94-be66-41da-aeba-fe6438a63144"
+                                    },
+                                    {
+                                        "title": "G (1-20)",
+                                        "value": 0,
+                                        "id": "c496bc3d-2432-40a5-a28d-37ea69996a34"
+                                    }
+                                ],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "fd7fc311-25d5-4457-80a6-dcd6bc3bde2d",
+                                "title": "Housing",
+                                "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                                "weight": 0.25,
+                                "score": 0.4
+                            },
+                            {
+                                "userWeight": 3,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "A (92-100)",
+                                        "value": 1,
+                                        "id": "fde55989-baf7-4d28-af6e-bd5f5138ee72"
+                                    },
+                                    {
+                                        "title": "B (81-91)",
+                                        "value": 0.9,
+                                        "id": "c0a4b81f-d1dd-4865-9327-7f3250458f13"
+                                    },
+                                    {
+                                        "title": "C (69-80)",
+                                        "value": 0.8,
+                                        "id": "e6c84cee-b797-4d8f-997c-29be10682ef6"
+                                    },
+                                    {
+                                        "title": "D (55-69)",
+                                        "value": 0.5,
+                                        "id": "46bccee5-f9b6-4d37-a1d7-46d02efa27c1"
+                                    },
+                                    {
+                                        "title": "E (39-54)",
+                                        "value": 0.3,
+                                        "id": "05f84ea9-bbd1-4eee-bdf5-0bad21d7df2c"
+                                    },
+                                    {
+                                        "title": "F (21-38)",
+                                        "value": 0.1,
+                                        "id": "3e188b49-36e9-4ae5-ac5c-18ae07760ba1"
+                                    },
+                                    {
+                                        "title": "G (1-20)",
+                                        "value": 0,
+                                        "id": "057fcf73-0ac7-4031-91c6-2b0933de2874"
+                                    }
+                                ],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "ade2d6ff-194c-4acd-9217-1937358d2f84",
+                                "title": "Commerce",
+                                "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                                "weight": 0.15,
+                                "score": 0.1
+                            },
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "A (92-100)",
+                                        "value": 1,
+                                        "id": "47d35cae-07c0-4930-b729-4583aa6967e3"
+                                    },
+                                    {
+                                        "title": "B (81-91)",
+                                        "value": 1,
+                                        "id": "c1670ed4-f68f-448a-86d8-bbaffd5552b4"
+                                    },
+                                    {
+                                        "title": "C (69-80)",
+                                        "value": 1,
+                                        "id": "27c03059-f612-49fd-99b1-d8068da6ae34"
+                                    },
+                                    {
+                                        "title": "D (55-69)",
+                                        "value": 1,
+                                        "id": "49ccd8a2-f0bf-4a25-8f8f-997184022c21"
+                                    },
+                                    {
+                                        "title": "E (39-54)",
+                                        "value": 1,
+                                        "id": "a0a138ee-d2d4-4f0a-9162-38cdd76a00a6"
+                                    },
+                                    {
+                                        "title": "F (21-38)",
+                                        "value": 1,
+                                        "id": "e9aa4ac8-c536-4695-97c8-0d01efe2e193"
+                                    },
+                                    {
+                                        "title": "G (1-20)",
+                                        "value": 1,
+                                        "id": "56e97ebe-6460-4b7c-b218-e58355944d1f"
+                                    }
+                                ],
+                                "isScenarioDependent": false,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "d46c301c-e587-4044-956e-b7a6122e5f9b",
+                                "title": "Parking",
+                                "componentId": "3aXivM03D3GQF_Heouqn5j",
+                                "weight": 0.05,
+                                "score": 1
+                            }
+                        ],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "49cf501c-e7a7-4aaf-b9fb-7abbe498f503",
+                        "title": "EPC value",
+                        "weight": 1,
+                        "score": 0.67
+                    }
+                ],
+                "options": [],
+                "isScenarioDependent": false,
+                "isEnabled": true,
+                "level": 1,
+                "id": "545ddffc-1418-48a5-a919-3be05f8991e1",
+                "title": "Environmental Impact",
+                "weight": 0.25,
+                "score": 0.67
+            },
+            {
+                "userWeight": 1,
+                "subCriterias": [
+                    {
+                        "userWeight": 1,
+                        "subCriterias": [],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "838e229a-2683-491e-ad66-9aa3d9a1d173",
+                        "title": "Access security ",
+                        "weight": 0.3333333333333333,
+                        "score": 0
+                    },
+                    {
+                        "userWeight": 1,
+                        "subCriterias": [
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "No victims",
+                                        "value": 1,
+                                        "id": "e606b525-50ab-48a1-9658-a45b25f6644e"
+                                    },
+                                    {
+                                        "title": "Few victims",
+                                        "value": 0.8,
+                                        "id": "12525615-6ae4-429f-a322-4ed060f606fc"
+                                    },
+                                    {
+                                        "title": "Severe amount of victims",
+                                        "value": 0,
+                                        "id": "850ef1b2-3beb-484d-a05d-faf24d82b179"
+                                    }
+                                ],
+                                "isScenarioDependent": true,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "b437201c-ca2d-4c88-a2f2-ceedc75216da",
+                                "title": "Non-attacked zone",
+                                "weight": 0.3333333333333333,
+                                "score": 0
+                            },
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "No victims",
+                                        "value": 1,
+                                        "id": "13df0e50-fd8a-45b2-9333-6f116a5d0854"
+                                    },
+                                    {
+                                        "title": "Few victims",
+                                        "value": 0.7,
+                                        "id": "0405c415-93ef-43b8-8163-e4468d086dc6"
+                                    },
+                                    {
+                                        "title": "Severe amount of victims",
+                                        "value": 0.35,
+                                        "id": "10efe355-488f-4a3c-9c39-f31ba1ad963b"
+                                    },
+                                    {
+                                        "title": "Extreme amount of victims",
+                                        "value": 0,
+                                        "id": "66794885-b042-4d45-8591-cf8700196a3b"
+                                    }
+                                ],
+                                "isScenarioDependent": true,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "fda8a58a-b2b6-4c19-98f5-208cb1baa6f6",
+                                "title": "Attacked zone",
+                                "weight": 0.3333333333333333,
+                                "score": 0
+                            },
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "No victims",
+                                        "value": 1,
+                                        "id": "e90d33fa-e17e-4565-b5b5-e8f975396ccd"
+                                    },
+                                    {
+                                        "title": "Few victims",
+                                        "value": 0.7,
+                                        "id": "4ddff098-5d06-4212-9d6b-1c3fb79fcea1"
+                                    },
+                                    {
+                                        "title": "Severe amount of victims",
+                                        "value": 0.35,
+                                        "id": "85a0ad41-9acd-4827-96b0-067d801c99f6"
+                                    },
+                                    {
+                                        "title": "Extreme amount of victims",
+                                        "value": 0,
+                                        "id": "8d1f490e-9dc5-43df-9773-25c2cf71e4b2"
+                                    }
+                                ],
+                                "isScenarioDependent": true,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "9fc20ac6-ef57-4ae5-8014-798dfcebd2ed",
+                                "title": "External",
+                                "weight": 0.3333333333333333,
+                                "score": 0
+                            }
+                        ],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "e0529400-9451-4f48-92e5-a1e73b78aa64",
+                        "title": "People being safe",
+                        "weight": 0.3333333333333333,
+                        "score": 0
+                    },
+                    {
+                        "userWeight": 1,
+                        "subCriterias": [
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "Full capacity",
+                                        "value": 1,
+                                        "id": "b873eafd-0b8a-4313-a925-6f84d46d3129"
+                                    },
+                                    {
+                                        "title": "Partly capacity",
+                                        "value": 1,
+                                        "id": "750985e7-8b4e-4634-8f90-abdf3f30f96e"
+                                    },
+                                    {
+                                        "title": "No capacity",
+                                        "value": 1,
+                                        "id": "8ecafba2-b2c4-40c6-9f8c-8dbb3c1af455"
+                                    }
+                                ],
+                                "isScenarioDependent": true,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "51966788-fdad-4b4f-b17c-7090ed89871a",
+                                "title": "Post-incident usability",
+                                "weight": 0.5,
+                                "score": 0.9
+                            },
+                            {
+                                "userWeight": 1,
+                                "subCriterias": [],
+                                "options": [
+                                    {
+                                        "title": "No repair time",
+                                        "value": 1,
+                                        "id": "d24ac9e7-50bc-41b7-8ad4-045f6d456272"
+                                    },
+                                    {
+                                        "title": "Short repair time",
+                                        "value": 0.8,
+                                        "id": "2b96cd18-e619-4f4d-9477-95d9a3a4ae11"
+                                    },
+                                    {
+                                        "title": "Long repair time",
+                                        "value": 0.4,
+                                        "id": "02d53579-d24d-4a16-8f79-71ab851d9cdd"
+                                    },
+                                    {
+                                        "title": "Unrepairable",
+                                        "value": 0,
+                                        "id": "3af6a6f8-c518-48ce-b3e6-da8b77c1fa20"
+                                    }
+                                ],
+                                "isScenarioDependent": true,
+                                "isEnabled": true,
+                                "level": 3,
+                                "id": "df560813-6bea-4276-b199-a6b919afeb9c",
+                                "title": "Repair time",
+                                "weight": 0.5,
+                                "score": 0.68
+                            }
+                        ],
+                        "options": [],
+                        "isScenarioDependent": false,
+                        "isEnabled": true,
+                        "level": 2,
+                        "id": "ff81ebb2-8004-4810-8abe-7d73b1bef7e2",
+                        "title": "Business continuity ",
+                        "weight": 0.3333333333333333,
+                        "score": 0.79
+                    }
+                ],
+                "options": [],
+                "isScenarioDependent": false,
+                "isEnabled": true,
+                "level": 1,
+                "id": "4e66de89-3e74-46cb-93c6-cf4c12572ea2",
+                "title": "Safety, Security and Resilience",
+                "weight": 0.08333333333333333,
+                "score": 0.2633333333333333
+            }
+        ],
+        "scenarios": [
+            {
+                "userWeight": 3,
+                "subScenarios": [
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "a32e1b28-f4fc-46ab-88d2-92db65630cb2",
+                        "title": "Plane Impact Offices",
+                        "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                        "weight": 0.2
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "23cc75b0-62b4-46f7-8aad-1501a13ba4ec",
+                        "title": "Plane Impact Museum",
+                        "componentId": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                        "weight": 0.2
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "5b472715-adf6-480e-9351-b7ada796615e",
+                                "title": "On trusses",
+                                "weight": 0.5
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "8dc6ae08-3beb-43f1-8205-d806b1aeba4b",
+                                "title": "In between trusses",
+                                "weight": 0.5
+                            }
+                        ],
+                        "score": 0,
+                        "id": "85452481-75b9-4ccb-bca8-4553d502792c",
+                        "title": "Plane Impact Theatre",
+                        "componentId": "27dkbiQ890hv5IbUYa_pey",
+                        "weight": 0.2
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "06fae7df-ba18-4803-a5c2-4c9e619ffc41",
+                                "title": "On concrete tower",
+                                "weight": 1
+                            }
+                        ],
+                        "score": 0,
+                        "id": "aa7bd1a7-45c9-4582-903f-7e33b49e57d4",
+                        "title": "Plane Impact Hotel",
+                        "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                        "weight": 0.2
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "aabfd134-ba20-4bee-ad88-fc6b735314cd",
+                        "title": "Plane Impact Housing",
+                        "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                        "weight": 0.2
+                    }
+                ],
+                "score": 0,
+                "id": "53dc2431-5663-484c-b714-2b24d3c37c96",
+                "title": "Plane Impact",
+                "weight": 0.3333333333333333
+            },
+            {
+                "userWeight": 1,
+                "subScenarios": [
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "903f86eb-b462-406a-8fb5-79e5774ba4ce",
+                        "title": "Fire Offices",
+                        "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                        "weight": 0.14285714285714285
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "a5058411-37cf-422c-8380-e5420ee54bbd",
+                        "title": "Fire Museum",
+                        "componentId": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                        "weight": 0.14285714285714285
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "7da0b65a-d2b6-4dda-87f3-7595b680583f",
+                        "title": "Fire Theatre ",
+                        "componentId": "27dkbiQ890hv5IbUYa_pey",
+                        "weight": 0.14285714285714285
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "dd877a05-0448-4b11-aa08-a3cd67c72e93",
+                        "title": "Fire Hotel (in Lobby)",
+                        "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                        "weight": 0.14285714285714285
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "a1af79b7-3087-44e1-8a96-7d22c0069a3f",
+                        "title": "Fire Housing",
+                        "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                        "weight": 0.14285714285714285
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "88d9c0cb-cbfd-4715-8315-38d34571b2d4",
+                        "title": "Fire Commerce",
+                        "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                        "weight": 0.14285714285714285
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [],
+                        "score": 0,
+                        "id": "c212c842-14e8-4965-8d10-521485633a74",
+                        "title": "Fire Parking",
+                        "componentId": "3aXivM03D3GQF_Heouqn5j",
+                        "weight": 0.14285714285714285
+                    }
+                ],
+                "score": 0,
+                "id": "b944454a-2ecf-4b54-82af-c67104ef0ca2",
+                "title": "Fire",
+                "weight": 0.1111111111111111
+            },
+            {
+                "userWeight": 1,
+                "subScenarios": [],
+                "score": 0,
+                "id": "ed2a8dc6-965b-4671-bea2-9a8a308800f6",
+                "title": "Flooding",
+                "weight": 0.1111111111111111
+            },
+            {
+                "userWeight": 1,
+                "subScenarios": [],
+                "score": 0,
+                "id": "822a2829-4abc-4bc6-9efe-29b809f0d963",
+                "title": "Earthquake",
+                "weight": 0.1111111111111111
+            },
+            {
+                "userWeight": 1,
+                "subScenarios": [],
+                "score": 0,
+                "id": "2811f134-f1cd-4cda-aff5-64a40f8d2fd7",
+                "title": "Extreme wind",
+                "weight": 0.1111111111111111
+            },
+            {
+                "userWeight": 1,
+                "subScenarios": [],
+                "score": 0,
+                "id": "1db02a29-9d78-4c34-9c7c-c4f5d5f5e164",
+                "title": "CBR attack",
+                "weight": 0.1111111111111111
+            },
+            {
+                "userWeight": 1,
+                "subScenarios": [
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "fd30601e-d9e0-4fc1-91b4-22f7a741a217",
+                                "title": "Case bomb (small)&nbsp;Offices",
+                                "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "3b6ace22-1764-41a5-992d-c60077ffb874",
+                                "title": "Case bomb (small) Museum",
+                                "componentId": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "8927dd98-68f2-4656-9a14-788555f2db29",
+                                "title": "Case bomb (small) Theatre",
+                                "componentId": "27dkbiQ890hv5IbUYa_pey",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "f64590ca-d197-438a-a286-3ce2c739ea9f",
+                                "title": "Case bomb (small) Hotel",
+                                "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "2ca8daae-7599-423d-9da3-a4175eb80b9c",
+                                "title": "Case bomb (small)&nbsp;Housing",
+                                "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "ee3eaa4a-3a43-43bd-8c51-95fafb6650cd",
+                                "title": "Case bomb (small) Commerce",
+                                "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "7e3ebe3a-985b-4446-a4c1-6ada7199f6e1",
+                                "title": "Case bomb (small) Parking",
+                                "componentId": "3aXivM03D3GQF_Heouqn5j",
+                                "weight": 0.14285714285714285
+                            }
+                        ],
+                        "score": 0,
+                        "id": "76c2c218-fdef-40ff-ac10-5431911e78e3",
+                        "title": "Case bomb (small)",
+                        "weight": 0.25
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "10508477-8f74-46a2-b9e2-85519a5c4a20",
+                                "title": "Car bomb Offices",
+                                "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                                "weight": 0.2
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "6adfc918-c911-409e-9443-0e3a9311edb9",
+                                "title": "Car bomb Hotel",
+                                "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                                "weight": 0.2
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "fb13cd3b-8b0a-4cd0-981a-fbc41a1036da",
+                                "title": "Car bomb Housing",
+                                "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                                "weight": 0.2
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "3b64ec18-d47a-4fe3-84da-a179e0772b6c",
+                                "title": "Car bomb Commerce",
+                                "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                                "weight": 0.2
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "411b90b5-a14a-4c95-b70e-79d774fb8574",
+                                "title": "Car bomb Parking",
+                                "componentId": "3aXivM03D3GQF_Heouqn5j",
+                                "weight": 0.2
+                            }
+                        ],
+                        "score": 0,
+                        "id": "c26995d1-2412-459b-a710-bf09dae5fbbf",
+                        "title": "Car bomb",
+                        "weight": 0.25
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "74bb8605-8937-49b0-96ab-fa1b6bb9a23b",
+                                "title": "Truck (External) Offices",
+                                "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                                "weight": 0.25
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "e9ed1712-8bd5-46de-ba6c-dadeb31624f3",
+                                "title": "Truck (External) Hotel",
+                                "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                                "weight": 0.25
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "946fa3fd-6a7f-4ddc-8cc2-a7132b633feb",
+                                "title": "Truck (External) Housing",
+                                "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                                "weight": 0.25
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "fc8007d2-8d1e-479e-8ba5-2ce6a94fcb9e",
+                                "title": "Truck (External) Commerce",
+                                "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                                "weight": 0.25
+                            }
+                        ],
+                        "score": 0,
+                        "id": "ed5afcb5-75de-4aca-9131-74ae45c74dc9",
+                        "title": "Truck (External)",
+                        "weight": 0.25
+                    },
+                    {
+                        "userWeight": 1,
+                        "subScenarios": [
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "ecc1aa9e-8b60-43ad-abd7-83f13847137a",
+                                "title": "Case bomb (heavy) Offices",
+                                "componentId": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "f80d7495-c714-4d9c-8e4d-f743f2fabce6",
+                                "title": "Case bomb (heavy) Museum",
+                                "componentId": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "79f0c64d-c43b-4dbb-9fc4-7431e60e3859",
+                                "title": "Case bomb (heavy) Theatre",
+                                "componentId": "27dkbiQ890hv5IbUYa_pey",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "021fbf85-6fbf-466c-a010-45ed39c8ebd6",
+                                "title": "Case bomb (heavy) Hotel",
+                                "componentId": "2zjWPjRbbEIfNfpqygiK2M",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "b591f36b-1b40-4d56-80a4-fa6dc676d537",
+                                "title": "Case bomb (heavy) Housing",
+                                "componentId": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "93a23076-f004-41ca-a425-44ee0ca6148d",
+                                "title": "Case bomb (heavy) Commerce",
+                                "componentId": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                                "weight": 0.14285714285714285
+                            },
+                            {
+                                "userWeight": 1,
+                                "subScenarios": [],
+                                "score": 0,
+                                "id": "9c25093d-2f24-4079-a6eb-b930c86115c6",
+                                "title": "Case bomb (heavy) Parking",
+                                "componentId": "3aXivM03D3GQF_Heouqn5j",
+                                "weight": 0.14285714285714285
+                            }
+                        ],
+                        "score": 0,
+                        "id": "7f68c7cd-7900-46e9-b11a-4fb6a4f94bf2",
+                        "title": "Case bomb (heavy)",
+                        "weight": 0.25
+                    }
+                ],
+                "score": 0,
+                "id": "5191c39c-b327-4dc8-9976-e4d19bcf687d",
+                "title": "Explosion",
+                "weight": 0.1111111111111111
+            }
+        ],
+        "solutions": [
+            {
+                "scores": {
+                    "8972c47a-5bb2-4c9d-9332-cfb20602193b": {
+                        "0": {
+                            "criteriaOptionId": "2570fb7f-2cbe-4136-b7cc-8cede97296f0",
+                            "value": 0,
+                            "weight": 1
+                        }
+                    },
+                    "3192ec07-92f3-41f8-be3d-230f23fd58a1": {
+                        "0": {
+                            "criteriaOptionId": "9f15da5a-377f-43bc-852e-fa3e990861cb",
+                            "value": 0.5,
+                            "weight": 1
+                        }
+                    },
+                    "2995ce40-aa10-492b-9b22-9092609e87f7": {
+                        "0": {
+                            "criteriaOptionId": "3d84d002-698e-41ac-bc26-8f6486279199",
+                            "value": 0.5,
+                            "weight": 1
+                        }
+                    },
+                    "f496d56d-56ed-4a22-b448-fc2e3787e69e": {
+                        "0": {
+                            "criteriaOptionId": "d66026fb-c131-4478-b769-eec08c9909a3",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "f77eced8-70dc-4e3b-aa06-6ece252c36e8": {
+                        "0": {
+                            "criteriaOptionId": "87c4ca19-425b-4031-9c36-0363232cdb5f",
+                            "value": 0.9,
+                            "weight": 1
+                        }
+                    },
+                    "2fe36412-056c-4275-99ef-c73b8b80716c": {
+                        "0": {
+                            "criteriaOptionId": "25754c1c-dfee-4779-8ff9-77d1b02d6e70",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "51966788-fdad-4b4f-b17c-7090ed89871a": {
+                        "a32e1b28-f4fc-46ab-88d2-92db65630cb2": {
+                            "criteriaOptionId": "8ecafba2-b2c4-40c6-9f8c-8dbb3c1af455",
+                            "value": 1,
+                            "weight": 0.2
+                        },
+                        "23cc75b0-62b4-46f7-8aad-1501a13ba4ec": {
+                            "criteriaOptionId": "750985e7-8b4e-4634-8f90-abdf3f30f96e",
+                            "value": 1,
+                            "weight": 0.2
+                        },
+                        "5b472715-adf6-480e-9351-b7ada796615e": {
+                            "criteriaOptionId": "750985e7-8b4e-4634-8f90-abdf3f30f96e",
+                            "value": 1,
+                            "weight": 0.5
+                        }
+                    },
+                    "df560813-6bea-4276-b199-a6b919afeb9c": {
+                        "a32e1b28-f4fc-46ab-88d2-92db65630cb2": {
+                            "criteriaOptionId": "02d53579-d24d-4a16-8f79-71ab851d9cdd",
+                            "value": 0.4,
+                            "weight": 0.2
+                        },
+                        "23cc75b0-62b4-46f7-8aad-1501a13ba4ec": {
+                            "criteriaOptionId": "02d53579-d24d-4a16-8f79-71ab851d9cdd",
+                            "value": 0.4,
+                            "weight": 0.2
+                        },
+                        "5b472715-adf6-480e-9351-b7ada796615e": {
+                            "criteriaOptionId": "d24ac9e7-50bc-41b7-8ad4-045f6d456272",
+                            "value": 1,
+                            "weight": 0.5
+                        }
+                    },
+                    "634a4552-3fd5-4265-ad0e-1c2a6d0f8a89": {
+                        "0": {
+                            "criteriaOptionId": "5f3ab814-7009-416a-87a1-247b94f9e1a6",
+                            "value": 0.8,
+                            "weight": 1
+                        }
+                    },
+                    "2cc5dfa4-bde2-47ba-a6ad-1291058ec8f2": {
+                        "0": {
+                            "criteriaOptionId": "072dff75-17d9-4de1-b6aa-ac11470771c0",
+                            "value": 0.8,
+                            "weight": 1
+                        }
+                    },
+                    "81b52c1a-95b4-4bce-ac56-847e1d3938c8": {
+                        "0": {
+                            "criteriaOptionId": "fa80a420-eec9-40a4-8cd9-1a66fd340495",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "a5577745-4b34-4020-b6e7-22b94dddd52e": {
+                        "0": {
+                            "criteriaOptionId": "46b5bc37-e9ec-4cab-a0ab-11409cbfd4eb",
+                            "value": 0,
+                            "weight": 1
+                        }
+                    },
+                    "fd7fc311-25d5-4457-80a6-dcd6bc3bde2d": {
+                        "0": {
+                            "criteriaOptionId": "1d06df94-be66-41da-aeba-fe6438a63144",
+                            "value": 0.1,
+                            "weight": 1
+                        }
+                    },
+                    "ade2d6ff-194c-4acd-9217-1937358d2f84": {
+                        "0": {
+                            "criteriaOptionId": "c0a4b81f-d1dd-4865-9327-7f3250458f13",
+                            "value": 0.9,
+                            "weight": 1
+                        }
+                    },
+                    "d46c301c-e587-4044-956e-b7a6122e5f9b": {
+                        "0": {
+                            "criteriaOptionId": "49ccd8a2-f0bf-4a25-8f8f-997184022c21",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "e26ed14d-53a9-4611-85f3-a7a923b3eeb3": {
+                        "0": {
+                            "criteriaOptionId": "c1f76516-74e7-4b2a-9446-d60f546fce6c",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "9d6dcc16-ba38-4f0e-87e3-eafd53fa85f7": {
+                        "0": {
+                            "criteriaOptionId": "9dfa3f3c-4fba-475c-9ab9-e1f4de6afd0f",
+                            "value": 0.5,
+                            "weight": 1
+                        }
+                    },
+                    "6f5ff29d-f92d-477a-a50d-40187439692f": {
+                        "0": {
+                            "criteriaOptionId": "502137be-3240-4541-a124-e315299eea4f",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "64b3c795-3faa-49af-8516-85e3330914c0": {
+                        "0": {
+                            "criteriaOptionId": "896690b4-6073-4f79-9f43-2b548a8b3b83",
+                            "value": 0,
+                            "weight": 1
+                        }
+                    },
+                    "b137aee9-79de-4c6d-9731-34e0daf37401": {
+                        "0": {
+                            "criteriaOptionId": "8c15ef5d-683d-467e-8851-6661ec5a54e3",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "963c7a73-71ef-4304-a102-f92656a70ffb": {
+                        "0": {
+                            "criteriaOptionId": "6b52f3db-fc35-4333-a36b-85ffabbbd21e",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "021f9a97-494b-4eb9-8a45-aa53929353c1": {
+                        "0": {
+                            "criteriaOptionId": "ecade599-1b99-48b2-bbc4-9aac77213cd3",
+                            "value": 0.5,
+                            "weight": 1
+                        }
+                    },
+                    "d349bf0e-e59e-4b07-87ae-09c45d77a0d6": {
+                        "0": {
+                            "criteriaOptionId": "05fc2a9b-d61e-4e73-9dfb-4b9c6573a6a5",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "3fdac6b4-21b2-45b0-86c8-ed790cba8ae2": {
+                        "0": {
+                            "criteriaOptionId": "3547f7fa-5a5a-44a9-83d4-83258b3540d7",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "cd789579-7873-4d7c-975f-ac23cca51d21": {
+                        "0": {
+                            "criteriaOptionId": "973b54a5-c012-4cbd-94e9-181844f60422",
+                            "value": 0,
+                            "weight": 1
+                        }
+                    },
+                    "c2223d9c-b3be-434b-a460-b6e4870c1128": {
+                        "0": {
+                            "criteriaOptionId": "bd84d847-6199-4d03-85f9-bc5e20da8369",
+                            "value": 0.7,
+                            "weight": 1
+                        }
+                    },
+                    "f19aaff4-2a2a-48f0-bf7c-f0a4dec1f9b6": {
+                        "0": {
+                            "criteriaOptionId": "3c42381d-342b-4eab-9831-5d47d62521de",
+                            "value": 0.7,
+                            "weight": 1
+                        }
+                    },
+                    "d17a4b25-5964-412a-a1c8-7d321cb104d2": {
+                        "0": {
+                            "criteriaOptionId": "acd2ee3d-8494-4ada-9d3d-e9c6a191975e",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "fcddbf3b-1e78-4693-8bbb-8433137ddd7d": {
+                        "0": {
+                            "criteriaOptionId": "039cc837-bc51-4b2a-a933-b1839d6d3487",
+                            "value": 0.7,
+                            "weight": 1
+                        }
+                    },
+                    "0d312fc8-7230-4168-ba9d-bb640fd5c70e": {
+                        "0": {
+                            "criteriaOptionId": "8947a6f3-a2f7-44cd-a052-cb6987e24a8b",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    }
+                },
+                "moduleScores": {},
+                "id": "4702d6ff-ec8d-442b-91e4-1b596a0ad870",
+                "title": "Version 2",
+                "spc_pfymI": 0,
+                "idx_pfymI": 0
+            },
+            {
+                "scores": {
+                    "8972c47a-5bb2-4c9d-9332-cfb20602193b": {
+                        "0": {
+                            "criteriaOptionId": "4a5cbac7-7d4e-4b6a-8cd0-b3ec4e18ee0b",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "3192ec07-92f3-41f8-be3d-230f23fd58a1": {
+                        "0": {
+                            "criteriaOptionId": "aa928259-1cb0-4004-8967-a2d28ba503d6",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "2995ce40-aa10-492b-9b22-9092609e87f7": {
+                        "0": {
+                            "criteriaOptionId": "3d84d002-698e-41ac-bc26-8f6486279199",
+                            "value": 0.5,
+                            "weight": 1
+                        }
+                    },
+                    "f496d56d-56ed-4a22-b448-fc2e3787e69e": {
+                        "0": {
+                            "criteriaOptionId": "942e86d3-9242-4fd9-9bbb-aba3fbe0a565",
+                            "value": 0.7,
+                            "weight": 1
+                        }
+                    },
+                    "f77eced8-70dc-4e3b-aa06-6ece252c36e8": {
+                        "0": {
+                            "criteriaOptionId": "87c4ca19-425b-4031-9c36-0363232cdb5f",
+                            "value": 0.9,
+                            "weight": 1
+                        }
+                    },
+                    "2fe36412-056c-4275-99ef-c73b8b80716c": {
+                        "0": {
+                            "criteriaOptionId": "aa5b882a-e34b-4ed7-b9b4-3b36a9b28d3f",
+                            "value": 0.7,
+                            "weight": 1
+                        }
+                    },
+                    "df560813-6bea-4276-b199-a6b919afeb9c": {
+                        "a32e1b28-f4fc-46ab-88d2-92db65630cb2": {
+                            "criteriaOptionId": "d24ac9e7-50bc-41b7-8ad4-045f6d456272",
+                            "value": 1,
+                            "weight": 0.2
+                        },
+                        "23cc75b0-62b4-46f7-8aad-1501a13ba4ec": {
+                            "criteriaOptionId": "02d53579-d24d-4a16-8f79-71ab851d9cdd",
+                            "value": 0.4,
+                            "weight": 0.2
+                        },
+                        "5b472715-adf6-480e-9351-b7ada796615e": {
+                            "criteriaOptionId": "2b96cd18-e619-4f4d-9477-95d9a3a4ae11",
+                            "value": 0.8,
+                            "weight": 0.5
+                        }
+                    },
+                    "51966788-fdad-4b4f-b17c-7090ed89871a": {
+                        "a32e1b28-f4fc-46ab-88d2-92db65630cb2": {
+                            "criteriaOptionId": "b873eafd-0b8a-4313-a925-6f84d46d3129",
+                            "value": 1,
+                            "weight": 0.2
+                        },
+                        "23cc75b0-62b4-46f7-8aad-1501a13ba4ec": {
+                            "criteriaOptionId": "750985e7-8b4e-4634-8f90-abdf3f30f96e",
+                            "value": 1,
+                            "weight": 0.2
+                        },
+                        "5b472715-adf6-480e-9351-b7ada796615e": {
+                            "criteriaOptionId": "8ecafba2-b2c4-40c6-9f8c-8dbb3c1af455",
+                            "value": 1,
+                            "weight": 0.5
+                        }
+                    },
+                    "634a4552-3fd5-4265-ad0e-1c2a6d0f8a89": {
+                        "0": {
+                            "criteriaOptionId": "218db5f3-a641-4a88-b51e-c799e0aa70fc",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "2cc5dfa4-bde2-47ba-a6ad-1291058ec8f2": {
+                        "0": {
+                            "criteriaOptionId": "61efec34-fd53-437e-a4e5-59d3fb0e68e9",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "81b52c1a-95b4-4bce-ac56-847e1d3938c8": {
+                        "0": {
+                            "criteriaOptionId": "9f83c91c-0efa-4eb5-8db2-4569212a8870",
+                            "value": 0.9,
+                            "weight": 1
+                        }
+                    },
+                    "a5577745-4b34-4020-b6e7-22b94dddd52e": {
+                        "0": {
+                            "criteriaOptionId": "cf95a9aa-539b-44db-a1ba-e0928dde6ec8",
+                            "value": 0.8,
+                            "weight": 1
+                        }
+                    },
+                    "fd7fc311-25d5-4457-80a6-dcd6bc3bde2d": {
+                        "0": {
+                            "criteriaOptionId": "15635386-d034-4eaf-a7f3-cc625c9fc4cc",
+                            "value": 0.4,
+                            "weight": 1
+                        }
+                    },
+                    "ade2d6ff-194c-4acd-9217-1937358d2f84": {
+                        "0": {
+                            "criteriaOptionId": "3e188b49-36e9-4ae5-ac5c-18ae07760ba1",
+                            "value": 0.1,
+                            "weight": 1
+                        }
+                    },
+                    "d46c301c-e587-4044-956e-b7a6122e5f9b": {
+                        "0": {
+                            "criteriaOptionId": "56e97ebe-6460-4b7c-b218-e58355944d1f",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "e26ed14d-53a9-4611-85f3-a7a923b3eeb3": {
+                        "0": {
+                            "criteriaOptionId": "6c177755-9fb5-4e7f-8096-78cd43af7b45",
+                            "value": 0.5,
+                            "weight": 1
+                        }
+                    },
+                    "fcddbf3b-1e78-4693-8bbb-8433137ddd7d": {
+                        "0": {
+                            "criteriaOptionId": "1e729608-b5d9-4939-b8cc-e981f66e5acc",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "d17a4b25-5964-412a-a1c8-7d321cb104d2": {
+                        "0": {
+                            "criteriaOptionId": "acd2ee3d-8494-4ada-9d3d-e9c6a191975e",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "f19aaff4-2a2a-48f0-bf7c-f0a4dec1f9b6": {
+                        "0": {
+                            "criteriaOptionId": "dfec1bc7-31c0-4e74-8dad-654fece1a866",
+                            "value": 0,
+                            "weight": 1
+                        }
+                    },
+                    "c2223d9c-b3be-434b-a460-b6e4870c1128": {
+                        "0": {
+                            "criteriaOptionId": "7e72eb21-832d-40c7-af6a-e30d8df26d44",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "cd789579-7873-4d7c-975f-ac23cca51d21": {
+                        "0": {
+                            "criteriaOptionId": "b77bf664-75ad-438c-9ad2-61f673b5a631",
+                            "value": 0.7,
+                            "weight": 1
+                        }
+                    },
+                    "3fdac6b4-21b2-45b0-86c8-ed790cba8ae2": {
+                        "0": {
+                            "criteriaOptionId": "1dbcad26-c62e-4416-b667-96269b85bda9",
+                            "value": 0.7,
+                            "weight": 1
+                        }
+                    },
+                    "d349bf0e-e59e-4b07-87ae-09c45d77a0d6": {
+                        "0": {
+                            "criteriaOptionId": "e1bc0971-1b5c-463f-a982-c2048aa6b93d",
+                            "value": 0.6,
+                            "weight": 1
+                        }
+                    },
+                    "9d6dcc16-ba38-4f0e-87e3-eafd53fa85f7": {
+                        "0": {
+                            "criteriaOptionId": "9dfa3f3c-4fba-475c-9ab9-e1f4de6afd0f",
+                            "value": 0.5,
+                            "weight": 1
+                        }
+                    },
+                    "6f5ff29d-f92d-477a-a50d-40187439692f": {
+                        "0": {
+                            "criteriaOptionId": "00c09d57-1d2e-4614-b481-e5bc4f9cf635",
+                            "value": 0,
+                            "weight": 1
+                        }
+                    },
+                    "64b3c795-3faa-49af-8516-85e3330914c0": {
+                        "0": {
+                            "criteriaOptionId": "12a9c0f9-91e3-4518-a7b1-64047e515527",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "b137aee9-79de-4c6d-9731-34e0daf37401": {
+                        "0": {
+                            "criteriaOptionId": "8c15ef5d-683d-467e-8851-6661ec5a54e3",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "963c7a73-71ef-4304-a102-f92656a70ffb": {
+                        "0": {
+                            "criteriaOptionId": "6b52f3db-fc35-4333-a36b-85ffabbbd21e",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    },
+                    "021f9a97-494b-4eb9-8a45-aa53929353c1": {
+                        "0": {
+                            "criteriaOptionId": "eb367ee2-97e7-4f56-915c-6084b4f4d72e",
+                            "value": 0,
+                            "weight": 1
+                        }
+                    },
+                    "0d312fc8-7230-4168-ba9d-bb640fd5c70e": {
+                        "0": {
+                            "criteriaOptionId": "8947a6f3-a2f7-44cd-a052-cb6987e24a8b",
+                            "value": 1,
+                            "weight": 1
+                        }
+                    }
+                },
+                "moduleScores": {
+                    "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6": 0,
+                    "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c": 0,
+                    "27dkbiQ890hv5IbUYa_pey": 0,
+                    "2zjWPjRbbEIfNfpqygiK2M": 0,
+                    "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs": 0,
+                    "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc": 0,
+                    "3aXivM03D3GQF_Heouqn5j": 0
+                },
+                "id": "3ab48913-364d-4911-8a8a-b0f577480d52",
+                "title": "Version 1"
+            }
+        ],
+        "dataSources": [],
+        "decisionTrees": [
+            {
+                "id": "bb148298-020d-4fb7-ae65-9635bcd5c7bb",
+                "answerOptions": [
+                    "Unrepairable",
+                    "Long repair time",
+                    "Short repair time",
+                    "No repair time"
+                ],
+                "title": "Repair time",
+                "questions": {
+                    "question": "Is there an unrepairable structural damage?",
+                    "answers": {
+                        "yes": "Unrepairable",
+                        "no": {
+                            "question": "Is there repairable damage on a large scale?",
+                            "answers": {
+                                "yes": "Long repair time",
+                                "no": {
+                                    "question": "Is there a contamination?",
+                                    "answers": {
+                                        "yes": "Long repair time",
+                                        "no": {
+                                            "question": "Is there repairable damage on a small scale (locally)?",
+                                            "answers": {
+                                                "yes": "Short repair time",
+                                                "no": {
+                                                    "question": "Is there a dirt / rubbish?",
+                                                    "answers": {
+                                                        "yes": "Short repair time",
+                                                        "no": {
+                                                            "question": "Is there a service damage?",
+                                                            "answers": {
+                                                                "yes": "Short repair time",
+                                                                "no": "No repair time"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "id": "a3148248-020d-4fa7-ae65-9635bcd5c7fa",
+                "title": "Post-incident capacity",
+                "answerOptions": [
+                    "No capacity",
+                    "Maybe/partly capacity",
+                    "Full capacity"
+                ],
+                "questions": {
+                    "question": "Is there an unrepairable structural damage?",
+                    "answers": {
+                        "yes": "No capacity",
+                        "no": {
+                            "question": "Is there repairable damage on a large scale?",
+                            "answers": {
+                                "yes": "No capacity",
+                                "no": {
+                                    "question": "Is there a contamination?",
+                                    "answers": {
+                                        "yes": "No capacity",
+                                        "no": {
+                                            "question": "Is the electricity available?",
+                                            "answers": {
+                                                "no": "No capacity",
+                                                "yes": {
+                                                    "question": "Is there repairable damage on a small scale (locally)?",
+                                                    "answers": {
+                                                        "yes": "Maybe/partly capacity",
+                                                        "no": {
+                                                            "question": "Is there a dirt / rubbish?",
+                                                            "answers": {
+                                                                "yes": "Maybe/partly capacity",
+                                                                "no": {
+                                                                    "question": "Is there a service damage?",
+                                                                    "answers": {
+                                                                        "yes": "Maybe/partly capacity",
+                                                                        "maybe": "Maybe/partly capacity",
+                                                                        "no": "Full capacity"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "criteriaCache": {},
+        "componentCache": {
+            "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6": {
+                "components": [],
+                "title": "Offices",
+                "id": "1YOYVu_sf30ASMOqTA7UuO; 28_SWML_X3GgDKJjDSm7yD; 3ZltnP9q1DsBuy9Eds2wy6",
+                "level": 2
+            },
+            "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c": {
+                "components": [],
+                "title": "Museum",
+                "id": "02bCzYcXn54O3nh64daW9p; 3QWSY7Mtn9eQeLCOQJVn1c",
+                "level": 2
+            },
+            "27dkbiQ890hv5IbUYa_pey": {
+                "components": [],
+                "title": "Theatre",
+                "id": "27dkbiQ890hv5IbUYa_pey",
+                "level": 2
+            },
+            "2zjWPjRbbEIfNfpqygiK2M": {
+                "components": [],
+                "title": "Hotel",
+                "id": "2zjWPjRbbEIfNfpqygiK2M",
+                "level": 2
+            },
+            "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs": {
+                "components": [],
+                "title": "Housing",
+                "id": "3rIuqF0Jz0PuyvSPtUZiO3; 3YkSWD8JP7CwtL4CmZcwfH; 2JTB0GoBT04gW4ChJLUYTr; 08Jsd0B1TAYfsPzp7oDIGF; 3OktZOHpX6Iu2XfSzCmozs",
+                "level": 2
+            },
+            "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc": {
+                "components": [],
+                "title": "Commerce",
+                "id": "2ALmB0ioP6hBY0H4_lrJpE; 1VrGcni0L3ufpDqgJgJsZZ; 2Xkm2RuJf1jfPyhmyxgsbc",
+                "level": 2
+            },
+            "3aXivM03D3GQF_Heouqn5j": {
+                "components": [],
+                "title": "Parking",
+                "id": "3aXivM03D3GQF_Heouqn5j",
+                "level": 2
+            }
+        },
+        "id": "49158967-dbec-4423-9ea5-65240c50d565",
+        "title": "Elasstic"
+    }
+}
