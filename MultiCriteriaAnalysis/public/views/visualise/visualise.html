@@ -1,15 +1,74 @@
 <div data-ng-controller="VisualiseCtrl as vm">
     <style>
-      @import url(js/cesium/Widgets/widgets.css);
-      #cesiumContainer {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        overflow: hidden;
-        padding: 0;
-        font-family: sans-serif;
-      }
+        @import url(js/cesium/Widgets/widgets.css);
+        #cesiumContainer {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        
+        dt {
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            overflow: hidden;
+            border: 1px solid #000;
+        }
+        
+       .color0 {
+            background-color: #d7191c;
+            color: #d7191c;
+        }
+       .color1 {
+            background-color: #fdae61;
+            color: #fdae61;
+        }
+       .color2 {
+            background-color: #ffffbf;
+            color: #ffffbf;
+        }
+       .color3 {
+            background-color: #a6d96a;
+            color: #a6d96a;
+        }
+       .color4 {
+            background-color: #1a9641;
+            color: #1a9641;
+        }
+        
+        .orange {
+            background-color: #f90;
+            color: #f90;
+        }
+        
+        .black {
+            background-color: #000;
+            color: #000;
+        }
+        
+        dd {
+            display: block;
+            width: 15em;
+            margin: 0 0 0 1em;
+        }
     </style>
     <div id="cesiumContainer"></div>
-    <button data-ng-click="vm.updateModel()" style="position: absolute; bottom: 100px; left: 100px;" >Update model</button>
+    <div style="position: absolute; top: 80px; left: 30px; width: 140px; padding: 20px; background: white;">
+        <dl>
+            <dt class="color0">Lowest score</dt>
+            <dd>Score &leq; 1 (worst)</dd>
+            <dt class="color1">score less than 2</dt>
+            <dd>Score &leq; 2</dd>
+            <dt class="color2">score less than 3</dt>
+            <dd>Score &leq; 3</dd>
+            <dt class="color3">score less than 4</dt>
+            <dd>Score &leq; 4</dd>
+            <dt class="color4">Highest score</dt>
+            <dd>Score &ge; 4 (best)</dd>
+        </dl>
+    </div>
+    <!--<button data-ng-click="vm.updateModel()" style="position: absolute; bottom: 100px; left: 100px;">Update model</button>-->
 </div>
