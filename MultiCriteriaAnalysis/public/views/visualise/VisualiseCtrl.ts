@@ -16,15 +16,22 @@ module Visualise {
         guid:   string;
         name:   string;
         oid:    number;
-        color?: any;
         min:    XYZ;
         max:    XYZ;
+        color?: any;
+        score?: number;
+    }
+
+    export class SelectedModel {
+        name:  string;
+        score: number;
     }
 
     export class VisualiseCtrl {
         private project: Models.McaProject;
         private viewer: any;
         private location: any;
+        private selectedModel = new SelectedModel();
 
         public static $inject = [
             '$scope',
@@ -45,7 +52,7 @@ module Visualise {
             this.project = projectService.project;
 
             this.initialize();
-            this.updateModel();
+            this.update3DModel();
         }
 
         private initialize() {
@@ -72,9 +79,10 @@ module Visualise {
             this.viewer.camera.flyTo({
                 destination: this.location
             });
+            this.setUpMouseHandlers();
         }
 
-        private updateModel() {
+        private update3DModel() {
             var scene = this.viewer.scene;
 
             const unitConversion = 1000;
@@ -397,11 +405,45 @@ module Visualise {
                     if (key.indexOf(box.guid) < 0) continue;
                     let score = scores[key];
                     box.color = this.convertScoreToColor(score);
+                    box.score = score;
                     console.log(box);
                     return;
                 }
             });
             return data;
         }
+
+        public setUpMouseHandlers() {
+            var scene = this.viewer.scene;
+            var handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
+
+            handler.setInputAction(click => {
+                var pickedObject = scene.pick(click.position);
+                if (Cesium.defined(pickedObject)) {
+                    console.log(pickedObject);
+                    var id = pickedObject.id;
+                    this.model.some(box => {
+                        if (box.guid !== id) return false;
+                        this.selectedModel.name  = box.name;
+                        this.selectedModel.score = box.score;
+                        return true;
+                    });
+                } else {
+                    this.selectedModel.name  = '';
+                    this.selectedModel.score = undefined;
+                }
+                if (this.$scope.$root.$$phase !== '$apply' && this.$scope.$root.$$phase !== '$digest') { this.$scope.$apply(); }
+          }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+            // this.handler.setInputAction(movement => {
+            //     var pickedObject = this.scene.pick(movement.endPosition);
+            //     if (Cesium.defined(pickedObject) && pickedObject.id !== undefined && pickedObject.id.feature !== undefined) {
+            //         this.showFeatureTooltip(pickedObject.id.feature, movement.endPosition);
+            //     } else {
+            //         $('.cesiumPopup').fadeOut('fast').remove();
+            //     }
+            // }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+        }
+
     }
 }
