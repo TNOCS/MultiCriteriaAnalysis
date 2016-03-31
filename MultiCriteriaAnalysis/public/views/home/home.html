@@ -13,7 +13,7 @@
                 <span class="glyphicon glyphicon-plus"></span>
             </a>
             <span class="pull-right" style="margin: 0 13px;" ng-if="item.level > 1">&nbsp;&nbsp;</span>
-            <span id="compId" class="pull-right" contenteditable strip-br ng-model="item.id" style="font-size:20px;cursor:text; margin: 0 20px; font-family:courier new" data-ndrag></span>
+            <span id="compId" class="pull-right" contenteditable strip-br ng-model="item.id" style="font-size:8px;cursor:text; margin: 0 20px; font-family:courier new" data-ndrag></span>
             <label for="compId" class="pull-right">Id: </label>
         </div>
         <ol ui-tree-nodes="subComponents" ng-model="item.components" ng-class="{hidden: collapsed}">
