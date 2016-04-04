@@ -281,15 +281,11 @@
             if (parent == null) parent = this.selectedCriteria;
             this.projectService.project.updateScores();
             var scores = this.projectService.activeSolution.scores;
-            var scoreValue = 100;
+            var scoreValue = 0;
             for (var k in parent.subCriterias) {
                 var criteria = parent.subCriterias[k];
                 if (!criteria.isEnabled) continue;
-                if (scores.hasOwnProperty(criteria.id)) {
-                    if (scores[criteria.id].hasOwnProperty('0')) {
-                        scoreValue = scores[criteria.id]['0'].value * 100;
-                    }
-                }
+                scoreValue = this.projectService.activeSolution.computeScore(criteria) * 100;
                 var kIndex = +k;
                 if (!groupData.labels || groupData.labels.length === 0) groupData.labels = [parent.title];
                 if (!groupData.series) groupData.series = [];
