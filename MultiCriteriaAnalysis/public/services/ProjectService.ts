@@ -13,6 +13,7 @@
         public activeDataSource   : Models.DataSourceViewModel;
         public activeSolution     : Models.Solution;
         public compareToSolutions : Models.Solution[] = [];
+        public users              : Models.User[] = [];
 
         public static $inject = [
             'localStorageService'
@@ -42,6 +43,7 @@
                         this.createProject(response);
                     } else {
                         this.createProject(response.project);
+                        this.users = response.users;
                     }
                 }
             });

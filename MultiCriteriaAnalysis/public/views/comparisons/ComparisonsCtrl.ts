@@ -180,12 +180,12 @@ module Comparisons {
                 var scoreValue = this.projectService.activeSolution.moduleScores[key];
                 var component = this.projectService.project.findComponentById(key);
                 var labelValue = (component.title) ? component.title : key;
-                moduleData.series.push({ label: labelValue, values: [Math.round(scoreValue * 100)], weights: [4] });
+                moduleData.series.push({ label: labelValue, values: [Math.round(scoreValue * 100)], weights: [1] });
             });
 
             this.$timeout(() => {
                 Helpers.Utils.drawHorizontalGroupedBarChart('#barChart', data, 300, 5, 25, 20, 300, 150);
-                Helpers.Utils.drawHorizontalGroupedBarChart('#barChart2', moduleData, 300, 5, 25, 20, 300, 150, false);
+                Helpers.Utils.drawHorizontalGroupedBarChart('#barChart2', moduleData, 300, 24, 25, 20, 300, 150, false, false);
             }, 0);
         }
 

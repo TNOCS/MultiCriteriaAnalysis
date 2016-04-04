@@ -18,14 +18,23 @@ module Services {
             private projectService: ProjectService
         ) {
             var store = <Models.User[]>localStorageService.get(UserService.store);
-            if (store && store.length > 0) {
-                store.forEach(user => this.userStore.push(new Models.User(user)));
-            }
+            this.setStore(store);
             this.setActiveUser();
         }
 
         get users() {
             return this.userStore;
+        }
+        
+        public setUserById(userId: string) {
+            if (!userId) return;
+            this.userStore.some((user: Models.User) => {
+                if (user.id === userId) {
+                    this.setActiveUser(user);
+                    return true;
+                }
+                return false;
+            })
         }
 
         private setActiveUser(user?: Models.User) {
@@ -50,6 +59,8 @@ module Services {
             }
             this.localStorageService.set(UserService.lastUserId, this.activeUser.id);
             this.initializeActiveUser();
+            console.log('Set user ' + this.activeUser.name + ' (' + this.activeUser.id + ')');
+            this.projectService.project.lastUser = this.activeUser.id;
         }
 
         private initializeActiveUser() {
@@ -104,9 +115,20 @@ module Services {
             this.localStorageService.set(UserService.store, this.userStore);
         }
 
-        public setStore(store: any) {
-            this.userStore = [];
-            store.forEach(u => this.userStore.push(new Models.User(u)));
+        public setStore(store: Models.User[]) {
+            if (this.userStore) this.userStore = [];
+            // Also add users from the loaded project
+            if (!store) store = [];
+            store = store.concat(this.projectService.users);
+            store.forEach(u => {
+                // Overwrite user when it already exists.
+                var duplicates = this.userStore.filter((us => { return us.id === u.id }));
+                duplicates.forEach((dup => { 
+                    var index = this.userStore.indexOf(dup);
+                    if (index >= 0) this.userStore.splice(index, 1);
+                }));
+                this.userStore.push(new Models.User(u));
+            });
             this.$timeout(() => this.setActiveUser(), 0);
         }
 
@@ -122,6 +144,5 @@ module Services {
             this.userStore.push(this.activeUser);
             this.initializeActiveUser();
         }
-
     }
 }

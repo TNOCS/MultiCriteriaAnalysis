@@ -198,6 +198,7 @@
                 } else {
                     this.projectService.createProject(result.project);
                     this.userService.setStore(result.users);
+                    if (result.project && result.project.lastUser) this.userService.setUserById(result.project.lastUser);
                 }
             }
 

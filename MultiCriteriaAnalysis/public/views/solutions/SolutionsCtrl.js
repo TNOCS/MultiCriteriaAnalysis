@@ -196,7 +196,7 @@ var Solutions;
             var data = this.getDataForCharts();
             if (Object.keys(data).length > 0) {
                 this.$timeout(function () {
-                    Helpers.Utils.drawHorizontalGroupedBarChart('#barChart', data.group, 270, 5, 25, 20, 300, 150, false);
+                    Helpers.Utils.drawHorizontalGroupedBarChart('#barChart', data.group, 270, 5, 25, 20, 300, 150, false, true);
                     Helpers.Utils.drawPie(data.pie);
                 }, 0);
             }

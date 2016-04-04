@@ -314,7 +314,7 @@
          *  the first series will serve as data. Additional entries will be ignored.
          */
         static drawHorizontalGroupedBarChart(chartId: string, data: GroupedBarChartData,
-            barWidth = 300, minBarHeight = 5, maxBarHeight = 25, gapBetweenGroups = 10, spaceForLabels = 150, spaceForLegend = 150, useGrouping = true) {
+            barWidth = 300, minBarHeight = 5, maxBarHeight = 25, gapBetweenGroups = 10, spaceForLabels = 150, spaceForLegend = 150, useGrouping = true, showWeightsInLegend = false) {
             var groupHeight = maxBarHeight * data.series.length; // The height of a group of bars
             
             if (useGrouping === false) {
@@ -463,7 +463,7 @@
                         return d.label;
                 });
 
-            if (!useGrouping) {
+            if (showWeightsInLegend) {
                 legend.append('text')
                     .attr('class', 'legend-weight')
                     .attr('x', legendRectSize / 2)

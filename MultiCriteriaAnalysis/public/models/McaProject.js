@@ -119,6 +119,7 @@ var Models;
             this.title = projectData.title;
             this.description = projectData.description;
             this.url = projectData.url;
+            this.lastUser = projectData.lastUser;
             if (projectData.components)
                 projectData.components.forEach(function (comp) { return _this.components.push(new Models.Component(comp)); });
             if (projectData.criterias)

@@ -28,6 +28,7 @@
         description: string;
         /** Home page url */
         url        : string;
+        lastUser   : string;
         // TODO Add a saved date.
 
         components   : IComponent[] = [];
@@ -134,6 +135,7 @@
             this.title       = projectData.title;
             this.description = projectData.description;
             this.url         = projectData.url;
+            this.lastUser    = projectData.lastUser;
 
             if (projectData.components) projectData.components.forEach(comp => this.components.push(new Models.Component(comp)));
             if (projectData.criterias) projectData.criterias.forEach(data => this.criterias.push(new Models.Criteria(1, data)));

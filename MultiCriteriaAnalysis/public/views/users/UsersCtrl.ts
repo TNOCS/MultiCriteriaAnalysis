@@ -50,6 +50,7 @@ module Users {
             this.modules.forEach(s => prefs[s.title] = s.userWeight);
 
             this.userService.save();
+            this.projectService.project.lastUser = this.userService.activeUser.id;
             this.showingActualValues = false;
             this.messageBus.notify('Saved preferences', 'You have successfully saved the actual preferences and made them your own.');
         }
