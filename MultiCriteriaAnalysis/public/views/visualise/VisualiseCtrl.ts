@@ -74,11 +74,17 @@ module Visualise {
 
             // var scene = this.viewer.scene;
 
-            this.location = Cesium.Cartesian3.fromDegrees(4.323693, 52.082356, 50);
+            this.location = Cesium.Cartesian3.fromDegrees(4.323693, 52.082356, 0);
 
-            this.viewer.camera.flyTo({
-                destination: this.location
-            });
+            // this.viewer.camera.flyTo({
+            //     destination: this.location
+            // });
+
+            var heading = Cesium.Math.toRadians(50.0),
+                pitch = Cesium.Math.toRadians(-20.0),
+                range = 1000.0;
+            this.viewer.camera.lookAt(this.location, new Cesium.HeadingPitchRange(heading, pitch, range));
+
             this.setUpMouseHandlers();
         }
 
