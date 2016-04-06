@@ -285,7 +285,7 @@
             for (var k in parent.subCriterias) {
                 var criteria = parent.subCriterias[k];
                 if (!criteria.isEnabled) continue;
-                scoreValue = this.projectService.activeSolution.computeScore(criteria) * 100;
+                scoreValue = +((this.projectService.activeSolution.computeScore(criteria) * 100).toFixed(1));
                 var kIndex = +k;
                 if (!groupData.labels || groupData.labels.length === 0) groupData.labels = [parent.title];
                 if (!groupData.series) groupData.series = [];

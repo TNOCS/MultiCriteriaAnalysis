@@ -158,7 +158,7 @@ module Visualise {
             var scores = this.moduleScores;
             var data: IBuildingBox[] = [
                 {
-                    'guid': '3rIuqF0Jz0PuyvSPtUZiO3',
+                    'guid': 'house2',
                     'name': 'Housing Ribbon 4.2',
                     'oid': 59048085,
                     'min': {
@@ -173,7 +173,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '3YkSWD8JP7CwtL4CmZcwfH',
+                    'guid': 'house1',
                     'name': 'Housing Ribbon 4.1',
                     'oid': 58982549,
                     'min': {
@@ -188,7 +188,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '2ALmB0ioP6hBY0H4_lrJpE',
+                    'guid': 'shops4',
                     'name': 'Shops Ribbon 4',
                     'oid': 59179157,
                     'min': {
@@ -203,7 +203,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '2JTB0GoBT04gW4ChJLUYTr',
+                    'guid': 'house4',
                     'name': 'Housing Ribbon 4.4',
                     'oid': 59113621,
                     'min': {
@@ -218,7 +218,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '2zjWPjRbbEIfNfpqygiK2M',
+                    'guid': 'hotel1',
                     'name': 'Hotel Ribbon 1',
                     'oid': 58785941,
                     'min': {
@@ -233,7 +233,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '3aXivM03D3GQF_Heouqn5j',
+                    'guid': 'garage0',
                     'name': 'Garage Ribbon 0',
                     'oid': 58720405,
                     'min': {
@@ -248,7 +248,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '08Jsd0B1TAYfsPzp7oDIGF',
+                    'guid': 'house1',
                     'name': 'Housing Ribbon 1',
                     'oid': 58917013,
                     'min': {
@@ -263,7 +263,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '27dkbiQ890hv5IbUYa_pey',
+                    'guid': 'theater1',
                     'name': 'Theater Ribbon 1',
                     'oid': 58851477,
                     'min': {
@@ -278,7 +278,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '1VrGcni0L3ufpDqgJgJsZZ',
+                    'guid': 'shops2',
                     'name': 'Shops Ribbon 3.2',
                     'oid': 59572373,
                     'min': {
@@ -293,7 +293,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '02bCzYcXn54O3nh64daW9p',
+                    'guid': 'museum1',
                     'name': 'Museum Ribbon 3.1',
                     'oid': 59506837,
                     'min': {
@@ -308,7 +308,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '3OktZOHpX6Iu2XfSzCmozs',
+                    'guid': 'house3',
                     'name': 'Housing Ribbon 4.3',
                     'oid': 59703445,
                     'min': {
@@ -323,7 +323,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '3QWSY7Mtn9eQeLCOQJVn1c',
+                    'guid': 'museum2',
                     'name': 'Museum Ribbon 3.2',
                     'oid': 59637909,
                     'min': {
@@ -338,7 +338,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '1YOYVu_sf30ASMOqTA7UuO',
+                    'guid': 'offices2',
                     'name': 'Offices Ribbon 2.2',
                     'oid': 59310229,
                     'min': {
@@ -353,7 +353,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '28_SWML_X3GgDKJjDSm7yD',
+                    'guid': 'offices1',
                     'name': 'Offices Ribbon 2.1',
                     'oid': 59244693,
                     'min': {
@@ -368,7 +368,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '2Xkm2RuJf1jfPyhmyxgsbc',
+                    'guid': 'shops1',
                     'name': 'Shops Ribbon 3.1',
                     'oid': 59441301,
                     'min': {
@@ -383,7 +383,7 @@ module Visualise {
                     }
                 },
                 {
-                    'guid': '3ZltnP9q1DsBuy9Eds2wy6',
+                    'guid': 'offices3',
                     'name': 'Offices Ribbon 2.3',
                     'oid': 59375765,
                     'min': {
